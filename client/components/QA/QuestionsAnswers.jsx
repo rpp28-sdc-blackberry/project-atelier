@@ -5,9 +5,9 @@ import QAContainer from './components/QAContainer.jsx';
 class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
-    this.queryPage = 1;
+    this.queryPage = 2; // set to 2 because of initialization function
     this.state = {
-      showMoreAnsweredQuestionsButton: true,
+      showMoreAnsweredQuestionsButton: false,
       questions: []
     };
 
@@ -15,13 +15,28 @@ class QuestionsAnswers extends React.Component {
   }
 
   componentDidMount() {
-    this.updateQuestionsList();
+    this.initialize();
+  }
+
+  initialize() {
+    // if there are at least 3 questions, show the button to enable fetch of more messages
+    getNextQuestionsAndAnswers(3, 1)
+      .then((results) => {
+        if (results.results.length === 3) {
+          this.setState({
+            showMoreAnsweredQuestionsButton: true,
+            questions: results.results.slice(0, 2)
+          });
+        }
+      });
   }
 
   updateQuestionsList() {
-    // check to see if the next page on the server has questions
-    getNextQuestionsAndAnswers(this.queryPage + 1)
+
+    // first call to server checks to see if there will be any additional messages remaining after this fetch
+    getNextQuestionsAndAnswers(2, this.queryPage + 1)
       .then((results) => {
+        // if there aren't, hide the button
         if (results.results.length === 0) {
           this.setState({
             showMoreAnsweredQuestionsButton: false
@@ -29,12 +44,11 @@ class QuestionsAnswers extends React.Component {
         }
       })
       .then(() => {
-        return getNextQuestionsAndAnswers(this.queryPage);
-
+        return getNextQuestionsAndAnswers(2, this.queryPage);
       })
       .then((results) => {
         this.setState({
-          questions: this.state.questions.concat(results.results.slice(0, 2))
+          questions: this.state.questions.concat(results.results)
         });
       })
       .then(() => {
@@ -49,7 +63,7 @@ class QuestionsAnswers extends React.Component {
       <div>
         <div>QUESTIONS AND ANSWERS COMPONENT</div>
         <QAContainer questions={this.state.questions}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>more answered questions</button>}
+        {(this.state.showMoreAnsweredQuestionsButton || false) && <button onClick={this.updateQuestionsList}>more answered questions</button>}
       </div>
     );
   }
