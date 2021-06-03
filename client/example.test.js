@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
+const frisby = require('frisby');
 
 const CheckboxWithLabel = ({labelOn, labelOff}) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -48,4 +49,9 @@ it('CheckboxWithLabel changes the text after click', () => {
   fireEvent.click(getByLabelText(/off/i));
 
   expect(queryByLabelText(/on/i)).toBeTruthy();
+});
+
+it('should be a teapot', function () {
+  return frisby.get('http://httpbin.org/status/418')
+    .expect('status', 418);
 });
