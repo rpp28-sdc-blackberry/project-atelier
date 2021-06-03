@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-describe('Get /', () => {
+describe('Supertest test', () => {
   it ('responds with 200', (done) => {
     request('http://localhost:8080')
       .get('/')
