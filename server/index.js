@@ -5,8 +5,8 @@ const port = 8080;
 
 app.use(express.static('public'));
 
-app.post('/api/posts', (req, res) => {
-  res.sendStatus(201);
+app.get('/', (req, res) => {
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
