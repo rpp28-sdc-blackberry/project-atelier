@@ -17,6 +17,12 @@
   "bugs": {
     "url": "https://github.com/rpp28-fec-pahu/project-atelier/issues"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "homepage": "https://github.com/rpp28-fec-pahu/project-atelier#readme",
   "dependencies": {
     "axios": "^0.21.1",
@@ -39,6 +45,7 @@
     "nodemon": "^2.0.7",
     "puppeteer": "^10.0.0",
     "puppeteer-core": "^10.0.0",
+    "supertest": "^6.1.3",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   }
