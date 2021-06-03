@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "react-dev": "webpack",
     "server-dev": "nodemon server/index.js"
   },
@@ -16,6 +16,12 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rpp28-fec-pahu/project-atelier/issues"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "homepage": "https://github.com/rpp28-fec-pahu/project-atelier#readme",
   "dependencies": {
@@ -29,9 +35,17 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
+    "@testing-library/react": "^11.2.7",
+    "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
     "eslint": "^7.27.0",
+    "frisby": "^2.1.3",
+    "jest": "^27.0.3",
+    "jest-puppeteer": "^5.0.4",
     "nodemon": "^2.0.7",
+    "puppeteer": "^10.0.0",
+    "puppeteer-core": "^10.0.0",
+    "supertest": "^6.1.3",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   }
