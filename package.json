@@ -33,7 +33,10 @@
     "babel-loader": "^8.2.2",
     "eslint": "^7.27.0",
     "jest": "^27.0.3",
+    "jest-puppeteer": "^5.0.4",
     "nodemon": "^2.0.7",
+    "puppeteer": "^10.0.0",
+    "puppeteer-core": "^10.0.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   }
