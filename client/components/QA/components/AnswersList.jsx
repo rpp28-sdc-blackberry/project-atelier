@@ -40,7 +40,6 @@ class AnswersList extends React.Component {
       showLoadMoreAnswersButton: true,
       showCollapseAnswersListButton: false
     });
-
   }
 
   loadRemainingAnswers() {
@@ -59,8 +58,8 @@ class AnswersList extends React.Component {
       <div className="answers-list container">
         <b>A:</b>
         {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} />)}
-        {this.state.showLoadMoreAnswersButton && <button onClick={this.loadRemainingAnswers}> LOAD MORE ANSWERS </button>}
-        {this.state.showCollapseAnswersListButton && <button onClick={this.collapseAnswersList}> Collapse List </button>}
+        {this.state.showLoadMoreAnswersButton && <button onClick={this.loadRemainingAnswers}> See more answers </button>}
+        {this.state.showCollapseAnswersListButton && <button onClick={this.collapseAnswersList}> Collapse answers </button>}
       </div>
 
     );

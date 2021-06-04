@@ -1,7 +1,7 @@
 import React from 'react';
 import AnswersList from './AnswersList.jsx';
 
-const QAItem = (props) => (
+const Question = (props) => (
 
   <div className="qa-item">
     <b> {`Q: ${props.question}`} </b>
@@ -10,4 +10,4 @@ const QAItem = (props) => (
 
 );
 
-export default QAItem;
+export default Question;
