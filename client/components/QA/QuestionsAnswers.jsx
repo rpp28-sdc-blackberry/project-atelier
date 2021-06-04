@@ -1,6 +1,6 @@
 import React from 'react';
 import getNextQuestionsAndAnswers from './controllers.js';
-import QAContainer from './components/QAContainer.jsx';
+import QuestionsList from './components/QuestionsList.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -60,9 +60,9 @@ class QuestionsAnswers extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="questions-answers component">
         <div> {`QUESTIONS & ANSWERS`} </div>
-        <QAContainer questions={this.state.questions}/>
+        <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
       </div>
     );
