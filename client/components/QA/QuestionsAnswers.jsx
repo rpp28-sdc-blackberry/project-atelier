@@ -61,9 +61,9 @@ class QuestionsAnswers extends React.Component {
   render() {
     return (
       <div>
-        <div>QUESTIONS AND ANSWERS COMPONENT</div>
+        <div> {`QUESTIONS & ANSWERS`} </div>
         <QAContainer questions={this.state.questions}/>
-        {(this.state.showMoreAnsweredQuestionsButton || false) && <button onClick={this.updateQuestionsList}>more answered questions</button>}
+        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
       </div>
     );
   }
