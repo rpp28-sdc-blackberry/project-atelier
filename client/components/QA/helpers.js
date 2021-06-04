@@ -30,4 +30,19 @@ const formatDate = (rawDate) => {
 
 };
 
-export { formatAnswererName, formatDate };
+const sortAnswersList = (unsortedList) => {
+
+  let sortedList = unsortedList.sort((a, b) => b.helpfulness - a.helpfulness);
+  let sellerResponses = [];
+
+  for (var i = 0; i < sortedList.length; i++) {
+    if (sortedList[i].answerer_name === 'Seller') {
+      sellerResponses = sellerResponses.concat(sortedList.splice(i, 1));
+      i--;
+    }
+  }
+
+  return sellerResponses.concat(sortedList);
+};
+
+export { formatAnswererName, formatDate, sortAnswersList };

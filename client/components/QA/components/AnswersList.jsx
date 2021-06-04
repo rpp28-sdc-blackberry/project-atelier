@@ -1,5 +1,6 @@
 import React from 'react';
 import Answer from './Answer.jsx';
+import { sortAnswersList } from '../helpers.js';
 
 class AnswersList extends React.Component {
   constructor(props) {
@@ -17,8 +18,11 @@ class AnswersList extends React.Component {
   }
 
   componentDidMount() {
-    let firstTwoAnswers = Object.values(this.props.answers).slice(0, 2);
-    let remainingAnswers = Object.values(this.props.answers).slice(2);
+    let unsortedAnswersList = Object.values(this.props.answers);
+    console.log(unsortedAnswersList.length);
+    let sortedAnswersList = sortAnswersList(unsortedAnswersList);
+    let firstTwoAnswers = sortedAnswersList.slice(0, 2);
+    let remainingAnswers = sortedAnswersList.slice(2);
     if (!!firstTwoAnswers.length) {
       this.setState({
         answers: firstTwoAnswers,
