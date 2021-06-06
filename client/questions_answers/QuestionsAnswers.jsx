@@ -7,6 +7,7 @@ class QuestionsAnswers extends React.Component {
     super(props);
     this.queryPage = 2; // set to 2 because of initialization function
     this.state = {
+      product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
       questions: []
     };
@@ -20,7 +21,7 @@ class QuestionsAnswers extends React.Component {
 
   initialize() {
     // if there are at least 3 questions, show the button to enable fetch of more messages
-    getNextQuestionsAndAnswers(3, 1)
+    getNextQuestionsAndAnswers(this.state.product_id, 3, 1)
       .then((results) => {
         if (results.results.length === 3) {
           this.setState({
@@ -34,7 +35,7 @@ class QuestionsAnswers extends React.Component {
   updateQuestionsList() {
 
     // first call to server checks to see if there will be any additional messages remaining after this fetch
-    getNextQuestionsAndAnswers(2, this.queryPage + 1)
+    getNextQuestionsAndAnswers(this.state.product_id, 2, this.queryPage + 1)
       .then((results) => {
         // if there aren't, hide the button
         if (results.results.length === 0) {
@@ -44,7 +45,7 @@ class QuestionsAnswers extends React.Component {
         }
       })
       .then(() => {
-        return getNextQuestionsAndAnswers(2, this.queryPage);
+        return getNextQuestionsAndAnswers(this.state.product_id, 2, this.queryPage);
       })
       .then((results) => {
         this.setState({
