@@ -64,6 +64,7 @@ class QuestionsAnswers extends React.Component {
         <div> {`QUESTIONS & ANSWERS`} </div>
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
+        <button onClick={() => console.log('add a new question by clicking this button')}>ADD A QUESTION</button>
       </div>
     );
   }

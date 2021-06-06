@@ -19,7 +19,6 @@ class AnswersList extends React.Component {
 
   componentDidMount() {
     let unsortedAnswersList = Object.values(this.props.answers);
-    console.log(unsortedAnswersList.length);
     let sortedAnswersList = sortAnswersList(unsortedAnswersList);
     let firstTwoAnswers = sortedAnswersList.slice(0, 2);
     let remainingAnswers = sortedAnswersList.slice(2);

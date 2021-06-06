@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import TOKEN from '../../../config.js';
 
+
+// THESE FUNCTIONS WILL BE REFACTORED TO MAKE ALL REQUESTS TO THE SERVER INSTEAD OF THE API
+
 const getNextQuestionsAndAnswers = (count, page) => {
 
   return $.ajax({
