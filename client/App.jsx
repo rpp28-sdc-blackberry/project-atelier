@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import QuestionsAnswers from './components/questions_answers/QuestionsAnswers.jsx';
+import QuestionsAnswers from './questions_answers/QuestionsAnswers.jsx';
 
 class App extends React.Component {
 
