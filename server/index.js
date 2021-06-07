@@ -21,11 +21,6 @@ app.all('*', (req, res) => {
     });
 });
 
-// // this get route is only used for an example test...
-// app.get('/', (req, res) => {
-//   res.sendStatus(200);
-// });
-
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
