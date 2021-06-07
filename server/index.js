@@ -16,9 +16,9 @@ app.get('/reviews', (req, res) => {
   RatingsReviewsHelpers.fetchReviews(req.query, (err, reviews) => {
     if (err) {
       console.log(err);
-      res.sendStatus(404);
+      res.status(404).send(err);
     } else {
-      res.send(reviews);
+      res.status(200).send(reviews);
     }
   });
 });
