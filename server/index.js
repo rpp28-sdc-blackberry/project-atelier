@@ -9,6 +9,11 @@ app.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/reviews', (req, res) => {
+  console.log('Received a GET/reviews request!');
+  res.sendStatus(200);
+});
+
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });

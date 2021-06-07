@@ -1,19 +1,50 @@
 import React from 'react';
+import $ from 'jquery';
 import RatingBreakdown from './components/RatingBreakdown.jsx';
 import ProductBreakdown from './components/ProductBreakdown.jsx';
 import SortingPanel from './components/SortingPanel.jsx';
 import ReviewsList from './components/ReviewsList.jsx';
 import ReviewForm from './components/ReviewForm.jsx';
 
-const RatingsReviews = (props) => (
-  <div>
-    ratingsreviews
-    <RatingBreakdown />
-    <ProductBreakdown />
-    <SortingPanel />
-    <ReviewsList />
-    <ReviewForm />
-  </div>
-);
+class RatingsReviews extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+    this.fetchReviews = this.fetchReviews.bind(this);
+  }
+
+  fetchReviews() {
+    // make an api call
+    $.ajax({
+      url: '/reviews',
+      method: 'GET',
+      success: () => {
+        console.log('Successfully retrieve reviews!');
+      },
+      error: () => {
+        console.log('Failed to retrieve reviews!');
+      }
+    });
+  }
+
+  componentDidMount() {
+    // call fetchReviews
+    this.fetchReviews();
+  }
+
+  render() {
+    return (
+      <div>
+        ratingsreviews
+        <RatingBreakdown />
+        <ProductBreakdown />
+        <SortingPanel />
+        <ReviewsList />
+        <ReviewForm />
+      </div>
+    );
+  }
+}
 
 export default RatingsReviews;
