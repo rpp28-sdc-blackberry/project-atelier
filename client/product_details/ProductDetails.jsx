@@ -6,6 +6,7 @@ import StarRating from './StarRating.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToBag from './AddToBag.jsx';
+import ProductOverview from './ProductOverview.jsx';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class ProductDetails extends React.Component {
         <ProductInfo />
         <StyleSelector />
         <AddToBag />
+        <ProductOverview />
         <ShareToSocialMedia />
       </div>
     );
