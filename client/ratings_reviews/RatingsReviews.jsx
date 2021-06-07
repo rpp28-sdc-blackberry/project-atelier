@@ -18,6 +18,7 @@ class RatingsReviews extends React.Component {
     $.ajax({
       url: '/reviews',
       method: 'GET',
+      data: { 'product_id': this.props.product_id },
       success: () => {
         console.log('Successfully retrieve reviews!');
       },
