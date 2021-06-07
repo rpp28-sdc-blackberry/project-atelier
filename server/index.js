@@ -7,18 +7,16 @@ app.use(express.json());
 
 app.all('*', (req, res) => {
 
-  // console.log('req.method:', req.method);
-  // console.log('req.url', req.url);
-  // console.log('req.body', req.body);
-
-  queryAPI(req.method, req.url)
+  queryAPI(req.method, req.url, req.body)
     .then((response) => {
-      res.status(200).send(response.data);
+      let { statusCode } = response.request.res;
+      res.status(statusCode).send(response.data);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).send(err);
     });
+
 });
 
 app.listen(port, () => {

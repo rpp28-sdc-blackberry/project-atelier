@@ -12,6 +12,16 @@ const queryAPI = (method, url, body) => {
     });
 
   }
+
+  if (method === 'POST') {
+
+    return axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}`, body, {
+      headers: {
+        Authorization: TOKEN
+      }
+    });
+  }
+
 };
 
 module.exports = queryAPI;
