@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../config.js');
+const config = require('../../config.js');
 
 const fetchReviews = (query, callback) => {
   const options = {
@@ -8,14 +8,14 @@ const fetchReviews = (query, callback) => {
     headers: { Authorization: config.TOKEN }
   };
   axios(options)
-    .then((response) => {
-      console.log('Received response!');
-      callback(null, response.data);
+    .then((reviews) => {
+      callback(null, reviews.data);
     })
     .catch((error) => {
-      console.log('Failed to receive response!');
       callback(error, null);
     });
 };
 
-module.exports.fetchReviews = fetchReviews;
+module.exports = {
+  fetchReviews: fetchReviews
+};

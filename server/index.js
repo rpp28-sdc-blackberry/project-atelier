@@ -1,5 +1,5 @@
 const express = require('express');
-const RatingsReviewsHelpers = require('./fetchReviews.js');
+const RatingsReviewsHelpers = require('./helpers/ratingsReviews.js');
 
 const app = express();
 const port = 8080;
