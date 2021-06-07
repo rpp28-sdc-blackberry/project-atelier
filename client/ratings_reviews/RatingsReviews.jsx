@@ -15,21 +15,19 @@ class RatingsReviews extends React.Component {
   }
 
   fetchReviews() {
-    // make an api call
     $.ajax({
       url: '/reviews',
       method: 'GET',
       success: () => {
         console.log('Successfully retrieve reviews!');
       },
-      error: () => {
+      error: (err) => {
         console.log('Failed to retrieve reviews!');
       }
     });
   }
 
   componentDidMount() {
-    // call fetchReviews
     this.fetchReviews();
   }
 

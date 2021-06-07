@@ -1,4 +1,5 @@
 const express = require('express');
+const RatingsReviewsHelpers = require('./fetchReviews.js');
 
 const app = express();
 const port = 8080;
@@ -11,7 +12,14 @@ app.get('/', (req, res) => {
 
 app.get('/reviews', (req, res) => {
   console.log('Received a GET/reviews request!');
-  res.sendStatus(200);
+  RatingsReviewsHelpers.fetchReviews((err, reviews) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(404);
+    } else {
+      res.send(reviews);
+    }
+  });
 });
 
 app.listen(port, () => {
