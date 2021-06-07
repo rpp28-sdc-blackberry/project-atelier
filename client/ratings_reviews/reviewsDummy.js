@@ -20,7 +20,7 @@ module.exports = {
       'rating': 4,
       'summary': 'This product was ok!',
       'recommend': false,
-      'response': '',
+      'response': 'Thank you for your feedback!',
       'body': 'I really did not like this product solely because I am tiny and do not fit into it.',
       'date': '2019-01-11T00:00:00.000Z',
       'reviewer_name': 'mymainstreammother',

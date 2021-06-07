@@ -13,34 +13,6 @@ class RatingsReviews extends React.Component {
     this.state = {
       reviews: reviewsDummy
     };
-    this.fetchReviews = this.fetchReviews.bind(this);
-  }
-
-  fetchReviews() {
-    $.ajax({
-      url: '/reviews',
-      method: 'GET',
-      data: {
-        'page': 1,
-        'count': 100,
-        'product_id': this.props.product_id,
-        'sort': 'relevant'
-      },
-      dataType: 'json',
-      success: (reviews) => {
-        console.log('Successfully retrieve reviews!');
-        this.setState({
-          reviews: reviews
-        });
-      },
-      error: (err) => {
-        console.log('Failed to retrieve reviews!');
-      }
-    });
-  }
-
-  componentDidMount() {
-    this.fetchReviews();
   }
 
   render() {
@@ -50,7 +22,7 @@ class RatingsReviews extends React.Component {
         <RatingBreakdown />
         <ProductBreakdown />
         <SortingPanel />
-        <ReviewsList />
+        <ReviewsList reviews={this.state.reviews.results}/>
         <ReviewForm />
       </div>
     );

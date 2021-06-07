@@ -4,7 +4,7 @@ import ReviewTile from './ReviewTile.jsx';
 const ReviewsList = (props) => (
   <div>
     reviewslist
-    <ReviewTile />
+    {props.reviews.map(review => <ReviewTile review={review}/>)}
   </div>
 );
 
