@@ -3,24 +3,14 @@ const TOKEN = require('../config.js');
 
 const queryAPI = (method, url, body) => {
 
-  if (method === 'GET') {
-
-    return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}`, {
-      headers: {
-        Authorization: TOKEN
-      }
-    });
-
-  }
-
-  if (method === 'POST') {
-
-    return axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}`, body, {
-      headers: {
-        Authorization: TOKEN
-      }
-    });
-  }
+  return axios({
+    headers: {
+      Authorization: TOKEN
+    },
+    method: method,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}`,
+    data: body
+  });
 
 };
 
