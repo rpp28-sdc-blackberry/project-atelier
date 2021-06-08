@@ -16,14 +16,13 @@ class Search extends React.Component {
       query: event.target.value
     }, () => this.props.handleSearch(this.state.query));
 
-
   }
 
   render() {
 
     return (
       <div>
-        <input type="text" onChange={this.handleChange}/>
+        <input type="text" placeholder="Have a question? Search for answers..." onChange={this.handleChange}/>
       </div>
     );
 

@@ -46,6 +46,15 @@ class QuestionsAnswers extends React.Component {
 
   updateQuestionsList() {
 
+    // move to a different function!
+    if (this.state.hasSearched) {
+      this.state.questions = this.questionsToSearch;
+      this.questionsToSearch = [];
+      this.setState({
+        hasSearched: false
+      });
+    }
+
     fetchQuestions(this.state.product_id, 2, this.queryPage)
       .then((data) => {
         if (!data.results.length) {
