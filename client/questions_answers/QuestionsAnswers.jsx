@@ -65,12 +65,10 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleSearch(query) {
-    console.log(query);
 
     if (!this.state.hasSearched) {
       this.questionsToSearch = this.state.questions.slice();
     }
-    console.log(this.questionsToSearch);
 
     let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
 
