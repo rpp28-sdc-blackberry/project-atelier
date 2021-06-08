@@ -13,6 +13,28 @@ class RatingsReviews extends React.Component {
     this.state = {
       reviews: reviewsDummy
     };
+    this.fetchReviews = this.fetchReviews.bind(this);
+  }
+
+  fetchReviews() {
+    $.ajax({
+      url: `http://localhost:8080/reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
+      method: 'GET',
+      success: (reviews) => {
+        console.log('Successfully retrieve reviews!');
+        console.log('reviews: ', reviews);
+        this.setState({
+          reviews: reviews
+        });
+      },
+      error: (err) => {
+        console.log('Failed to retrieve reviews!');
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.fetchReviews();
   }
 
   render() {
