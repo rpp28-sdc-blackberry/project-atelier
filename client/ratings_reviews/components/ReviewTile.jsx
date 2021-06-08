@@ -22,8 +22,10 @@ class ReviewTile extends React.Component {
   render() {
     return (
       <div class='review-tile'>
-        <div class="stars" style={{'--rating': this.state.rating}}></div>
-        <div>{this.state.name}, {this.state.date}</div>
+        <div class='review-tile-top-panel'>
+          <span class="stars" style={{'--rating': this.state.rating}}></span>
+          <span>{this.state.name}, {this.state.date}</span>
+        </div>
         <div class='review-summary'>{this.state.summary}</div>
         <div class='review-body'>{this.state.body}</div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
