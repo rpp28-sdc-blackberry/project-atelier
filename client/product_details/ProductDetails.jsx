@@ -11,16 +11,7 @@ import ProductOverview from './ProductOverview.jsx';
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      view: 'default',
-      styleSelected: '',
-      info: {},
-      styleInfo: {},
-    };
-  }
-
-  componentDidMount() {
+    
     fetch(`http://localhost:8080/products/${this.props.product_id}`)
       .then((response) => {
         return response.json();
@@ -33,11 +24,48 @@ class ProductDetails extends React.Component {
       })
       .catch((error) => {
         console.log(error);
-        this.setState({
-          info: {}
-        });
       });
+    
+    fetch(`http://localhost:8080/products/${this.props.product_id}/styles`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('fetch data2: ', data);
+        this.setState({
+          styleInfo: data
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    this.state = {
+      view: 'default',
+      styleSelected: '',
+      info: {},
+      styleInfo: [],
+    };
   }
+
+  // componentDidMount() {
+  //   fetch(`http://localhost:8080/products/${this.props.product_id}`)
+  //     .then((response) => {
+  //       return response.json();
+  //     }) 
+  //     .then((data) => {
+  //       console.log('fetch data: ', data);
+  //       this.setState({
+  //         info: data,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       this.setState({
+  //         info: {}
+  //       });
+  //     });
+  // }
 
   componentDidUpdate() {
     console.log('state: ', this.state);
@@ -69,7 +97,7 @@ class ProductDetails extends React.Component {
         {view()}
         <StarRating />
         <ProductInfo info={this.state.info}/>
-        <StyleSelector />
+        <StyleSelector styleInfo={this.state.styleInfo.results}/>
         <AddToBag />
         <ProductOverview />
         <ShareToSocialMedia />
