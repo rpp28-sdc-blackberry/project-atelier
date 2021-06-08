@@ -16,6 +16,7 @@ class ProductDetails extends React.Component {
       view: 'default',
       styleSelected: '',
       info: {},
+      styleInfo: {},
     };
   }
 
