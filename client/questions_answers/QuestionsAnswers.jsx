@@ -6,69 +6,60 @@ class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
 
-    this.queryPage = 2; // set to 2 because of initialization function
+    this.queryPage = 3;
+
     this.state = {
       product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
+      nextTwoQuestions: [],
       questions: []
     };
 
-    fetchQuestions(this.props.product_id, 3, 1)
-      .then((results) => {
-        if (results.results.length === 3) {
-          this.setState({
-            showMoreAnsweredQuestionsButton: true,
-            questions: results.results.slice(0, 2)
-          });
+    fetchQuestions(this.props.product_id, 4, 1)
+      .then((data) => {
+        let firstTwoQuestions = data.results.slice(0, 2);
+        let nextTwoQuestions = data.results.slice(2);
+
+        if (!firstTwoQuestions.length) {
+          return;
         }
+        if (!nextTwoQuestions.length) {
+          this.setState({
+            questions: firstTwoQuestions
+          });
+          return;
+        }
+
+        this.setState({
+          showMoreAnsweredQuestionsButton: true,
+          nextTwoQuestions: nextTwoQuestions,
+          questions: firstTwoQuestions
+        });
+
       });
 
     this.updateQuestionsList = this.updateQuestionsList.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.initialize();
-  // }
-
-  initialize() {
-    // if there are at least 3 questions, show the button to enable fetch of more messages
-    fetchQuestions(this.state.product_id, 3, 1)
-      .then((results) => {
-        if (results.results.length === 3) {
-          this.setState({
-            showMoreAnsweredQuestionsButton: true,
-            questions: results.results.slice(0, 2)
-          });
-        }
-      });
-  }
-
   updateQuestionsList() {
 
-    // first call to server checks to see if there will be any additional messages remaining after this fetch
-    fetchQuestions(this.state.product_id, 2, this.queryPage + 1)
-      .then((results) => {
-        // if there aren't, hide the button
-        if (results.results.length === 0) {
+    fetchQuestions(this.state.product_id, 2, this.queryPage)
+      .then((data) => {
+        if (!data.results.length) {
           this.setState({
-            showMoreAnsweredQuestionsButton: false
+            showMoreAnsweredQuestionsButton: false,
+            questions: [...this.state.questions, ...this.state.nextTwoQuestions]
           });
+        } else {
+          this.setState({
+            questions: [...this.state.questions, ...this.state.nextTwoQuestions],
+            nextTwoQuestions: data.results,
+          });
+          this.queryPage++;
         }
-      })
-      .then(() => {
-        return fetchQuestions(this.state.product_id, 2, this.queryPage);
-      })
-      .then((results) => {
-        this.setState({
-          questions: this.state.questions.concat(results.results)
-        });
-      })
-      .then(() => {
-        this.queryPage++;
       });
 
   }
-
 
   render() {
 
