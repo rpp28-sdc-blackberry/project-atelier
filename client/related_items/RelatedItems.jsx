@@ -1,8 +1,10 @@
 import React from 'react';
+import ItemsList from './ItemsList.jsx';
 
 const RelatedItems = (props) => (
   <div>
-    relateditems
+    <ItemsList />
+    <ItemsList />
   </div>
 );
 
