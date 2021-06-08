@@ -24,6 +24,11 @@
   font-weight: bold;
 }
 
+.review-photo {
+  width: 100px;
+  margin: 1%;
+}
+
 .user-recommend {
   position: relative;
 }

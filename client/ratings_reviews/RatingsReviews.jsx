@@ -34,7 +34,7 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchReviews();
+    //this.fetchReviews();
   }
 
   render() {

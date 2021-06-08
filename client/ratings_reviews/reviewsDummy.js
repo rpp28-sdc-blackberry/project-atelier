@@ -40,7 +40,11 @@ module.exports = {
       'photos': [
         {
           'id': 536090,
-          'url': 'http://www.unsplash.com/3'
+          'url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
+        },
+        {
+          'id': 536091,
+          'url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
         }
       ]
     },
@@ -57,7 +61,7 @@ module.exports = {
       'photos': [
         {
           'id': 536089,
-          'url': 'http://www.unsplash.com/3'
+          'url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
         }
       ]
     }
