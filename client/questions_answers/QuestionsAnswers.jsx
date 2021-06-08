@@ -1,5 +1,6 @@
 import React from 'react';
 import fetchQuestions from './controllers.js';
+import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 
 class QuestionsAnswers extends React.Component {
@@ -9,6 +10,7 @@ class QuestionsAnswers extends React.Component {
     this.queryPage = 3;
 
     this.state = {
+      hasSearched: false,
       product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
       nextTwoQuestions: [],
@@ -39,6 +41,7 @@ class QuestionsAnswers extends React.Component {
       });
 
     this.updateQuestionsList = this.updateQuestionsList.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   updateQuestionsList() {
@@ -61,10 +64,27 @@ class QuestionsAnswers extends React.Component {
 
   }
 
+  handleSearch(query) {
+    console.log(query);
+
+    if (!this.state.hasSearched) {
+      this.questionsToSearch = this.state.questions.slice();
+    }
+    console.log(this.questionsToSearch);
+
+    let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
+
+    this.setState({
+      questions: queryResult
+    });
+
+  }
+
   render() {
 
     return (
       <div className="questions-answers component">
+        <Search handleSearch={this.handleSearch}/>
         <div> {`QUESTIONS & ANSWERS`} </div>
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
