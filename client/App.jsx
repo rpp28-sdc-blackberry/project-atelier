@@ -17,10 +17,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {false && <ProductDetails product_id={this.state.product_id}/>}
-        {false && <RelatedItems product_id={this.state.product_id}/>}
+        <ProductDetails product_id={this.state.product_id}/>
+        <RelatedItems product_id={this.state.product_id}/>
         <QuestionsAnswers product_id={this.state.product_id}/>
-        {false && <RatingsReviews product_id={this.state.product_id}/>}
+        <RatingsReviews product_id={this.state.product_id}/>
       </div>
     );
   }
