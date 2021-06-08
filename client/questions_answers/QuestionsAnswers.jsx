@@ -1,10 +1,11 @@
 import React from 'react';
-import getNextQuestionsAndAnswers from './controllers.js';
+import fetchQuestions from './controllers.js';
 import QuestionsList from './components/QuestionsList.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
+
     this.queryPage = 2; // set to 2 because of initialization function
     this.state = {
       product_id: this.props.product_id,
@@ -12,16 +13,26 @@ class QuestionsAnswers extends React.Component {
       questions: []
     };
 
+    fetchQuestions(this.props.product_id, 3, 1)
+      .then((results) => {
+        if (results.results.length === 3) {
+          this.setState({
+            showMoreAnsweredQuestionsButton: true,
+            questions: results.results.slice(0, 2)
+          });
+        }
+      });
+
     this.updateQuestionsList = this.updateQuestionsList.bind(this);
   }
 
-  componentDidMount() {
-    this.initialize();
-  }
+  // componentDidMount() {
+  //   this.initialize();
+  // }
 
   initialize() {
     // if there are at least 3 questions, show the button to enable fetch of more messages
-    getNextQuestionsAndAnswers(this.state.product_id, 3, 1)
+    fetchQuestions(this.state.product_id, 3, 1)
       .then((results) => {
         if (results.results.length === 3) {
           this.setState({
@@ -35,7 +46,7 @@ class QuestionsAnswers extends React.Component {
   updateQuestionsList() {
 
     // first call to server checks to see if there will be any additional messages remaining after this fetch
-    getNextQuestionsAndAnswers(this.state.product_id, 2, this.queryPage + 1)
+    fetchQuestions(this.state.product_id, 2, this.queryPage + 1)
       .then((results) => {
         // if there aren't, hide the button
         if (results.results.length === 0) {
@@ -45,7 +56,7 @@ class QuestionsAnswers extends React.Component {
         }
       })
       .then(() => {
-        return getNextQuestionsAndAnswers(this.state.product_id, 2, this.queryPage);
+        return fetchQuestions(this.state.product_id, 2, this.queryPage);
       })
       .then((results) => {
         this.setState({
@@ -60,6 +71,7 @@ class QuestionsAnswers extends React.Component {
 
 
   render() {
+
     return (
       <div className="questions-answers component">
         <div> {`QUESTIONS & ANSWERS`} </div>
@@ -69,6 +81,7 @@ class QuestionsAnswers extends React.Component {
       </div>
     );
   }
+
 }
 
 export default QuestionsAnswers;
