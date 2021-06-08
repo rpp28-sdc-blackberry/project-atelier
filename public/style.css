@@ -4,9 +4,20 @@
 
 /* QUESTIONS AND ANSWERS */
 
-/* RATINGS AND REVIEWS */
+/* --------------------- RATINGS AND REVIEWS --------------------- */
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+
 .review-tile {
   border-bottom: solid black 1.5px;
+}
+
+.user-recommend {
+  position: relative;
+}
+
+.user-recommend:before {
+  content: '\f164';
+  font-family: FontAwesome;
 }
 
 /* STAR RATING */
