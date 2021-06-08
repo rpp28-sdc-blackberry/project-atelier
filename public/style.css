@@ -29,7 +29,7 @@
 }
 
 .user-recommend:before {
-  content: '\f164';
+  content: '\f00c';
   font-family: FontAwesome;
 }
 
