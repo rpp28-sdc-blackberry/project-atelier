@@ -6,14 +6,8 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: 0
+      rating: this.props.review.rating
     };
-    this.updateStars = this.updateStars.bind(this);
-  }
-
-  updateStars() {
-    var percentage = (this.props.review.rating / 5) * 100;
-    var percentageRounded = (Math.round(percentage * 4) / 4).toFixed(2);
   }
 
   render() {
@@ -23,11 +17,7 @@ class ReviewTile extends React.Component {
     }
     return (
       <div class='review-tile'>
-        <div id={this.props.review.review_id}>Rating: {this.props.review.rating}
-          <div class='stars-outer'>
-            <div class='stars-inner'></div>
-          </div>
-        </div>
+        <div class="stars" style={{'--rating': this.state.rating}}></div>
         <div>{this.props.review.reviewer_name}, {this.props.review.date.slice(0, 10)}</div>
         <div>{this.props.review.summary}</div>
         <div>{this.props.review.body}</div>
