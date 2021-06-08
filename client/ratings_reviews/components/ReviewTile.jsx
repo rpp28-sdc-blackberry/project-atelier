@@ -17,11 +17,11 @@ class ReviewTile extends React.Component {
       <div class='review-tile'>
         <div class="stars" style={{'--rating': this.state.rating}}></div>
         <div>{this.props.review.reviewer_name}, {this.props.review.date.slice(0, 10)}</div>
-        <div>{this.props.review.summary}</div>
-        <div>{this.props.review.body}</div>
+        <div class='review-summary'>{this.props.review.summary}</div>
+        <div class='review-body'>{this.props.review.body}</div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
-        <div hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
-        <div><span>Helpful? Yes {this.props.review.helpfulness} | Report</span></div>
+        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
+        <div><span>Helpful? Yes ({this.props.review.helpfulness}) | Report</span></div>
       </div>
     );
   }
