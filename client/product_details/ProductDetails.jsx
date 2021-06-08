@@ -11,10 +11,35 @@ import ProductOverview from './ProductOverview.jsx';
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       view: 'default',
-      styleSelected: ''
+      styleSelected: '',
+      info: {},
     };
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:8080/products/${this.props.product_id}`)
+      .then((response) => {
+        return response.json();
+      }) 
+      .then((data) => {
+        console.log('fetch data: ', data);
+        this.setState({
+          info: data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          info: {}
+        });
+      });
+  }
+
+  componentDidUpdate() {
+    console.log('state: ', this.state);
   }
   
   toggleView() {
@@ -42,7 +67,7 @@ class ProductDetails extends React.Component {
       <div id="productDetails">
         {view()}
         <StarRating />
-        <ProductInfo />
+        <ProductInfo info={this.state.info}/>
         <StyleSelector />
         <AddToBag />
         <ProductOverview />
