@@ -2,8 +2,6 @@ import React from 'react';
 import ItemsList from './ItemsList.jsx';
 import helpers from './helpers.js';
 
-//Make calls to server from here.
-//Get the related product IDs (these should be held in state?)
 //Then request Info + Styles for each of the product IDs
 //Manipulate data in server to only return what is needed here
 //Pass data from here down to the related products item list
@@ -26,8 +24,10 @@ class RelatedItems extends React.Component {
   render() {
     return (
       <div>
-        <ItemsList /> {/* This list will render ComparisonModal component */}
-        <ItemsList /> {/* This list will render AddToOutfit component */}
+        <h3>Related Items</h3>
+        <ItemsList listType={'relatedItems'} items={this.state.relatedItemsIds} />
+        <h3>Your Outfit</h3>
+        <ItemsList listType={'yourOutfit'} />
       </div>
     );
   }
