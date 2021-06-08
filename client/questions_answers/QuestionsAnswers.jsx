@@ -75,6 +75,7 @@ class QuestionsAnswers extends React.Component {
     let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
 
     this.setState({
+      hasSearched: true,
       questions: queryResult
     });
 
