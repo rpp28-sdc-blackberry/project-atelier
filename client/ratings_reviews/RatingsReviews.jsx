@@ -11,20 +11,20 @@ class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: reviewsDummy
+      reviews: reviewsDummy.results
     };
     this.fetchReviews = this.fetchReviews.bind(this);
   }
 
   fetchReviews() {
     $.ajax({
-      url: `http://localhost:8080/reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
+      url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
       method: 'GET',
       success: (reviews) => {
         console.log('Successfully retrieve reviews!');
-        console.log('reviews: ', reviews);
+        console.log('results: ', reviews);
         this.setState({
-          reviews: reviews
+          reviews: reviews.results
         });
       },
       error: (err) => {
@@ -44,7 +44,7 @@ class RatingsReviews extends React.Component {
         <RatingBreakdown />
         <ProductBreakdown />
         <SortingPanel />
-        <ReviewsList reviews={this.state.reviews.results}/>
+        <ReviewsList reviews={this.state.reviews}/>
         <ReviewForm />
       </div>
     );
