@@ -76,6 +76,11 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleSearch(e) {
+    // if (e.target.value.length < 3 && !this.state.hasSearched) {
+    //   this.setState({
+    //     query: e.target.value
+    //   });
+    // } else {
 
     let query = e.target.value;
 
@@ -90,6 +95,8 @@ class QuestionsAnswers extends React.Component {
       query: query,
       questions: queryResult
     });
+
+    // }
 
   }
 
