@@ -17,7 +17,8 @@ class QuestionsAnswers extends React.Component {
       showSearch: false,
       nextTwoQuestions: [],
       query: '',
-      questions: []
+      questions: [],
+      showQuestionModal: false
     };
 
     fetchQuestions(this.props.product_id, 4, 1)
@@ -110,12 +111,14 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleAddQuestionClick() {
-    console.log('add a new question by clicking this button');
+    this.setState({
+      showQuestionModal: true
+    });
   }
 
   handleQuestionSubmit(e) {
     e.preventDefault();
-    console.log('question submitted');
+
     // prevent default form submit behavior
 
     // validate the form fields using a helper function that returns a boolean value
@@ -127,6 +130,9 @@ class QuestionsAnswers extends React.Component {
     // submit the question to the server using a function
 
     // hide the modal
+    this.setState({
+      showQuestionModal: false
+    });
   }
 
   render() {
@@ -138,7 +144,7 @@ class QuestionsAnswers extends React.Component {
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        <QuestionForm handleQuestionSubmit={this.handleQuestionSubmit}/>
+        {this.state.showQuestionModal && <QuestionForm handleQuestionSubmit={this.handleQuestionSubmit}/>}
       </div>
     );
   }

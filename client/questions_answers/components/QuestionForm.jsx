@@ -8,6 +8,8 @@ class QuestionForm extends React.Component {
       nickname: '',
       email: ''
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
@@ -36,7 +38,7 @@ class QuestionForm extends React.Component {
           What Is Your Nickname?*
           <br />
           <input
-            name="nickname" value={this.state.nickname} onChange={this.handleChange}
+            name="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Example: jackson11!"
           />
           <br />
           <small> For privacy reasons, do not use your full name or email address </small>
@@ -46,7 +48,7 @@ class QuestionForm extends React.Component {
           Your Email*
           <br />
           <input
-            name="email" value={this.state.email} onChange={this.handleChange}
+            name="email" value={this.state.email} onChange={this.handleChange} placeholder="Example: jack@email.com"
           />
           <br />
           <small> For authentication reasons, you will not be emailed </small>
