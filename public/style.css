@@ -6,6 +6,10 @@
 
 /* --------------------- RATINGS AND REVIEWS --------------------- */
 
+.reviews-list > * {
+  margin: 1% 0;
+}
+
 .review-tile {
   border-bottom: solid black 0.1em;
 }
