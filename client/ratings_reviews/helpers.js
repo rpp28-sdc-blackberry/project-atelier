@@ -42,15 +42,31 @@ const computeAverageRating = (ratings) => {
   var count = 0;
   var total = 0;
   for (var ratingValue in ratings) {
-    var numberOfOccurrences = ratings[ratingValue];
-    total += ratingValue * numberOfOccurrences;
-    count += Number.parseInt(numberOfOccurrences);
+    var freq = ratings[ratingValue];
+    total += ratingValue * freq;
+    count += Number.parseInt(freq);
   }
   return total / count;
+};
+
+const computeRatingBreakdown = (ratings) => {
+  var breakdown = [];
+  var total = 0;
+  for (var ratingValue in ratings) {
+    var freq = ratings[ratingValue];
+    total += ratingValue * freq;
+  }
+  for (var i = 1; i <= 5; i++) {
+    var freq = ratings[i] || 0;
+    var percentage = i * freq / total * 100;
+    breakdown.push(percentage);
+  }
+  return breakdown;
 };
 
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
-  computeAverageRating: computeAverageRating
+  computeAverageRating: computeAverageRating,
+  computeRatingBreakdown: computeRatingBreakdown
 };

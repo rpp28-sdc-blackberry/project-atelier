@@ -13,15 +13,17 @@ class RatingBreakdown extends React.Component {
       console.log('reviewsMeta', reviewsMeta);
       this.setState({
         ratings: reviewsMeta.ratings,
-        averageRating: helpers.computeAverageRating(reviewsMeta.ratings)
+        averageRating: helpers.computeAverageRating(reviewsMeta.ratings),
+        breakdown: helpers.computeRatingBreakdown(reviewsMeta.ratings)
       });
     }).catch((error) => {
       console.log(error);
     });
 
     this.state = {
-      rating: 0,
-      averageRating: 0
+      ratings: 0,
+      averageRating: 0,
+      breakdown: []
     };
   }
 
@@ -33,7 +35,13 @@ class RatingBreakdown extends React.Component {
           <span>{this.state.averageRating}</span>
           <span class="stars" style={{'--rating': this.state.averageRating}}></span>
         </div>
-        <div class='review-rating-bar'></div>
+        <div class='review-rating-bar'>
+          <div>1: {this.state.breakdown[0]}</div>
+          <div>2: {this.state.breakdown[1]}</div>
+          <div>3: {this.state.breakdown[2]}</div>
+          <div>4: {this.state.breakdown[3]}</div>
+          <div>5: {this.state.breakdown[4]}</div>
+        </div>
       </div>
     );
   }
