@@ -14,6 +14,7 @@ class QuestionsAnswers extends React.Component {
       product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
       nextTwoQuestions: [],
+      query: '',
       questions: []
     };
 
@@ -44,14 +45,15 @@ class QuestionsAnswers extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  // make a "handle more questions button click" function
   updateQuestionsList() {
-
     // move to a different function!
     if (this.state.hasSearched) {
       this.state.questions = this.questionsToSearch;
       this.questionsToSearch = [];
       this.setState({
-        hasSearched: false
+        hasSearched: false,
+        query: ''
       });
     }
 
@@ -73,7 +75,9 @@ class QuestionsAnswers extends React.Component {
 
   }
 
-  handleSearch(query) {
+  handleSearch(e) {
+
+    let query = e.target.value;
 
     if (!this.state.hasSearched) {
       this.questionsToSearch = this.state.questions.slice();
@@ -83,6 +87,7 @@ class QuestionsAnswers extends React.Component {
 
     this.setState({
       hasSearched: true,
+      query: query,
       questions: queryResult
     });
 
@@ -92,7 +97,7 @@ class QuestionsAnswers extends React.Component {
 
     return (
       <div className="questions-answers component">
-        <Search handleSearch={this.handleSearch}/>
+        <Search query={this.state.query} handleSearch={this.handleSearch}/>
         <div> {`QUESTIONS & ANSWERS`} </div>
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
