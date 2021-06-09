@@ -13,6 +13,7 @@ class QuestionsAnswers extends React.Component {
       hasSearched: false,
       product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
+      showSearch: false,
       nextTwoQuestions: [],
       query: '',
       questions: []
@@ -28,6 +29,7 @@ class QuestionsAnswers extends React.Component {
         }
         if (!nextTwoQuestions.length) {
           this.setState({
+            showSearch: true,
             questions: firstTwoQuestions
           });
           return;
@@ -35,6 +37,7 @@ class QuestionsAnswers extends React.Component {
 
         this.setState({
           showMoreAnsweredQuestionsButton: true,
+          showSearch: true,
           nextTwoQuestions: nextTwoQuestions,
           questions: firstTwoQuestions
         });
@@ -106,8 +109,8 @@ class QuestionsAnswers extends React.Component {
 
     return (
       <div className="questions-answers component">
-        <Search query={this.state.query} handleSearch={this.handleSearch}/>
         <div> {`QUESTIONS & ANSWERS`} </div>
+        {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={() => console.log('add a new question by clicking this button')}>ADD A QUESTION</button>
