@@ -47,7 +47,8 @@ class QuestionsAnswers extends React.Component {
 
   // make a "handle more questions button click" function
   updateQuestionsList() {
-    // move to a different function!
+
+    // move to a different function
     if (this.state.hasSearched) {
       this.state.questions = this.questionsToSearch;
       this.questionsToSearch = [];
@@ -95,12 +96,9 @@ class QuestionsAnswers extends React.Component {
     let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
 
     this.setState({
-      // hasSearched: true,
       query: query,
       questions: queryResult
     });
-
-    // }
 
   }
 
