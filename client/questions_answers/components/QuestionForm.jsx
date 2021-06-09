@@ -27,7 +27,7 @@ class QuestionForm extends React.Component {
     return (
       <form onSubmit={this.props.handleQuestionSubmit}>
         <h4> ASK YOUR QUESTION </h4>
-        <h5> About the (product name) </h5>
+        <h5> {`About the ${this.props.name}`} </h5>
         <label>
           Your Question*
           <br />

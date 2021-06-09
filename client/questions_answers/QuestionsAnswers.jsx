@@ -1,5 +1,5 @@
 import React from 'react';
-import fetchQuestions from './controllers.js';
+import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
@@ -117,9 +117,9 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleQuestionSubmit(e) {
-    e.preventDefault();
 
     // prevent default form submit behavior
+    e.preventDefault();
 
     // validate the form fields using a helper function that returns a boolean value
 
@@ -129,10 +129,19 @@ class QuestionsAnswers extends React.Component {
 
     // submit the question to the server using a function
 
+    submitQuestion(e.target.question.value, e.target.nickname.value, e.target.email.value, this.state.product_id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     // hide the modal
     this.setState({
       showQuestionModal: false
     });
+
   }
 
   render() {
@@ -144,7 +153,7 @@ class QuestionsAnswers extends React.Component {
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        {this.state.showQuestionModal && <QuestionForm handleQuestionSubmit={this.handleQuestionSubmit}/>}
+        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
       </div>
     );
   }
