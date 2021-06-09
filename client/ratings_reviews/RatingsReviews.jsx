@@ -11,7 +11,7 @@ class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: reviewsDummy.results
+      reviews: []
     };
     this.fetchReviews = this.fetchReviews.bind(this);
   }
@@ -34,7 +34,7 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
-    //this.fetchReviews();
+    this.fetchReviews();
   }
 
   render() {
