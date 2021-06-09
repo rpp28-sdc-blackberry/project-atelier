@@ -2,6 +2,7 @@ import React from 'react';
 import fetchQuestions from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
+import QuestionForm from './components/QuestionForm.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class QuestionsAnswers extends React.Component {
 
     this.updateQuestionsList = this.updateQuestionsList.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
+    this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+
   }
 
   // make a "handle more questions button click" function
@@ -105,6 +109,26 @@ class QuestionsAnswers extends React.Component {
 
   }
 
+  handleAddQuestionClick() {
+    console.log('add a new question by clicking this button');
+  }
+
+  handleQuestionSubmit(e) {
+    e.preventDefault();
+    console.log('question submitted');
+    // prevent default form submit behavior
+
+    // validate the form fields using a helper function that returns a boolean value
+
+    // if that doesnt pass--display an alert popup
+
+    // otherwise
+
+    // submit the question to the server using a function
+
+    // hide the modal
+  }
+
   render() {
 
     return (
@@ -113,7 +137,8 @@ class QuestionsAnswers extends React.Component {
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.questions}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={() => console.log('add a new question by clicking this button')}>ADD A QUESTION</button>
+        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+        <QuestionForm handleQuestionSubmit={this.handleQuestionSubmit}/>
       </div>
     );
   }
