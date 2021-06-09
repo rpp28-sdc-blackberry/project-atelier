@@ -36,6 +36,7 @@
 .review-photo {
   width: 100px;
   margin: 1%;
+  cursor: pointer;
 }
 
 .review-photo-modal {
