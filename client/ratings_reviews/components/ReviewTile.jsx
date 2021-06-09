@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import helpers from '../helpers.js';
-import PhotoPanel from './PhotoPanel.jsx';
+import ReviewPhoto from './ReviewPhoto.jsx';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class ReviewTile extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.photos);
     if (this.props.review.photos.length !== 0) {
       this.setState({
         showPhotos: true
@@ -40,7 +39,9 @@ class ReviewTile extends React.Component {
         </div>
         <div class='review-summary'>{this.state.summary}</div>
         <div class='review-body'>{this.state.body}</div>
-        <div class='review-photos' hidden={!this.state.showPhotos}>{this.state.photos.map(photo => <PhotoPanel photo={photo}/>)}</div>
+        <div class='review-photos' hidden={!this.state.showPhotos}>
+          {this.state.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
+        </div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
         <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.state.response}</div>
         <div><span>Helpful? Yes ({this.state.helpfulness}) | Report</span></div>
