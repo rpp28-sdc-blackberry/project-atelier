@@ -13,6 +13,10 @@ class ReviewTile extends React.Component {
       date: helpers.formatDate(this.props.review.date.slice(0, 10)),
       summary: this.props.review.summary,
       body: this.props.review.body,
+      additionalBody: '',
+      showBody: true,
+      showAdditionalBody: false,
+      showAdditionalBodyButton: false,
       response: this.props.review.response,
       helpfulness: this.props.review.helpfulness,
       photos: this.props.review.photos,
@@ -20,12 +24,33 @@ class ReviewTile extends React.Component {
       showRecommend: this.props.review.recommend,
       showResponse: !(this.props.review.response === null || this.props.review.response.length === 0)
     };
+
+    this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
+  }
+
+  toggleAdditionalBody(e) {
+    this.setState({
+      showAdditionalBody: !this.state.showAdditionalBody,
+      showBody: !this.state.showBody,
+    });
+    if ($(e.target).text() === 'Show More') {
+      $(e.target).text('Show Less');
+    } else {
+      $(e.target).text('Show More');
+    }
   }
 
   componentDidMount() {
     if (this.props.review.photos.length !== 0) {
       this.setState({
         showPhotos: true
+      });
+    }
+    if (this.props.review.body.length > 250) {
+      this.setState({
+        body: this.props.review.body.slice(0, 251) + '...',
+        additionalBody: this.props.review.body,
+        showAdditionalBodyButton: true
       });
     }
   }
@@ -38,7 +63,9 @@ class ReviewTile extends React.Component {
           <span>{this.state.name}, {this.state.date}</span>
         </div>
         <div class='review-summary'>{this.state.summary}</div>
-        <div class='review-body'>{this.state.body}</div>
+        <div class='review-body' hidden={!this.state.showBody}>{this.state.body}</div>
+        <div class='review-additional-body' hidden={!this.state.showAdditionalBody}>{this.state.additionalBody}</div>
+        <div class='review-additional-body-button' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
         <div class='review-photos' hidden={!this.state.showPhotos}>
           {this.state.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
         </div>

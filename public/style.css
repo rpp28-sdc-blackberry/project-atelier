@@ -24,6 +24,15 @@
   font-weight: bold;
 }
 
+.review-additional-body-button {
+  font-size: 80%;
+}
+
+.review-additional-body-button:hover {
+  color: rgb(37, 37, 37);
+  cursor: pointer;
+}
+
 .review-photo {
   width: 100px;
   margin: 1%;

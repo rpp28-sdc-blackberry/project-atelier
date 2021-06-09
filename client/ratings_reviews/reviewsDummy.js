@@ -33,7 +33,7 @@ module.exports = {
       'summary': 'my review',
       'recommend': true,
       'response': null,
-      'body': 'is thus to be revered like this',
+      'body': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.',
       'date': '2021-03-30T00:00:00.000Z',
       'reviewer_name': 'Arf Barley',
       'helpfulness': 0,
