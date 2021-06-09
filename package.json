@@ -47,7 +47,6 @@
     "jest": "^27.0.3",
     "jest-puppeteer": "^5.0.4",
     "nodemon": "^2.0.7",
-    "process": "^0.11.10",
     "puppeteer": "^10.0.0",
     "puppeteer-core": "^10.0.0",
     "supertest": "^6.1.3",

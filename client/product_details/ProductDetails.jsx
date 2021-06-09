@@ -89,7 +89,7 @@ class ProductDetails extends React.Component {
           <StarRating />
           <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
           <StyleSelector styleInfo={this.state.styleInfo}/>
-          {/* <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/> */}
+          <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
         </div>
         <ProductOverview />
         <ShareToSocialMedia />

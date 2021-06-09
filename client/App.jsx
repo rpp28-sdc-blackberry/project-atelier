@@ -4,8 +4,6 @@ import ProductDetails from './product_details/ProductDetails.jsx';
 import QuestionsAnswers from './questions_answers/QuestionsAnswers.jsx';
 import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
-import * as process from "process";
-window["process"] = process;
 
 class App extends React.Component {
   constructor(props) {

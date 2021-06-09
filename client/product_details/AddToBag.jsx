@@ -1,4 +1,3 @@
-import { thisExpression } from '@babel/types';
 import React from 'react';
 
 class AddToBag extends React.Component {
