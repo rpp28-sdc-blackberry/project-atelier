@@ -17,14 +17,29 @@ class ItemCard extends React.Component {
   componentDidMount() {
     helpers.getProductInfo(this.props.id)
       .then(productInfo => this.setState({
-        thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpzyCEFZ5wFBTJr1hHefx4EMctvo5ukvxnjA&usqp=CAU',
         category: productInfo.category,
         name: productInfo.name,
-        price: productInfo.default_price,
         rating: '4.5'
       }))
       .then(() => helpers.getProductStyles(this.props.id)
-        .then(productStyles => console.log(productStyles)));
+        .then(productStyles => helpers.findDefaultStyle(productStyles.results)
+          .then(defaultStyle => {
+            let price, thumbnailUrl;
+
+            if (defaultStyle.sale_price === null) { price = defaultStyle.original_price; }
+            else { price = defaultStyle.sale_price; }
+
+            if (defaultStyle.photos[0].thumbnail_url === null) {
+              thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
+            } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
+
+            this.setState({
+              thumbnailUrl: thumbnailUrl,
+              price: price
+            });
+          })
+        )
+      );
   }
 
   render() {
