@@ -17,7 +17,6 @@ class ProductDetails extends React.Component {
         return response.json();
       }) 
       .then((data) => {
-        console.log('fetch data: ', data);
         this.setState({
           info: data,
         });
@@ -31,9 +30,14 @@ class ProductDetails extends React.Component {
         return response.json();
       })
       .then((data) => {
-        console.log('fetch data2: ', data);
+        for (var i = 0; i < data.results.length; i++) {
+          if (data.results[i]['default?']) {
+            var selectedStyle = data.results[i];
+          }
+        }
         this.setState({
-          styleInfo: data
+          styleInfo: data.results,
+          selectedStyle: selectedStyle,
         });
       })
       .catch((error) => {
@@ -42,33 +46,10 @@ class ProductDetails extends React.Component {
 
     this.state = {
       view: 'default',
-      styleSelected: '',
-      info: {},
-      styleInfo: [],
+      selectedStyle: undefined,
+      info: undefined,
+      styleInfo: undefined,
     };
-  }
-
-  // componentDidMount() {
-  //   fetch(`http://localhost:8080/products/${this.props.product_id}`)
-  //     .then((response) => {
-  //       return response.json();
-  //     }) 
-  //     .then((data) => {
-  //       console.log('fetch data: ', data);
-  //       this.setState({
-  //         info: data,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       this.setState({
-  //         info: {}
-  //       });
-  //     });
-  // }
-
-  componentDidUpdate() {
-    console.log('state: ', this.state);
   }
   
   toggleView() {
@@ -83,22 +64,33 @@ class ProductDetails extends React.Component {
     var view = () => {
       if (this.state.view === 'default') {
         return (
-          <DefaultView />
+          <DefaultView selectedStyle={this.state.selectedStyle}/>
         );
       } else {
         return (
-          <ExpandedView />
+          <ExpandedView selectedStyle={this.state.selectedStyle}/>
         );
       }
     };
+    
+    var availableSizes = [];
+    if (this.state.selectedStyle) {
+      var skus = this.state.selectedStyle.skus;
+      for (var key in skus) {
+        availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
+      }
+      console.log('available sizes: ', availableSizes);
+    }
 
     return (
       <div id="productDetails">
         {view()}
-        <StarRating />
-        <ProductInfo info={this.state.info}/>
-        <StyleSelector styleInfo={this.state.styleInfo.results}/>
-        <AddToBag />
+        <div id="info">
+          <StarRating />
+          <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
+          <StyleSelector styleInfo={this.state.styleInfo}/>
+          {/* <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/> */}
+        </div>
         <ProductOverview />
         <ShareToSocialMedia />
       </div>
