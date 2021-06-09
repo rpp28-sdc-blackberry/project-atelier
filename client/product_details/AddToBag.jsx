@@ -14,7 +14,8 @@ class AddToBag extends React.Component {
     this.updateMaxQuantity = this.updateMaxQuantity.bind(this);
     this.handleQuantitySubmit = this.handleQuantitySubmit.bind(this);
   }
-
+  // TODO: Need to figure out how to get the quantity selection to 
+  // reset to 1 when a new size is selected
   handleSizeSubmit(e) {
     var selectedSize = e.target.value;
     this.updateMaxQuantity(selectedSize);
@@ -69,9 +70,9 @@ class AddToBag extends React.Component {
               <option value={quantity}>{quantity}</option>
             );
           })}
-        </select>
-        <div>add to bag button</div>
-        <div>star button</div>
+        </select><br></br>
+        <button id="addToBagButton" >ADD TO BAG    +</button>
+        <button id="starButton">STAR</button>
       </div>
     );
   }
