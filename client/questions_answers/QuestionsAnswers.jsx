@@ -76,22 +76,26 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleSearch(e) {
-    // if (e.target.value.length < 3 && !this.state.hasSearched) {
-    //   this.setState({
-    //     query: e.target.value
-    //   });
-    // } else {
-
-    let query = e.target.value;
 
     if (!this.state.hasSearched) {
       this.questionsToSearch = this.state.questions.slice();
+      this.state.hasSearched = true;
+    }
+
+    let query = e.target.value;
+
+    if (query.length < 3) {
+      this.setState({
+        query: query,
+        questions: this.questionsToSearch
+      });
+      return;
     }
 
     let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
 
     this.setState({
-      hasSearched: true,
+      // hasSearched: true,
       query: query,
       questions: queryResult
     });
