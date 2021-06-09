@@ -19,7 +19,8 @@ class AddToBag extends React.Component {
     var selectedSize = e.target.value;
     this.updateMaxQuantity(selectedSize);
     this.setState({
-      selectedSize: selectedSize
+      selectedSize: selectedSize,
+      selectedQuantity: 1
     });
   }
 
@@ -46,14 +47,12 @@ class AddToBag extends React.Component {
   }
 
   render() {
-    var quantities = () => {
-      for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
-        return (
-          <option value={i}>{i}</option>
-        );
-      }
-    };
-
+    var quantityArr = [];
+    for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
+      quantityArr.push(i);
+    }
+    console.log('quantityArr: ', quantityArr);
+    
     return (
       <div id="addToBag">
         <select name={this.state.selectedSize} id="selectSize" placeholder="SELECT SIZE" onChange={this.handleSizeSubmit}>
@@ -64,8 +63,12 @@ class AddToBag extends React.Component {
             );
           })}
         </select>
-        <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={1} onChange={this.handleQuantitySubmit}>
-          {quantities}
+        <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={this.state.selectedQuantity} onChange={this.handleQuantitySubmit}>
+          {quantityArr.map((quantity) => {
+            return (
+              <option value={quantity}>{quantity}</option>
+            );
+          })}
         </select>
         <div>add to bag button</div>
         <div>star button</div>
