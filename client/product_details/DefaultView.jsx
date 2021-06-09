@@ -1,4 +1,5 @@
 import React from 'react';
+import ThumbnailList from './ThumbnailList.jsx';
 
 class DefaultView extends React.Component {
   constructor(props) {

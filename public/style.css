@@ -13,6 +13,12 @@
   width: 50px;
   height: 50px;
 }
+.stylePhoto {
+  border: 1px solid #ddd;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+}
 .defaultView {
   height: 500px;
 }
@@ -20,6 +26,11 @@
   border: 1px solid #ddd;
   padding: 2px;
   text-align: center;
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+#thumbnailList {
+  text-align: left;
   grid-column: 1 / 2;
   grid-row: 1;
 }
