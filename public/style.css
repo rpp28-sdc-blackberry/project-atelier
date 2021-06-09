@@ -69,10 +69,6 @@
   font-family: FontAwesome;
 }
 
-.user-recommend {
-  position: relative;
-}
-
 .user-recommend:before {
   content: '\f00c';
   font-family: FontAwesome;
