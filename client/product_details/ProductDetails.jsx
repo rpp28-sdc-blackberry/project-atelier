@@ -81,13 +81,12 @@ class ProductDetails extends React.Component {
       for (var key in skus) {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
-      console.log('available sizes: ', availableSizes);
     }
 
     return (
       <div id="productDetails">
+        <ThumbnailList selectedStyle={this.state.selectedStyle}/>
         {view()}
-        <ThumbnailList selectedStyle={this.props.selectedStyle}/>
         <div id="info">
           <StarRating />
           <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
