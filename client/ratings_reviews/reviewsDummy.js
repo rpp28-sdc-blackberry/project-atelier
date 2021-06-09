@@ -30,7 +30,7 @@ module.exports = {
     {
       'review_id': 308845,
       'rating': 2,
-      'summary': 'my review',
+      'summary': 'my reviewmy reviewmy reviewmy reviewmy reviewmy reviewmy reviewmy reviewmy review',
       'recommend': true,
       'response': null,
       'body': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.',

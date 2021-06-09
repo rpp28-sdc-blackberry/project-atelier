@@ -41,9 +41,9 @@ class ReviewTile extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.review.photos.length !== 0) {
+    if (this.props.review.summary.length > 60) {
       this.setState({
-        showPhotos: true
+        summary: this.props.review.summary.slice(0, 61) + '...'
       });
     }
     if (this.props.review.body.length > 250) {
@@ -51,6 +51,11 @@ class ReviewTile extends React.Component {
         body: this.props.review.body.slice(0, 251) + '...',
         additionalBody: this.props.review.body,
         showAdditionalBodyButton: true
+      });
+    }
+    if (this.props.review.photos.length !== 0) {
+      this.setState({
+        showPhotos: true
       });
     }
   }
