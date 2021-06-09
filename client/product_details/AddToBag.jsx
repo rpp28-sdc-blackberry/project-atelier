@@ -51,7 +51,6 @@ class AddToBag extends React.Component {
     for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
       quantityArr.push(i);
     }
-    console.log('quantityArr: ', quantityArr);
     
     return (
       <div id="addToBag">

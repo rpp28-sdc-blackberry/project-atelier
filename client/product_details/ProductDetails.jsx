@@ -6,7 +6,8 @@ import StarRating from './StarRating.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToBag from './AddToBag.jsx';
-import ProductOverview from './ProductOverview.jsx';
+import OverviewDescription from './OverviewDescription.jsx';
+import OverviewFeatures from './OverviewFeatures.jsx';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -79,7 +80,6 @@ class ProductDetails extends React.Component {
       for (var key in skus) {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
-      console.log('available sizes: ', availableSizes);
     }
 
     return (
@@ -91,7 +91,8 @@ class ProductDetails extends React.Component {
           <StyleSelector styleInfo={this.state.styleInfo}/>
           <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
         </div>
-        <ProductOverview />
+        <OverviewDescription info={this.state.info}/>
+        <OverviewFeatures info={this.state.info}/>
         <ShareToSocialMedia />
       </div>
     );

@@ -30,11 +30,23 @@
   padding: 2px;
   text-align: left;
 }
-#productOverview {
-  grid-column: 1 / 2;
-  grid-row: 2;
+/* #productOverview {
+  display: grid;
+  grid-template-rows: 150px;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
   border: 1px solid #ddd;
   padding: 2px;
+} */
+#overviewDescription {
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+#overviewFeatures {
+  grid-column: 2 / 2;
+  grid-row: 2;
+  border-left: 3px solid #ddd;
+  padding: 5px;
 }
 #share {
   grid-column: 1 / 2;
