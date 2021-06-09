@@ -30,6 +30,14 @@ const formatDate = (dateString) => {
   return month + ' ' + day + ', ' + year;
 };
 
+const fetchReviews = () => {
+  return $.ajax({
+    url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
+    method: 'GET'
+  });
+};
+
 module.exports = {
-  formatDate: formatDate
+  formatDate: formatDate,
+  fetchReviews: fetchReviews
 };
