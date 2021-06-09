@@ -37,7 +37,20 @@ const fetchReviews = () => {
   });
 };
 
+const computeAverageRating = (ratings) => {
+  if (ratings.length === 0) { return; }
+  var count = 0;
+  var total = 0;
+  for (var ratingValue in ratings) {
+    var numberOfOccurrences = ratings[ratingValue];
+    total += ratingValue * numberOfOccurrences;
+    count += Number.parseInt(numberOfOccurrences);
+  }
+  return total / count;
+};
+
 module.exports = {
   formatDate: formatDate,
-  fetchReviews: fetchReviews
+  fetchReviews: fetchReviews,
+  computeAverageRating: computeAverageRating
 };
