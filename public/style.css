@@ -1,8 +1,86 @@
-/* PRODUCT DETAILS */
+/* --------------------- PRODUCT DETAILS --------------------- */
+#productDetails {
+  display: grid;
+  grid-template-rows: 500px;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
+  /* padding-left: 100px;
+  padding-right: 100px; */
+}
+.style {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+}
+.stylePhoto {
+  border: 1px solid #ddd;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+}
+.defaultView {
+  height: 500px;
+}
+#defaultView {
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: center;
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+#thumbnailList {
+  text-align: left;
+  grid-column: 1 / 2;
+  grid-row: 1;
+  position: relative;
+}
+#info {
+  grid-column: 2 / 2;
+  grid-row: 1;
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: left;
+}
+/* #productOverview {
+  display: grid;
+  grid-template-rows: 150px;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
+  border: 1px solid #ddd;
+  padding: 2px;
+} */
+#overviewDescription {
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+#overviewFeatures {
+  grid-column: 2 / 2;
+  grid-row: 2;
+  border-left: 3px solid #ddd;
+  padding: 5px;
+}
+#share {
+  grid-column: 1 / 2;
+  grid-row: 3;
+  border: 1px solid #ddd;
+  padding: 2px;
+  }
+#starRating {
+  height: 50px;
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: left;
+}
+#productTitle {
+  font-weight: bold;
+  font-size:x-large;
+}
 
-/* RELATED ITEMS */
+/* --------------------- RELATED ITEMS --------------------- */
 
-/* QUESTIONS AND ANSWERS */
+/* --------------------- QUESTIONS AND ANSWERS --------------------- */
 
 /* --------------------- RATINGS AND REVIEWS --------------------- */
 
@@ -118,4 +196,3 @@
   background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}

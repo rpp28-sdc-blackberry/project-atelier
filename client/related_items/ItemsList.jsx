@@ -4,8 +4,11 @@ import ItemCard from './ItemCard.jsx';
 
 const ItemsList = (props) => (
   <div>
-    <AddToOutfit />
-    <ItemCard />
+    {props.listType === 'relatedItems' ?
+      <div>
+        {props.items.map(itemId => <ItemCard id={itemId} key={itemId} />)}
+      </div> :
+      <AddToOutfit /> }
   </div>
 );
 
