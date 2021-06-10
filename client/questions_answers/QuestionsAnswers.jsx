@@ -118,7 +118,6 @@ class QuestionsAnswers extends React.Component {
 
   handleQuestionSubmit(e) {
 
-    // prevent default form submit behavior
     e.preventDefault();
 
     // validate the form fields using a helper function that returns a boolean value
