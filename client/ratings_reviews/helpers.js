@@ -46,7 +46,10 @@ const computeAverageRating = (ratings) => {
     total += ratingValue * freq;
     count += Number.parseInt(freq);
   }
-  return total / count;
+  var average = total / count;
+  var roundedAverageForDisplay = average.toFixed(1);
+  var roundedAverageForStar = (Math.round(average * 4) / 4).toFixed(2);
+  return [roundedAverageForDisplay, roundedAverageForStar];
 };
 
 const computeRatingBreakdown = (ratings) => {

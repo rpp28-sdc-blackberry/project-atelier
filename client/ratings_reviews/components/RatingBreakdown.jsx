@@ -22,7 +22,7 @@ class RatingBreakdown extends React.Component {
 
     this.state = {
       ratings: 0,
-      averageRating: 0,
+      averageRating: [0, 0],
       breakdown: [0, 0, 0, 0, 0]
     };
   }
@@ -31,8 +31,8 @@ class RatingBreakdown extends React.Component {
     return (
       <div class='review-rating-breakdown'>
         <div class='review-average-rating'>
-          <span class='review-average-rating-number'>{this.state.averageRating}</span>
-          <span class="stars" style={{'--rating': this.state.averageRating}}></span>
+          <span class='review-average-rating-number'>{this.state.averageRating[0]}</span>
+          <span class="stars" style={{'--rating': this.state.averageRating[1]}}></span>
         </div>
         <div class='review-rating-bar'>
           <div class='review-breakdown-bar'>
