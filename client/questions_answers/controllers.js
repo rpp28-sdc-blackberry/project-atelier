@@ -28,7 +28,7 @@ const submitQuestion = (question, nickname, email, product_id) => {
 const submitAnswer = (answer, nickname, email, question_id) => {
 
   return $.ajax({
-    url: `http://localhost:8080/qa/questions/${question_id}/answers`
+    url: `http://localhost:8080/qa/questions/${question_id}/answers`,
     method: 'POST',
     contentType: 'application/json',
     processData: false,
