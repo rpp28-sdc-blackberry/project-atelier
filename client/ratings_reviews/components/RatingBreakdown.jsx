@@ -10,7 +10,6 @@ class RatingBreakdown extends React.Component {
       url: `reviews/meta?product_id=${this.props.product_id}`,
       method: 'GET'
     }).then((reviewsMeta) => {
-      console.log('reviewsMeta', reviewsMeta);
       this.setState({
         ratings: reviewsMeta.ratings,
         averageRating: helpers.computeAverageRating(reviewsMeta.ratings),
