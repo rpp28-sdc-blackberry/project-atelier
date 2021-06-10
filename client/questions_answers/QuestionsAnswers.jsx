@@ -1,9 +1,8 @@
 import React from 'react';
-import { fetchQuestions, submitQuestion, submitAnswer } from './controllers.js';
+import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
-import AnswerForm from './components/AnswerForm.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -18,16 +17,14 @@ class QuestionsAnswers extends React.Component {
       nextTwoQuestions: [],
       query: '',
       questions: [],
-      showQuestionModal: false,
-      showAnswerModal: false,
+      showQuestionModal: false
+
     };
 
     this.handleMoreQuestionsClick = this.handleMoreQuestionsClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
-    this.handleAddAnswerClick = this.handleAddAnswerClick.bind(this);
     this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
-    this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this);
 
   }
 
@@ -126,12 +123,6 @@ class QuestionsAnswers extends React.Component {
     });
   }
 
-  handleAddAnswerClick() {
-    this.setState({
-      showAnswerModal: true
-    });
-  }
-
   handleQuestionSubmit(e) {
 
     e.preventDefault();
@@ -149,26 +140,10 @@ class QuestionsAnswers extends React.Component {
         console.log(err);
       });
 
-    // hide the modal
     this.setState({
       showQuestionModal: false
     });
 
-  }
-
-  handleAnswerSubmit() {
-    console.log('answer submitted');
-
-    // validate the form fields using a helper function that returns a boolean value
-    // if that doesnt pass--display an alert popup
-    // otherwise
-    // submit the question to the server using a function
-
-    // submit the answer
-
-    this.setState({
-      showAnswerModal: false
-    });
   }
 
   render() {
@@ -177,15 +152,10 @@ class QuestionsAnswers extends React.Component {
       <div className="questions-answers component">
         <div> {`QUESTIONS & ANSWERS`} </div>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList
-          questions={this.state.questions}
-          handleAddAnswerClick={this.handleAddAnswerClick}
-          handleAnswerSubmit={this.handleAnswerSubmit}
-        />
+        <QuestionsList questions={this.state.questions} name={this.props.name}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
-        {this.state.showAnswerModal && <AnswerForm handleAnswerSubmit={this.handleAnswerSubmit}/>}
       </div>
     );
   }
