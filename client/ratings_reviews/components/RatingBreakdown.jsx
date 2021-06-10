@@ -23,24 +23,38 @@ class RatingBreakdown extends React.Component {
     this.state = {
       ratings: 0,
       averageRating: 0,
-      breakdown: []
+      breakdown: [0, 0, 0, 0, 0]
     };
   }
 
   render() {
     return (
       <div class='review-rating-breakdown'>
-        ratingbreakdown
         <div class='review-average-rating'>
-          <span>{this.state.averageRating}</span>
+          <span class='review-average-rating-number'>{this.state.averageRating}</span>
           <span class="stars" style={{'--rating': this.state.averageRating}}></span>
         </div>
         <div class='review-rating-bar'>
-          <div>1: {this.state.breakdown[0]}</div>
-          <div>2: {this.state.breakdown[1]}</div>
-          <div>3: {this.state.breakdown[2]}</div>
-          <div>4: {this.state.breakdown[3]}</div>
-          <div>5: {this.state.breakdown[4]}</div>
+          <div class='review-breakdown-bar'>
+            <span>5 stars:</span>
+            <span><progress max="100" value={this.state.breakdown[4]}></progress></span>
+          </div>
+          <div class='review-breakdown-bar'>
+            <span>4 stars:</span>
+            <span><progress max="100" value={this.state.breakdown[3]}></progress></span>
+          </div>
+          <div class='review-breakdown-bar'>
+            <span>3 stars:</span>
+            <span><progress max="100" value={this.state.breakdown[2]}></progress></span>
+          </div>
+          <div class='review-breakdown-bar'>
+            <span>2 stars:</span>
+            <span><progress max="100" value={this.state.breakdown[1]}></progress></span>
+          </div>
+          <div class='review-breakdown-bar'>
+            <span>1 star:</span>
+            <span><progress max="100" value={this.state.breakdown[0]}></progress></span>
+          </div>
         </div>
       </div>
     );

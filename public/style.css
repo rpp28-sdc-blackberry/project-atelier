@@ -6,6 +6,14 @@
 
 /* --------------------- RATINGS AND REVIEWS --------------------- */
 
+.review-average-rating-number {
+  font-size: 150%;
+}
+
+.review-breakdown-bar {
+  display: flex;
+}
+
 .reviews-list > * {
   margin: 1% 0;
 }
