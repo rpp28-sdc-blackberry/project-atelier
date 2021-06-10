@@ -6,6 +6,7 @@ import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +24,7 @@ class App extends React.Component {
       </div>
     );
   }
+
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
