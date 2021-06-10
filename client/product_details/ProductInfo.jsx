@@ -1,21 +1,20 @@
 import React from 'react';
 
-class ProductInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
+const ProductInfo = (props) => {
+  if (props.info && props.selectedStyle) {
     return (
       <div id="productInfo">
-        <div id="productCategory">Category</div>
-        <div id="productTitle">Title</div>
-        <div id="productPrice">$$$</div>
+        <div id="productCategory">{(props.info.category).toUpperCase()}</div>
+        <div id="productTitle">{props.info.name}</div>
+        <div id="productPrice">${props.info.default_price}</div>
+        <div id="styleInfo"><b>STYLE ></b> {(props.selectedStyle.name).toUpperCase()}</div>
       </div>
     );
+  } else {
+    return (
+      <div id="productInfo"></div>
+    )
   }
-}
+};
 
 export default ProductInfo;
