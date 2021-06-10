@@ -1,3 +1,4 @@
+/* --------------------- PRODUCT DETAILS --------------------- */
 #productDetails {
   display: grid;
   grid-template-rows: 500px;
@@ -76,3 +77,122 @@
   font-weight: bold;
   font-size:x-large;
 }
+
+/* --------------------- RELATED ITEMS --------------------- */
+
+/* --------------------- QUESTIONS AND ANSWERS --------------------- */
+
+/* --------------------- RATINGS AND REVIEWS --------------------- */
+
+.review-average-rating-number {
+  font-size: 150%;
+}
+
+.review-breakdown-bar {
+  display: flex;
+}
+
+.reviews-list > * {
+  margin: 1% 0;
+}
+
+.review-show-button {
+  margin: 1%;
+}
+
+.review-tile {
+  border-bottom: solid black 0.1em;
+}
+
+.review-tile > * {
+  margin: 1% 0;
+}
+
+.review-tile-top-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-summary {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.review-additional-body-button {
+  font-size: 80%;
+}
+
+.review-additional-body-button:hover {
+  color: rgb(37, 37, 37);
+  cursor: pointer;
+}
+
+.review-photo {
+  width: 100px;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.review-photo-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.review-close-modal {
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: rgb(204, 196, 196);
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+  top: 0
+}
+
+.review-close-modal:before {
+  content: '\f00d';
+  color: rgb(204, 196, 196);
+  font-family: FontAwesome;
+}
+
+.user-recommend:before {
+  content: '\f00c';
+  font-family: FontAwesome;
+}
+
+.seller-response {
+  background-color: rgb(226, 215, 215);
+  padding: 1%;
+}
+
+/* STAR RATING */
+
+:root {
+  --star-size: 15px;
+  --star-color: rgb(216, 207, 207);
+  --star-background: black;
+}
+
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+
+.stars::before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;

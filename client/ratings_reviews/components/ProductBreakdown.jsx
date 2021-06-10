@@ -1,9 +1,20 @@
 import React from 'react';
 
-const ProductBreakdown = (props) => (
-  <div>
-    productbreakdown
-  </div>
-);
+class ProductBreakdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+  render() {
+    return (
+      <div class='review-product-breakdown'>
+        productbreakdown
+      </div>
+    );
+  }
+}
 
 export default ProductBreakdown;

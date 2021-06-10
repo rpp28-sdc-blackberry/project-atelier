@@ -5,15 +5,25 @@ import SortingPanel from './components/SortingPanel.jsx';
 import ReviewsList from './components/ReviewsList.jsx';
 import ReviewForm from './components/ReviewForm.jsx';
 
-const RatingsReviews = (props) => (
-  <div>
-    ratingsreviews
-    <RatingBreakdown />
-    <ProductBreakdown />
-    <SortingPanel />
-    <ReviewsList />
-    <ReviewForm />
-  </div>
-);
+class RatingsReviews extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        ratingsreviews
+        <div class='review-breakdown'>
+          <RatingBreakdown product_id={this.props.product_id}/>
+          <ProductBreakdown />
+        </div>
+        <SortingPanel />
+        <ReviewsList product_id={this.props.product_id}/>
+        <ReviewForm />
+      </div>
+    );
+  }
+}
 
 export default RatingsReviews;
