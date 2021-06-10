@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchQuestions, submitQuestion } from './controllers.js';
+import { fetchQuestions, submitQuestion, submitAnswer } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
@@ -9,7 +9,6 @@ class QuestionsAnswers extends React.Component {
     super(props);
 
     this.queryPage = 3;
-
     this.state = {
       hasSearched: false,
       product_id: this.props.product_id,
@@ -20,6 +19,19 @@ class QuestionsAnswers extends React.Component {
       questions: [],
       showQuestionModal: false
     };
+
+    this.handleMoreQuestionsClick = this.handleMoreQuestionsClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
+    this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+
+  }
+
+  componentDidMount() {
+    this.initialize();
+  }
+
+  initialize() {
 
     fetchQuestions(this.props.product_id, 4, 1)
       .then((data) => {
@@ -45,18 +57,11 @@ class QuestionsAnswers extends React.Component {
         });
 
       });
-
-    this.updateQuestionsList = this.updateQuestionsList.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
-    this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
-
   }
 
-  // make a "handle more questions button click" function
-  updateQuestionsList() {
-
-    // move to a different function
+  handleMoreQuestionsClick() {
+    // these functions are too tightly coupled, will refactor
+    // this updates state for search--refactor to a different function
     if (this.state.hasSearched) {
       this.state.questions = this.questionsToSearch;
       this.questionsToSearch = [];
@@ -66,6 +71,7 @@ class QuestionsAnswers extends React.Component {
       });
     }
 
+    // this updates the questions list--refactor to different function
     fetchQuestions(this.state.product_id, 2, this.queryPage)
       .then((data) => {
         if (!data.results.length) {
@@ -150,7 +156,7 @@ class QuestionsAnswers extends React.Component {
         <div> {`QUESTIONS & ANSWERS`} </div>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.questions}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.updateQuestionsList}>MORE ANSWERED QUESTIONS</button>}
+        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
       </div>

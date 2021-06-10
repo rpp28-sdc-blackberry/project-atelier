@@ -25,4 +25,8 @@ const submitQuestion = (question, nickname, email, product_id) => {
   });
 
 };
-export { fetchQuestions, submitQuestion };
+const submitAnswer = () => {
+
+};
+
+export { fetchQuestions, submitQuestion, submitAnswer };
