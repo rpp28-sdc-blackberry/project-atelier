@@ -7,6 +7,7 @@ import ProductInfo from './ProductInfo.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToBag from './AddToBag.jsx';
 import ProductOverview from './ProductOverview.jsx';
+import ThumbnailList from './ThumbnailList.jsx';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -61,10 +62,11 @@ class ProductDetails extends React.Component {
   }
 
   render() {
+
     var view = () => {
       if (this.state.view === 'default') {
         return (
-          <DefaultView selectedStyle={this.state.selectedStyle}/>
+          <DefaultView selectedStyle={this.state.selectedStyle} selectedStyle={this.state.selectedStyle}/>
         );
       } else {
         return (
@@ -79,11 +81,11 @@ class ProductDetails extends React.Component {
       for (var key in skus) {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
-      console.log('available sizes: ', availableSizes);
     }
 
     return (
       <div id="productDetails">
+        <ThumbnailList selectedStyle={this.state.selectedStyle}/>
         {view()}
         <div id="info">
           <StarRating />

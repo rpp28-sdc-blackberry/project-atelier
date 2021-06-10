@@ -57,18 +57,10 @@ class AddToBag extends React.Component {
       <div id="addToBag">
         <select name={this.state.selectedSize} id="selectSize" placeholder="SELECT SIZE" onChange={this.handleSizeSubmit}>
           <option value="SELECT SIZE">SELECT SIZE</option>
-          {this.props.availableSizes.map((size) => {
-            return (
-              <option value={size[0]}>{size[0]}</option>
-            );
-          })}
+          {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
         </select>
         <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={this.state.selectedQuantity} onChange={this.handleQuantitySubmit}>
-          {quantityArr.map((quantity) => {
-            return (
-              <option value={quantity}>{quantity}</option>
-            );
-          })}
+          {quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>)}
         </select>
         <div>add to bag button</div>
         <div>star button</div>
