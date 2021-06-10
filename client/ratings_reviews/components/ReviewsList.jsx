@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import ReviewTile from './ReviewTile.jsx';
+import dummy from '../reviewsDummy.js';
 
 class ReviewsList extends React.Component {
   constructor(props) {
@@ -33,6 +34,14 @@ class ReviewsList extends React.Component {
       showMoreReviewsButton: false,
       showLessReviewsButton: false
     };
+
+    // this.state = {
+    //   allReviews: dummy.results,
+    //   currentReviews: dummy.results.slice(0, 2),
+    //   otherReviews: dummy.results.slice(2),
+    //   showMoreReviewsButton: true,
+    //   showLessReviewsButton: false
+    // };
 
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.showLessReviews = this.showLessReviews.bind(this);
