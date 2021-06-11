@@ -73,6 +73,16 @@ const computeRecommendedPercentage = (recommended) => {
   return (recommendedNumber / total * 100).toFixed(0) + '%';
 };
 
+const formatCharacteristics = (characteristics) => {
+  var formattedCharacteristics = [];
+  for (var characteristic in characteristics) {
+    var newFormat = {};
+    newFormat[characteristic] = characteristics[characteristic].value;
+    formattedCharacteristics.push(newFormat);
+  }
+  return formattedCharacteristics;
+};
+
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
