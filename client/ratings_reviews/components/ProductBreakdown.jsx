@@ -12,18 +12,15 @@ class ProductBreakdown extends React.Component {
   }
 
   componentDidMount() {
-    console.log('check1: ', this.props.meta.characteristics);
     this.setState({
       characteristics: helpers.formatCharacteristics(this.props.meta.characteristics)
     });
   }
 
   render() {
-    console.log('check: ', this.state.characteristics);
     if (!$.isEmptyObject(this.state.characteristics)) {
       return (
         <div class='review-product-breakdown'>
-          productbreakdown
           {this.state.characteristics.map(characteristic => <CharacteristicBreakdown characteristic={characteristic}/>)}
         </div>
       );

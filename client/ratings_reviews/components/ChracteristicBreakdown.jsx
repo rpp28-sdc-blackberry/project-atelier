@@ -2,8 +2,8 @@ import React from 'react';
 
 const CharacteristicBreakdown = (props) => (
   <div>
-    {props.characteristic.name}
-    {props.characteristic.value}
+    <label>{props.characteristic.name}</label><br></br>
+    <meter min='0' max='5' low='1' high='4' optimum='2.5' value={props.characteristic.value}></meter>
   </div>
 );
 

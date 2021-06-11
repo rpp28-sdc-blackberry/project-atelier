@@ -32,7 +32,7 @@ class RatingsReviews extends React.Component {
     if (!$.isEmptyObject(this.state.meta)) {
       return (
         <div>
-          ratingsreviews
+          RATINGS & REVIEWS
           <div class='review-breakdown'>
             <RatingBreakdown product_id={this.props.product_id}/>
             <ProductBreakdown meta={this.state.meta}/>
