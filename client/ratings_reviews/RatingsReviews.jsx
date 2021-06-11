@@ -31,15 +31,20 @@ class RatingsReviews extends React.Component {
   render() {
     if (!$.isEmptyObject(this.state.meta)) {
       return (
-        <div>
+        <div class='review-overall-container'>
           RATINGS & REVIEWS
-          <div class='review-breakdown'>
-            <RatingBreakdown product_id={this.props.product_id}/>
-            <ProductBreakdown meta={this.state.meta}/>
+          <div class='review-content-container'>
+            <div id='review-left-container' class='review-sub-container left'>
+              <RatingBreakdown product_id={this.props.product_id}/>
+              <ProductBreakdown meta={this.state.meta}/>
+            </div>
+            <div id='review-right-container' class='review-sub-container right'>
+              <SortingPanel />
+              <ReviewsList product_id={this.props.product_id}/>
+              <ReviewForm />
+            </div>
           </div>
-          <SortingPanel />
-          <ReviewsList product_id={this.props.product_id}/>
-          <ReviewForm />
+
         </div>
       );
     } else {
