@@ -51,6 +51,7 @@ class ProductDetails extends React.Component {
       selectedStyle: undefined,
       info: undefined,
       styleInfo: undefined,
+      currPhotoIndex: 0
     };
   }
   
@@ -67,7 +68,7 @@ class ProductDetails extends React.Component {
     var view = () => {
       if (this.state.view === 'default') {
         return (
-          <DefaultView selectedStyle={this.state.selectedStyle} selectedStyle={this.state.selectedStyle}/>
+          <DefaultView selectedStyle={this.state.selectedStyle} currPhotoIndex={this.state.currPhotoIndex}/>
         );
       } else {
         return (
@@ -86,7 +87,7 @@ class ProductDetails extends React.Component {
 
     return (
       <div id="productDetails">
-        <ThumbnailList selectedStyle={this.state.selectedStyle}/>
+        <ThumbnailList selectedStyle={this.state.selectedStyle} currPhotoIndex={this.state.currPhotoIndex}/>
         {view()}
         <div id="info">
           <StarRating />
