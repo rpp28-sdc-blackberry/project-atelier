@@ -10,7 +10,6 @@ class RatingBreakdown extends React.Component {
       url: `reviews/meta?product_id=${this.props.product_id}`,
       method: 'GET'
     }).then((reviewsMeta) => {
-      console.log(reviewsMeta);
       this.setState({
         ratings: reviewsMeta.ratings,
         averageRating: helpers.computeAverageRating(reviewsMeta.ratings),
@@ -22,7 +21,7 @@ class RatingBreakdown extends React.Component {
     });
 
     this.state = {
-      ratings: undefined,
+      ratings: {},
       averageRating: [0, 0],
       breakdown: [0, 0, 0, 0, 0],
       recommended: 0
@@ -30,7 +29,7 @@ class RatingBreakdown extends React.Component {
   }
 
   render() {
-    if (this.state.ratings !== undefined) {
+    if (!$.isEmptyObject(this.state.ratings)) {
       return (
         <div class='review-rating-breakdown'>
           <div class='review-average-rating'>
