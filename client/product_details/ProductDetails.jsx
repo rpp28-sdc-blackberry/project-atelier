@@ -54,11 +54,8 @@ class ProductDetails extends React.Component {
       selectedStyle: undefined,
       info: undefined,
       styleInfo: undefined,
-<<<<<<< HEAD
-      currPhotoIndex: 0
-=======
+      currPhotoIndex: 0,
       indexStyleSelected: undefined,
->>>>>>> master
     };
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
   }

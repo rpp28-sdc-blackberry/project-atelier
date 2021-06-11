@@ -30,13 +30,20 @@
   grid-row: 1;
 }
 #thumbnailList {
-  text-align: left;
+  text-align: center;
   grid-column: 1 / 2;
   grid-row: 1;
   position: relative;
+  width: 100px;
 }
 .selectedThumbnail {
   border-bottom: 4px solid black;
+}
+#upScroll-container
+#downScroll-container {
+  width: 50px;
+  align-content: center;
+  text-align: center;
 }
 #info {
   grid-column: 2 / 2;
@@ -208,3 +215,4 @@
   background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
