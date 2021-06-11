@@ -58,6 +58,7 @@ class ProductDetails extends React.Component {
       indexStyleSelected: undefined,
     };
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
+    this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
   }
   
   toggleView() {
@@ -70,11 +71,19 @@ class ProductDetails extends React.Component {
 
   handleStyleSelection(e) {
     e.preventDefault();
-    console.log(e.target.id);
     var index = Number(e.target.id);
     this.setState({
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
+    });
+  }
+
+  handlePhotoSelection(e) {
+    e.preventDefault();
+    console.log('e: ', e);
+    var index = Number(e.target.id);
+    this.setState({
+      currPhotoIndex: index
     });
   }
 
@@ -83,7 +92,9 @@ class ProductDetails extends React.Component {
     var view = () => {
       if (this.state.view === 'default') {
         return (
-          <DefaultView selectedStyle={this.state.selectedStyle} currPhotoIndex={this.state.currPhotoIndex}/>
+          <DefaultView 
+            selectedStyle={this.state.selectedStyle} 
+            currPhotoIndex={this.state.currPhotoIndex}/>
         );
       } else {
         return (
@@ -99,17 +110,27 @@ class ProductDetails extends React.Component {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
     }
-    console.log('avail ', availableSizes);
 
     return (
       <div id="productDetails">
-        <ThumbnailList selectedStyle={this.state.selectedStyle} currPhotoIndex={this.state.currPhotoIndex}/>
+        <ThumbnailList 
+          selectedStyle={this.state.selectedStyle} 
+          currPhotoIndex={this.state.currPhotoIndex}
+          handlePhotoSelection={this.handlePhotoSelection}/>
         {view()}
         <div id="info">
           <StarRating />
-          <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
-          <StyleSelector changeStyle={this.handleStyleSelection} styleInfo={this.state.styleInfo} indexStyleSelected={this.state.indexStyleSelected} selectedStyle={this.state.selectedStyle}/>
-          <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
+          <ProductInfo 
+            info={this.state.info} 
+            selectedStyle={this.state.selectedStyle}/>
+          <StyleSelector 
+            changeStyle={this.handleStyleSelection} 
+            styleInfo={this.state.styleInfo} 
+            indexStyleSelected={this.state.indexStyleSelected} 
+            selectedStyle={this.state.selectedStyle}/>
+          <AddToBag 
+            selectedStyle={this.state.selectedStyle} 
+            availableSizes={availableSizes}/>
         </div>
         <OverviewDescription info={this.state.info}/>
         <OverviewFeatures info={this.state.info}/>

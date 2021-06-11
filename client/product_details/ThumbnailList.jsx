@@ -12,7 +12,12 @@ const ThumbnailList = (props) => {
         </a>
         <br></br>
         {props.selectedStyle.photos.map((photo, index) =>
-          <Thumbnail name={props.selectedStyle.name} photo={photo} index={index} indexSelected={props.currPhotoIndex}/>)}
+          <Thumbnail 
+            name={props.selectedStyle.name} 
+            photo={photo} 
+            index={index} 
+            indexSelected={props.currPhotoIndex}
+            handlePhotoSelection={props.handlePhotoSelection}/>)}
         <a id="downScroll-container">
           <i id="downScroll" class="fa fa-angle-down"></i>
         </a>
