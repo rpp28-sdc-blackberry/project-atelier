@@ -79,6 +79,16 @@
   font-weight: bold;
   font-size:x-large;
 }
+#checkIcon {
+  position: absolute;
+  left: 50px;
+  text-align: center;
+  align-items: center;
+  color: #ddd;
+}
+.img-container {
+  position: relative;
+}
 
 /* --------------------- RELATED ITEMS --------------------- */
 
