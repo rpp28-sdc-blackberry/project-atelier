@@ -7,8 +7,11 @@ const ThumbnailList = (props) => {
 
     return (
       <div id="thumbnailList">
+        <i class="fas fa-angle-up"></i>
+        <br></br>
         {props.selectedStyle.photos.map((photo, index) =>
           <Thumbnail name={props.selectedStyle.name} photo={photo} index={index} indexSelected={props.currPhotoIndex}/>)}
+        <i class="fas fa-angle-down"></i>
       </div>
     );
   } 
