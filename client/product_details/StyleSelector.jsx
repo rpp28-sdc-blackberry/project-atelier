@@ -1,24 +1,28 @@
-import { forEach } from 'lodash';
 import React from 'react';
+import StyleThumbnail from './StyleThumbnail.jsx';
+import StyleCheckThumbnail from './StyleCheckThumbnail.jsx';
 
 const StyleSelector = (props) => {
+  
   if (props.styleInfo !== undefined) {
-    var styleThumbnails = props.styleInfo.map((style) =>
-      <a target="_blank" href={style.photos[0].thumbnail_url}>
-        <img src={style.photos[0].thumbnail_url} alt={style.name} className="style" id={style.style_id}></img>
-      </a>
-    );
+
+    var i = 0;
 
     return (
       <div id="styleSelector">
-        {styleThumbnails}
+        <StyleCheckThumbnail changeStyle={props.changeStyle} style={props.selectedStyle} index={props.indexStyleSelected}/>
+        {props.styleInfo.map((style, index) => {
+          if (index !== props.indexStyleSelected) {
+            i = i + 1;
+            return (<StyleThumbnail changeStyle={props.changeStyle} style={style} index={index} i={i}/>);
+          }
+        })}
       </div>
     );
-  } else {
-    return (
-      <div id="styleSelector"></div>
-    );
   }
+  return (
+    <div id="styleSelector"></div>
+  );
 };
 
 export default StyleSelector;
