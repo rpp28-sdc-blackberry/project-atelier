@@ -59,6 +59,8 @@ class ProductDetails extends React.Component {
     };
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
+    this.handleUpClick = this.handleUpClick.bind(this);
+    this.handleDownClick = this.handleDownClick.bind(this);
   }
   
   toggleView() {
@@ -80,10 +82,27 @@ class ProductDetails extends React.Component {
 
   handlePhotoSelection(e) {
     e.preventDefault();
-    console.log('e: ', e);
     var index = Number(e.target.id);
     this.setState({
       currPhotoIndex: index
+    });
+  }
+
+  handleUpClick(e) {
+    e.preventDefault();
+    var totalPhotos = this.state.selectedStyle.photos.length;
+    var newIndex = this.state.currPhotoIndex === 0 ? totalPhotos - 1 : this.state.currPhotoIndex - 1;
+    this.setState({
+      currPhotoIndex: newIndex
+    });
+  }
+
+  handleDownClick(e) {
+    e.preventDefault();
+    var totalPhotos = this.state.selectedStyle.photos.length;
+    var newIndex = this.state.currPhotoIndex === totalPhotos - 1 ? 0 : this.state.currPhotoIndex + 1;
+    this.setState({
+      currPhotoIndex: newIndex
     });
   }
 
@@ -116,7 +135,9 @@ class ProductDetails extends React.Component {
         <ThumbnailList 
           selectedStyle={this.state.selectedStyle} 
           currPhotoIndex={this.state.currPhotoIndex}
-          handlePhotoSelection={this.handlePhotoSelection}/>
+          handlePhotoSelection={this.handlePhotoSelection}
+          handleUpClick={this.handleUpClick}
+          handleDownClick={this.handleDownClick}/>
         {view()}
         <div id="info">
           <StarRating />

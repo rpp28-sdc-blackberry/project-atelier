@@ -7,7 +7,7 @@ const ThumbnailList = (props) => {
 
     return (
       <div id="thumbnailList">
-        <a id="upScroll-container">
+        <a onClick={props.handleUpClick} id="upScroll-container">
           <i id="upScroll" class="fa fa-angle-up"></i>
         </a>
         <br></br>
@@ -18,7 +18,7 @@ const ThumbnailList = (props) => {
             index={index} 
             indexSelected={props.currPhotoIndex}
             handlePhotoSelection={props.handlePhotoSelection}/>)}
-        <a id="downScroll-container">
+        <a onClick={props.handleDownClick} id="downScroll-container">
           <i id="downScroll" class="fa fa-angle-down"></i>
         </a>
       </div>

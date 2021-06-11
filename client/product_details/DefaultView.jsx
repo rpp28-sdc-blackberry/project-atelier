@@ -6,7 +6,7 @@ const DefaultView = (props) => {
     var photoGallery = props.selectedStyle.photos;
     return (
       <div id="defaultView">
-        <a target="_blank" href={photoGallery[props.currPhotoIndex].url}>
+        <a target="_blank">
           <img 
             src={photoGallery[props.currPhotoIndex].url} 
             alt={props.selectedStyle.name} 
