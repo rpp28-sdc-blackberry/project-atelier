@@ -63,13 +63,21 @@ class ReviewsList extends React.Component {
   }
 
   render() {
-    return (
-      <div class='reviews-list'>
-        <div>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
-        <button class='review-show-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
-        <button class='review-show-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
-      </div>
-    );
+    if (this.state.allReviews.length !== 0) {
+      return (
+        <div class='reviews-list'>
+          <div>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
+          <button class='review-show-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
+          <button class='review-show-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          Such emptiness! Be the first person to review this product!
+        </div>
+      );
+    }
   }
 }
 
