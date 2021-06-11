@@ -67,21 +67,16 @@ const computeRatingBreakdown = (ratings) => {
   return breakdown;
 };
 
-const computeRecommendedPercentage = (recommended, ratings) => {
-  var numberOfRecommended = recommended[0];
-  var total = 0;
-  for (var ratingValue in ratings) {
-    var freq = ratings[ratingValue];
-    total += freq;
-  }
-  return (numberOfRecommended / total * 100).toFixed(0) + '%';
+const computeRecommendedPercentage = (recommended) => {
+  var recommendedNumber = recommended.true;
+  var total = recommended.true + recommended.false;
+  return (recommendedNumber / total * 100).toFixed(0) + '%';
 };
-
-console.log(computeRecommendedPercentage({0: 5}, {1: 2, 2: 4, 5: 3}));
 
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
   computeAverageRating: computeAverageRating,
-  computeRatingBreakdown: computeRatingBreakdown
+  computeRatingBreakdown: computeRatingBreakdown,
+  computeRecommendedPercentage: computeRecommendedPercentage
 };

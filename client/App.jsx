@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       name: 'Morning Joggers',
-      'product_id': '22124'
+      'product_id': '22122'
     };
   }
 

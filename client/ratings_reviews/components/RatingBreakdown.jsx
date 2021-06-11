@@ -15,26 +15,30 @@ class RatingBreakdown extends React.Component {
         ratings: reviewsMeta.ratings,
         averageRating: helpers.computeAverageRating(reviewsMeta.ratings),
         breakdown: helpers.computeRatingBreakdown(reviewsMeta.ratings),
-        recommend: helpers.computeRecommendedPercentage(reviewsMeta.recommended, reviewsMeta.ratings)
+        recommended: helpers.computeRecommendedPercentage(reviewsMeta.recommended)
       });
     }).catch((error) => {
       console.log(error);
     });
 
     this.state = {
-      ratings: {},
+      ratings: undefined,
       averageRating: [0, 0],
-      breakdown: [0, 0, 0, 0, 0]
+      breakdown: [0, 0, 0, 0, 0],
+      recommended: 0
     };
   }
 
   render() {
-    if (Object.keys(this.state.ratings).length !== 0) {
+    if (this.state.ratings !== undefined) {
       return (
         <div class='review-rating-breakdown'>
           <div class='review-average-rating'>
             <span class='review-average-rating-number'>{this.state.averageRating[0]}</span>
             <span class="stars" style={{'--rating': this.state.averageRating[1]}}></span>
+          </div>
+          <div class='review-recommended-percetage'>
+            <span>{this.state.recommended} of reviews recommended this product</span>
           </div>
           <div class='review-rating-bar'>
             <div class='review-breakdown-bar'>
