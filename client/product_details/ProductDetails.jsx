@@ -56,6 +56,7 @@ class ProductDetails extends React.Component {
       styleInfo: undefined,
       indexStyleSelected: undefined,
     };
+    this.handleStyleSelection = this.handleStyleSelection.bind(this);
   }
   
   toggleView() {
@@ -64,6 +65,16 @@ class ProductDetails extends React.Component {
 
   toggleStyleSelected() {
     //TODO
+  }
+
+  handleStyleSelection(e) {
+    e.preventDefault();
+    console.log(e.target.id);
+    var index = Number(e.target.id);
+    this.setState({
+      indexStyleSelected: index,
+      selectedStyle: this.state.styleInfo[index],
+    });
   }
 
   render() {
@@ -87,6 +98,7 @@ class ProductDetails extends React.Component {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
     }
+    console.log('avail ', availableSizes);
 
     return (
       <div id="productDetails">
@@ -95,7 +107,7 @@ class ProductDetails extends React.Component {
         <div id="info">
           <StarRating />
           <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
-          <StyleSelector styleInfo={this.state.styleInfo} indexStyleSelected={this.state.indexStyleSelected} selectedStyle={this.state.selectedStyle}/>
+          <StyleSelector changeStyle={this.handleStyleSelection} styleInfo={this.state.styleInfo} indexStyleSelected={this.state.indexStyleSelected} selectedStyle={this.state.selectedStyle}/>
           <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
         </div>
         <OverviewDescription info={this.state.info}/>
