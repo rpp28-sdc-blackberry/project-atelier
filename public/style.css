@@ -76,3 +76,16 @@
   font-weight: bold;
   font-size:x-large;
 }
+#checkIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  align-items: center;
+}
+.img-container {
+  position: relative;
+}
+.img-container img {
+  display: block;
+}
