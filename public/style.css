@@ -92,7 +92,7 @@
   border: 1px solid gray;
   display: grid;
   grid-template-rows: 1fr 9fr 1fr 1fr 1fr 1fr;
-  height: 400px;
+  /* height: 400px; */
 }
 
 .relatedItemCard > img {
