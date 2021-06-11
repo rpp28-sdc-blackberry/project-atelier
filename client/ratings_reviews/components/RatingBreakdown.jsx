@@ -14,7 +14,8 @@ class RatingBreakdown extends React.Component {
       this.setState({
         ratings: reviewsMeta.ratings,
         averageRating: helpers.computeAverageRating(reviewsMeta.ratings),
-        breakdown: helpers.computeRatingBreakdown(reviewsMeta.ratings)
+        breakdown: helpers.computeRatingBreakdown(reviewsMeta.ratings),
+        recommend: helpers.computeRecommendedPercentage(reviewsMeta.recommended, reviewsMeta.ratings)
       });
     }).catch((error) => {
       console.log(error);
