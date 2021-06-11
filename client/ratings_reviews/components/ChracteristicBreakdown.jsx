@@ -2,7 +2,8 @@ import React from 'react';
 
 const CharacteristicBreakdown = (props) => (
   <div>
-    CharacteristicBreakdown
+    {props.characteristic.name}
+    {props.characteristic.value}
   </div>
 );
 

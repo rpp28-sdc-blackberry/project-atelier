@@ -77,7 +77,8 @@ const formatCharacteristics = (characteristics) => {
   var formattedCharacteristics = [];
   for (var characteristic in characteristics) {
     var newFormat = {};
-    newFormat[characteristic] = characteristics[characteristic].value;
+    newFormat.name = characteristic;
+    newFormat.value = characteristics[characteristic].value;
     formattedCharacteristics.push(newFormat);
   }
   return formattedCharacteristics;
@@ -88,5 +89,6 @@ module.exports = {
   fetchReviews: fetchReviews,
   computeAverageRating: computeAverageRating,
   computeRatingBreakdown: computeRatingBreakdown,
-  computeRecommendedPercentage: computeRecommendedPercentage
+  computeRecommendedPercentage: computeRecommendedPercentage,
+  formatCharacteristics: formatCharacteristics
 };

@@ -29,18 +29,24 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        ratingsreviews
-        <div class='review-breakdown'>
-          <RatingBreakdown product_id={this.props.product_id}/>
-          <ProductBreakdown meta={this.state.meta}/>
+    if (!$.isEmptyObject(this.state.meta)) {
+      return (
+        <div>
+          ratingsreviews
+          <div class='review-breakdown'>
+            <RatingBreakdown product_id={this.props.product_id}/>
+            <ProductBreakdown meta={this.state.meta}/>
+          </div>
+          <SortingPanel />
+          <ReviewsList product_id={this.props.product_id}/>
+          <ReviewForm />
         </div>
-        <SortingPanel />
-        <ReviewsList product_id={this.props.product_id}/>
-        <ReviewForm />
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>Loading...</div>
+      );
+    }
   }
 }
 
