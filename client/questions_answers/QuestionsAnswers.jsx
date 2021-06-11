@@ -3,6 +3,7 @@ import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
+import Modal from './components/Modal.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -156,6 +157,7 @@ class QuestionsAnswers extends React.Component {
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
+        <Modal />
       </div>
     );
   }
