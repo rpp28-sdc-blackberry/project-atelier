@@ -1,19 +1,30 @@
 import React from 'react';
 import StyleThumbnail from './StyleThumbnail.jsx';
+import StyleCheckThumbnail from './StyleCheckThumbnail.jsx';
 
-const StyleSelector = (props) => {
-  if (props.styleInfo !== undefined) {
-    var styleThumbnails = props.styleInfo.map((style, index) => <StyleThumbnail style={style} index={index} />);
+class StyleSelector extends React.Component {
+  constructor(props) {
+    super(props);
 
+  }
+
+  render() {
+    if (this.props.styleInfo !== undefined) {
+      return (
+        <div id="styleSelector">
+          <StyleCheckThumbnail style={this.props.selectedStyle}/>
+          {this.props.styleInfo.map((style, index) => {
+            if (index !== this.props.indexStyleSelected) {
+              return (<StyleThumbnail style={style} index={index}/>);
+            }
+          })}
+        </div>
+      );
+    }
     return (
-      <div id="styleSelector">
-        {styleThumbnails}
-      </div>
+      <div id="styleSelector"></div>
     );
   }
-  return (
-    <div id="styleSelector"></div>
-  );
-};
+}
 
 export default StyleSelector;

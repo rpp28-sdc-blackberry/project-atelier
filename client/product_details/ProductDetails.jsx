@@ -35,12 +35,15 @@ class ProductDetails extends React.Component {
         for (var i = 0; i < data.results.length; i++) {
           if (data.results[i]['default?']) {
             var selectedStyle = data.results[i];
+            var indexStyleSelected = i;
+            this.setState({
+              styleInfo: data.results,
+              selectedStyle: selectedStyle,
+              indexStyleSelected: indexStyleSelected,
+            });
+            break;
           }
         }
-        this.setState({
-          styleInfo: data.results,
-          selectedStyle: selectedStyle,
-        });
       })
       .catch((error) => {
         console.log(error);
@@ -51,6 +54,7 @@ class ProductDetails extends React.Component {
       selectedStyle: undefined,
       info: undefined,
       styleInfo: undefined,
+      indexStyleSelected: undefined,
     };
   }
   
@@ -91,7 +95,7 @@ class ProductDetails extends React.Component {
         <div id="info">
           <StarRating />
           <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
-          <StyleSelector styleInfo={this.state.styleInfo}/>
+          <StyleSelector styleInfo={this.state.styleInfo} indexStyleSelected={this.state.indexStyleSelected} selectedStyle={this.state.selectedStyle}/>
           <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
         </div>
         <OverviewDescription info={this.state.info}/>
