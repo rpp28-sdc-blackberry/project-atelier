@@ -142,7 +142,82 @@
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
 
+.qa-questions-list-container {
+  overflow: scroll;
+  max-height: 90vh;
+}
+
+.qa-answers-list-container {
+  overflow: scroll;
+  max-height: 50vh;
+}
+
+.qa-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qa-modal-content {
+  width: 500px;
+  background: #fff;
+}
+
+.qa-modal-header {
+  padding: 10px;
+}
+
+.qa-modal-title {
+  margin: 0;
+}
+
+.qa-modal-body {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
 /* --------------------- RATINGS AND REVIEWS --------------------- */
+
+.review-overall-container {
+  margin: 1%;
+  padding: 1%;
+}
+
+.review-overall-container > * {
+  margin: 1% 0;
+}
+
+.review-content-container {
+  display: flex;
+}
+
+.review-content-container > *{
+  margin: 1% 0;
+  padding: 1%;
+}
+
+.review-sub-container {
+  flex: 1;
+}
+
+.review-sub-container:first-child {
+  margin-right: 20px;
+}
+
+#review-left-container {
+  flex-basis: 10rem;
+}
+
+#review-right-container {
+  flex-basis: 30rem;
+}
 
 .review-average-rating-number {
   font-size: 150%;
@@ -150,6 +225,11 @@
 
 .review-breakdown-bar {
   display: flex;
+}
+
+.review-product-breakdown > * {
+  margin: 1%;
+  padding: 1%;
 }
 
 .reviews-list > * {

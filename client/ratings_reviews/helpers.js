@@ -73,10 +73,61 @@ const computeRecommendedPercentage = (recommended) => {
   return (recommendedNumber / total * 100).toFixed(0) + '%';
 };
 
+const formatCharacteristics = (characteristics) => {
+  var formattedCharacteristics = [];
+  for (var characteristic in characteristics) {
+    var newFormat = {};
+    newFormat.name = characteristic;
+    newFormat.value = characteristics[characteristic].value;
+    formattedCharacteristics.push(newFormat);
+  }
+  return formattedCharacteristics;
+};
+
+const sortReviews = (reviews, option) => {
+  var reviewsCopy = reviews.slice();
+  if (option === 'helpfulness') {
+    return reviewsCopy.sort((a, b) => {
+      return b.helpfulness - a.helpfulness;
+    });
+  } else if (option === 'date') {
+    return reviewsCopy.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+  } else if (option === 'relevance') {
+    reviewsCopy.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    var sortedReviews = [];
+    var tempStorage = [];
+    var currentDate = reviewsCopy[0].date;
+    for (var i = 0; i < reviewsCopy.length; i++) {
+      if (reviewsCopy[i].date === currentDate) {
+        tempStorage.push(reviewsCopy[i]);
+      } else {
+        sortedReviews.push(tempStorage);
+        tempStorage = [];
+        tempStorage.push(reviewsCopy[i]);
+        currentDate = reviewsCopy[i].date;
+      }
+    }
+    sortedReviews.push(tempStorage);
+    for (var i = 0; i < sortedReviews.length; i++) {
+      sortedReviews[i].sort((a, b) => {
+        return b.helpfulness - a.helpfulness;
+      });
+    }
+    return sortedReviews.flat();
+  }
+  return reviews;
+};
+
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
   computeAverageRating: computeAverageRating,
   computeRatingBreakdown: computeRatingBreakdown,
-  computeRecommendedPercentage: computeRecommendedPercentage
+  computeRecommendedPercentage: computeRecommendedPercentage,
+  formatCharacteristics: formatCharacteristics,
+  sortReviews: sortReviews
 };
