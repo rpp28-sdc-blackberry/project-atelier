@@ -10,7 +10,8 @@ class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meta: {}
+      meta: {},
+      reviews: []
     };
   }
 
@@ -19,9 +20,19 @@ class RatingsReviews extends React.Component {
       url: `reviews/meta?product_id=${this.props.product_id}`,
       method: 'GET'
     }).then((meta) => {
-      console.log(meta.characteristics);
       this.setState({
         meta: meta
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    $.ajax({
+      url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
+      method: 'GET'
+    }).then((reviews) => {
+      this.setState({
+        reviews: reviews.results
       });
     }).catch((error) => {
       console.log(error);
@@ -29,7 +40,7 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.meta)) {
+    if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
         <div class='review-overall-container'>
           RATINGS & REVIEWS
@@ -40,7 +51,7 @@ class RatingsReviews extends React.Component {
             </div>
             <div id='review-right-container' class='review-sub-container right'>
               <SortingOptions />
-              <ReviewsList product_id={this.props.product_id}/>
+              <ReviewsList reviews={this.state.reviews}/>
               <ReviewForm />
             </div>
           </div>

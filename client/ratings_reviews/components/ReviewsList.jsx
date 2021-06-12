@@ -6,26 +6,6 @@ class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
 
-    $.ajax({
-      url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
-      method: 'GET'
-    }).then((reviews) => {
-      if (reviews.results.length > 2) {
-        this.setState({
-          allReviews: reviews.results,
-          currentReviews: reviews.results.slice(0, 2),
-          otherReviews: reviews.results.slice(2),
-          showMoreReviewsButton: true,
-        });
-      } else {
-        this.setState({
-          currentReviews: reviews.results
-        });
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-
     this.state = {
       allReviews: [],
       currentReviews: [],
@@ -36,6 +16,22 @@ class ReviewsList extends React.Component {
 
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.showLessReviews = this.showLessReviews.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('reviews in reviewslist: ', this.props.reviews);
+    if (this.props.reviews.length > 2) {
+      this.setState({
+        allReviews: this.props.reviews,
+        currentReviews: this.props.reviews.slice(0, 2),
+        otherReviews: this.props.reviews.slice(2),
+        showMoreReviewsButton: true
+      });
+    } else {
+      this.setState({
+        currentReviews: this.props.reviews
+      });
+    }
   }
 
   showMoreReviews() {
