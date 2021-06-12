@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {cleanup, fireEvent, render, screen} from '@testing-library/react';
 import RelatedItems from '../RelatedItems.jsx';
 import ItemsList from '../ItemsList.jsx';
 import ItemCard from '../ItemCard.jsx';
@@ -13,6 +13,12 @@ import AddToOutfit from '../AddToOutfit.jsx';
 describe('RelatedItems component should exist', () => {
   it('should exist', () => {
     expect(<RelatedItems />).toBeTruthy;
+  });
+
+  it('should render', () => {
+    render(<RelatedItems />);
+    const header = screen.getByText(/Related Items/);
+    expect(header).toBeTruthy;
   });
 });
 
