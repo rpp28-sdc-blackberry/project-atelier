@@ -185,12 +185,51 @@
 
 /* --------------------- RATINGS AND REVIEWS --------------------- */
 
+.review-overall-container {
+  margin: 1%;
+  padding: 1%;
+}
+
+.review-overall-container > * {
+  margin: 1% 0;
+}
+
+.review-content-container {
+  display: flex;
+}
+
+.review-content-container > *{
+  margin: 1% 0;
+  padding: 1%;
+}
+
+.review-sub-container {
+  flex: 1;
+}
+
+.review-sub-container:first-child {
+  margin-right: 20px;
+}
+
+#review-left-container {
+  flex-basis: 10rem;
+}
+
+#review-right-container {
+  flex-basis: 30rem;
+}
+
 .review-average-rating-number {
   font-size: 150%;
 }
 
 .review-breakdown-bar {
   display: flex;
+}
+
+.review-product-breakdown > * {
+  margin: 1%;
+  padding: 1%;
 }
 
 .reviews-list > * {
