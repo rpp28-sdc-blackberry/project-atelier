@@ -11,8 +11,10 @@ class RatingsReviews extends React.Component {
     super(props);
     this.state = {
       meta: {},
-      reviews: []
+      reviews: [],
+      sortingOption: 'relevance'
     };
+    this.handleOptionChanges = this.handleOptionChanges.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,12 @@ class RatingsReviews extends React.Component {
     });
   }
 
+  handleOptionChanges(newOption) {
+    this.setState({
+      sortingOption: newOption
+    });
+  }
+
   render() {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
@@ -50,7 +58,7 @@ class RatingsReviews extends React.Component {
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
-              <SortingOptions />
+              <SortingOptions handleOptionChanges={this.handleOptionChanges}/>
               <ReviewsList reviews={this.state.reviews}/>
               <ReviewForm />
             </div>
