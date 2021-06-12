@@ -5,6 +5,7 @@ import ProductBreakdown from './components/ProductBreakdown.jsx';
 import SortingOptions from './components/SortingOptions.jsx';
 import ReviewsList from './components/ReviewsList.jsx';
 import ReviewForm from './components/ReviewForm.jsx';
+import helpers from './helpers.js';
 
 class RatingsReviews extends React.Component {
   constructor(props) {
@@ -33,8 +34,9 @@ class RatingsReviews extends React.Component {
       url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
       method: 'GET'
     }).then((reviews) => {
+      console.log('reviews: ', reviews);
       this.setState({
-        reviews: reviews.results
+        reviews: helpers.sortReviews(reviews.results, this.state.sortingOption)
       });
     }).catch((error) => {
       console.log(error);
@@ -42,8 +44,11 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
+    console.log('sortingOption: ', this.state.sortingOption);
+    console.log('reviews: ', this.state.reviews);
     this.setState({
-      sortingOption: newOption
+      sortingOption: newOption,
+      reviews: helpers.sortReviews(this.state.reviews, newOption)
     });
   }
 
@@ -59,7 +64,7 @@ class RatingsReviews extends React.Component {
             </div>
             <div id='review-right-container' class='review-sub-container right'>
               <SortingOptions handleOptionChanges={this.handleOptionChanges}/>
-              <ReviewsList reviews={this.state.reviews}/>
+              <ReviewsList reviews={this.state.reviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm />
             </div>
           </div>
