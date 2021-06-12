@@ -54,26 +54,6 @@ class ReviewsList extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   conosole.log('inside componentDidUpdate');
-  //   if (this.state.sortingOption !== prevState.sortingOption) {
-  //     if (this.props.reviews.length > 2) {
-  //       this.setState({
-  //         allReviews: this.props.reviews,
-  //         currentReviews: this.props.reviews.slice(0, 2),
-  //         otherReviews: this.props.reviews.slice(2),
-  //         showMoreReviewsButton: true,
-  //         sortingOption: this.props.sortingOption
-  //       });
-  //     } else {
-  //       this.setState({
-  //         currentReviews: this.props.reviews,
-  //         sortingOption: this.props.sortingOption
-  //       });
-  //     }
-  //   }
-  // }
-
   showMoreReviews() {
     if (this.state.otherReviews.length > 2) {
       this.setState({
