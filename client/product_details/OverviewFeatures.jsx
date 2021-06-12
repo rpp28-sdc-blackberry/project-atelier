@@ -1,7 +1,7 @@
 import React from 'react';
 
 const OverviewFeatures = (props) => {
-  if (props.info !== undefined && props.info.features !== undefined) {
+  if (props.info && props.info.features) {
     return (
       <div id="overviewFeatures">
         {props.info.features.map((feature) => {

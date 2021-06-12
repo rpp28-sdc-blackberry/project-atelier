@@ -2,7 +2,7 @@ import React from 'react';
 
 const DefaultView = (props) => {
 
-  if (props.selectedStyle !== undefined) {
+  if (props.selectedStyle) {
     var photoGallery = props.selectedStyle.photos;
     return (
       <div id="defaultView">

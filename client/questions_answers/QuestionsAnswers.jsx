@@ -155,16 +155,20 @@ class QuestionsAnswers extends React.Component {
   }
 
   render() {
-
+    if (this.props.info) {
+      return (
+        <div className="qa-component">
+          <div> {`QUESTIONS & ANSWERS`} </div>
+          {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
+          <QuestionsList questions={this.state.questions} name={this.props.info.name}/>
+          {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+          <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+          {this.state.showQuestionModal && <QuestionForm name={this.props.info.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
+        </div>
+      );
+    }
     return (
-      <div className="qa-component">
-        <div> {`QUESTIONS & ANSWERS`} </div>
-        {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList questions={this.state.questions} name={this.props.name}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
-      </div>
+      <div className="qa.component"></div>
     );
   }
 
