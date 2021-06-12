@@ -92,6 +92,16 @@
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
 
+.qa-questions-list-container {
+  overflow: scroll;
+  max-height: 90vh;
+}
+
+.qa-answers-list-container {
+  overflow: scroll;
+  max-height: 50vh;
+}
+
 .qa-modal {
   position: fixed;
   left: 0;

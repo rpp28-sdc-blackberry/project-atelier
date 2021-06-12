@@ -157,7 +157,7 @@ class QuestionsAnswers extends React.Component {
   render() {
 
     return (
-      <div className="questions-answers component">
+      <div className="qa-component">
         <div> {`QUESTIONS & ANSWERS`} </div>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.questions} name={this.props.name}/>
