@@ -3,6 +3,7 @@ import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
+import Modal from './components/Modal.jsx';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class QuestionsAnswers extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
     this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+    this.closeQuestionModal = this.closeQuestionModal.bind(this);
 
   }
 
@@ -58,6 +60,12 @@ class QuestionsAnswers extends React.Component {
         });
 
       });
+  }
+
+  closeQuestionModal() {
+    this.setState({
+      showQuestionModal: false
+    });
   }
 
   handleMoreQuestionsClick() {
@@ -147,16 +155,20 @@ class QuestionsAnswers extends React.Component {
   }
 
   render() {
-
+    if (this.props.info) {
+      return (
+        <div className="qa-component">
+          <div> {`QUESTIONS & ANSWERS`} </div>
+          {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
+          <QuestionsList questions={this.state.questions} name={this.props.info.name}/>
+          {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+          <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+          {this.state.showQuestionModal && <QuestionForm name={this.props.info.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
+        </div>
+      );
+    }
     return (
-      <div className="questions-answers component">
-        <div> {`QUESTIONS & ANSWERS`} </div>
-        {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList questions={this.state.questions} name={this.props.name}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
-      </div>
+      <div className="qa.component"></div>
     );
   }
 

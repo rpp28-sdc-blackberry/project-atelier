@@ -6,36 +6,51 @@ class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
 
-    $.ajax({
-      url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
-      method: 'GET'
-    }).then((reviews) => {
-      if (reviews.results.length > 2) {
-        this.setState({
-          allReviews: reviews.results,
-          currentReviews: reviews.results.slice(0, 2),
-          otherReviews: reviews.results.slice(2),
-          showMoreReviewsButton: true,
-        });
-      } else {
-        this.setState({
-          currentReviews: reviews.results
-        });
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-
     this.state = {
       allReviews: [],
       currentReviews: [],
       otherReviews: [],
       showMoreReviewsButton: false,
-      showLessReviewsButton: false
+      showLessReviewsButton: false,
+      sortingOption: 'relevance'
     };
 
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.showLessReviews = this.showLessReviews.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.reviews.length > 2) {
+      this.setState({
+        allReviews: this.props.reviews,
+        currentReviews: this.props.reviews.slice(0, 2),
+        otherReviews: this.props.reviews.slice(2),
+        showMoreReviewsButton: true,
+        sortingOption: this.props.sortingOption
+      });
+    } else {
+      this.setState({
+        currentReviews: this.props.reviews,
+        sortingOption: this.props.sortingOption
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.reviews.length > 2) {
+      this.setState({
+        allReviews: nextProps.reviews,
+        currentReviews: nextProps.reviews.slice(0, 2),
+        otherReviews: nextProps.reviews.slice(2),
+        showMoreReviewsButton: true,
+        sortingOption: nextProps.sortingOption
+      });
+    } else {
+      this.setState({
+        currentReviews: nextProps.reviews,
+        sortingOption: nextProps.sortingOption
+      });
+    }
   }
 
   showMoreReviews() {
@@ -65,7 +80,7 @@ class ReviewsList extends React.Component {
   render() {
     if (this.state.allReviews.length !== 0) {
       return (
-        <div class='reviews-list'>
+        <div key={this.props.reviews[0].review_id} class='reviews-list'>
           <div>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
           <button class='review-show-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
           <button class='review-show-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
