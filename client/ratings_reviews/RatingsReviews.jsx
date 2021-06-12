@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import RatingBreakdown from './components/RatingBreakdown.jsx';
 import ProductBreakdown from './components/ProductBreakdown.jsx';
-import SortingPanel from './components/SortingPanel.jsx';
+import SortingOptions from './components/SortingOptions.jsx';
 import ReviewsList from './components/ReviewsList.jsx';
 import ReviewForm from './components/ReviewForm.jsx';
 
@@ -39,7 +39,7 @@ class RatingsReviews extends React.Component {
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
-              <SortingPanel />
+              <SortingOptions />
               <ReviewsList product_id={this.props.product_id}/>
               <ReviewForm />
             </div>
