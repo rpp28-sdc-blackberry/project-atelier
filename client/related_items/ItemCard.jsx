@@ -10,7 +10,8 @@ class ItemCard extends React.Component {
       category: '',
       name: '',
       price: '',
-      rating: ''
+      rating: '',
+      features: []
     };
   }
 
@@ -19,7 +20,8 @@ class ItemCard extends React.Component {
       .then(productInfo => this.setState({
         category: productInfo.category,
         name: productInfo.name,
-        rating: '4.5'
+        rating: '4.5',
+        features: productInfo.features
       }));
 
     helpers.getProductStyles(this.props.id)
@@ -44,8 +46,11 @@ class ItemCard extends React.Component {
   }
 
   render() {
+    let features = this.state.features;
+    let name = this.state.name;
+
     return (
-      <div className='relatedItemCard' onClick={this.props.toggleModal}>
+      <div className='relatedItemCard' onClick={() => this.props.toggleModal(features, name)}>
         <div id="action">Action</div>
         <img id="thumbnail" src={this.state.thumbnailUrl}></img>
         <p id="category">{this.state.category}</p>

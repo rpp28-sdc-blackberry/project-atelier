@@ -89,6 +89,7 @@
 }
 
 .relatedItemCard {
+  cursor: pointer;
   border: 1px solid gray;
   display: grid;
   grid-template-rows: 1fr 9fr 1fr 1fr 1fr 1fr;

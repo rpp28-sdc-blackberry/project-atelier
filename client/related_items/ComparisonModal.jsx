@@ -11,7 +11,12 @@ class ComparisonModal extends React.Component {
     }
 
     return (
-      <div id='comparisonModal' onClick={this.props.toggleModal}>Comparison Modal!</div>
+      <div id='comparisonModal' onClick={this.props.toggleModal}>
+        <h4>{this.props.name}</h4>
+        {this.props.features.map(feature =>
+          <p>{feature.feature}: {feature.value}</p>
+        )}
+      </div>
     );
   }
 }

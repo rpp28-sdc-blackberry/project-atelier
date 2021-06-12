@@ -8,13 +8,22 @@ class ItemsList extends React.Component {
     super(props);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      itemToCompare: '',
+      featuresToCompare: []
     };
 
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  toggleModal() {
+  toggleModal(features, name) {
+    if (!this.state.showModal) {
+      this.setState({
+        itemToCompare: name,
+        featuresToCompare: features
+      });
+    }
+
     this.setState({
       showModal: !this.state.showModal
     });
@@ -24,7 +33,7 @@ class ItemsList extends React.Component {
     return (
       this.props.listType === 'relatedItems'
         ? <div className='relatedItemsStrip'>
-          <ComparisonModal showModal={this.state.showModal} toggleModal={this.toggleModal}/>
+          <ComparisonModal showModal={this.state.showModal} toggleModal={this.toggleModal} features={this.state.featuresToCompare} name={this.state.itemToCompare} />
           {this.props.items.map(itemId => <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
         </div>
         : <div className='relatedItemsStrip'>
