@@ -34,7 +34,6 @@ class RatingsReviews extends React.Component {
       url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
       method: 'GET'
     }).then((reviews) => {
-      console.log('reviews: ', reviews);
       this.setState({
         reviews: helpers.sortReviews(reviews.results, this.state.sortingOption)
       });
@@ -44,8 +43,6 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
-    console.log('sortingOption: ', this.state.sortingOption);
-    console.log('reviews: ', this.state.reviews);
     this.setState({
       sortingOption: newOption,
       reviews: helpers.sortReviews(this.state.reviews, newOption)

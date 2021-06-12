@@ -23,7 +23,7 @@ class SortingOptions extends React.Component {
         <select value={this.state.value} onChange={this.handleChange} name="options" id="sorting-options">
           <option selected='selected' value="relevance">Relevant</option>
           <option value="helpfulness">Helpful</option>
-          <option value="date">Newnest</option>
+          <option value="date">Newest</option>
         </select>
       </div>
     );

@@ -20,7 +20,6 @@ class ReviewsList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('reviews in reviewslist: ', this.props.reviews);
     if (this.props.reviews.length > 2) {
       this.setState({
         allReviews: this.props.reviews,
