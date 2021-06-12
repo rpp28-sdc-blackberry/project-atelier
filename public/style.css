@@ -87,6 +87,46 @@
   font-weight: bold;
   font-size:x-large;
 }
+
+/* #relatedItemsWrapper {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+} */
+
+.relatedItemsStrip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+}
+
+.relatedItemCard {
+  cursor: pointer;
+  border: 1px solid gray;
+  display: grid;
+  grid-template-rows: 1fr 9fr 1fr 1fr 1fr 1fr;
+  /* height: 400px; */
+}
+
+.relatedItemCard > img {
+  width: 100%;
+  height: auto;
+}
+
+#comparisonModal {
+  /* display: block; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* float: left; */
+  width: 500px;
+  height: 500px;
+  overflow: auto;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid gray;
+  background: white;
+}
+
 #checkIcon {
   position: absolute;
   left: 50px;

@@ -10,7 +10,8 @@ class ItemCard extends React.Component {
       category: '',
       name: '',
       price: '',
-      rating: ''
+      rating: '',
+      features: []
     };
   }
 
@@ -19,32 +20,37 @@ class ItemCard extends React.Component {
       .then(productInfo => this.setState({
         category: productInfo.category,
         name: productInfo.name,
-        rating: '4.5'
-      }))
-      .then(() => helpers.getProductStyles(this.props.id)
-        .then(productStyles => helpers.findDefaultStyle(productStyles.results)
-          .then(defaultStyle => {
-            let price, thumbnailUrl;
+        rating: '4.5',
+        features: productInfo.features
+      }));
 
-            if (defaultStyle.sale_price === null) { price = defaultStyle.original_price; }
-            else { price = defaultStyle.sale_price; }
+    helpers.getProductStyles(this.props.id)
+      .then(productStyles => helpers.findDefaultStyle(productStyles.results)
+        .then(defaultStyle => {
+          let price, thumbnailUrl;
 
-            if (defaultStyle.photos[0].thumbnail_url === null) {
-              thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
-            } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
+          if (defaultStyle.sale_price === null) {
+            price = defaultStyle.original_price;
+          } else { price = defaultStyle.sale_price; }
 
-            this.setState({
-              thumbnailUrl: thumbnailUrl,
-              price: price
-            });
-          })
-        )
+          if (defaultStyle.photos[0].thumbnail_url === null) {
+            thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
+          } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
+
+          this.setState({
+            thumbnailUrl: thumbnailUrl,
+            price: price
+          });
+        })
       );
   }
 
   render() {
+    let features = this.state.features;
+    let name = this.state.name;
+
     return (
-      <div>
+      <div className='relatedItemCard' onClick={() => this.props.toggleModal(features, name)}>
         <div id="action">Action</div>
         <img id="thumbnail" src={this.state.thumbnailUrl}></img>
         <p id="category">{this.state.category}</p>
