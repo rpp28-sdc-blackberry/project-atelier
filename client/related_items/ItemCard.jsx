@@ -26,23 +26,23 @@ class ItemCard extends React.Component {
 
     helpers.getProductStyles(this.props.id)
       .then(productStyles => {
-        let defaultStyle = helpers.findDefaultStyle(productStyles.results);
-        let price, thumbnailUrl;
+        helpers.findDefaultStyle(productStyles.results)
+          .then(defaultStyle => {
+            let price, thumbnailUrl;
 
-        console.log('default style in jsx:', defaultStyle);
+            if (defaultStyle.sale_price === null) {
+              price = defaultStyle.original_price;
+            } else { price = defaultStyle.sale_price; }
 
-        if (defaultStyle.sale_price === null) {
-          price = defaultStyle.original_price;
-        } else { price = defaultStyle.sale_price; }
+            if (defaultStyle.photos[0].thumbnail_url === null) {
+              thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
+            } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
 
-        if (defaultStyle.photos[0].thumbnail_url === null) {
-          thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
-        } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
-
-        this.setState({
-          thumbnailUrl: thumbnailUrl,
-          price: price
-        });
+            this.setState({
+              thumbnailUrl: thumbnailUrl,
+              price: price
+            });
+          });
       });
   }
 

@@ -25,20 +25,18 @@ const getProductStyles = (productId) => {
 const findDefaultStyle = (styles) => {
   let foundDefault = false;
 
-  // return new Promise (resolve => {
-  styles.forEach(style => {
-    if (style['default?'] === true) {
-      foundDefault = true;
-      console.log('found default:', style);
-      return style;
+  return new Promise (resolve => {
+    styles.forEach(style => {
+      if (style['default?'] === true) {
+        foundDefault = true;
+        resolve(style);
+      }
+    });
+
+    if (!foundDefault) {
+      resolve(styles[0]);
     }
   });
-
-  if (!foundDefault) {
-    console.log('no default found, returning:', styles[0]);
-    return styles[0];
-  }
-  // });
 };
 
 module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle };
