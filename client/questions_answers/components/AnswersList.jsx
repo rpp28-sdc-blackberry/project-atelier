@@ -58,7 +58,7 @@ class AnswersList extends React.Component {
 
     return (
       this.state.showAnswersList &&
-      <div className="answers-list container">
+      <div className="qa-answers-list-container">
         <b>A:</b>
         {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} />)}
         {this.state.showLoadMoreAnswersButton && <button onClick={this.loadRemainingAnswers}> See more answers </button>}
