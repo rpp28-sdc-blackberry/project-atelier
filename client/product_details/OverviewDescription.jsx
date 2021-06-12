@@ -1,7 +1,7 @@
 import React from 'react';
 
 const OverviewDescription = (props) => {
-  if (props.info !== undefined && props.info.slogan !== undefined) {
+  if (props.info && props.info.slogan) {
     return (
       <div id="overviewDescription">
         <h2>{props.info.slogan}</h2>

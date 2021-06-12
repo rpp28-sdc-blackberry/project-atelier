@@ -3,7 +3,7 @@ import Thumbnail from './Thumbnail.jsx';
 
 const ThumbnailList = (props) => {
 
-  if (props.selectedStyle !== undefined) {
+  if (props.selectedStyle) {
 
     return (
       <div id="thumbnailList">
