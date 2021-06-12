@@ -12,7 +12,7 @@ module.exports = {
       'body': 'I really did or did not like this product based on whether it was sustainably sourced. Then I found out that its made from nothing at all.',
       'date': '2019-01-01T00:00:00.000Z',
       'reviewer_name': 'funtime',
-      'helpfulness': 8,
+      'helpfulness': 0,
       'photos': []
     },
     {
@@ -36,7 +36,7 @@ module.exports = {
       'body': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id tempus metus, at consectetur elit. Maecenas efficitur, tellus nec ultricies tincidunt, odio arcu sagittis tortor, quis eleifend lacus odio eu purus. Nulla et purus eget ligula luctus facilisis et sit amet ante. Maecenas eleifend sagittis laoreet. Vivamus et venenatis urna. Ut elementum pellentesque diam in porta. Donec tempor semper nisi sed molestie.',
       'date': '2021-03-30T00:00:00.000Z',
       'reviewer_name': 'Arf Barley',
-      'helpfulness': 0,
+      'helpfulness': 9,
       'photos': [
         {
           'id': 536090,
