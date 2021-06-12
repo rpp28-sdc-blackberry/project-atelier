@@ -15,7 +15,6 @@
   height: 50px;
 }
 .stylePhoto {
-  border: 1px solid #ddd;
   padding: 5px;
   width: 50px;
   height: 50px;
@@ -31,10 +30,21 @@
   grid-row: 1;
 }
 #thumbnailList {
-  text-align: left;
+  text-align: center;
   grid-column: 1 / 2;
   grid-row: 1;
   position: relative;
+  width: 100px;
+  height: fit-content;
+}
+.selectedThumbnail {
+  border-bottom: 4px solid black;
+}
+#upScroll-container
+#downScroll-container {
+  width: 50px;
+  align-content: center;
+  text-align: center;
 }
 #info {
   grid-column: 2 / 2;
@@ -77,6 +87,46 @@
   font-weight: bold;
   font-size:x-large;
 }
+
+/* #relatedItemsWrapper {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+} */
+
+.relatedItemsStrip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+}
+
+.relatedItemCard {
+  cursor: pointer;
+  border: 1px solid gray;
+  display: grid;
+  grid-template-rows: 1fr 9fr 1fr 1fr 1fr 1fr;
+  /* height: 400px; */
+}
+
+.relatedItemCard > img {
+  width: 100%;
+  height: auto;
+}
+
+#comparisonModal {
+  /* display: block; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* float: left; */
+  width: 500px;
+  height: 500px;
+  overflow: auto;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid gray;
+  background: white;
+}
+
 #checkIcon {
   position: absolute;
   left: 50px;
@@ -245,3 +295,4 @@
   background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}

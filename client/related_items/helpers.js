@@ -28,14 +28,12 @@ const findDefaultStyle = (styles) => {
   return new Promise (resolve => {
     styles.forEach(style => {
       if (style['default?'] === true) {
-        console.log('found default:', style);
         foundDefault = true;
         resolve(style);
       }
     });
 
     if (!foundDefault) {
-      console.log('could not find default, picking:', styles[0]);
       resolve(styles[0]);
     }
   });
