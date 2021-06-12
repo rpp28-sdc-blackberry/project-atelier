@@ -26,6 +26,7 @@ class QuestionsAnswers extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
     this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+    this.closeQuestionModal = this.closeQuestionModal.bind(this);
 
   }
 
@@ -59,6 +60,12 @@ class QuestionsAnswers extends React.Component {
         });
 
       });
+  }
+
+  closeQuestionModal() {
+    this.setState({
+      showQuestionModal: false
+    });
   }
 
   handleMoreQuestionsClick() {
@@ -156,8 +163,7 @@ class QuestionsAnswers extends React.Component {
         <QuestionsList questions={this.state.questions} name={this.props.name}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
-        {/* <Modal /> */}
+        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
       </div>
     );
   }

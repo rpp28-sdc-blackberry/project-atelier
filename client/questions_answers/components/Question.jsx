@@ -11,6 +11,13 @@ class Question extends React.Component {
     };
     this.handleAddAnswerClick = this.handleAddAnswerClick.bind(this);
     this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this);
+    this.closeAnswerModal = this.closeAnswerModal.bind(this);
+  }
+
+  closeAnswerModal() {
+    this.setState({
+      showAnswerModal: false
+    });
   }
 
   handleAddAnswerClick() {
@@ -47,6 +54,7 @@ class Question extends React.Component {
         <b> {`Q: ${this.props.question}`} </b>
         <button onClick={this.handleAddAnswerClick}> Add Answer </button>
         {this.state.showAnswerModal && <AnswerForm
+          closeAnswerModal={this.closeAnswerModal}
           question={this.props.question}
           name={this.props.name}
           handleAnswerSubmit={this.handleAnswerSubmit}
