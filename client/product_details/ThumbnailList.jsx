@@ -1,28 +1,33 @@
 import React from 'react';
+import Thumbnail from './Thumbnail.jsx';
 
 const ThumbnailList = (props) => {
 
-  console.log('thumbnail: ', props.selectedStyle);
   if (props.selectedStyle !== undefined) {
-    var thumbnails = props.selectedStyle.photos.map((photo, index) => {
-      return (
-        <a target="_blank" href={photo.thumbnail_url}>
-          <img src={photo.thumbnail_url} alt={props.selectedStyle.name} className="stylePhoto" id={index}></img>
-          <br></br>
-        </a>
-      );
-    });
 
     return (
       <div id="thumbnailList">
-        {thumbnails}
+        <a onClick={props.handleUpClick} id="upScroll-container">
+          <i id="upScroll" class="fa fa-angle-up"></i>
+        </a>
+        <br></br>
+        {props.selectedStyle.photos.map((photo, index) =>
+          <Thumbnail 
+            name={props.selectedStyle.name} 
+            photo={photo} 
+            index={index} 
+            indexSelected={props.currPhotoIndex}
+            handlePhotoSelection={props.handlePhotoSelection}/>)}
+        <a onClick={props.handleDownClick} id="downScroll-container">
+          <i id="downScroll" class="fa fa-angle-down"></i>
+        </a>
       </div>
     );
-  } else {
-    return (
-      <div id="thumbnailList"></div>
-    );
-  }
+  } 
+  return (
+    <div id="thumbnailList"></div>
+  );
+  
 };
 
 export default ThumbnailList;

@@ -1,7 +1,6 @@
 import React from 'react';
 
 var StyleThumbnail = (props) => {
-  console.log('i: ', props.i);
   if ((props.i + 1) % 4 === 0) {
     return (
       <a onClick={props.changeStyle} id={props.index} target="_blank">

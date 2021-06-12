@@ -54,9 +54,13 @@ class ProductDetails extends React.Component {
       selectedStyle: undefined,
       info: undefined,
       styleInfo: undefined,
+      currPhotoIndex: 0,
       indexStyleSelected: undefined,
     };
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
+    this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
+    this.handleUpClick = this.handleUpClick.bind(this);
+    this.handleDownClick = this.handleDownClick.bind(this);
   }
   
   toggleView() {
@@ -69,11 +73,36 @@ class ProductDetails extends React.Component {
 
   handleStyleSelection(e) {
     e.preventDefault();
-    console.log(e.target.id);
     var index = Number(e.target.id);
     this.setState({
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
+    });
+  }
+
+  handlePhotoSelection(e) {
+    e.preventDefault();
+    var index = Number(e.target.id);
+    this.setState({
+      currPhotoIndex: index
+    });
+  }
+
+  handleUpClick(e) {
+    e.preventDefault();
+    var totalPhotos = this.state.selectedStyle.photos.length;
+    var newIndex = this.state.currPhotoIndex === 0 ? totalPhotos - 1 : this.state.currPhotoIndex - 1;
+    this.setState({
+      currPhotoIndex: newIndex
+    });
+  }
+
+  handleDownClick(e) {
+    e.preventDefault();
+    var totalPhotos = this.state.selectedStyle.photos.length;
+    var newIndex = this.state.currPhotoIndex === totalPhotos - 1 ? 0 : this.state.currPhotoIndex + 1;
+    this.setState({
+      currPhotoIndex: newIndex
     });
   }
 
@@ -82,7 +111,9 @@ class ProductDetails extends React.Component {
     var view = () => {
       if (this.state.view === 'default') {
         return (
-          <DefaultView selectedStyle={this.state.selectedStyle} selectedStyle={this.state.selectedStyle}/>
+          <DefaultView 
+            selectedStyle={this.state.selectedStyle} 
+            currPhotoIndex={this.state.currPhotoIndex}/>
         );
       } else {
         return (
@@ -98,17 +129,29 @@ class ProductDetails extends React.Component {
         availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
       }
     }
-    console.log('avail ', availableSizes);
 
     return (
       <div id="productDetails">
-        <ThumbnailList selectedStyle={this.state.selectedStyle}/>
+        <ThumbnailList 
+          selectedStyle={this.state.selectedStyle} 
+          currPhotoIndex={this.state.currPhotoIndex}
+          handlePhotoSelection={this.handlePhotoSelection}
+          handleUpClick={this.handleUpClick}
+          handleDownClick={this.handleDownClick}/>
         {view()}
         <div id="info">
           <StarRating />
-          <ProductInfo info={this.state.info} selectedStyle={this.state.selectedStyle}/>
-          <StyleSelector changeStyle={this.handleStyleSelection} styleInfo={this.state.styleInfo} indexStyleSelected={this.state.indexStyleSelected} selectedStyle={this.state.selectedStyle}/>
-          <AddToBag selectedStyle={this.state.selectedStyle} availableSizes={availableSizes}/>
+          <ProductInfo 
+            info={this.state.info} 
+            selectedStyle={this.state.selectedStyle}/>
+          <StyleSelector 
+            changeStyle={this.handleStyleSelection} 
+            styleInfo={this.state.styleInfo} 
+            indexStyleSelected={this.state.indexStyleSelected} 
+            selectedStyle={this.state.selectedStyle}/>
+          <AddToBag 
+            selectedStyle={this.state.selectedStyle} 
+            availableSizes={availableSizes}/>
         </div>
         <OverviewDescription info={this.state.info}/>
         <OverviewFeatures info={this.state.info}/>
