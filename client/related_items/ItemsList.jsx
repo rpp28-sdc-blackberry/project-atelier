@@ -10,10 +10,47 @@ class ItemsList extends React.Component {
     this.state = {
       showModal: false,
       itemToCompare: '',
-      featuresToCompare: []
+      featuresToCompare: [],
+      mainProduct: {
+        thumbnailUrl: '',
+        category: '',
+        name: '',
+        price: '',
+        rating: ''
+      }
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.defaultStyle && this.props.info) {
+
+      let price, thumbnailUrl, defaultStyle, info, mainProduct;
+
+      defaultStyle = this.props.defaultStyle;
+      info = this.props.info;
+
+      if (defaultStyle.sale_price === null) {
+        price = defaultStyle.original_price;
+      } else { price = defaultStyle.sale_price; }
+
+      if (defaultStyle.photos[0].thumbnail_url === null) {
+        thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
+      } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
+
+      mainProduct = {
+        thumbnailUrl: thumbnailUrl,
+        category: info.category,
+        name: info.name,
+        price: price,
+        rating: '4.5'
+      };
+
+      this.setState({
+        mainProduct: mainProduct
+      });
+    }
   }
 
   toggleModal(features, name) {
