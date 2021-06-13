@@ -13,7 +13,10 @@ class RelatedItems extends React.Component {
 
   componentDidMount() {
     helpers.getRelatedItems(this.props.product_id)
-      .then(relatedItems => this.setState({ relatedItemsIds: relatedItems }));
+      .then(relatedItems => {
+        let uniqueItems = [...new Set(relatedItems)];
+        this.setState({ relatedItemsIds: uniqueItems });
+      });
   }
 
   render() {
