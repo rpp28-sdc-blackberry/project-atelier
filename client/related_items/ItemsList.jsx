@@ -21,6 +21,7 @@ class ItemsList extends React.Component {
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.addToOutfit = this.addToOutfit.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +67,21 @@ class ItemsList extends React.Component {
     });
   }
 
+  addToOutfit() {
+    let storage = window.localStorage;
+    let mainProduct = this.state.mainProduct;
+
+    if (storage.length === 0) {
+      storage.setItem('outfits', JSON.stringify([mainProduct]));
+      console.log('saved:', [mainProduct]);
+    } else {
+      let outfits = JSON.parse(storage.getItem('outfits'));
+      outfits.push(mainProduct);
+      storage.setItem('outfits', JSON.stringify(outfits));
+      console.log('saved:', outfits);
+    }
+  }
+
   render() {
     return (
       this.props.listType === 'relatedItems'
@@ -74,7 +90,7 @@ class ItemsList extends React.Component {
           {this.props.items.map(itemId => <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
         </div>
         : <div className='relatedItemsStrip'>
-          <AddToOutfit />
+          <AddToOutfit addToOutfit={this.addToOutfit} />
         </div>
     );
   }
