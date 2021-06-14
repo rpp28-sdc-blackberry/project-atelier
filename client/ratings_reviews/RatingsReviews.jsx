@@ -53,7 +53,7 @@ class RatingsReviews extends React.Component {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
         <div class='review-overall-container'>
-          RATINGS & REVIEWS
+          <label>RATINGS & REVIEWS</label>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
               <RatingBreakdown product_id={this.props.product_id}/>
