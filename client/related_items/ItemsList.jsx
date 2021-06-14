@@ -1,6 +1,7 @@
 import React from 'react';
 import AddToOutfit from './AddToOutfit.jsx';
 import ItemCard from './ItemCard.jsx';
+import OutfitCard from './OutfitCard.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 
 class ItemsList extends React.Component {
@@ -11,12 +12,14 @@ class ItemsList extends React.Component {
       showModal: false,
       itemToCompare: '',
       featuresToCompare: [],
+      outfits: [],
       mainProduct: {
         thumbnailUrl: '',
         category: '',
         name: '',
         price: '',
-        rating: ''
+        rating: '',
+        id: ''
       }
     };
 
@@ -45,12 +48,18 @@ class ItemsList extends React.Component {
         category: info.category,
         name: info.name,
         price: price,
-        rating: '4.5'
+        rating: '4.5',
+        id: info.id
       };
 
       this.setState({
         mainProduct: mainProduct
       });
+    }
+
+    let outfits = JSON.parse(window.localStorage.getItem('outfits'));
+    if (outfits !== null) {
+      this.setState({ outfits: outfits });
     }
   }
 
@@ -70,16 +79,27 @@ class ItemsList extends React.Component {
   addToOutfit() {
     let storage = window.localStorage;
     let mainProduct = this.state.mainProduct;
+    let outfits = [];
+    let foundDuplicate = false;
 
     if (storage.length === 0) {
-      storage.setItem('outfits', JSON.stringify([mainProduct]));
-      console.log('saved:', [mainProduct]);
-    } else {
-      let outfits = JSON.parse(storage.getItem('outfits'));
       outfits.push(mainProduct);
       storage.setItem('outfits', JSON.stringify(outfits));
-      console.log('saved:', outfits);
+    } else {
+      outfits = JSON.parse(storage.getItem('outfits'));
+      outfits.forEach(outfit => {
+        if (outfit.id === mainProduct.id) {
+          foundDuplicate = true;
+        }
+      });
+
+      if (!foundDuplicate) {
+        outfits.push(mainProduct);
+        storage.setItem('outfits', JSON.stringify(outfits));
+      }
     }
+
+    if (!foundDuplicate) { this.setState({ outfits: outfits }); }
   }
 
   render() {
@@ -89,8 +109,10 @@ class ItemsList extends React.Component {
           <ComparisonModal showModal={this.state.showModal} toggleModal={this.toggleModal} features={this.state.featuresToCompare} name={this.state.itemToCompare} />
           {this.props.items.map(itemId => <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
         </div>
+
         : <div className='relatedItemsStrip'>
           <AddToOutfit addToOutfit={this.addToOutfit} />
+          {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard key={outfit.id} productInfo={outfit} />)}
         </div>
     );
   }
