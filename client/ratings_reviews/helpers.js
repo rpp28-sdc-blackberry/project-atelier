@@ -123,6 +123,7 @@ const sortReviews = (reviews, option) => {
 };
 
 const applyStarFilters = (reviews, starFilters) => {
+  if (starFilters.length === 0) { return reviews; }
   var output = [];
   for (var i = 0; i < reviews.length; i++) {
     if (starFilters.indexOf(reviews[i].rating) !== -1) {
@@ -206,5 +207,6 @@ module.exports = {
   computeRatingBreakdown: computeRatingBreakdown,
   computeRecommendedPercentage: computeRecommendedPercentage,
   formatCharacteristics: formatCharacteristics,
-  sortReviews: sortReviews
+  sortReviews: sortReviews,
+  applyStarFilters: applyStarFilters
 };

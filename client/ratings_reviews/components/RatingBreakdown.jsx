@@ -26,6 +26,7 @@ class RatingBreakdown extends React.Component {
 
   handleRatingBreakdownClick(star) {
     console.log('star clicked: ', star);
+    this.props.handleStarFilters(star);
   }
 
   render() {
