@@ -21,7 +21,7 @@ class App extends React.Component {
     fetch(`http://localhost:8080/products/${this.state.product_id}`)
       .then((response) => {
         return response.json();
-      }) 
+      })
       .then((data) => {
         this.setState({
           info: data,
@@ -55,7 +55,7 @@ class App extends React.Component {
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
   }
-  
+
   handleStyleSelection(e) {
     e.preventDefault();
     var index = Number(e.target.id);
@@ -69,23 +69,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <ProductDetails 
-          product_id={this.state.product_id} 
+        {/* <ProductDetails
+          product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
           handleStyleSelection={this.handleStyleSelection}/>
-        <RelatedItems 
-          product_id={this.state.product_id} 
+        <RelatedItems
+          product_id={this.state.product_id}
           info={this.state.info}
-          selectedStyle={this.state.selectedStyle}/>
-        <QuestionsAnswers 
-          product_id={this.state.product_id} 
+          selectedStyle={this.state.selectedStyle}/> */}
+        <QuestionsAnswers
+          product_id={this.state.product_id}
           info={this.state.info}/>
-        <RatingsReviews 
-          product_id={this.state.product_id} 
-          info={this.state.info}/>
+        {/* <RatingsReviews
+          product_id={this.state.product_id}
+          info={this.state.info}/> */}
       </div>
     );
   }

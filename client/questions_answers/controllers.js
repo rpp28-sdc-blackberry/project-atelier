@@ -42,4 +42,20 @@ const submitAnswer = (answer, nickname, email, question_id) => {
 
 };
 
-export { fetchQuestions, submitQuestion, submitAnswer };
+const markQuestionHelpful = (question_id) => {
+
+  return $.ajax({
+    url: `http://localhost:8080/qa/questions/${question_id}/helpful`,
+    method: 'PUT'
+  });
+
+};
+
+const reportQuestion = (question_id) => {
+  return $.ajax({
+    url: `http://localhost:8080/qa/questions/${question_id}/report`,
+    method: 'PUT'
+  });
+};
+
+export { fetchQuestions, submitQuestion, submitAnswer, markQuestionHelpful, reportQuestion };

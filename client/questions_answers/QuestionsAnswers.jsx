@@ -35,6 +35,10 @@ class QuestionsAnswers extends React.Component {
   }
 
   initialize() {
+    // initialize localStorage
+    if (!localStorage.getItem('helpfulQuestions')) {
+      localStorage.setItem('helpfulQuestions', JSON.stringify([]));
+    }
 
     fetchQuestions(this.props.product_id, 4, 1)
       .then((data) => {
@@ -60,6 +64,7 @@ class QuestionsAnswers extends React.Component {
         });
 
       });
+
   }
 
   closeQuestionModal() {
