@@ -6,13 +6,13 @@ import helpers from '../helpers.js';
 class RatingBreakdown extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       ratings: {},
       averageRating: [0, 0],
       breakdown: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
       recommended: 0
     };
+    this.handleRatingBreakdownClick = this.handleRatingBreakdownClick.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +22,10 @@ class RatingBreakdown extends React.Component {
       breakdown: helpers.computeRatingBreakdown(this.props.meta.ratings),
       recommended: helpers.computeRecommendedPercentage(this.props.meta.recommended)
     });
+  }
+
+  handleRatingBreakdownClick(star) {
+    console.log('star clicked: ', star);
   }
 
   render() {
@@ -36,7 +40,7 @@ class RatingBreakdown extends React.Component {
             <span>{this.state.recommended} of reviews recommended this product</span>
           </div>
           <div class='review-rating-bar'>
-            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x][0]} freq={this.state.breakdown[x][1]}/>)}
+            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x][0]} freq={this.state.breakdown[x][1]} handleRatingBreakdownClick={this.handleRatingBreakdownClick}/>)}
           </div>
         </div>
       );

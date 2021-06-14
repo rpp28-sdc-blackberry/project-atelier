@@ -13,7 +13,8 @@ class RatingsReviews extends React.Component {
     this.state = {
       meta: {},
       reviews: [],
-      sortingOption: 'relevance'
+      sortingOption: 'relevance',
+      starFilters: null
     };
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
   }
@@ -47,6 +48,10 @@ class RatingsReviews extends React.Component {
       sortingOption: newOption,
       reviews: helpers.sortReviews(this.state.reviews, newOption)
     });
+  }
+
+  handleStarFilters() {
+
   }
 
   render() {
