@@ -57,11 +57,11 @@ const computeRatingBreakdown = (ratings) => {
   var total = 0;
   for (var ratingValue in ratings) {
     var freq = ratings[ratingValue];
-    total += ratingValue * freq;
+    total += Number.parseInt(freq);
   }
   for (var i = 1; i <= 5; i++) {
     var freq = ratings[i] || 0;
-    var percentage = i * freq / total * 100;
+    var percentage = Number.parseInt(freq) / total * 100;
     breakdown.push([percentage, freq]);
   }
   return breakdown;
