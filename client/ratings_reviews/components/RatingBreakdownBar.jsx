@@ -6,7 +6,7 @@ const RatingBreakdownBar = (props) => {
   };
   return (
     <div onClick={handleClick} class='review-breakdown-bar'>
-      <span>{props.star} stars:</span>
+      <span class='review-clickable'>{props.star} stars:</span>
       <span><progress max="100" value={props.percentage}></progress></span>
       <span>{props.freq}</span>
     </div>

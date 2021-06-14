@@ -215,12 +215,36 @@
   flex-basis: 10rem;
 }
 
+#review-left-container > * {
+  margin: 1%;
+  padding: 1%;
+}
+
 #review-right-container {
   flex-basis: 30rem;
 }
 
 .review-average-rating-number {
   font-size: 150%;
+}
+
+.review-filter-panel {
+  margin: 1%;
+}
+
+.review-rating-breakdown > * {
+  margin: 1%;
+  padding: 1%;
+}
+
+.review-filter-panel > * {
+  margin: 1%;
+  padding: 1%;
+}
+
+.review-clickable:hover {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .review-breakdown-bar {
