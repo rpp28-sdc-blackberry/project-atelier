@@ -56,7 +56,7 @@ class RatingsReviews extends React.Component {
           RATINGS & REVIEWS
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
