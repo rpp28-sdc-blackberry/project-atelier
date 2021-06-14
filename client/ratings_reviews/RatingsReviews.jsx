@@ -47,32 +47,6 @@ class RatingsReviews extends React.Component {
     });
   }
 
-  // handleOptionChanges(newOption) {
-  //   var sortedReviews = helpers.sortReviews(this.state.reviews, newOption);
-  //   var filteredReviews = helpers.applyStarFilters(sortedReviews, this.state.starFilters);
-  //   this.setState({
-  //     sortingOption: newOption,
-  //     filteredReviews: filteredReviews
-  //   });
-  // }
-
-  // handleStarFilters(star) {
-  //   var newStarFilters = this.state.starFilters.slice();
-  //   console.log('current: ', this.state.starFilters);
-  //   if (this.state.starFilters.indexOf(star) === -1) {
-  //     newStarFilters.push(star);
-  //   } else {
-  //     newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
-  //   }
-  //   console.log('new: ', newStarFilters);
-  //   console.log('previous filteredReviews: ', this.state.filteredReviews);
-  //   var filteredReviews = helpers.applyStarFilters(this.state.filteredReviews, newStarFilters);
-  //   this.setState({
-  //     starFilters: newStarFilters,
-  //     filteredReviews: filteredReviews
-  //   });
-  // }
-
   handleOptionChanges(newOption) {
     var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters);
     this.setState({
@@ -108,7 +82,7 @@ class RatingsReviews extends React.Component {
           RATINGS & REVIEWS
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
