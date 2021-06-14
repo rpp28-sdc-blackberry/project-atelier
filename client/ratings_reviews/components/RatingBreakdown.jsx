@@ -10,7 +10,7 @@ class RatingBreakdown extends React.Component {
     this.state = {
       ratings: {},
       averageRating: [0, 0],
-      breakdown: [0, 0, 0, 0, 0],
+      breakdown: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
       recommended: 0
     };
   }
@@ -36,7 +36,7 @@ class RatingBreakdown extends React.Component {
             <span>{this.state.recommended} of reviews recommended this product</span>
           </div>
           <div class='review-rating-bar'>
-            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x]}/>)}
+            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x][0]} freq={this.state.breakdown[x][1]}/>)}
           </div>
         </div>
       );

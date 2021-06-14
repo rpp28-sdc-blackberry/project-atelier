@@ -62,7 +62,7 @@ const computeRatingBreakdown = (ratings) => {
   for (var i = 1; i <= 5; i++) {
     var freq = ratings[i] || 0;
     var percentage = i * freq / total * 100;
-    breakdown.push(percentage);
+    breakdown.push([percentage, freq]);
   }
   return breakdown;
 };
