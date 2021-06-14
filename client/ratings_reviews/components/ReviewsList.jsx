@@ -20,7 +20,7 @@ class ReviewsList extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.reviews.length > 2) {
+    if (this.props.reviews && this.props.reviews.length > 2) {
       this.setState({
         allReviews: this.props.reviews,
         currentReviews: this.props.reviews.slice(0, 2),
@@ -30,6 +30,7 @@ class ReviewsList extends React.Component {
       });
     } else {
       this.setState({
+        allReviews: this.props.reviews,
         currentReviews: this.props.reviews,
         sortingOption: this.props.sortingOption
       });
@@ -47,6 +48,7 @@ class ReviewsList extends React.Component {
       });
     } else {
       this.setState({
+        allReviews: nextProps.reviews,
         currentReviews: nextProps.reviews,
         sortingOption: nextProps.sortingOption
       });
@@ -88,7 +90,7 @@ class ReviewsList extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div class='review-empty-reviews-list'>
           Such emptiness! Be the first person to review this product!
         </div>
       );

@@ -89,7 +89,7 @@ class RatingsReviews extends React.Component {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
         <div class='review-overall-container'>
-          RATINGS & REVIEWS
+          <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
               <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters}/>
