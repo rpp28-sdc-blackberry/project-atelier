@@ -20,6 +20,7 @@ class RatingsReviews extends React.Component {
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
     this.handleStarFilters = this.handleStarFilters.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
+    this.removeFilters = this.removeFilters.bind(this);
   }
 
   componentDidMount() {
@@ -69,11 +70,20 @@ class RatingsReviews extends React.Component {
     });
   }
 
+  removeFilters() {
+    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, []);
+    this.setState({
+      starFilters: [],
+      filteredReviews: newFilteredReviews
+    });
+  }
+
   updateReviews(review, sortingOption, starFilters) {
     var sortedReviews = helpers.sortReviews(review, sortingOption);
     var filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
     return filteredReviews;
   }
+
 
   render() {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
@@ -82,7 +92,7 @@ class RatingsReviews extends React.Component {
           RATINGS & REVIEWS
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
