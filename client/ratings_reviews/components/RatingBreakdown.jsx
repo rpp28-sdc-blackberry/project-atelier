@@ -15,7 +15,6 @@ class RatingBreakdown extends React.Component {
   }
 
   componentDidMount() {
-    console.log('meta: ', this.props.meta);
     this.setState({
       ratings: this.props.meta.ratings,
       averageRating: helpers.computeAverageRating(this.props.meta.ratings),

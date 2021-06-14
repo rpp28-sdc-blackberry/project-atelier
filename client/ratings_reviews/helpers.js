@@ -68,8 +68,8 @@ const computeRatingBreakdown = (ratings) => {
 };
 
 const computeRecommendedPercentage = (recommended) => {
-  var recommendedNumber = recommended.true;
-  var total = recommended.true + recommended.false;
+  var recommendedNumber = Number.parseInt(recommended.true);
+  var total = Number.parseInt(recommended.true) + Number.parseInt(recommended.false);
   return (recommendedNumber / total * 100).toFixed(0) + '%';
 };
 
