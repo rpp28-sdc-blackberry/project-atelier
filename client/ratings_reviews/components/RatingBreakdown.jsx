@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import RatingBreakdownBar from './RatingBreakdownBar.jsx';
 import helpers from '../helpers.js';
 
 class RatingBreakdown extends React.Component {
@@ -35,26 +36,7 @@ class RatingBreakdown extends React.Component {
             <span>{this.state.recommended} of reviews recommended this product</span>
           </div>
           <div class='review-rating-bar'>
-            <div class='review-breakdown-bar'>
-              <span>5 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[4]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>4 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[3]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>3 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[2]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>2 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[1]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>1 star:</span>
-              <span><progress max="100" value={this.state.breakdown[0]}></progress></span>
-            </div>
+            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x]}/>)}
           </div>
         </div>
       );
@@ -66,26 +48,7 @@ class RatingBreakdown extends React.Component {
             <span class="stars" style={{'--rating': 0}}></span>
           </div>
           <div class='review-rating-bar'>
-            <div class='review-breakdown-bar'>
-              <span>5 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[4]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>4 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[3]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>3 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[2]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>2 stars:</span>
-              <span><progress max="100" value={this.state.breakdown[1]}></progress></span>
-            </div>
-            <div class='review-breakdown-bar'>
-              <span>1 star:</span>
-              <span><progress max="100" value={this.state.breakdown[0]}></progress></span>
-            </div>
+            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={0}/>)}
           </div>
         </div>
       );
