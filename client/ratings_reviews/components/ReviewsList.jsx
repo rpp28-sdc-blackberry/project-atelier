@@ -5,7 +5,6 @@ import ReviewTile from './ReviewTile.jsx';
 class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       allReviews: [],
       currentReviews: [],
@@ -14,7 +13,6 @@ class ReviewsList extends React.Component {
       showLessReviewsButton: false,
       sortingOption: 'relevance'
     };
-
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.showLessReviews = this.showLessReviews.bind(this);
   }

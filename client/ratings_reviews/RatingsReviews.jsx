@@ -84,7 +84,6 @@ class RatingsReviews extends React.Component {
     return filteredReviews;
   }
 
-
   render() {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
@@ -101,7 +100,6 @@ class RatingsReviews extends React.Component {
               <ReviewForm />
             </div>
           </div>
-
         </div>
       );
     } else {
