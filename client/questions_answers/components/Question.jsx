@@ -19,15 +19,11 @@ class Question extends React.Component {
   }
 
   handleHelpfulButtonClick() {
-    // update the helpfulness count on the server
     markQuestionHelpful(this.props.question_id.toString())
       .then(() => {
-        // on success
-        // add the question id to localStorage
         let helpfulQuestions = JSON.parse(localStorage.getItem('helpfulQuestions'));
         helpfulQuestions.push(this.props.question_id);
         localStorage.setItem('helpfulQuestions', JSON.stringify(helpfulQuestions));
-        // update the state
         this.setState({
           helpfulness: this.state.helpfulness + 1
         });
@@ -36,7 +32,7 @@ class Question extends React.Component {
         console.log(err);
       });
 
-    // update the helpfulness counts in the top-level questions lists?
+    // update the helpfulness counts in the top-level questions lists? --> seems to be working without this step...
 
   }
 
@@ -94,11 +90,10 @@ class Question extends React.Component {
       renderReportedLink = (<button onClick={this.handleReportButtonClick}> Report </button>);
     }
 
-    // add conditional rendering for helpfulness based on checking the question id in localStorage
     let helpfulQuestions = JSON.parse(localStorage.getItem('helpfulQuestions'));
 
     if (helpfulQuestions.includes(this.props.question_id)) {
-      renderHelpfulLink = <span> {`Yes ${this.state.helpfulness}`}</span>;
+      renderHelpfulLink = <span> {`Helpful? Yes ${this.state.helpfulness}`}</span>;
     } else {
       renderHelpfulLink = <span>
         <span> Helpful? </span>
