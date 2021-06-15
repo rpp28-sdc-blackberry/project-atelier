@@ -20,6 +20,7 @@ class ReviewTile extends React.Component {
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
     this.handleAddHelpful = this.handleAddHelpful.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   toggleAdditionalBody(e) {
@@ -37,6 +38,15 @@ class ReviewTile extends React.Component {
   handleAddHelpful() {
     $.ajax({
       url: `reviews/${this.props.review.review_id}/helpful`,
+      method: 'PUT'
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  handleReport() {
+    $.ajax({
+      url: `reviews/${this.props.review.review_id}/report`,
       method: 'PUT'
     }).catch((error) => {
       console.log(error);
@@ -78,7 +88,7 @@ class ReviewTile extends React.Component {
           <span>Helpful?</span>
           <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span>
           <span>({this.props.review.helpfulness}) | </span>
-          <span>Report</span>
+          <span class='review-clickable' onClick={this.handleReport}>Report</span>
         </div>
       </div>
     );
