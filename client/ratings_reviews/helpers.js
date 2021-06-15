@@ -133,6 +133,24 @@ const applyStarFilters = (reviews, starFilters) => {
   return output;
 };
 
+const formatReviewTile = (summary, body, photos) => {
+  var additionalBody = '';
+  var showAdditionalBodyButton = false;
+  var showPhotos = false;
+  if (summary.length > 60) {
+    summary = summary.slice(0, 61) + '...';
+  }
+  if (body.length > 250) {
+    additionalBody = body.slice();
+    body = body.slice(0, 251) + '...';
+    showAdditionalBodyButton = true;
+  }
+  if (photos.length !== 0) {
+    showPhotos = true;
+  }
+  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos];
+};
+
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
@@ -141,5 +159,6 @@ module.exports = {
   computeRecommendedPercentage: computeRecommendedPercentage,
   formatCharacteristics: formatCharacteristics,
   sortReviews: sortReviews,
-  applyStarFilters: applyStarFilters
+  applyStarFilters: applyStarFilters,
+  formatReviewTile: formatReviewTile
 };

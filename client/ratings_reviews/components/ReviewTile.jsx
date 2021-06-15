@@ -8,23 +8,16 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: this.props.review.rating,
-      name: this.props.review.reviewer_name,
-      date: helpers.formatDate(this.props.review.date.slice(0, 10)),
-      summary: this.props.review.summary,
-      body: this.props.review.body,
+      summary: '',
+      body: '',
       additionalBody: '',
-      showBody: true,
+      showBody: false,
       showAdditionalBody: false,
       showAdditionalBodyButton: false,
-      response: this.props.review.response,
-      helpfulness: this.props.review.helpfulness,
-      photos: this.props.review.photos,
       showPhotos: false,
-      showRecommend: this.props.review.recommend,
-      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0)
+      showRecommend: false,
+      showResponse: false
     };
-
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
   }
 
@@ -41,42 +34,37 @@ class ReviewTile extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.review.summary.length > 60) {
-      this.setState({
-        summary: this.props.review.summary.slice(0, 61) + '...'
-      });
-    }
-    if (this.props.review.body.length > 250) {
-      this.setState({
-        body: this.props.review.body.slice(0, 251) + '...',
-        additionalBody: this.props.review.body,
-        showAdditionalBodyButton: true
-      });
-    }
-    if (this.props.review.photos.length !== 0) {
-      this.setState({
-        showPhotos: true
-      });
-    }
+    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review.summary, this.props.review.body, this.props.review.photos);
+    this.setState({
+      summary: formattedReviewTileInfo[0],
+      body: formattedReviewTileInfo[1],
+      additionalBody: formattedReviewTileInfo[2],
+      showBody: true,
+      showAdditionalBody: false,
+      showAdditionalBodyButton: formattedReviewTileInfo[3],
+      showPhotos: formattedReviewTileInfo[4],
+      showRecommend: this.props.review.recommend,
+      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0)
+    });
   }
 
   render() {
     return (
       <div class='review-tile'>
         <div class='review-tile-top-panel'>
-          <span class="stars" style={{'--rating': this.state.rating}}></span>
-          <span>{this.state.name}, {this.state.date}</span>
+          <span class="stars" style={{'--rating': this.props.review.rating}}></span>
+          <span>{this.props.review.reviewer_name}, {helpers.formatDate(this.props.review.date.slice(0, 10))}</span>
         </div>
         <div class='review-summary'>{this.state.summary}</div>
         <div class='review-body' hidden={!this.state.showBody}>{this.state.body}</div>
         <div class='review-additional-body' hidden={!this.state.showAdditionalBody}>{this.state.additionalBody}</div>
         <div class='review-additional-body-button' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
         <div class='review-photos' hidden={!this.state.showPhotos}>
-          {this.state.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
+          {this.props.review.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
         </div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
-        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.state.response}</div>
-        <div><span>Helpful? Yes ({this.state.helpfulness}) | Report</span></div>
+        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
+        <div><span>Helpful? Yes ({this.props.review.helpfulness}) | Report</span></div>
       </div>
     );
   }
