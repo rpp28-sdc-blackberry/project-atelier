@@ -10,6 +10,7 @@ const Answer = (props) => {
     <div className="answer">
       <div>
         {body}
+        <span> helpful report </span>
       </div>
       <div>
         <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>

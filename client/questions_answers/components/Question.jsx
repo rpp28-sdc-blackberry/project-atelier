@@ -90,7 +90,7 @@ class Question extends React.Component {
           handleReportButtonClick={this.handleReportButtonClick}
           reported={this.state.reported}
           helpfulness={this.state.helpfulness}
-          question_id={this.props.question_id}
+          content_id={this.props.question_id}
         />
         <button onClick={this.handleAddAnswerClick}> Add Answer </button>
         <AnswersList answers={this.props.answers}/>

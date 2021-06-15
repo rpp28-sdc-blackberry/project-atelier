@@ -12,7 +12,7 @@ const HelpfulReport = (props) => {
 
   let helpfulQuestions = JSON.parse(localStorage.getItem('helpfulQuestions'));
 
-  if (helpfulQuestions.includes(props.question_id)) {
+  if (helpfulQuestions.includes(props.content_id)) {
     renderHelpfulLink = (<span> {`Helpful? Yes ${props.helpfulness}`}</span>);
   } else {
     renderHelpfulLink = (<span>
