@@ -11,9 +11,10 @@ class Modal extends React.Component {
       return null;
     }
     return (
-      <div class='review-photo-modal' style={{'margin-top': 500}}>
-        <button class='review-close-modal' onClick={this.props.closeModal}>Close</button>
-        <img class='review-photo-modal-content' src={this.props.url}/>
+      <div class='review-photo-modal' onClick={this.props.closeModal}>
+        <div class='review-photo-modal-content' onClick={e => e.stopPropagation()}>
+          <img class='review-photo-modal-content' src={this.props.url}/>
+        </div>
       </div>
     );
   }

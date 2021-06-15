@@ -13,9 +13,14 @@ class RatingsReviews extends React.Component {
     this.state = {
       meta: {},
       reviews: [],
-      sortingOption: 'relevance'
+      filteredReviews: [],
+      sortingOption: 'relevance',
+      starFilters: []
     };
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
+    this.handleStarFilters = this.handleStarFilters.bind(this);
+    this.updateReviews = this.updateReviews.bind(this);
+    this.removeFilters = this.removeFilters.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +40,8 @@ class RatingsReviews extends React.Component {
       method: 'GET'
     }).then((reviews) => {
       this.setState({
-        reviews: helpers.sortReviews(reviews.results, this.state.sortingOption)
+        reviews: reviews.results,
+        filteredReviews: helpers.sortReviews(reviews.results, this.state.sortingOption)
       });
     }).catch((error) => {
       console.log(error);
@@ -43,29 +49,57 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
+    var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters);
     this.setState({
       sortingOption: newOption,
-      reviews: helpers.sortReviews(this.state.reviews, newOption)
+      filteredReviews: newFilteredReviews
     });
+  }
+
+  handleStarFilters(star) {
+    var newStarFilters = this.state.starFilters.slice();
+    if (this.state.starFilters.indexOf(star) === -1) {
+      newStarFilters.push(star);
+    } else {
+      newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
+    }
+    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters);
+    this.setState({
+      starFilters: newStarFilters,
+      filteredReviews: newFilteredReviews
+    });
+  }
+
+  removeFilters() {
+    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, []);
+    this.setState({
+      starFilters: [],
+      filteredReviews: newFilteredReviews
+    });
+  }
+
+  updateReviews(review, sortingOption, starFilters) {
+    var sortedReviews = helpers.sortReviews(review, sortingOption);
+    var filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
+    return filteredReviews;
   }
 
   render() {
     if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
       return (
         <div class='review-overall-container'>
-          RATINGS & REVIEWS
+          <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
-              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.reviews}/>
-              <ReviewsList reviews={this.state.reviews} sortingOption={this.state.sortingOption}/>
+              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
+              <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm />
             </div>
           </div>
-
         </div>
       );
     } else {
