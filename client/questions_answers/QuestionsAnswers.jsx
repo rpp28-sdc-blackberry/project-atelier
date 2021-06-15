@@ -61,7 +61,7 @@ class QuestionsAnswers extends React.Component {
           showSearch: true,
           nextTwoQuestions: nextTwoQuestions,
           questions: firstTwoQuestions
-        }, () => console.log('initial first two questions: ', this.state.questions, 'initial next two questions: ', this.state.nextTwoQuestions));
+        });
 
       });
 
@@ -92,13 +92,12 @@ class QuestionsAnswers extends React.Component {
           this.setState({
             showMoreAnsweredQuestionsButton: false,
             questions: [...this.state.questions, ...this.state.nextTwoQuestions]
-          }, () => console.log('questions list after fetch: ', this.state.questions));
+          });
         } else {
-          console.log('next two questions from server: ', data.results);
           this.setState({
             questions: [...this.state.questions, ...this.state.nextTwoQuestions],
             nextTwoQuestions: data.results,
-          }, () => console.log('questions list after fetch: ', this.state.questions, 'next two questions after fetch: ', this.state.nextTwoQuestions));
+          });
           this.queryPage++;
         }
       });
