@@ -2,6 +2,7 @@ import React from 'react';
 import AnswersList from './AnswersList.jsx';
 import AnswerForm from './AnswerForm.jsx';
 import { submitAnswer, markQuestionHelpful, reportQuestion } from '../controllers.js';
+import HelpfulReport from './HelpfulReport.jsx';
 
 class Question extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Question extends React.Component {
   }
 
   handleHelpfulButtonClick() {
+
     markQuestionHelpful(this.props.question_id.toString())
       .then(() => {
         let helpfulQuestions = JSON.parse(localStorage.getItem('helpfulQuestions'));
@@ -31,7 +33,6 @@ class Question extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-
     // update the helpfulness counts in the top-level questions lists? --> seems to be working without this step...
 
   }
@@ -63,11 +64,9 @@ class Question extends React.Component {
   handleAnswerSubmit(e) {
 
     e.preventDefault();
-
     // validate the form fields using a helper function that returns a boolean value
     // if that doesnt pass--display an alert popup
     // otherwise
-
     submitAnswer(e.target.answer.value, e.target.nickname.value, e.target.email.value, this.props.question_id)
       .then((response) => {
         console.log(response);
@@ -75,40 +74,24 @@ class Question extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-
     this.setState({
       showAnswerModal: false
     });
+
   }
 
   render() {
-    let renderReportedLink, renderHelpfulLink;
-
-    if (this.state.reported) {
-      renderReportedLink = (<span> Reported </span>);
-    } else {
-      renderReportedLink = (<button onClick={this.handleReportButtonClick}> Report </button>);
-    }
-
-    let helpfulQuestions = JSON.parse(localStorage.getItem('helpfulQuestions'));
-
-    if (helpfulQuestions.includes(this.props.question_id)) {
-      renderHelpfulLink = <span> {`Helpful? Yes ${this.state.helpfulness}`}</span>;
-    } else {
-      renderHelpfulLink = <span>
-        <span> Helpful? </span>
-        <button onClick={this.handleHelpfulButtonClick}> {`Yes ${this.state.helpfulness}`} </button>
-      </span>;
-    }
-
 
     return (
       <div className="qa-item">
         <b> {`Q: ${this.props.question}`} </b>
-        <span>
-          {renderHelpfulLink}
-          {renderReportedLink}
-        </span>
+        <HelpfulReport
+          handleHelpfulButtonClick={this.handleHelpfulButtonClick}
+          handleReportButtonClick={this.handleReportButtonClick}
+          reported={this.state.reported}
+          helpfulness={this.state.helpfulness}
+          question_id={this.props.question_id}
+        />
         <button onClick={this.handleAddAnswerClick}> Add Answer </button>
         <AnswersList answers={this.props.answers}/>
         {this.state.showAnswerModal && <AnswerForm
