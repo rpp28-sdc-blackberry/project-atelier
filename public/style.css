@@ -224,6 +224,11 @@
   flex-basis: 30rem;
 }
 
+#review-left-container > * {
+  margin: 1%;
+  padding: 1%;
+}
+
 .review-average-rating-number {
   font-size: 150%;
 }
@@ -254,6 +259,11 @@
 .review-product-breakdown > * {
   margin: 1%;
   padding: 1%;
+}
+
+.reviews-list-tiles {
+  overflow: scroll;
+  max-height: 70vh;
 }
 
 .reviews-list > * {
