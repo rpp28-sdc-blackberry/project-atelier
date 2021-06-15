@@ -1,24 +1,35 @@
 import React from 'react';
 import { formatAnswererName, formatDate } from '../helpers.js';
+import HelpfulReport from './HelpfulReport.jsx';
 
-const Answer = (props) => {
+class Answer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      reported: false
+    };
+  }
 
-  const { answerer_name, date, body } = props.answer;
+  render() {
 
-  return (
+    const { answerer_name, date, body } = this.props.answer;
 
-    <div className="answer">
-      <div>
-        {body}
-        <span> helpful report </span>
+    return (
+
+      <div className="answer">
+        <div>
+          {body}
+          <span> helpful report </span>
+        </div>
+        <div>
+          <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>
+        </div>
       </div>
-      <div>
-        <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>
-      </div>
-    </div>
 
-  );
+    );
 
-};
+  }
+
+}
 
 export default Answer;
