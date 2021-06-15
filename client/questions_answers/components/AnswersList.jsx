@@ -12,27 +12,23 @@ class AnswersList extends React.Component {
       showLoadMoreAnswersButton: false,
       showCollapseAnswersListButton: false
     };
-
+    this.initialize();
     this.collapseAnswersList = this.collapseAnswersList.bind(this);
     this.loadRemainingAnswers = this.loadRemainingAnswers.bind(this);
   }
 
-  componentDidMount() {
+  initialize() {
     let unsortedAnswersList = Object.values(this.props.answers);
     let sortedAnswersList = sortAnswersList(unsortedAnswersList);
     let firstTwoAnswers = sortedAnswersList.slice(0, 2);
     let remainingAnswers = sortedAnswersList.slice(2);
     if (!!firstTwoAnswers.length) {
-      this.setState({
-        answers: firstTwoAnswers,
-        showAnswersList: true
-      });
+      this.state.answers = firstTwoAnswers;
+      this.state.showAnswersList = true;
     }
     if (!!remainingAnswers.length) {
-      this.setState({
-        remainingAnswers: remainingAnswers,
-        showLoadMoreAnswersButton: true
-      });
+      this.state.remainingAnswers = remainingAnswers;
+      this.state.showLoadMoreAnswersButton = true;
     }
   }
 
