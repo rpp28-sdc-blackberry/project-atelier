@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      'product_id': '22124',
+      'product_id': '22122',
       info: null,
       selectedStyle: null,
       styleInfo: null,
@@ -69,7 +69,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {/* <ProductDetails
+        <ProductDetails
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
@@ -79,13 +79,13 @@ class App extends React.Component {
         <RelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
-          selectedStyle={this.state.selectedStyle}/> */}
+          selectedStyle={this.state.selectedStyle}/>
         <QuestionsAnswers
           product_id={this.state.product_id}
           info={this.state.info}/>
-        {/* <RatingsReviews
+        <RatingsReviews
           product_id={this.state.product_id}
-          info={this.state.info}/> */}
+          info={this.state.info}/>
       </div>
     );
   }
