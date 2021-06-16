@@ -149,11 +149,9 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   if (photos.length !== 0) {
     showPhotos = true;
   }
-  var currentHelpfulReviews = sessionStorage.getItem('helpfulReviews');
-  if (currentHelpfulReviews !== undefined) {
-    if (JSON.parse(currentHelpfulReviews).indexOf(Number.parseInt(reviewId)) !== -1) {
-      helpful = 1;
-    }
+  var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+  if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
+    helpful = 1;
   }
   return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful];
 };

@@ -42,12 +42,7 @@ class ReviewTile extends React.Component {
       url: `reviews/${this.props.review.review_id}/helpful`,
       method: 'PUT'
     }).then(() => {
-      var currentHelpfulReviews = sessionStorage.getItem('helpfulReviews');
-      if (currentHelpfulReviews === undefined) {
-        currentHelpfulReviews = [];
-      } else {
-        currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-      }
+      var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
       currentHelpfulReviews.push(this.props.review.review_id);
       sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
       this.setState({
@@ -84,7 +79,7 @@ class ReviewTile extends React.Component {
       showRecommend: this.props.review.recommend,
       showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
       reportStatus: false,
-      helpfulness: Number.parseInt(this.props.review.helpfulness) + formattedReviewTileInfo[5]
+      helpfulness: this.props.review.helpfulness + formattedReviewTileInfo[5]
     });
   }
 
