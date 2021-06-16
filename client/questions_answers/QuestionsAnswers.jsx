@@ -149,7 +149,7 @@ class QuestionsAnswers extends React.Component {
     const nickname = e.target.nickname.value;
     const email = e.target.email.value;
 
-    var invalid = validateFormFields(question, nickname, email);
+    const invalid = validateFormFields(question, nickname, email);
 
     if (invalid) {
       alert(invalid);

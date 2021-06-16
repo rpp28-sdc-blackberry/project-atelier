@@ -45,6 +45,11 @@ const sortAnswersList = (unsortedList) => {
   return sellerResponses.concat(sortedList);
 };
 
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+$/;
+  return re.test(email);
+};
+
 const validateFormFields = (question, nickname, email) => {
 
   let problem = '';
@@ -54,7 +59,7 @@ const validateFormFields = (question, nickname, email) => {
   if (!nickname) {
     problem += '\n nickname';
   }
-  if (!email) {
+  if (!validateEmail(email)) {
     problem += '\n email';
   }
   return problem ? `Please enter a valid: ${problem}` : null;
