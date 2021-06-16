@@ -15,7 +15,7 @@ class RatingsReviews extends React.Component {
       reviews: [],
       filteredReviews: [],
       sortingOption: 'relevance',
-      starFilters: []
+      starFilters: [],
     };
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
     this.handleStarFilters = this.handleStarFilters.bind(this);
