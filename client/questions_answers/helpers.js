@@ -66,4 +66,4 @@ const validateFormFields = (question, nickname, email) => {
 
 };
 
-export { formatAnswererName, formatDate, sortAnswersList, validateFormFields};
+export { formatAnswererName, formatDate, sortAnswersList, validateFormFields };
