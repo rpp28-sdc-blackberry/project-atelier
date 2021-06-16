@@ -88,6 +88,18 @@
   font-size:x-large;
 }
 
+#checkIcon {
+  position: absolute;
+  left: 50px;
+  text-align: center;
+  align-items: center;
+  color: #ddd;
+}
+.img-container {
+  position: relative;
+}
+
+/* --------------------- RELATED ITEMS --------------------- */
 /* #relatedItemsWrapper {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -112,6 +124,14 @@
   height: auto;
 }
 
+#addToOutfitCard {
+  cursor: pointer;
+  border: 1px solid gray;
+  display: grid;
+  grid-template-rows: 7fr 7fr;
+  /* height: 400px; */
+}
+
 #comparisonModal {
   /* display: block; */
   position: fixed;
@@ -126,19 +146,6 @@
   border: 1px solid gray;
   background: white;
 }
-
-#checkIcon {
-  position: absolute;
-  left: 50px;
-  text-align: center;
-  align-items: center;
-  color: #ddd;
-}
-.img-container {
-  position: relative;
-}
-
-/* --------------------- RELATED ITEMS --------------------- */
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
 
