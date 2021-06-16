@@ -13,14 +13,12 @@ const DefaultView = (props) => {
             className="defaultView" 
             id={props.selectedStyle.style_id}>
           </img>
+          <a onClick={props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
         </a>
       </div>
     );
-  } else {
-    return (
-      <div id="defaultView">DEFAULT VIEW</div>
-    );
-  }
+  } 
+  return null;
 };
 
 export default DefaultView;
