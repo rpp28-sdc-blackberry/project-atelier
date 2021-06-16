@@ -40,8 +40,9 @@ class ProductDetails extends React.Component {
   }
 
   handlePhotoSelection(e) {
-    e.preventDefault();
-    var index = Number(e.target.id);
+    var index = e.target.id;
+    index = Number(index);
+    console.log('photoIndex: ', index);
     this.setState({
       currPhotoIndex: index
     });
@@ -51,6 +52,7 @@ class ProductDetails extends React.Component {
     e.preventDefault();
     var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === 0 ? totalPhotos - 1 : this.state.currPhotoIndex - 1;
+    console.log('newIndexLeft: ', newIndex);
     this.setState({
       currPhotoIndex: newIndex
     });
@@ -60,6 +62,7 @@ class ProductDetails extends React.Component {
     e.preventDefault();
     var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === totalPhotos - 1 ? 0 : this.state.currPhotoIndex + 1;
+    console.log('newIndexRight: ', newIndex);
     this.setState({
       currPhotoIndex: newIndex
     });
