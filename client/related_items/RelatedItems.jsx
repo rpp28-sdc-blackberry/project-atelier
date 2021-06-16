@@ -2,7 +2,6 @@ import React from 'react';
 import ItemsList from './ItemsList.jsx';
 import helpers from './helpers.js';
 
-//Need to do something else for the Outfits list (local storage, cookies?)
 class RelatedItems extends React.Component {
   constructor(props) {
     super(props);
@@ -14,18 +13,25 @@ class RelatedItems extends React.Component {
 
   componentDidMount() {
     helpers.getRelatedItems(this.props.product_id)
-      .then(relatedItems => this.setState({ relatedItemsIds: relatedItems }));
+      .then(relatedItems => {
+        let uniqueItems = [...new Set(relatedItems)];
+        this.setState({ relatedItemsIds: uniqueItems });
+      });
   }
 
   render() {
-    return (
-      <div id='relatedItemsWrapper'>
-        <h3>Related Items</h3>
-        <ItemsList listType='relatedItems' items={this.state.relatedItemsIds} />
-        <h3>Your Outfit</h3>
-        <ItemsList listType='yourOutfit' />
-      </div>
-    );
+    if (this.props.selectedStyle && this.props.info) {
+      return (
+        <div id='relatedItemsWrapper'>
+          <h3>Related Items</h3>
+          <ItemsList listType='relatedItems' items={this.state.relatedItemsIds} />
+          <h3>Your Outfit</h3>
+          <ItemsList listType='yourOutfit' info={this.props.info} defaultStyle={this.props.selectedStyle} />
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
