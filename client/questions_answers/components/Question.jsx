@@ -3,6 +3,7 @@ import AnswersList from './AnswersList.jsx';
 import AnswerForm from './AnswerForm.jsx';
 import { submitAnswer, markQuestionHelpful, reportQuestion } from '../controllers.js';
 import HelpfulReport from './HelpfulReport.jsx';
+import { validateFormFields } from '../helpers.js';
 
 class Question extends React.Component {
   constructor(props) {
@@ -64,10 +65,19 @@ class Question extends React.Component {
   handleAnswerSubmit(e) {
 
     e.preventDefault();
-    // validate the form fields using a helper function that returns a boolean value
-    // if that doesnt pass--display an alert popup
-    // otherwise
-    submitAnswer(e.target.answer.value, e.target.nickname.value, e.target.email.value, this.props.question_id)
+
+    const answer = e.target.answer.value;
+    const nickname = e.target.nickname.value;
+    const email = e.target.email.value;
+
+    const invalid = validateFormFields(answer, nickname, email);
+
+    if (invalid) {
+      alert(invalid);
+      return;
+    }
+
+    submitAnswer(answer, nickname, email, this.props.question_id)
       .then((response) => {
         console.log(response);
       })
