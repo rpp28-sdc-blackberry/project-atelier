@@ -48,6 +48,7 @@ class RatingsReviews extends React.Component {
     });
 
     sessionStorage.setItem('helpfulReviews', JSON.stringify([]));
+    sessionStorage.setItem('reportedReviews', JSON.stringify([]));
   }
 
   handleOptionChanges(newOption) {

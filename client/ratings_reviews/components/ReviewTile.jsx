@@ -19,7 +19,8 @@ class ReviewTile extends React.Component {
       showResponse: false,
       reportStatus: false,
       helpfulness: 0,
-      showAddHelpfulButton: true
+      showAddHelpfulButton: true,
+      reportStatus: false
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
     this.handleAddHelpful = this.handleAddHelpful.bind(this);
@@ -60,6 +61,9 @@ class ReviewTile extends React.Component {
       url: `reviews/${this.props.review.review_id}/report`,
       method: 'PUT'
     }).then(() => {
+      var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      currentReportedReviews.push(this.props.review.review_id);
+      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
       this.setState({
         reportStatus: true
       });
@@ -82,7 +86,8 @@ class ReviewTile extends React.Component {
       showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
       reportStatus: false,
       helpfulness: this.props.review.helpfulness + formattedReviewTileInfo[5],
-      showAddHelpfulButton: formattedReviewTileInfo[6]
+      showAddHelpfulButton: formattedReviewTileInfo[6],
+      reportStatus: formattedReviewTileInfo[7]
     });
   }
 
@@ -106,7 +111,7 @@ class ReviewTile extends React.Component {
           <span>Helpful?</span>
           {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
           <span>({this.state.helpfulness}) | </span>
-          {this.state.reportStatus === false ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
+          {!this.state.reportStatus ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
         </div>
       </div>
     );

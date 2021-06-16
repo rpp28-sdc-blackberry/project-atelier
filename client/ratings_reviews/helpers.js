@@ -139,6 +139,7 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   var showPhotos = false;
   var helpful = 0;
   var showAddHelpfulButton = true;
+  var reportStatus = false;
   if (summary.length > 60) {
     summary = summary.slice(0, 61) + '...';
   }
@@ -155,7 +156,11 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
     helpful = 1;
     showAddHelpfulButton = false;
   }
-  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton];
+  var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+  if (currentReportedReviews.indexOf(reviewId) !== -1) {
+    reportStatus = true;
+  }
+  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
 };
 
 module.exports = {
