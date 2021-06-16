@@ -4,6 +4,7 @@ import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
 import Modal from './components/Modal.jsx';
+import { validateFormFields } from './helpers.js';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
@@ -144,12 +145,18 @@ class QuestionsAnswers extends React.Component {
 
     e.preventDefault();
 
-    // validate the form fields using a helper function that returns a boolean value
-    // if that doesnt pass--display an alert popup
-    // otherwise
-    // submit the question to the server using a function
+    const question = e.target.question.value;
+    const nickname = e.target.nickname.value;
+    const email = e.target.email.value;
 
-    submitQuestion(e.target.question.value, e.target.nickname.value, e.target.email.value, this.state.product_id)
+    var invalid = validateFormFields(question, nickname, email);
+
+    if (invalid) {
+      alert(invalid);
+      return;
+    }
+
+    submitQuestion(question, nickname, email, this.state.product_id)
       .then((response) => {
         console.log(response);
       })

@@ -45,4 +45,20 @@ const sortAnswersList = (unsortedList) => {
   return sellerResponses.concat(sortedList);
 };
 
-export { formatAnswererName, formatDate, sortAnswersList };
+const validateFormFields = (question, nickname, email) => {
+
+  let problem = '';
+  if (!question) {
+    problem += '\n question';
+  }
+  if (!nickname) {
+    problem += '\n nickname';
+  }
+  if (!email) {
+    problem += '\n email';
+  }
+  return problem ? `Please enter a valid: ${problem}` : null;
+
+};
+
+export { formatAnswererName, formatDate, sortAnswersList, validateFormFields};
