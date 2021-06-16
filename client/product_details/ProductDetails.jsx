@@ -20,8 +20,8 @@ class ProductDetails extends React.Component {
     };
     
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
-    this.handleUpClick = this.handleUpClick.bind(this);
-    this.handleDownClick = this.handleDownClick.bind(this);
+    this.handleLeftClick = this.handleLeftClick.bind(this);
+    this.handleRightClick = this.handleRightClick.bind(this);
     this.toggleView = this.toggleView.bind(this);
   }
   
@@ -47,7 +47,7 @@ class ProductDetails extends React.Component {
     });
   }
 
-  handleUpClick(e) {
+  handleLeftClick(e) {
     e.preventDefault();
     var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === 0 ? totalPhotos - 1 : this.state.currPhotoIndex - 1;
@@ -56,7 +56,7 @@ class ProductDetails extends React.Component {
     });
   }
 
-  handleDownClick(e) {
+  handleRightClick(e) {
     e.preventDefault();
     var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === totalPhotos - 1 ? 0 : this.state.currPhotoIndex + 1;
@@ -79,20 +79,25 @@ class ProductDetails extends React.Component {
       <div id="productDetails">
         <div id={this.state.view === 'default' ? 'firstPanelDefault' : 'firstPanelExpanded'}>
           <ThumbnailList 
-            selectedStyle={this.props.selectedStyle} 
+            selectedStyle={this.props.selectedStyle}
+            styleInfo={this.props.styleInfo} 
             currPhotoIndex={this.state.currPhotoIndex}
-            handlePhotoSelection={this.handlePhotoSelection}
-            handleUpClick={this.handleUpClick}
-            handleDownClick={this.handleDownClick}/>
+            handlePhotoSelection={this.handlePhotoSelection}/>
           {this.state.view === 'default' ?
             <DefaultView 
-              selectedStyle={this.props.selectedStyle} 
+              selectedStyle={this.props.selectedStyle}
+              styleInfo={this.props.styleInfo} 
               currPhotoIndex={this.state.currPhotoIndex}
-              toggleView={this.toggleView}/> :
+              toggleView={this.toggleView}
+              handleLeftClick={this.handleLeftClick}
+              handleRightClick={this.handleRightClick}/> :
             <ExpandedView 
               selectedStyle={this.props.selectedStyle}
+              styleInfo={this.props.styleInfo}
               currPhotoIndex={this.state.currPhotoIndex}
-              toggleView={this.toggleView}/>}
+              toggleView={this.toggleView}
+              handleLeftClick={this.handleLeftClick}
+              handleRightClick={this.handleRightClick}/>}
           {this.state.view === 'default' ? 
             <div id="info">
               <StarRating />

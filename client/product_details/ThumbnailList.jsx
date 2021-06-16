@@ -7,9 +7,10 @@ const ThumbnailList = (props) => {
 
     return (
       <div id="thumbnailList">
-        <a onClick={props.handleUpClick} id="upScroll-container">
-          <i id="upScroll" class="fa fa-angle-up"></i>
-        </a>
+        {props.styleInfo.length > 7 ? 
+          <a onClick={props.handleUpClick} id="upScroll-container">
+            <i id="upScroll" class="fa fa-angle-up"></i>
+          </a> : null}    
         <br></br>
         {props.selectedStyle.photos.map((photo, index) =>
           <Thumbnail 
@@ -18,9 +19,10 @@ const ThumbnailList = (props) => {
             index={index} 
             indexSelected={props.currPhotoIndex}
             handlePhotoSelection={props.handlePhotoSelection}/>)}
-        <a onClick={props.handleDownClick} id="downScroll-container">
-          <i id="downScroll" class="fa fa-angle-down"></i>
-        </a>
+        {props.styleInfo.length > 7 ?
+          <a onClick={props.handleDownClick} id="downScroll-container">
+            <i id="downScroll" class="fa fa-angle-down"></i>
+          </a> : null}
       </div>
     );
   } 

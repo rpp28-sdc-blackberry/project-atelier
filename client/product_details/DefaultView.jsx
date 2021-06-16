@@ -14,8 +14,16 @@ const DefaultView = (props) => {
             id={props.selectedStyle.style_id}>
           </img>
           <a onClick={props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
-          <a id="rightArrow">&rarr;</a>
-          <a id="leftArrow">&larr;</a>
+          {props.currPhotoIndex !== 0 ? 
+            <a
+              onClick={props.handleLeftClick} 
+              id="leftArrow">&larr;
+            </a> : null}
+          {props.currPhotoIndex !== (props.styleInfo.length - 1) ?
+            <a 
+              onClick={props.handleRightClick}
+              id="rightArrow">&rarr;
+            </a> : null}
         </a>
       </div>
     );
