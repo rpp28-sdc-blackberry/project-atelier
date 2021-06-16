@@ -16,7 +16,8 @@ class ReviewTile extends React.Component {
       showAdditionalBodyButton: false,
       showPhotos: false,
       showRecommend: false,
-      showResponse: false
+      showResponse: false,
+      reportStatus: false
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
     this.handleAddHelpful = this.handleAddHelpful.bind(this);
@@ -51,6 +52,9 @@ class ReviewTile extends React.Component {
     }).catch((error) => {
       console.log(error);
     });
+    this.setState({
+      reportStatus: true
+    });
   }
 
   componentDidMount() {
@@ -64,7 +68,8 @@ class ReviewTile extends React.Component {
       showAdditionalBodyButton: formattedReviewTileInfo[3],
       showPhotos: formattedReviewTileInfo[4],
       showRecommend: this.props.review.recommend,
-      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0)
+      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
+      reportStatus: false
     });
   }
 
@@ -88,7 +93,7 @@ class ReviewTile extends React.Component {
           <span>Helpful?</span>
           <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span>
           <span>({this.props.review.helpfulness}) | </span>
-          <span class='review-clickable' onClick={this.handleReport}>Report</span>
+          {this.state.reportStatus === false ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
         </div>
       </div>
     );
