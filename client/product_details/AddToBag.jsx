@@ -1,6 +1,6 @@
 import React from 'react';
 import AddToBagButton from './AddToBagButton.jsx';
-import $ from 'jquery';
+const $ = require('jquery');
 
 class AddToBag extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class AddToBag extends React.Component {
       selectedSize: 'SELECT SIZE',
       selectedQuantity: '-',
       maxQuantity: 1,
+      showMessage: false,
     };
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -23,7 +24,8 @@ class AddToBag extends React.Component {
     this.updateMaxQuantity(selectedSize);
     this.setState({
       selectedSize: selectedSize,
-      selectedQuantity: 1
+      selectedQuantity: 1,
+      showMessage: false
     });
   }
 
@@ -74,9 +76,10 @@ class AddToBag extends React.Component {
           console.log(error);
         });
     } else {
-      // TODO: Add code to open the size dropdown and display message above
-      // stating "Please select Size"
-      console.log('Please select size');
+      // TODO: Add code to open the size dropdown
+      this.setState({
+        showMessage: true
+      });
     }
   }
 
@@ -90,6 +93,8 @@ class AddToBag extends React.Component {
 
     return (
       <div id="addToBag">
+        {this.state.showMessage ? <a id="errorMessage">Please Select Size</a> : null}
+        <br></br>
         <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
           <option value={defaultSizeOption}>{defaultSizeOption}</option>
           {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
