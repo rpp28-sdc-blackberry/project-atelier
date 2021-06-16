@@ -1,8 +1,9 @@
 import React from 'react';
 
 const AddToOutfit = (props) => (
-  <div>
-    add to outfit
+  <div id='addToOutfitCard' onClick={props.addToOutfit}>
+    <p>+</p>
+    <p>Add to Outfit</p>
   </div>
 );
 

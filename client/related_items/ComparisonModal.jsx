@@ -10,11 +10,14 @@ class ComparisonModal extends React.Component {
       return null;
     }
 
+    let key = 0;
+
     return (
       <div id='comparisonModal' onClick={this.props.toggleModal}>
+        <p>Comparing</p>
         <h4>{this.props.name}</h4>
         {this.props.features.map(feature =>
-          <p>{feature.feature}: {feature.value}</p>
+          <div key={`${key++}`}>{feature.feature}: {feature.value}</div>
         )}
       </div>
     );

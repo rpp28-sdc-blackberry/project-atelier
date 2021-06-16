@@ -57,19 +57,19 @@ const computeRatingBreakdown = (ratings) => {
   var total = 0;
   for (var ratingValue in ratings) {
     var freq = ratings[ratingValue];
-    total += ratingValue * freq;
+    total += Number.parseInt(freq);
   }
   for (var i = 1; i <= 5; i++) {
     var freq = ratings[i] || 0;
-    var percentage = i * freq / total * 100;
-    breakdown.push(percentage);
+    var percentage = Number.parseInt(freq) / total * 100;
+    breakdown.push([percentage, freq]);
   }
   return breakdown;
 };
 
 const computeRecommendedPercentage = (recommended) => {
-  var recommendedNumber = recommended.true;
-  var total = recommended.true + recommended.false;
+  var recommendedNumber = Number.parseInt(recommended.true);
+  var total = Number.parseInt(recommended.true) + Number.parseInt(recommended.false);
   return (recommendedNumber / total * 100).toFixed(0) + '%';
 };
 
@@ -122,6 +122,35 @@ const sortReviews = (reviews, option) => {
   return reviews;
 };
 
+const applyStarFilters = (reviews, starFilters) => {
+  if (starFilters.length === 0) { return reviews; }
+  var output = [];
+  for (var i = 0; i < reviews.length; i++) {
+    if (starFilters.indexOf(reviews[i].rating) !== -1) {
+      output.push(reviews[i]);
+    }
+  }
+  return output;
+};
+
+const formatReviewTile = (summary, body, photos) => {
+  var additionalBody = '';
+  var showAdditionalBodyButton = false;
+  var showPhotos = false;
+  if (summary.length > 60) {
+    summary = summary.slice(0, 61) + '...';
+  }
+  if (body.length > 250) {
+    additionalBody = body.slice();
+    body = body.slice(0, 251) + '...';
+    showAdditionalBodyButton = true;
+  }
+  if (photos.length !== 0) {
+    showPhotos = true;
+  }
+  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos];
+};
+
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
@@ -129,5 +158,7 @@ module.exports = {
   computeRatingBreakdown: computeRatingBreakdown,
   computeRecommendedPercentage: computeRecommendedPercentage,
   formatCharacteristics: formatCharacteristics,
-  sortReviews: sortReviews
+  sortReviews: sortReviews,
+  applyStarFilters: applyStarFilters,
+  formatReviewTile: formatReviewTile
 };
