@@ -24,9 +24,17 @@ class RelatedItems extends React.Component {
       return (
         <div id='relatedItemsWrapper'>
           <h3>Related Items</h3>
-          <ItemsList listType='relatedItems' items={this.state.relatedItemsIds} />
+          <ItemsList
+            listType='relatedItems'
+            items={this.state.relatedItemsIds}
+            productName={this.props.info.name}
+            productFeatures={this.props.info.features} />
+
           <h3>Your Outfit</h3>
-          <ItemsList listType='yourOutfit' info={this.props.info} defaultStyle={this.props.selectedStyle} />
+          <ItemsList
+            listType='yourOutfit'
+            info={this.props.info}
+            defaultStyle={this.props.selectedStyle} />
         </div>
       );
     } else {
