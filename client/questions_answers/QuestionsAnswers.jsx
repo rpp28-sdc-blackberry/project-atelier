@@ -40,6 +40,10 @@ class QuestionsAnswers extends React.Component {
       localStorage.setItem('helpfulQuestions', JSON.stringify([]));
     }
 
+    if (!localStorage.getItem('helpfulAnswers')) {
+      localStorage.setItem('helpfulAnswers', JSON.stringify([]));
+    }
+
     fetchQuestions(this.props.product_id, 4, 1)
       .then((data) => {
         let firstTwoQuestions = data.results.slice(0, 2);

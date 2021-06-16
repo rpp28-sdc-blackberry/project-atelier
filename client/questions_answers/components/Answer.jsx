@@ -6,8 +6,17 @@ class Answer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reported: false
+      reported: false,
+      helpfulness: this.props.helpfulness
     };
+  }
+
+  handleHelpfulButtonClick() {
+
+  }
+
+  handleReportButtonClick() {
+
   }
 
   render() {
@@ -19,7 +28,15 @@ class Answer extends React.Component {
       <div className="answer">
         <div>
           {body}
-          <span> helpful report </span>
+          <span> <HelpfulReport
+            handleHelpfulButtonClick={() => console.log('helpful clicked')}
+            handleReportButtonClick={() => console.log('report clicked')}
+            reported={this.state.reported}
+            helpfulness={this.state.helpfulness}
+            content_id={this.props.answer_id}
+            content_type={'answer'}
+          />
+          </span>
         </div>
         <div>
           <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>
