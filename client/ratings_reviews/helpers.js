@@ -138,6 +138,7 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   var showAdditionalBodyButton = false;
   var showPhotos = false;
   var helpful = 0;
+  var showAddHelpfulButton = true;
   if (summary.length > 60) {
     summary = summary.slice(0, 61) + '...';
   }
@@ -152,8 +153,9 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
   if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
     helpful = 1;
+    showAddHelpfulButton = false;
   }
-  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful];
+  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton];
 };
 
 module.exports = {
