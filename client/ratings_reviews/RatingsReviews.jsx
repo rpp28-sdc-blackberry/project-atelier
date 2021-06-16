@@ -46,6 +46,8 @@ class RatingsReviews extends React.Component {
     }).catch((error) => {
       console.log(error);
     });
+
+    sessionStorage.setItem('helpfulReviews', JSON.stringify([]));
   }
 
   handleOptionChanges(newOption) {

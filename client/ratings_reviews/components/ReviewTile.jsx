@@ -17,7 +17,8 @@ class ReviewTile extends React.Component {
       showPhotos: false,
       showRecommend: false,
       showResponse: false,
-      reportStatus: false
+      reportStatus: false,
+      helpfulness: 0
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
     this.handleAddHelpful = this.handleAddHelpful.bind(this);
@@ -40,6 +41,18 @@ class ReviewTile extends React.Component {
     $.ajax({
       url: `reviews/${this.props.review.review_id}/helpful`,
       method: 'PUT'
+    }).then(() => {
+      var currentHelpfulReviews = sessionStorage.getItem('helpfulReviews');
+      if (currentHelpfulReviews === undefined) {
+        currentHelpfulReviews = [];
+      } else {
+        currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      }
+      currentHelpfulReviews.push(this.props.review.review_id);
+      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
+      this.setState({
+        helpfulness: this.state.helpfulness + 1
+      });
     }).catch((error) => {
       console.log(error);
     });
@@ -49,16 +62,17 @@ class ReviewTile extends React.Component {
     $.ajax({
       url: `reviews/${this.props.review.review_id}/report`,
       method: 'PUT'
+    }).then(() => {
+      this.setState({
+        reportStatus: true
+      });
     }).catch((error) => {
       console.log(error);
-    });
-    this.setState({
-      reportStatus: true
     });
   }
 
   componentDidMount() {
-    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review.summary, this.props.review.body, this.props.review.photos);
+    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review.summary, this.props.review.body, this.props.review.photos, this.props.review.review_id);
     this.setState({
       summary: formattedReviewTileInfo[0],
       body: formattedReviewTileInfo[1],
@@ -69,7 +83,8 @@ class ReviewTile extends React.Component {
       showPhotos: formattedReviewTileInfo[4],
       showRecommend: this.props.review.recommend,
       showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
-      reportStatus: false
+      reportStatus: false,
+      helpfulness: Number.parseInt(this.props.review.helpfulness) + formattedReviewTileInfo[5]
     });
   }
 
@@ -92,7 +107,7 @@ class ReviewTile extends React.Component {
         <div>
           <span>Helpful?</span>
           <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span>
-          <span>({this.props.review.helpfulness}) | </span>
+          <span>({this.state.helpfulness}) | </span>
           {this.state.reportStatus === false ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
         </div>
       </div>
