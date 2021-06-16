@@ -66,24 +66,6 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-
-    var view = () => {
-      if (this.state.view === 'default') {
-        return (
-          <DefaultView 
-            selectedStyle={this.props.selectedStyle} 
-            currPhotoIndex={this.state.currPhotoIndex}
-            toggleView={this.toggleView}/>
-        );
-      } else if (this.state.view === 'expand') {
-        return (
-          <ExpandedView 
-            selectedStyle={this.props.selectedStyle}
-            currPhotoIndex={this.state.currPhotoIndex}
-            toggleView={this.toggleView}/>
-        );
-      }
-    };
     
     var availableSizes = [];
     if (this.props.selectedStyle) {
@@ -95,39 +77,43 @@ class ProductDetails extends React.Component {
 
     return (
       <div id="productDetails">
-        <ThumbnailList 
-          selectedStyle={this.props.selectedStyle} 
-          currPhotoIndex={this.state.currPhotoIndex}
-          handlePhotoSelection={this.handlePhotoSelection}
-          handleUpClick={this.handleUpClick}
-          handleDownClick={this.handleDownClick}/>
-        {this.state.view === 'default' ?
-          <DefaultView 
+        <div id={this.state.view === 'default' ? 'firstPanelDefault' : 'firstPanelExpanded'}>
+          <ThumbnailList 
             selectedStyle={this.props.selectedStyle} 
             currPhotoIndex={this.state.currPhotoIndex}
-            toggleView={this.toggleView}/> :
-          <ExpandedView 
-            selectedStyle={this.props.selectedStyle}
-            currPhotoIndex={this.state.currPhotoIndex}
-            toggleView={this.toggleView}/>}
-        {this.state.view === 'default' ? 
-          <div id="info">
-            <StarRating />
-            <ProductInfo 
-              info={this.props.info} 
-              selectedStyle={this.props.selectedStyle}/>
-            <StyleSelector 
-              changeStyle={this.props.handleStyleSelection} 
-              styleInfo={this.props.styleInfo} 
-              indexStyleSelected={this.props.indexStyleSelected} 
-              selectedStyle={this.props.selectedStyle}/>
-            <AddToBag 
+            handlePhotoSelection={this.handlePhotoSelection}
+            handleUpClick={this.handleUpClick}
+            handleDownClick={this.handleDownClick}/>
+          {this.state.view === 'default' ?
+            <DefaultView 
               selectedStyle={this.props.selectedStyle} 
-              availableSizes={availableSizes}/>
-          </div> : null}
-        <OverviewDescription info={this.props.info}/>
-        <OverviewFeatures info={this.props.info}/>
-        <ShareToSocialMedia />
+              currPhotoIndex={this.state.currPhotoIndex}
+              toggleView={this.toggleView}/> :
+            <ExpandedView 
+              selectedStyle={this.props.selectedStyle}
+              currPhotoIndex={this.state.currPhotoIndex}
+              toggleView={this.toggleView}/>}
+          {this.state.view === 'default' ? 
+            <div id="info">
+              <StarRating />
+              <ProductInfo 
+                info={this.props.info} 
+                selectedStyle={this.props.selectedStyle}/>
+              <StyleSelector 
+                changeStyle={this.props.handleStyleSelection} 
+                styleInfo={this.props.styleInfo} 
+                indexStyleSelected={this.props.indexStyleSelected} 
+                selectedStyle={this.props.selectedStyle}/>
+              <AddToBag 
+                selectedStyle={this.props.selectedStyle} 
+                availableSizes={availableSizes}/>
+            </div> : null}
+        </div>
+        <div id="secondPanel">
+          <OverviewDescription info={this.props.info}/>
+          <OverviewFeatures info={this.props.info}/>
+          <ShareToSocialMedia />
+        </div>
       </div>
     );
   }

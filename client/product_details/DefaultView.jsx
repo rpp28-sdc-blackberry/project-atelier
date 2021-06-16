@@ -14,6 +14,8 @@ const DefaultView = (props) => {
             id={props.selectedStyle.style_id}>
           </img>
           <a onClick={props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
+          <a id="rightArrow">&rarr;</a>
+          <a id="leftArrow">&larr;</a>
         </a>
       </div>
     );
