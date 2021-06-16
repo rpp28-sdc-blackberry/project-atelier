@@ -43,12 +43,10 @@ const submitAnswer = (answer, nickname, email, question_id) => {
 };
 
 const markQuestionHelpful = (question_id) => {
-
   return $.ajax({
     url: `http://localhost:8080/qa/questions/${question_id}/helpful`,
     method: 'PUT'
   });
-
 };
 
 const reportQuestion = (question_id) => {
@@ -58,4 +56,18 @@ const reportQuestion = (question_id) => {
   });
 };
 
-export { fetchQuestions, submitQuestion, submitAnswer, markQuestionHelpful, reportQuestion };
+const markAnswerHelpful = (answer_id) => {
+  return $.ajax({
+    url: `http://localhost:8080/qa/answers/${answer_id}/helpful`,
+    method: 'PUT'
+  });
+};
+
+const reportAnswer = (answer_id) => {
+  return $.ajax({
+    url: `http://localhost:8080/qa/answers/${answer_id}/report`,
+    method: 'PUT'
+  });
+};
+
+export { fetchQuestions, submitQuestion, submitAnswer, markQuestionHelpful, reportQuestion, markAnswerHelpful, reportAnswer };
