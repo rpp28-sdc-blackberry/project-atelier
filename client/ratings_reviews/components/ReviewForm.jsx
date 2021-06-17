@@ -27,7 +27,7 @@ class ReviewForm extends React.Component {
     return (
       <div>
         <button class='review-show-button' onClick={this.showModal}>Add a Review</button>
-        <ReviewFormModal show={this.state.show} closeModal={this.closeModal}/>
+        <ReviewFormModal show={this.state.show} closeModal={this.closeModal} productName={this.props.productName} meta={this.props.meta}/>
       </div>
     );
   }
