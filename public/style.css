@@ -53,14 +53,6 @@
   padding: 2px;
   text-align: left;
 }
-/* #productOverview {
-  display: grid;
-  grid-template-rows: 150px;
-  gap: 10px;
-  grid-template-columns: 70% 30%;
-  border: 1px solid #ddd;
-  padding: 2px;
-} */
 #overviewDescription {
   grid-column: 1 / 2;
   grid-row: 2;
@@ -86,6 +78,10 @@
 #productTitle {
   font-weight: bold;
   font-size:x-large;
+}
+#errorMessage {
+  font-size: x-small;
+  color: red;
 }
 
 #checkIcon {
