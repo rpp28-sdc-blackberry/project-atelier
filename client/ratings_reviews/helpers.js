@@ -79,6 +79,7 @@ const formatCharacteristics = (characteristics) => {
     var newFormat = {};
     newFormat.name = characteristic;
     newFormat.value = characteristics[characteristic].value;
+    newFormat.id = characteristics[characteristic].id;
     formattedCharacteristics.push(newFormat);
   }
   return formattedCharacteristics;

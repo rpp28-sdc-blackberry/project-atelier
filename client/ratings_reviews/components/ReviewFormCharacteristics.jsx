@@ -77,11 +77,11 @@ class ReviewFormCharacterisics extends React.Component {
         <div>
           <div>{this.props.characteristic.name}</div>
           <div class='review-form-characteristic-radio'>
-            <span><input type='radio' name={this.props.characteristic.name} value='1'></input><label for={this.props.characteristic.name}>1</label></span>
-            <span><input type='radio' name={this.props.characteristic.name} value='2'></input><label for={this.props.characteristic.name}>2</label></span>
-            <span><input type='radio' name={this.props.characteristic.name} value='3'></input><label for={this.props.characteristic.name}>3</label></span>
-            <span><input type='radio' name={this.props.characteristic.name} value='4'></input><label for={this.props.characteristic.name}>4</label></span>
-            <span><input type='radio' name={this.props.characteristic.name} value='5'></input><label for={this.props.characteristic.name}>5</label></span>
+            <span><input type='radio' name='characteristics' value={1} class={this.props.characteristic.id} onChange={this.props.handleChange}></input><label for='characteristics'>1</label></span>
+            <span><input type='radio' name='characteristics' value={2} class={this.props.characteristic.id} onChange={this.props.handleChange}></input><label for='characteristics'>2</label></span>
+            <span><input type='radio' name='characteristics' value={3} class={this.props.characteristic.id} onChange={this.props.handleChange}></input><label for='characteristics'>3</label></span>
+            <span><input type='radio' name='characteristics' value={4} class={this.props.characteristic.id} onChange={this.props.handleChange}></input><label for='characteristics'>4</label></span>
+            <span><input type='radio' name='characteristics' value={5} class={this.props.characteristic.id} onChange={this.props.handleChange}></input><label for='characteristics'>5</label></span>
           </div>
           {characteristicDescriptions}
         </div>
