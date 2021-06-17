@@ -350,8 +350,26 @@
 }
 
 .review-form-modal-content {
-  width: 500px;
+  width: 700px;
   background: #fff;
+  padding: 2%;
+  overflow: scroll;
+  max-height: 70vh;
+}
+
+.review-form-modal-content > *{
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-chracteristic-radio-container > * {
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-characteristic-radio {
+  display: flex;
+  justify-content: space-between;
 }
 
 

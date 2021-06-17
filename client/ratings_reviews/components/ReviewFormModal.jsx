@@ -19,15 +19,17 @@ class ReviewFormModal extends React.Component {
           <div>Write Your Review</div>
           <div>About the {this.props.productName}</div>
           <div>
-            <label>Overall rating:</label>
-            <select>
-              <option value=''>--Please choose an option--</option>
-              <option value='5'>5</option>
-              <option value='4'>4</option>
-              <option value='3'>3</option>
-              <option value='2'>2</option>
-              <option value='1'>1</option>
-            </select>
+            <label>Overall rating</label>
+            <div>
+              <select>
+                <option value=''>--Please choose an option--</option>
+                <option value='5'>5</option>
+                <option value='4'>4</option>
+                <option value='3'>3</option>
+                <option value='2'>2</option>
+                <option value='1'>1</option>
+              </select>
+            </div>
           </div>
           <div>
             <label>Do you recommend this product?</label>
@@ -38,12 +40,28 @@ class ReviewFormModal extends React.Component {
             <label>Characteristics</label>
             {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic}/>)}
           </div>
-          <div>Review summary* (text input)</div>
-          <div>Review body* (text area)</div>
-          <div>Upload your photos</div>
-          <div>What is your nickname?* (text input)</div>
-          <div>Your email* (text input)</div>
-          <div>Submit review (button)</div>
+          <div>
+            <label>Review summary</label>
+            <div><input type='text' maxlength='60' size='70' placeholder='Best Product Ever!'></input></div>
+          </div>
+          <div>
+            <label>Review body</label>
+            <div><textarea rows='5' cols='60' placeholder='Please share with us your thoughts on the product!'></textarea></div>
+          </div>
+          <div>
+            <label>Upload your photos</label>
+          </div>
+          <div>
+            <label>What is your nickname?</label>
+            <div><input type='text' maxlength='40' size='50' placeholder='Your name here'></input></div>
+          </div>
+          <div>
+            <label>Your email</label>
+            <div><input type='text' maxlength='40' size='50' placeholder='Your email here'></input></div>
+          </div>
+          <div>
+            <button>Submit Review</button>
+          </div>
         </div>
       </div>
     );

@@ -13,7 +13,7 @@ class ReviewFormCharacterisics extends React.Component {
     var characteristicDescriptions;
     if (this.props.characteristic.name === 'Size') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>A size too small</span>
           <span>½ a size too small</span>
           <span>Perfect</span>
@@ -23,7 +23,7 @@ class ReviewFormCharacterisics extends React.Component {
     }
     if (this.props.characteristic.name === 'Width') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>Too narrow</span>
           <span>Slightly narrow</span>
           <span>Perfect</span>
@@ -33,7 +33,7 @@ class ReviewFormCharacterisics extends React.Component {
     }
     if (this.props.characteristic.name === 'Comfort') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>Uncomfortable</span>
           <span>Slightly uncomfortable</span>
           <span>Ok</span>
@@ -43,7 +43,7 @@ class ReviewFormCharacterisics extends React.Component {
     }
     if (this.props.characteristic.name === 'Quality') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>Poor</span>
           <span>Below average</span>
           <span>What I expected</span>
@@ -53,7 +53,7 @@ class ReviewFormCharacterisics extends React.Component {
     }
     if (this.props.characteristic.name === 'Length') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>Runs short</span>
           <span>Runs slightly short</span>
           <span>Perfect</span>
@@ -63,7 +63,7 @@ class ReviewFormCharacterisics extends React.Component {
     }
     if (this.props.characteristic.name === 'Fit') {
       characteristicDescriptions = (
-        <div>
+        <div class='review-form-characteristic-radio'>
           <span>Runs tight</span>
           <span>Runs slightly tight</span>
           <span>Perfect</span>
@@ -73,16 +73,18 @@ class ReviewFormCharacterisics extends React.Component {
     }
 
     return (
-      <div>
-        <div>{this.props.characteristic.name}</div>
+      <div class='review-form-chracteristic-radio-container'>
         <div>
-          <span><input type='radio' name={this.props.characteristic.name} value='1'></input><label for={this.props.characteristic.name}>1</label></span>
-          <span><input type='radio' name={this.props.characteristic.name} value='2'></input><label for={this.props.characteristic.name}>2</label></span>
-          <span><input type='radio' name={this.props.characteristic.name} value='3'></input><label for={this.props.characteristic.name}>3</label></span>
-          <span><input type='radio' name={this.props.characteristic.name} value='4'></input><label for={this.props.characteristic.name}>4</label></span>
-          <span><input type='radio' name={this.props.characteristic.name} value='5'></input><label for={this.props.characteristic.name}>5</label></span>
+          <div>{this.props.characteristic.name}</div>
+          <div class='review-form-characteristic-radio'>
+            <span><input type='radio' name={this.props.characteristic.name} value='1'></input><label for={this.props.characteristic.name}>1</label></span>
+            <span><input type='radio' name={this.props.characteristic.name} value='2'></input><label for={this.props.characteristic.name}>2</label></span>
+            <span><input type='radio' name={this.props.characteristic.name} value='3'></input><label for={this.props.characteristic.name}>3</label></span>
+            <span><input type='radio' name={this.props.characteristic.name} value='4'></input><label for={this.props.characteristic.name}>4</label></span>
+            <span><input type='radio' name={this.props.characteristic.name} value='5'></input><label for={this.props.characteristic.name}>5</label></span>
+          </div>
+          {characteristicDescriptions}
         </div>
-        {characteristicDescriptions}
       </div>
     );
   }
