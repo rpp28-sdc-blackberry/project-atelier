@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import ReviewFormCharacterisics from './ReviewFormCharacteristics.jsx';
 import helpers from '../helpers.js';
 
@@ -17,6 +18,13 @@ class ReviewFormModal extends React.Component {
       characteristics: {}
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      'product_id': this.props.meta.product_id
+    });
   }
 
   handleChange(e, characteristicId) {
@@ -34,6 +42,20 @@ class ReviewFormModal extends React.Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    let url = `reviews/product_id=${this.state.product_id}&rating=${this.state.rating}&summary=${this.state.summary}&body=${this.state.body}&recommend=${this.state.recommend}&name=${this.state.name}&email=${this.state.email}&photos=${this.state.photos}&characteristics=${this.state.characteristics}`;
+    $.ajax({
+      url: url,
+      method: 'POST'
+    }).then(() => {
+      console.log('Posted review successfully!');
+      this.props.closeModal();
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   render() {
     if (!this.props.show) {
       return null;
@@ -43,17 +65,17 @@ class ReviewFormModal extends React.Component {
         <div className="review-form-modal-content" onClick={e => e.stopPropagation()}>
           <div>Write Your Review</div>
           <div>About the {this.props.productName}</div>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div>
               <label>Overall rating</label>
               <div>
                 <select name='rating' value={this.state.rating} onChange={this.handleChange}>
                   <option value=''>--Please choose an option--</option>
-                  <option value='5'>5</option>
-                  <option value='4'>4</option>
-                  <option value='3'>3</option>
-                  <option value='2'>2</option>
-                  <option value='1'>1</option>
+                  <option value={5}>5</option>
+                  <option value={4}>4</option>
+                  <option value={3}>3</option>
+                  <option value={2}>2</option>
+                  <option value={1}>1</option>
                 </select>
               </div>
             </div>
