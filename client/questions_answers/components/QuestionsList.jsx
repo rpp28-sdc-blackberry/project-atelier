@@ -6,6 +6,7 @@ const QuestionsList = (props) => (
     {props.questions.map((question) => <Question
       key={question.question_id}
       question={question.question_body}
+      helpfulness={question.question_helpfulness}
       answers={question.answers}
       question_id={question.question_id}
       name={props.name}
