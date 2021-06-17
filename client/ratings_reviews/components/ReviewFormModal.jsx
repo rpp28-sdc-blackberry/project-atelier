@@ -27,13 +27,14 @@ class ReviewFormModal extends React.Component {
     });
   }
 
-  handleChange(e, characteristicId) {
+  handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    if (name === 'characteristics') {
+    if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
+      name = name.slice(0, 15);
     }
     console.log('name: ', name);
     console.log('value: ', value);
