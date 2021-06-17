@@ -56,7 +56,6 @@ class AddToBag extends React.Component {
       for (var i = 0; i < this.props.availableSizes.length; i++) {
         if (this.props.availableSizes[i][0] === this.state.selectedSize) {
           var sku_id = this.props.availableSizes[i][2];
-          console.log('styleId: ', sku_id);
         }
       }
       var options = {
