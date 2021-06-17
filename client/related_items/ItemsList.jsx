@@ -132,12 +132,20 @@ class ItemsList extends React.Component {
             productToCompare={[this.state.itemToCompare, this.state.featuresToCompare]}/>
 
           {this.props.items.map(itemId =>
-            <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
+            <ItemCard
+              id={itemId}
+              key={itemId}
+              toggleModal={this.toggleModal}
+              handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
         </div>
 
         : <div className='relatedItemsStrip'>
           <AddToOutfit addToOutfit={this.addToOutfit} />
-          {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard key={outfit.id} productInfo={outfit} removeFromOutfit={this.removeFromOutfit} />)}
+          {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard
+            key={outfit.id}
+            productInfo={outfit}
+            removeFromOutfit={this.removeFromOutfit}
+            handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
         </div>
     );
   }
