@@ -45,10 +45,22 @@ class ReviewFormModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let url = `reviews/product_id=${this.state.product_id}&rating=${this.state.rating}&summary=${this.state.summary}&body=${this.state.body}&recommend=${this.state.recommend}&name=${this.state.name}&email=${this.state.email}&photos=${this.state.photos}&characteristics=${this.state.characteristics}`;
+    let data = {
+      'product_id': Number.parseInt(this.state.product_id),
+      rating: Number.parseInt(this.state.rating),
+      summary: this.state.summary,
+      body: this.state.body,
+      recommend: JSON.parse(this.state.recommend),
+      name: this.state.name,
+      email: this.state.email,
+      photos: this.state.photos,
+      characteristics: this.state.characteristics
+    };
     $.ajax({
-      url: url,
-      method: 'POST'
+      url: '/reviews',
+      method: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(data)
     }).then(() => {
       console.log('Posted review successfully!');
       this.props.closeModal();
