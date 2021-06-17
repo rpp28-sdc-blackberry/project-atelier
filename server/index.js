@@ -6,7 +6,6 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.all('*', (req, res) => {
-
   queryAPI(req.method, req.url, req.body)
     .then((response) => {
       let { statusCode } = response.request.res;
