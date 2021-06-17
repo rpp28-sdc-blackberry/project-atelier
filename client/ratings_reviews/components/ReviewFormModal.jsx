@@ -62,7 +62,16 @@ class ReviewFormModal extends React.Component {
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(data)
     }).then(() => {
-      console.log('Posted review successfully!');
+      this.setState({
+        rating: '',
+        summary: '',
+        body: '',
+        recommend: true,
+        name: '',
+        email: '',
+        photos: [],
+        characteristics: {}
+      });
       this.props.closeModal();
     }).catch((error) => {
       console.log(error);
