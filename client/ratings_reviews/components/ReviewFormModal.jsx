@@ -36,8 +36,6 @@ class ReviewFormModal extends React.Component {
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
-    console.log('name: ', name);
-    console.log('value: ', value);
     this.setState({
       [name]: value
     });
