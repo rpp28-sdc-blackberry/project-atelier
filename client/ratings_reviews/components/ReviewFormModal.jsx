@@ -7,7 +7,6 @@ class ReviewFormModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'product_id': 0,
       rating: '',
       summary: '',
       body: '',
@@ -19,12 +18,6 @@ class ReviewFormModal extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      'product_id': this.props.meta.product_id
-    });
   }
 
   handleChange(e) {
@@ -44,7 +37,7 @@ class ReviewFormModal extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let data = {
-      'product_id': Number.parseInt(this.state.product_id),
+      'product_id': Number.parseInt(this.props.meta.product_id),
       rating: Number.parseInt(this.state.rating),
       summary: this.state.summary,
       body: this.state.body,
