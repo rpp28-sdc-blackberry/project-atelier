@@ -133,10 +133,13 @@ const applyStarFilters = (reviews, starFilters) => {
   return output;
 };
 
-const formatReviewTile = (summary, body, photos) => {
+const formatReviewTile = (summary, body, photos, reviewId) => {
   var additionalBody = '';
   var showAdditionalBodyButton = false;
   var showPhotos = false;
+  var helpful = 0;
+  var showAddHelpfulButton = true;
+  var reportStatus = false;
   if (summary.length > 60) {
     summary = summary.slice(0, 61) + '...';
   }
@@ -148,7 +151,16 @@ const formatReviewTile = (summary, body, photos) => {
   if (photos.length !== 0) {
     showPhotos = true;
   }
-  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos];
+  var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+  if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
+    helpful = 1;
+    showAddHelpfulButton = false;
+  }
+  var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+  if (currentReportedReviews.indexOf(reviewId) !== -1) {
+    reportStatus = true;
+  }
+  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
 };
 
 module.exports = {

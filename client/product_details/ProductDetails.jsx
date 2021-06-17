@@ -74,7 +74,7 @@ class ProductDetails extends React.Component {
     if (this.props.selectedStyle) {
       var skus = this.props.selectedStyle.skus;
       for (var key in skus) {
-        availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
+        availableSizes.push([skus[key]['size'], skus[key]['quantity'], key]);
       }
     }
 

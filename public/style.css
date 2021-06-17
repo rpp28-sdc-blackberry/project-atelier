@@ -134,6 +134,10 @@
   font-weight: bold;
   font-size:x-large;
 }
+#errorMessage {
+  font-size: x-small;
+  color: red;
+}
 
 #checkIcon {
   position: absolute;

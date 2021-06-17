@@ -11,6 +11,7 @@ class ItemsList extends React.Component {
     this.state = {
       showModal: false,
       itemToCompare: '',
+      mainProductFeatures: [],
       featuresToCompare: [],
       outfits: [],
       mainProduct: {
@@ -25,6 +26,7 @@ class ItemsList extends React.Component {
 
     this.toggleModal = this.toggleModal.bind(this);
     this.addToOutfit = this.addToOutfit.bind(this);
+    this.removeFromOutfit = this.removeFromOutfit.bind(this);
   }
 
   componentDidMount() {
@@ -102,17 +104,40 @@ class ItemsList extends React.Component {
     if (!foundDuplicate) { this.setState({ outfits: outfits }); }
   }
 
+  removeFromOutfit(component) {
+    let storage = window.localStorage;
+
+    if (storage.length > 0) {
+      let currentOutfits = this.state.outfits;
+      let updatedOutfits = [];
+      let removedItemId = component.props.productInfo.id;
+
+      currentOutfits.forEach(outfit => {
+        if (outfit.id !== removedItemId) { updatedOutfits.push(outfit); }
+      });
+
+      storage.setItem('outfits', JSON.stringify(updatedOutfits));
+      this.setState({ outfits: updatedOutfits });
+    }
+  }
+
   render() {
     return (
       this.props.listType === 'relatedItems'
         ? <div className='relatedItemsStrip'>
-          <ComparisonModal showModal={this.state.showModal} toggleModal={this.toggleModal} features={this.state.featuresToCompare} name={this.state.itemToCompare} />
-          {this.props.items.map(itemId => <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
+          <ComparisonModal
+            showModal={this.state.showModal}
+            toggleModal={this.toggleModal}
+            mainProduct={[this.props.productName, this.props.productFeatures]}
+            productToCompare={[this.state.itemToCompare, this.state.featuresToCompare]}/>
+
+          {this.props.items.map(itemId =>
+            <ItemCard id={itemId} key={itemId} toggleModal={this.toggleModal} />)}
         </div>
 
         : <div className='relatedItemsStrip'>
           <AddToOutfit addToOutfit={this.addToOutfit} />
-          {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard key={outfit.id} productInfo={outfit} />)}
+          {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard key={outfit.id} productInfo={outfit} removeFromOutfit={this.removeFromOutfit} />)}
         </div>
     );
   }
