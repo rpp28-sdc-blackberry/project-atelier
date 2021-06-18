@@ -24,25 +24,13 @@ class App extends React.Component {
   }
 
   initialize() {
-    fetch(`http://localhost:8080/products/${this.state.product_id}`)
-      .then((response) => {
-        return response.json();
+
+    Promise.all([fetch(`http://localhost:8080/products/${this.state.product_id}`), fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)])
+      .then((responses) => {
+        return Promise.all(responses.map(response => response.json()));
       })
-      .then((data) => {
-        var info = data;
-        this.setState({
-          info: info,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      
-    fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
+      .then((parsedResponses) => {
+        var data = parsedResponses[1];
         for (var i = 0; i < data.results.length; i++) {
           if (data.results[i]['default?']) {
             var selectedStyle = data.results[i];
@@ -50,6 +38,7 @@ class App extends React.Component {
           }
         }
         this.setState({
+          info: parsedResponses[0],
           selectedStyle: selectedStyle || data.results[0],
           indexStyleSelected: indexStyleSelected || 0,
           styleInfo: data.results
@@ -59,6 +48,7 @@ class App extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+
   }
 
   handleStyleSelection(e) {
