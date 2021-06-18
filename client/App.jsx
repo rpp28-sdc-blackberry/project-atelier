@@ -18,6 +18,11 @@ class App extends React.Component {
       indexStyleSelected: null,
     };
 
+    this.handleStyleSelection = this.handleStyleSelection.bind(this);
+    this.handleRelatedItemClick = this.handleRelatedItemClick.bind(this);
+  }
+
+  initialize() {
     fetch(`http://localhost:8080/products/${this.state.product_id}`)
       .then((response) => {
         return response.json();
@@ -52,8 +57,6 @@ class App extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-
-    this.handleStyleSelection = this.handleStyleSelection.bind(this);
   }
 
   handleStyleSelection(e) {
@@ -64,6 +67,15 @@ class App extends React.Component {
       selectedStyle: this.state.styleInfo[index],
     });
     console.log(this.state);
+  }
+
+  handleRelatedItemClick(id) {
+    let newId = id.toString();
+    this.setState({ 'product_id': newId }, this.initialize);
+  }
+
+  componentDidMount() {
+    this.initialize();
   }
 
   render() {
@@ -79,7 +91,8 @@ class App extends React.Component {
         <RelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
-          selectedStyle={this.state.selectedStyle}/>
+          selectedStyle={this.state.selectedStyle}
+          handleRelatedItemClick={this.handleRelatedItemClick}/>
         <QuestionsAnswers
           product_id={this.state.product_id}
           info={this.state.info}/>
