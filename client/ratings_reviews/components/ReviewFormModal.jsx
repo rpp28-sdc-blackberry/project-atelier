@@ -23,6 +23,7 @@ class ReviewFormModal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
   handleChange(e) {
@@ -52,6 +53,9 @@ class ReviewFormModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (!this.validateForm()) {
+      return;
+    }
     let data = {
       'product_id': Number.parseInt(this.props.meta.product_id),
       rating: Number.parseInt(this.state.rating),
@@ -93,6 +97,22 @@ class ReviewFormModal extends React.Component {
     });
   }
 
+  validateForm() {
+    let valid = true;
+    let properties = ['rating', 'summary', 'body', 'name', 'email', 'characteristics'];
+    properties.forEach(property => {
+      let invalidCharacteristics = (property === 'characteristics' && Object.keys(this.state[property]).length !== Object.keys(this.props.meta.characteristics).length);
+      let invalidEmail = (property === 'email' && this.state[property].indexOf('@') === -1);
+      if (invalidEmail || invalidCharacteristics || this.state[property] === '') {
+        $('#review-form-' + property).text('*required');
+        valid = false;
+      } else {
+        $('#review-form-' + property).text('');
+      }
+    });
+    return valid;
+  }
+
   render() {
     if (!this.props.show) {
       return null;
@@ -110,7 +130,7 @@ class ReviewFormModal extends React.Component {
           <div>About the {this.props.productName}</div>
           <form onSubmit={this.handleSubmit}>
             <div>
-              <label>Overall rating</label>
+              <label>Overall rating</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
               <div>
                 <select name='rating' value={this.state.rating} onChange={this.handleChange}>
                   <option value=''>--Please choose an option--</option>
@@ -134,17 +154,17 @@ class ReviewFormModal extends React.Component {
               </div>
             </div>
             <div>
-              <label>Characteristics</label>
+              <label>Characteristics</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
               {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
             </div>
             <div>
-              <label>Review summary</label>
+              <label>Review summary</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
               <div>
                 <input name='summary' type='text' maxlength='60' size='70' placeholder='Best Product Ever!' value={this.state.summary} onChange={this.handleChange}></input>
               </div>
             </div>
             <div>
-              <label>Review body</label>
+              <label>Review body</label><span id='review-form-body' class='review-form-invalid-warning'></span>
               <div>
                 <textarea name='body' rows='5' cols='60' placeholder='Please share with us your thoughts on the product!' value={this.state.body} onChange={this.handleChange}></textarea>
               </div>
@@ -156,13 +176,13 @@ class ReviewFormModal extends React.Component {
               <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
             </div>
             <div>
-              <label>What is your nickname?</label>
+              <label>What is your nickname?</label><span id='review-form-name' class='review-form-invalid-warning'></span>
               <div>
                 <input name='name' type='text' maxlength='40' size='50' placeholder='Your name here' value={this.state.name} onChange={this.handleChange}></input>
               </div>
             </div>
             <div>
-              <label>Your email</label>
+              <label>Your email</label><span id='review-form-email' class='review-form-invalid-warning'></span>
               <div>
                 <input name='email' type='text' maxlength='40' size='50' placeholder='Your email here' value={this.state.email} onChange={this.handleChange}></input>
               </div>

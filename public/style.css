@@ -395,6 +395,15 @@
   margin: 1%;
 }
 
+.review-form-invalid-warning {
+  display: inline-block;
+  font-size: 80%;
+  color: red;
+  padding: 1%;
+  margin: 1%;
+
+}
+
 
 
 
