@@ -24,21 +24,15 @@ class App extends React.Component {
   }
 
   initialize() {
+    var info;
     fetch(`http://localhost:8080/products/${this.state.product_id}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        var info = data;
-        this.setState({
-          info: info,
-        });
+        info = data;
+        return fetch(`http://localhost:8080/products/${this.state.product_id}/styles`);
       })
-      .catch((error) => {
-        console.log(error);
-      });
-      
-    fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)
       .then((response) => {
         return response.json();
       })
@@ -50,11 +44,11 @@ class App extends React.Component {
           }
         }
         this.setState({
+          info: info,
           selectedStyle: selectedStyle || data.results[0],
           indexStyleSelected: indexStyleSelected || 0,
           styleInfo: data.results
         });
-
       })
       .catch((error) => {
         console.log(error);
