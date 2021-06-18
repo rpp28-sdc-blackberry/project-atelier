@@ -83,8 +83,9 @@ class ItemsList extends React.Component {
     let mainProduct = this.state.mainProduct;
     let outfits = [];
     let foundDuplicate = false;
+    let currentOutfits = JSON.parse(storage.getItem('outfits'));
 
-    if (storage.length === 0) {
+    if (currentOutfits === null) {
       outfits.push(mainProduct);
       storage.setItem('outfits', JSON.stringify(outfits));
     } else {
