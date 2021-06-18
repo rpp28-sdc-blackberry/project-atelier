@@ -433,10 +433,6 @@
   font-weight: bold;
 }
 
-/* .review-form-modal-body {
-
-} */
-
 .review-form-modal-body > * {
   padding: 1%;
   margin: 1%
@@ -449,7 +445,6 @@
   padding: 1%;
   margin: 1%;
 }
-
 
 /* STAR RATING */
 
