@@ -22,6 +22,7 @@
 }
 #defaultView img {
   max-height: 100%;
+  cursor: zoom-in;
 }
 #leftArrow {
   font-size: xx-large;
@@ -85,9 +86,16 @@
   text-align: center;
   grid-column: 1;
   grid-row: 1;
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
 }
-#expandedView img {
+.zoomOutView {
   max-height: 100%;
+  cursor: crosshair;
+}
+.zoomInView img{
+  display: block;
 }
 #fullscreenIcon {
   float: right;

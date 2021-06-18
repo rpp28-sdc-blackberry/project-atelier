@@ -7,7 +7,8 @@ const DefaultView = (props) => {
     return (
       <div id="defaultView">
         <a target="_blank">
-          <img 
+          <img
+            onClick={props.toggleView} 
             src={photoGallery[props.currPhotoIndex].url} 
             alt={props.selectedStyle.name} 
             className="defaultView" 
