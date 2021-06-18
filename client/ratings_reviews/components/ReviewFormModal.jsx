@@ -62,8 +62,7 @@ class ReviewFormModal extends React.Component {
         email: '',
         photos: [],
         characteristics: {}
-      });
-      this.props.closeModal();
+      }, this.props.closeModal);
     }).catch((error) => {
       console.log(error);
     });
