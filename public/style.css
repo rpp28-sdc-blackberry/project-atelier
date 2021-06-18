@@ -337,6 +337,42 @@
   padding: 1%;
 }
 
+.review-form-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-form-modal-content {
+  width: 700px;
+  background: #fff;
+  padding: 2%;
+  overflow: scroll;
+  max-height: 70vh;
+}
+
+.review-form-modal-content > *{
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-chracteristic-radio-container > * {
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-characteristic-radio {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 /* STAR RATING */
 
 :root {

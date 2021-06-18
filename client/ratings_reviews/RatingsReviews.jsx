@@ -100,7 +100,7 @@ class RatingsReviews extends React.Component {
             <div id='review-right-container' class='review-sub-container right'>
               <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
-              <ReviewForm />
+              <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
             </div>
           </div>
         </div>
