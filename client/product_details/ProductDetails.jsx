@@ -27,7 +27,6 @@ class ProductDetails extends React.Component {
   
   toggleView() {
     //TODO
-    console.log('toggleView');
     if (this.state.view === 'default') {
       this.setState({
         view: 'expanded'

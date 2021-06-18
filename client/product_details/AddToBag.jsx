@@ -87,7 +87,7 @@ class AddToBag extends React.Component {
     for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
       quantityArr.push(i);
     }
-    var defaultSizeOption = this.props.availableSizes.length === 0 ? 'OUT OF STOCK' : 'SELECT SIZE';
+    var defaultSizeOption = !this.props.availableSizes[0] ? 'OUT OF STOCK' : 'SELECT SIZE';
     var defaultQuantity = this.state.selectedSize === 'SELECT SIZE' ? '-' : 1;
 
     return (

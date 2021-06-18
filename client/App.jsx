@@ -20,6 +20,7 @@ class App extends React.Component {
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
     this.handleRelatedItemClick = this.handleRelatedItemClick.bind(this);
+    this.initialize = this.initialize.bind(this);
   }
 
   initialize() {
@@ -28,14 +29,15 @@ class App extends React.Component {
         return response.json();
       })
       .then((data) => {
+        var info = data;
         this.setState({
-          info: data,
+          info: info,
         });
       })
       .catch((error) => {
         console.log(error);
       });
-
+      
     fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)
       .then((response) => {
         return response.json();
@@ -45,14 +47,14 @@ class App extends React.Component {
           if (data.results[i]['default?']) {
             var selectedStyle = data.results[i];
             var indexStyleSelected = i;
-            this.setState({
-              styleInfo: data.results,
-              selectedStyle: selectedStyle,
-              indexStyleSelected: indexStyleSelected,
-            });
-            break;
           }
         }
+        this.setState({
+          selectedStyle: selectedStyle || data.results[0],
+          indexStyleSelected: indexStyleSelected || 0,
+          styleInfo: data.results
+        });
+
       })
       .catch((error) => {
         console.log(error);

@@ -8,7 +8,7 @@ const ExpandedView = (props) => {
       <div id="expandedView">
         <a target="_blank">
           <img 
-            src={photoGallery[props.currPhotoIndex].url} 
+            src={photoGallery[props.currPhotoIndex].url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} 
             alt={props.selectedStyle.name} 
             className="defaultView" 
             id={props.selectedStyle.style_id}>
