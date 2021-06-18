@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import ReviewFormCharacterisics from './ReviewFormCharacteristics.jsx';
+import ReviewFormPhotoModal from './ReviewFormPhotoModal.jsx';
 import helpers from '../helpers.js';
 
 class ReviewFormModal extends React.Component {
@@ -15,37 +16,37 @@ class ReviewFormModal extends React.Component {
       email: '',
       photos: [],
       characteristics: {},
-      photo: ''
+      photoCount: 0,
+      show: false,
+      showUploadPhotosButton: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
+    let photoIncrement = 0;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
-    if (name === 'photo') {
-      let files = e.target.files;
-      let reader = new FileReader();
-      reader.onload = r => {
-        let uploadedImage = r.target.result;
-        let currentPhotos = this.state.photos;
-        let regex = /^data:image\/(png|jpg|jpeg);base64,/;
-        uploadedImage = uploadedImage.replace(regex, '');
-        console.log('modified: ', uploadedImage);
-        currentPhotos.push(uploadedImage);
-        name = 'photos';
-      };
-      reader.readAsDataURL(files[0]);
+    if (name === 'photo' && value !== '') {
+      let currentPhotos = this.state.photos;
+      currentPhotos.push(value);
+      value = currentPhotos;
+      name = 'photos';
+      photoIncrement++;
     }
+    let showUploadPhotosButton = this.state.photoCount + photoIncrement < 5;
     this.setState({
-      [name]: value
+      [name]: value,
+      photoCount: this.state.photoCount + photoIncrement,
+      showUploadPhotosButton: showUploadPhotosButton
     });
   }
 
@@ -76,16 +77,31 @@ class ReviewFormModal extends React.Component {
         name: '',
         email: '',
         photos: [],
-        characteristics: {}
+        characteristics: {},
+        photoCount: 0,
+        show: false,
+        showUploadPhotosButton: true
       }, this.props.closeModal);
     }).catch((error) => {
       console.log(error);
     });
   }
 
+  toggleModal() {
+    this.setState({
+      show: !this.state.show
+    });
+  }
+
   render() {
     if (!this.props.show) {
       return null;
+    }
+    let uploadedImagePreviews;
+    if (this.state.photos.length !== 0) {
+      uploadedImagePreviews = (
+        <div>{this.state.photos.map(photo => <img class='review-photo' src={photo}/>)}</div>
+      );
     }
     return (
       <div className="review-form-modal" onClick={this.props.closeModal}>
@@ -134,8 +150,10 @@ class ReviewFormModal extends React.Component {
               </div>
             </div>
             <div>
-              <label>Upload your photos</label>
-              <div><input type='file' id='review-form-photo' name='photo' accept='image/*' onChange={this.handleChange} value={this.state.photo}></input></div>
+              <label>Your uploaded photo(s):</label>
+              {uploadedImagePreviews}
+              <div><button onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
+              <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
             </div>
             <div>
               <label>What is your nickname?</label>

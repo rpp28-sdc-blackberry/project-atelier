@@ -372,6 +372,33 @@
   justify-content: space-between;
 }
 
+.review-form-photo-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-form-photo-modal-content {
+  width: 300px;
+  background: #fff;
+  padding: 2%;
+}
+
+.review-form-photo-modal-content > *{
+  padding: 1%;
+  margin: 1%;
+}
+
+
+
+
+
 
 /* STAR RATING */
 
