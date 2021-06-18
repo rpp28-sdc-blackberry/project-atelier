@@ -362,14 +362,38 @@
   margin: 1%;
 }
 
+.review-form-all-characteristics > * {
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-characteristic-name {
+  font-style: italic;
+}
+
+.review-form-characteristic-description {
+  font-size: 90%;
+}
+
 .review-form-chracteristic-radio-container > * {
   padding: 1%;
   margin: 1%;
 }
 
 .review-form-characteristic-radio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.review-form-radio-description {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.review-form-radio-description > * {
+  align-self: center;
+  text-align: center;
 }
 
 .review-form-photo-modal {

@@ -158,7 +158,9 @@ class ReviewFormModal extends React.Component {
               </div>
               <div>
                 <label class='review-form-sub-heading'>Characteristics:</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
-                {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
+                <div class='review-form-all-characteristics'>
+                  {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
+                </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Review summary:</label><span id='review-form-summary' class='review-form-invalid-warning'></span>

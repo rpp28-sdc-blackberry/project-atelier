@@ -12,16 +12,16 @@ class ReviewFormCharacterisics extends React.Component {
     return (
       <div class='review-form-characteristic-radio-container'>
         <div>
-          <div>{this.props.characteristic.name}</div>
+          <div class='review-form-characteristic-name'>{this.props.characteristic.name}</div>
           <div class='review-form-characteristic-radio'>
             {[...Array(5).keys()].map(key =>
-              <div>
+              <div class='review-form-radio-description'>
                 <div>
                   <input type='radio' name={'characteristics' + this.props.characteristic.name} value={key + 1} class={this.props.characteristic.id} onChange={this.props.handleChange}></input>
                   <label for={'characteristics' + this.props.characteristic.name}>{key + 1}</label>
                 </div>
                 <div>
-                  <span>{helpers.productCharacteristics[this.props.characteristic.name][key + 1]}</span>
+                  <span class='review-form-characteristic-description'>{helpers.productCharacteristics[this.props.characteristic.name][key + 1]}</span>
                 </div>
               </div>
             )}
