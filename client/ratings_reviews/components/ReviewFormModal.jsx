@@ -124,71 +124,75 @@ class ReviewFormModal extends React.Component {
       );
     }
     return (
-      <div className="review-form-modal" onClick={this.props.closeModal}>
-        <div className="review-form-modal-content" onClick={e => e.stopPropagation()}>
-          <div>Write Your Review</div>
-          <div>About the {this.props.productName}</div>
+      <div className='review-form-modal' onClick={this.props.closeModal}>
+        <div className='review-form-modal-content' onClick={e => e.stopPropagation()}>
+          <div className='review-form-modal-header'>
+            <div>Write Your Review</div>
+            <div>About the {this.props.productName}</div>
+          </div>
           <form onSubmit={this.handleSubmit}>
-            <div>
-              <label>Overall rating</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
+            <div className='review-form-modal-body'>
               <div>
-                <select name='rating' value={this.state.rating} onChange={this.handleChange}>
-                  <option value=''>--Please choose an option--</option>
-                  <option value={5}>5</option>
-                  <option value={4}>4</option>
-                  <option value={3}>3</option>
-                  <option value={2}>2</option>
-                  <option value={1}>1</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label>Do you recommend this product?</label>
-              <div>
-                <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
-                <label for='recommend'>Yes</label>
+                <label class='review-form-sub-heading'>Overall rating:</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
+                <div>
+                  <select name='rating' value={this.state.rating} onChange={this.handleChange}>
+                    <option value=''>--Please choose an option--</option>
+                    <option value={5}>5</option>
+                    <option value={4}>4</option>
+                    <option value={3}>3</option>
+                    <option value={2}>2</option>
+                    <option value={1}>1</option>
+                  </select>
+                </div>
               </div>
               <div>
-                <input type='radio' id='review-recommend-no' name='recommend' value={false} onChange={this.handleChange}></input>
-                <label for='recommend'>No</label>
+                <label class='review-form-sub-heading'>Do you recommend this product?</label>
+                <div>
+                  <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
+                  <label for='recommend'>Yes</label>
+                </div>
+                <div>
+                  <input type='radio' id='review-recommend-no' name='recommend' value={false} onChange={this.handleChange}></input>
+                  <label for='recommend'>No</label>
+                </div>
               </div>
-            </div>
-            <div>
-              <label>Characteristics</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
-              {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
-            </div>
-            <div>
-              <label>Review summary</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
               <div>
-                <input name='summary' type='text' maxlength='60' size='70' placeholder='Best Product Ever!' value={this.state.summary} onChange={this.handleChange}></input>
+                <label class='review-form-sub-heading'>Characteristics:</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
+                {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
               </div>
-            </div>
-            <div>
-              <label>Review body</label><span id='review-form-body' class='review-form-invalid-warning'></span>
               <div>
-                <textarea name='body' rows='5' cols='60' placeholder='Please share with us your thoughts on the product!' value={this.state.body} onChange={this.handleChange}></textarea>
+                <label class='review-form-sub-heading'>Review summary:</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
+                <div>
+                  <input name='summary' type='text' maxlength='60' size='70' placeholder='Best Product Ever!' value={this.state.summary} onChange={this.handleChange}></input>
+                </div>
               </div>
-            </div>
-            <div>
-              <label>Your uploaded photo(s):</label>
-              {uploadedImagePreviews}
-              <div><button onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
-              <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
-            </div>
-            <div>
-              <label>What is your nickname?</label><span id='review-form-name' class='review-form-invalid-warning'></span>
               <div>
-                <input name='name' type='text' maxlength='40' size='50' placeholder='Your name here' value={this.state.name} onChange={this.handleChange}></input>
+                <label class='review-form-sub-heading'>Review body:</label><span id='review-form-body' class='review-form-invalid-warning'></span>
+                <div>
+                  <textarea name='body' rows='5' cols='60' placeholder='Please share with us your thoughts on the product!' value={this.state.body} onChange={this.handleChange}></textarea>
+                </div>
               </div>
-            </div>
-            <div>
-              <label>Your email</label><span id='review-form-email' class='review-form-invalid-warning'></span>
               <div>
-                <input name='email' type='text' maxlength='40' size='50' placeholder='Your email here' value={this.state.email} onChange={this.handleChange}></input>
+                <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
+                {uploadedImagePreviews}
+                <div><button onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
+                <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
               </div>
-            </div>
-            <div>
-              <button>Submit Review</button>
+              <div>
+                <label class='review-form-sub-heading'>Your nickname:</label><span id='review-form-name' class='review-form-invalid-warning'></span>
+                <div>
+                  <input name='name' type='text' maxlength='40' size='50' placeholder='Your name here' value={this.state.name} onChange={this.handleChange}></input>
+                </div>
+              </div>
+              <div>
+                <label class='review-form-sub-heading'>Your email:</label><span id='review-form-email' class='review-form-invalid-warning'></span>
+                <div>
+                  <input name='email' type='text' maxlength='40' size='50' placeholder='Your email here' value={this.state.email} onChange={this.handleChange}></input>
+                </div>
+              </div>
+              <div>
+                <button>Submit Review</button>
+              </div>
             </div>
           </form>
         </div>
