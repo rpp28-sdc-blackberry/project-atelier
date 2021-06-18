@@ -9,12 +9,31 @@ class ExpandedView extends React.Component {
     };
     
     this.toggleZoomView = this.toggleZoomView.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
   }
 
   toggleZoomView() {
     this.setState({
       zoomView: !this.state.zoomView
     });
+  }
+  
+  handleMouseMove(e) {
+    console.log('in mouse move');
+    var mover = document.querySelector("#expandedMover");
+    mover.style.backgroundPositionX = -e.offsetX * 1.8 + "px";
+    mover.style.backgroundPositionY = -e.offsetY * 80 + "px";
+  }
+
+  handleMouseEnter(e) {
+    console.log('in mouse enter');
+    var mover = document.querySelector("#expandedMover");
+    var container = document.querySelector("#expandedContainer");
+    setTimeout(() => {
+      mover.classList.add("no-more-slidey");
+      container.removeEventListener("mouseenter");
+    }, 250);
   }
 
   render() {
@@ -49,19 +68,18 @@ class ExpandedView extends React.Component {
       return (
         <div 
           id="expandedView"
-          className="zoomInView"
-          styles={`background-image: url(${photoGallery[this.props.currPhotoIndex].url})`}>
-          <a onClick={this.props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
-          {this.props.currPhotoIndex !== 0 ? 
-            <a
-              onClick={this.props.handleLeftClick} 
-              id="leftArrow">&larr;
-            </a> : null}
-          {this.props.currPhotoIndex !== (this.props.styleInfo.length - 1) ?
-            <a 
-              onClick={this.props.handleRightClick}
-              id="rightArrow">&rarr;
-            </a> : null}
+          className="zoomInView">
+          <a className="expandedContainer" 
+            id="expandedContainer" 
+            target="_blank" 
+            rel="noopener"
+            onMouseMove={this.handleMouseMove}
+            onMouseEnter={this.handleMouseEnter}>
+            <div className="expandedMover" 
+              id="expandedMover"
+              style={{'backgroundImage': `url('${photoGallery[this.props.currPhotoIndex].url}')`}}>
+            </div>
+          </a>
         </div>
       );
     }
