@@ -31,7 +31,6 @@ class Answer extends React.Component {
   }
 
   handleReportButtonClick() {
-    console.log('report clicked');
     reportAnswer(this.props.answer_id.toString())
       .then(() => {
         this.setState({reported: true});

@@ -63,7 +63,6 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
-    console.log(this.state);
   }
 
   render() {

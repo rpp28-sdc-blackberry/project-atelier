@@ -50,7 +50,7 @@ class ExpandedView extends React.Component {
         <div 
           id="expandedView"
           className="zoomInView"
-          style={`background-image: url(${photoGallery[this.props.currPhotoIndex].url})`}>
+          styles={`background-image: url(${photoGallery[this.props.currPhotoIndex].url})`}>
           <a onClick={this.props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
           {this.props.currPhotoIndex !== 0 ? 
             <a
