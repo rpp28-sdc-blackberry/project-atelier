@@ -175,7 +175,7 @@ class ReviewFormModal extends React.Component {
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
                 {uploadedImagePreviews}
-                <div><button onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
+                <div><button type='button' onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
                 <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
               </div>
               <div>
