@@ -10,10 +10,8 @@ class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.queryPage = 3; // move this to state
     this.state = {
       hasSearched: false,
-      // product_id: '',
       showMoreAnsweredQuestionsButton: false,
       showSearch: false,
       nextTwoQuestions: [],
@@ -38,7 +36,6 @@ class QuestionsAnswers extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.product_id !== this.props.product_id) {
-      console.log(this.props.product_id);
       this.initialize();
     }
   }
@@ -55,7 +52,6 @@ class QuestionsAnswers extends React.Component {
 
     fetchQuestions(this.props.product_id, 4, 1)
       .then((data) => {
-        console.log(data);
         let firstTwoQuestions = data.results.slice(0, 2);
         let nextTwoQuestions = data.results.slice(2);
 
@@ -63,7 +59,6 @@ class QuestionsAnswers extends React.Component {
           // make sure the state is empty if there are no questions
           this.setState({
             hasSearched: false,
-            // product_id: '',
             showMoreAnsweredQuestionsButton: false,
             showSearch: false,
             nextTwoQuestions: [],
@@ -86,15 +81,16 @@ class QuestionsAnswers extends React.Component {
           });
 
         } else {
-
           this.setState({
-            showMoreAnsweredQuestionsButton: true,
+            hasSearched: false,
             showSearch: true,
-            nextTwoQuestions: nextTwoQuestions,
             questions: firstTwoQuestions,
+            showMoreAnsweredQuestionsButton: true,
+            nextTwoQuestions: nextTwoQuestions,
+            query: '',
             queryPage: 3,
+            showQuestionModal: false
           });
-
         }
       });
 
