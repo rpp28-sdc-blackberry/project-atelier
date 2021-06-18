@@ -14,7 +14,8 @@ class ReviewFormModal extends React.Component {
       name: '',
       email: '',
       photos: [],
-      characteristics: {}
+      characteristics: {},
+      photo: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +29,20 @@ class ReviewFormModal extends React.Component {
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
+    }
+    if (name === 'photo') {
+      let files = e.target.files;
+      let reader = new FileReader();
+      reader.onload = r => {
+        let uploadedImage = r.target.result;
+        let currentPhotos = this.state.photos;
+        let regex = /^data:image\/(png|jpg|jpeg);base64,/;
+        uploadedImage = uploadedImage.replace(regex, '');
+        console.log('modified: ', uploadedImage);
+        currentPhotos.push(uploadedImage);
+        name = 'photos';
+      };
+      reader.readAsDataURL(files[0]);
     }
     this.setState({
       [name]: value
@@ -120,6 +135,7 @@ class ReviewFormModal extends React.Component {
             </div>
             <div>
               <label>Upload your photos</label>
+              <div><input type='file' id='review-form-photo' name='photo' accept='image/*' onChange={this.handleChange} value={this.state.photo}></input></div>
             </div>
             <div>
               <label>What is your nickname?</label>
