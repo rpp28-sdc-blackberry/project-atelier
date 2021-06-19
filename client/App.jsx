@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      'product_id': '22122',
+      product_id: '',
       info: null,
       selectedStyle: null,
       styleInfo: null,
@@ -23,9 +23,9 @@ class App extends React.Component {
     this.initialize = this.initialize.bind(this);
   }
 
-  initialize() {
+  initialize(productId = '22122') {
 
-    Promise.all([fetch(`http://localhost:8080/products/${this.state.product_id}`), fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)])
+    Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
@@ -38,6 +38,7 @@ class App extends React.Component {
           }
         }
         this.setState({
+          product_id: productId,
           info: parsedResponses[0],
           selectedStyle: selectedStyle || data.results[0],
           indexStyleSelected: indexStyleSelected || 0,
@@ -58,12 +59,13 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   handleRelatedItemClick(id) {
     let newId = id.toString();
-    this.setState({ 'product_id': newId }, this.initialize);
+    // this.setState({ 'product_id': newId }, this.initialize);
+    this.initialize(newId);
   }
 
   componentDidMount() {
@@ -71,6 +73,11 @@ class App extends React.Component {
   }
 
   render() {
+
+    if (this.state.product_id === '') {
+      return (<div>loading...</div>);
+    }
+
     return (
       <div>
         <ProductDetails
