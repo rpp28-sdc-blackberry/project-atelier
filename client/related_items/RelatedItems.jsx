@@ -12,21 +12,21 @@ class RelatedItems extends React.Component {
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.product_id !== prevProps.product_id) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     helpers.getRelatedItems(this.props.product_id)
       .then(relatedItems => {
         let uniqueItems = [...new Set(relatedItems)];
         this.setState({ relatedItemsIds: uniqueItems });
       });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.product_id !== prevProps.product_id) {
-      helpers.getRelatedItems(this.props.product_id)
-        .then(relatedItems => {
-          let uniqueItems = [...new Set(relatedItems)];
-          this.setState({ relatedItemsIds: uniqueItems });
-        });
-    }
   }
 
   render() {
