@@ -224,7 +224,7 @@
 }
 
 #review-right-container {
-  flex-basis: 30rem;
+  flex-basis: 50rem;
 }
 
 #review-left-container > * {
@@ -257,11 +257,36 @@
 
 .review-breakdown-bar {
   display: flex;
+  width: 80%;
 }
 
 .review-product-breakdown > * {
   margin: 1%;
   padding: 1%;
+}
+
+/*--------*/
+.review-product-breakdown-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review-product-breakdown-container > * {
+  text-align: center;
+}
+
+.review-product-breakdown-description-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-product-breakdown-description {
+  font-size: 90%;
+}
+
+.review-product-breakdown-bar {
+  width: 100%;
 }
 
 .reviews-list-tiles {
