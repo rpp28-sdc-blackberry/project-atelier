@@ -28,6 +28,17 @@
   text-align: center;
   grid-column: 1 / 2;
   grid-row: 1;
+  width: 100%
+}
+#expandedView {
+  border: 1px solid #ddd;
+  text-align: center;
+
+}
+#fullscreenIcon {
+  float: right;
+  position: relative;
+  margin-right: 2%;
 }
 #thumbnailList {
   text-align: center;
