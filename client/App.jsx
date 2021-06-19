@@ -63,12 +63,10 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
-    // console.log(this.state);
   }
 
   handleRelatedItemClick(id) {
     let newId = id.toString();
-    // this.setState({ 'product_id': newId }, this.initialize);
     this.initialize(newId);
   }
 
