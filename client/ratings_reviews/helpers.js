@@ -68,9 +68,11 @@ const computeRatingBreakdown = (ratings) => {
 };
 
 const computeRecommendedPercentage = (recommended) => {
-  var recommendedNumber = Number.parseInt(recommended.true);
-  var total = Number.parseInt(recommended.true) + Number.parseInt(recommended.false);
-  return (recommendedNumber / total * 100).toFixed(0) + '%';
+  if (Object.keys(recommended).length === 0) { return '0%'; }
+  let trueCount = Number.parseInt(recommended.true) || 0;
+  let falseCount = Number.parseInt(recommended.false) || 0;
+  let total = trueCount + falseCount;
+  return (trueCount / total * 100).toFixed(0) + '%';
 };
 
 const formatCharacteristics = (characteristics) => {
@@ -86,6 +88,9 @@ const formatCharacteristics = (characteristics) => {
 };
 
 const sortReviews = (reviews, option) => {
+  if (reviews.length === 0) {
+    return [];
+  }
   var reviewsCopy = reviews.slice();
   if (option === 'helpfulness') {
     return reviewsCopy.sort((a, b) => {
