@@ -1,5 +1,6 @@
 import React from 'react';
 import ItemsList from './ItemsList.jsx';
+import OutfitList from './OutfitList.jsx';
 import helpers from './helpers.js';
 
 class RelatedItems extends React.Component {
@@ -30,28 +31,24 @@ class RelatedItems extends React.Component {
   }
 
   render() {
-    if (this.props.selectedStyle && this.props.info) {
-      return (
-        <div id='relatedItemsWrapper'>
-          <h3>Related Items</h3>
-          <ItemsList
-            listType='relatedItems'
-            items={this.state.relatedItemsIds}
-            productName={this.props.info.name}
-            productFeatures={this.props.info.features}
-            handleRelatedItemClick={this.props.handleRelatedItemClick} />
+    return (
+      <div id='relatedItemsWrapper'>
+        <h3>Related Items</h3>
+        <ItemsList
+          listType='relatedItems'
+          items={this.state.relatedItemsIds}
+          productName={this.props.info.name}
+          productFeatures={this.props.info.features}
+          handleRelatedItemClick={this.props.handleRelatedItemClick} />
 
-          <h3>Your Outfit</h3>
-          <ItemsList
-            listType='yourOutfit'
-            info={this.props.info}
-            defaultStyle={this.props.selectedStyle}
-            handleRelatedItemClick={this.props.handleRelatedItemClick} />
-        </div>
-      );
-    } else {
-      return null;
-    }
+        <h3>Your Outfit</h3>
+        <OutfitList
+          listType='yourOutfit'
+          info={this.props.info}
+          defaultStyle={this.props.selectedStyle}
+          handleRelatedItemClick={this.props.handleRelatedItemClick} />
+      </div>
+    );
   }
 }
 
