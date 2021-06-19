@@ -105,13 +105,14 @@ class ItemsList extends React.Component {
     if (!foundDuplicate) { this.setState({ outfits: outfits }); }
   }
 
-  removeFromOutfit(component) {
+  removeFromOutfit(e) {
     let storage = window.localStorage;
+    let storedOutfits = JSON.parse(storage.getItem('outfits'));
+    let removedItemId = parseInt(e.target.parentNode.id);
 
-    if (storage.length > 0) {
+    if (storedOutfits) {
       let currentOutfits = this.state.outfits;
       let updatedOutfits = [];
-      let removedItemId = component.props.productInfo.id;
 
       currentOutfits.forEach(outfit => {
         if (outfit.id !== removedItemId) { updatedOutfits.push(outfit); }

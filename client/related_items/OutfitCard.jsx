@@ -9,8 +9,8 @@ class OutfitCard extends React.Component {
 
   render() {
     return (
-      <div className='relatedItemCard' onClick={() => this.removeFromOutfit(this)}>
-        <div id="action">Action</div>
+      <div className='relatedItemCard' id={this.props.productInfo.id}>
+        <div id="action" onClick={this.props.removeFromOutfit}>Remove</div>
         <img id="thumbnail" src={this.props.productInfo.thumbnailUrl}></img>
         <p id="category">{this.props.productInfo.category}</p>
         <p id="name">{this.props.productInfo.name}</p>
