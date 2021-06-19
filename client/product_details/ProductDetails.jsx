@@ -75,28 +75,20 @@ class ProductDetails extends React.Component {
 
     return (
       <div id="productDetails">
-        <div id={this.state.view === 'default' ? 'firstPanelDefault' : 'firstPanelExpanded'}>
-          <ThumbnailList 
-            selectedStyle={this.props.selectedStyle}
-            styleInfo={this.props.styleInfo} 
-            currPhotoIndex={this.state.currPhotoIndex}
-            handlePhotoSelection={this.handlePhotoSelection}/>
-          {this.state.view === 'default' ?
+        {this.state.view === 'default' ?
+          <div id='firstPanelDefault'>
+            <ThumbnailList 
+              selectedStyle={this.props.selectedStyle}
+              styleInfo={this.props.styleInfo} 
+              currPhotoIndex={this.state.currPhotoIndex}
+              handlePhotoSelection={this.handlePhotoSelection}/>
             <DefaultView 
               selectedStyle={this.props.selectedStyle}
               styleInfo={this.props.styleInfo} 
               currPhotoIndex={this.state.currPhotoIndex}
               toggleView={this.toggleView}
               handleLeftClick={this.handleLeftClick}
-              handleRightClick={this.handleRightClick}/> :
-            <ExpandedView 
-              selectedStyle={this.props.selectedStyle}
-              styleInfo={this.props.styleInfo}
-              currPhotoIndex={this.state.currPhotoIndex}
-              toggleView={this.toggleView}
-              handleLeftClick={this.handleLeftClick}
-              handleRightClick={this.handleRightClick}/>}
-          {this.state.view === 'default' ? 
+              handleRightClick={this.handleRightClick}/>
             <div id="info">
               <StarRating />
               <ProductInfo 
@@ -110,8 +102,17 @@ class ProductDetails extends React.Component {
               <AddToBag 
                 selectedStyle={this.props.selectedStyle} 
                 availableSizes={availableSizes}/>
-            </div> : null}
-        </div>
+            </div> 
+          </div> :
+          <div id="firstPanelExpanded">
+            <ExpandedView 
+              selectedStyle={this.props.selectedStyle}
+              styleInfo={this.props.styleInfo}
+              currPhotoIndex={this.state.currPhotoIndex}
+              toggleView={this.toggleView}
+              handleLeftClick={this.handleLeftClick}
+              handleRightClick={this.handleRightClick}/>
+          </div>}
         <div id="secondPanel">
           <OverviewDescription info={this.props.info}/>
           <OverviewFeatures info={this.props.info}/>

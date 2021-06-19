@@ -84,6 +84,7 @@
   border: 1px solid #ddd;
   padding: 2px;
   text-align: center;
+  align-content: center;
   grid-column: 1;
   grid-row: 1;
   background-repeat: no-repeat;
@@ -91,7 +92,7 @@
   margin-right: auto;
   width: -webkit-fill-available;
 }
-#expandedContainer {
+/* #expandedContainer {
   display: block;
   width: 100%;
   height: 500px;
@@ -107,12 +108,12 @@
   &.no-more-slidey {
     transition: none;
   }
-}
+} */
 .zoomOutView {
   max-height: 100%;
   cursor: crosshair;
 }
-.zoomInView img{
+.zoomInView {
   display: block;
 }
 #fullscreenIcon {

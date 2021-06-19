@@ -10,7 +10,18 @@ class ExpandedView extends React.Component {
     
     this.toggleZoomView = this.toggleZoomView.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+  }
+  
+  componentDidMount() {
+    var element = document.getElementById('expandedView');
+    console.log(element);
+    element.addEventListener("mousemove", this.handleMouseMove);
+  }
+
+  componentWillUnmount() {
+    var element = document.getElementById('expandedView');
+    console.log(element);
+    element.removeEventListener("mousemove", this.handleMouseMove);
   }
 
   toggleZoomView() {
@@ -21,19 +32,9 @@ class ExpandedView extends React.Component {
   
   handleMouseMove(e) {
     console.log('in mouse move');
-    var mover = document.querySelector("#expandedMover");
-    mover.style.backgroundPositionX = -e.offsetX * 1.8 + "px";
-    mover.style.backgroundPositionY = -e.offsetY * 80 + "px";
-  }
-
-  handleMouseEnter(e) {
-    console.log('in mouse enter');
-    var mover = document.querySelector("#expandedMover");
-    var container = document.querySelector("#expandedContainer");
-    setTimeout(() => {
-      mover.classList.add("no-more-slidey");
-      container.removeEventListener("mouseenter");
-    }, 250);
+    var element = document.getElementById('expandedView');
+    element.style.backgroundPositionX = -e.offsetX + "px";
+    element.style.backgroundPositionY = -e.offsetY + "px";
   }
 
   render() {
@@ -68,18 +69,10 @@ class ExpandedView extends React.Component {
       return (
         <div 
           id="expandedView"
-          className="zoomInView">
-          <a className="expandedContainer" 
-            id="expandedContainer" 
-            target="_blank" 
-            rel="noopener"
-            onMouseMove={this.handleMouseMove}
-            onMouseEnter={this.handleMouseEnter}>
-            <div className="expandedMover" 
-              id="expandedMover"
-              style={{'backgroundImage': `url('${photoGallery[this.props.currPhotoIndex].url}')`}}>
-            </div>
-          </a>
+          className={this.state.zoomView ? 'zoomInView' : 'zoomOutView'}
+          style={{'backgroundImage': `url('${photoGallery[this.props.currPhotoIndex].url}')`}}
+          onMouseMove={this.handleMouseMove}
+          onClick={this.toggleZoomView}>
         </div>
       );
     }
