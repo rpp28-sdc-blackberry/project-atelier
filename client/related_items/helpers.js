@@ -39,4 +39,27 @@ const findDefaultStyle = (styles) => {
   });
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle };
+const defineMainProduct = (info, defaultStyle) => {
+  let price, thumbnailUrl, mainProduct;
+
+  !defaultStyle.sale_price
+    ? price = defaultStyle.original_price
+    : price = defaultStyle.sale_price;
+
+  !defaultStyle.photos[0].thumbnail_url
+    ? thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081'
+    : thumbnailUrl = defaultStyle.photos[0].thumbnail_url;
+
+  mainProduct = {
+    thumbnailUrl: thumbnailUrl,
+    category: info.category,
+    name: info.name,
+    price: price,
+    rating: '4.5',
+    id: info.id
+  };
+
+  return mainProduct;
+};
+
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle, defineMainProduct };

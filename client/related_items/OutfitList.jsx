@@ -1,8 +1,7 @@
 import React from 'react';
 import AddToOutfit from './AddToOutfit.jsx';
-import ItemCard from './ItemCard.jsx';
 import OutfitCard from './OutfitCard.jsx';
-import ComparisonModal from './ComparisonModal.jsx';
+import { defineMainProduct } from './helpers.js';
 
 class OutfitList extends React.Component {
   constructor(props) {
@@ -37,26 +36,7 @@ class OutfitList extends React.Component {
   }
 
   initialize() {
-    let price, thumbnailUrl, defaultStyle, info, mainProduct;
-    defaultStyle = this.props.defaultStyle;
-    info = this.props.info;
-
-    if (!defaultStyle.sale_price) {
-      price = defaultStyle.original_price;
-    } else { price = defaultStyle.sale_price; }
-
-    if (!defaultStyle.photos[0].thumbnail_url) {
-      thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
-    } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
-
-    mainProduct = {
-      thumbnailUrl: thumbnailUrl,
-      category: info.category,
-      name: info.name,
-      price: price,
-      rating: '4.5',
-      id: info.id
-    };
+    let mainProduct = defineMainProduct(this.props.info, this.props.defaultStyle);
 
     this.setState({
       mainProduct: mainProduct
