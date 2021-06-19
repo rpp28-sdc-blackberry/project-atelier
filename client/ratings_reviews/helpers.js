@@ -68,9 +68,11 @@ const computeRatingBreakdown = (ratings) => {
 };
 
 const computeRecommendedPercentage = (recommended) => {
-  var recommendedNumber = Number.parseInt(recommended.true);
-  var total = Number.parseInt(recommended.true) + Number.parseInt(recommended.false);
-  return (recommendedNumber / total * 100).toFixed(0) + '%';
+  if (Object.keys(recommended).length === 0) { return '0%'; }
+  let trueCount = Number.parseInt(recommended.true) || 0;
+  let falseCount = Number.parseInt(recommended.false) || 0;
+  let total = trueCount + falseCount;
+  return (trueCount / total * 100).toFixed(0) + '%';
 };
 
 const formatCharacteristics = (characteristics) => {
@@ -86,6 +88,9 @@ const formatCharacteristics = (characteristics) => {
 };
 
 const sortReviews = (reviews, option) => {
+  if (reviews.length === 0) {
+    return [];
+  }
   var reviewsCopy = reviews.slice();
   if (option === 'helpfulness') {
     return reviewsCopy.sort((a, b) => {
@@ -164,6 +169,51 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
 };
 
+const productCharacteristics = {
+  'Size': {
+    1: 'A size too small',
+    2: '½ a size too small',
+    3: 'Perfect',
+    4: '½ a size too big',
+    5: 'A size too wide'
+  },
+  'Width': {
+    1: 'Too narrow',
+    2: 'Slightly narrow',
+    3: 'Perfect',
+    4: 'Slightly wide',
+    5: 'Too wide'
+  },
+  'Comfort': {
+    1: 'Uncomfortable',
+    2: 'Slightly uncomfortable',
+    3: 'Ok',
+    4: 'Comfortable',
+    5: 'Perfect'
+  },
+  'Quality': {
+    1: 'Poor',
+    2: 'Below average',
+    3: 'What I expected',
+    4: 'Pretty great',
+    5: 'Perfect'
+  },
+  'Length': {
+    1: 'Runs short',
+    2: 'Runs slightly short',
+    3: 'Perfect',
+    4: 'Runs slightly long',
+    5: 'Runs long'
+  },
+  'Fit': {
+    1: 'Runs tight',
+    2: 'Runs slightly tight',
+    3: 'Perfect',
+    4: 'Runs slightly long',
+    5: 'Runs long'
+  }
+};
+
 module.exports = {
   formatDate: formatDate,
   fetchReviews: fetchReviews,
@@ -173,5 +223,6 @@ module.exports = {
   formatCharacteristics: formatCharacteristics,
   sortReviews: sortReviews,
   applyStarFilters: applyStarFilters,
-  formatReviewTile: formatReviewTile
+  formatReviewTile: formatReviewTile,
+  productCharacteristics: productCharacteristics
 };

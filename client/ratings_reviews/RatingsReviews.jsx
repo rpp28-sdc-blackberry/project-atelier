@@ -99,7 +99,7 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
+    if (!$.isEmptyObject(this.state.meta) && this.props.info !== null) {
       return (
         <div class='review-overall-container'>
           <span>RATINGS & REVIEWS</span>

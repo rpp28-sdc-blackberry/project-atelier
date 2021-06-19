@@ -235,7 +235,7 @@
 }
 
 #review-right-container {
-  flex-basis: 30rem;
+  flex-basis: 50rem;
 }
 
 #review-left-container > * {
@@ -268,11 +268,36 @@
 
 .review-breakdown-bar {
   display: flex;
+  width: 80%;
 }
 
 .review-product-breakdown > * {
   margin: 1%;
   padding: 1%;
+}
+
+/*--------*/
+.review-product-breakdown-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review-product-breakdown-container > * {
+  text-align: center;
+}
+
+.review-product-breakdown-description-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-product-breakdown-description {
+  font-size: 90%;
+}
+
+.review-product-breakdown-bar {
+  width: 100%;
 }
 
 .reviews-list-tiles {
@@ -373,16 +398,89 @@
   margin: 1%;
 }
 
+.review-form-all-characteristics > * {
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-characteristic-name {
+  font-style: italic;
+}
+
+.review-form-characteristic-description {
+  font-size: 90%;
+}
+
 .review-form-chracteristic-radio-container > * {
   padding: 1%;
   margin: 1%;
 }
 
 .review-form-characteristic-radio {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.review-form-radio-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.review-form-radio-description > * {
+  align-self: center;
+  text-align: center;
+}
+
+.review-form-photo-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-form-photo-modal-content {
+  width: 300px;
+  background: #fff;
+  padding: 2%;
+}
+
+.review-form-photo-modal-content > * {
+  padding: 1%;
+  margin: 1%;
+}
+
+.review-form-modal-header {
+  font-size: 120%;
+  font-weight: bold;
+  border-bottom: solid black 0.1em;
+}
+
+.review-form-modal-header > * {
+  margin: 1%;
+}
+
+.review-form-sub-heading {
+  font-weight: bold;
+}
+
+.review-form-modal-body > * {
+  padding: 1%;
+  margin: 1%
+}
+
+.review-form-invalid-warning {
+  display: inline-block;
+  font-size: 80%;
+  color: red;
+  padding: 1%;
+  margin: 1%;
+}
 
 /* STAR RATING */
 
