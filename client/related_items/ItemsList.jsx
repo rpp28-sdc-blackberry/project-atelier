@@ -30,6 +30,18 @@ class ItemsList extends React.Component {
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.listType === 'yourOutfit') {
+      if (prevProps.info.id !== this.props.info.id) {
+        this.initialize();
+      }
+    }
+  }
+
+  initialize() {
     if (this.props.defaultStyle && this.props.info) {
 
       let price, thumbnailUrl, defaultStyle, info, mainProduct;
