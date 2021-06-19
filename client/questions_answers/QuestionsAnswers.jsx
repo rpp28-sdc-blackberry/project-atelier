@@ -3,19 +3,20 @@ import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
+import Modal from './components/Modal.jsx';
+import { validateFormFields } from './helpers.js';
 
 class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
 
-    this.queryPage = 3;
     this.state = {
       hasSearched: false,
-      product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
       showSearch: false,
       nextTwoQuestions: [],
       query: '',
+      queryPage: 3,
       questions: [],
       showQuestionModal: false
 
@@ -25,6 +26,7 @@ class QuestionsAnswers extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
     this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
+    this.closeQuestionModal = this.closeQuestionModal.bind(this);
 
   }
 
@@ -32,7 +34,21 @@ class QuestionsAnswers extends React.Component {
     this.initialize();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.product_id !== this.props.product_id) {
+      this.initialize();
+    }
+  }
+
   initialize() {
+    // initialize localStorage
+    if (!localStorage.getItem('helpfulQuestions')) {
+      localStorage.setItem('helpfulQuestions', JSON.stringify([]));
+    }
+
+    if (!localStorage.getItem('helpfulAnswers')) {
+      localStorage.setItem('helpfulAnswers', JSON.stringify([]));
+    }
 
     fetchQuestions(this.props.product_id, 4, 1)
       .then((data) => {
@@ -40,24 +56,50 @@ class QuestionsAnswers extends React.Component {
         let nextTwoQuestions = data.results.slice(2);
 
         if (!firstTwoQuestions.length) {
-          return;
-        }
-        if (!nextTwoQuestions.length) {
+          // make sure the state is empty if there are no questions
           this.setState({
-            showSearch: true,
-            questions: firstTwoQuestions
+            hasSearched: false,
+            showMoreAnsweredQuestionsButton: false,
+            showSearch: false,
+            nextTwoQuestions: [],
+            query: '',
+            queryPage: 3,
+            questions: [],
+            showQuestionModal: false
           });
-          return;
+
+        } else if (!nextTwoQuestions.length) {
+          this.setState({
+            hasSearched: false,
+            showSearch: true,
+            questions: firstTwoQuestions,
+            showMoreAnsweredQuestionsButton: false,
+            nextTwoQuestions: [],
+            query: '',
+            queryPage: 3,
+            showQuestionModal: false
+          });
+
+        } else {
+          this.setState({
+            hasSearched: false,
+            showSearch: true,
+            questions: firstTwoQuestions,
+            showMoreAnsweredQuestionsButton: true,
+            nextTwoQuestions: nextTwoQuestions,
+            query: '',
+            queryPage: 3,
+            showQuestionModal: false
+          });
         }
-
-        this.setState({
-          showMoreAnsweredQuestionsButton: true,
-          showSearch: true,
-          nextTwoQuestions: nextTwoQuestions,
-          questions: firstTwoQuestions
-        });
-
       });
+
+  }
+
+  closeQuestionModal() {
+    this.setState({
+      showQuestionModal: false
+    });
   }
 
   handleMoreQuestionsClick() {
@@ -73,7 +115,7 @@ class QuestionsAnswers extends React.Component {
     }
 
     // this updates the questions list--refactor to different function
-    fetchQuestions(this.state.product_id, 2, this.queryPage)
+    fetchQuestions(this.props.product_id, 2, this.state.queryPage)
       .then((data) => {
         if (!data.results.length) {
           this.setState({
@@ -85,7 +127,7 @@ class QuestionsAnswers extends React.Component {
             questions: [...this.state.questions, ...this.state.nextTwoQuestions],
             nextTwoQuestions: data.results,
           });
-          this.queryPage++;
+          this.state.queryPage = this.state.queryPage + 1;
         }
       });
 
@@ -127,12 +169,18 @@ class QuestionsAnswers extends React.Component {
 
     e.preventDefault();
 
-    // validate the form fields using a helper function that returns a boolean value
-    // if that doesnt pass--display an alert popup
-    // otherwise
-    // submit the question to the server using a function
+    const question = e.target.question.value;
+    const nickname = e.target.nickname.value;
+    const email = e.target.email.value;
 
-    submitQuestion(e.target.question.value, e.target.nickname.value, e.target.email.value, this.state.product_id)
+    const invalid = validateFormFields(question, nickname, email);
+
+    if (invalid) {
+      alert(invalid);
+      return;
+    }
+
+    submitQuestion(question, nickname, email, this.props.product_id)
       .then((response) => {
         console.log(response);
       })
@@ -147,16 +195,20 @@ class QuestionsAnswers extends React.Component {
   }
 
   render() {
-
+    if (this.props.info) {
+      return (
+        <div className="qa-component">
+          <div> {`QUESTIONS & ANSWERS`} </div>
+          {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
+          <QuestionsList questions={this.state.questions} name={this.props.info.name}/>
+          {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+          <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+          {this.state.showQuestionModal && <QuestionForm name={this.props.info.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
+        </div>
+      );
+    }
     return (
-      <div className="questions-answers component">
-        <div> {`QUESTIONS & ANSWERS`} </div>
-        {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList questions={this.state.questions} name={this.props.name}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit}/>}
-      </div>
+      <div className="qa.component"></div>
     );
   }
 

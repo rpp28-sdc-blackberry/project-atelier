@@ -12,27 +12,23 @@ class AnswersList extends React.Component {
       showLoadMoreAnswersButton: false,
       showCollapseAnswersListButton: false
     };
-
+    this.initialize();
     this.collapseAnswersList = this.collapseAnswersList.bind(this);
     this.loadRemainingAnswers = this.loadRemainingAnswers.bind(this);
   }
 
-  componentDidMount() {
+  initialize() {
     let unsortedAnswersList = Object.values(this.props.answers);
     let sortedAnswersList = sortAnswersList(unsortedAnswersList);
     let firstTwoAnswers = sortedAnswersList.slice(0, 2);
     let remainingAnswers = sortedAnswersList.slice(2);
     if (!!firstTwoAnswers.length) {
-      this.setState({
-        answers: firstTwoAnswers,
-        showAnswersList: true
-      });
+      this.state.answers = firstTwoAnswers;
+      this.state.showAnswersList = true;
     }
     if (!!remainingAnswers.length) {
-      this.setState({
-        remainingAnswers: remainingAnswers,
-        showLoadMoreAnswersButton: true
-      });
+      this.state.remainingAnswers = remainingAnswers;
+      this.state.showLoadMoreAnswersButton = true;
     }
   }
 
@@ -58,9 +54,9 @@ class AnswersList extends React.Component {
 
     return (
       this.state.showAnswersList &&
-      <div className="answers-list container">
+      <div className="qa-answers-list-container">
         <b>A:</b>
-        {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} />)}
+        {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} helpfulness={answer.helpfulness} answer_id={answer.id}/>)}
         {this.state.showLoadMoreAnswersButton && <button onClick={this.loadRemainingAnswers}> See more answers </button>}
         {this.state.showCollapseAnswersListButton && <button onClick={this.collapseAnswersList}> Collapse answers </button>}
       </div>

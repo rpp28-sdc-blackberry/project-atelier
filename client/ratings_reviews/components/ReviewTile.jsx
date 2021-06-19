@@ -8,24 +8,23 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: this.props.review.rating,
-      name: this.props.review.reviewer_name,
-      date: helpers.formatDate(this.props.review.date.slice(0, 10)),
-      summary: this.props.review.summary,
-      body: this.props.review.body,
+      summary: '',
+      body: '',
       additionalBody: '',
-      showBody: true,
+      showBody: false,
       showAdditionalBody: false,
       showAdditionalBodyButton: false,
-      response: this.props.review.response,
-      helpfulness: this.props.review.helpfulness,
-      photos: this.props.review.photos,
       showPhotos: false,
-      showRecommend: this.props.review.recommend,
-      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0)
+      showRecommend: false,
+      showResponse: false,
+      reportStatus: false,
+      helpfulness: 0,
+      showAddHelpfulButton: true,
+      reportStatus: false
     };
-
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
+    this.handleAddHelpful = this.handleAddHelpful.bind(this);
+    this.handleReport = this.handleReport.bind(this);
   }
 
   toggleAdditionalBody(e) {
@@ -40,43 +39,80 @@ class ReviewTile extends React.Component {
     }
   }
 
+  handleAddHelpful() {
+    $.ajax({
+      url: `reviews/${this.props.review.review_id}/helpful`,
+      method: 'PUT'
+    }).then(() => {
+      var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      currentHelpfulReviews.push(this.props.review.review_id);
+      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
+      this.setState({
+        helpfulness: this.state.helpfulness + 1,
+        showAddHelpfulButton: false
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  handleReport() {
+    $.ajax({
+      url: `reviews/${this.props.review.review_id}/report`,
+      method: 'PUT'
+    }).then(() => {
+      var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      currentReportedReviews.push(this.props.review.review_id);
+      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
+      this.setState({
+        reportStatus: true
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   componentDidMount() {
-    if (this.props.review.summary.length > 60) {
-      this.setState({
-        summary: this.props.review.summary.slice(0, 61) + '...'
-      });
-    }
-    if (this.props.review.body.length > 250) {
-      this.setState({
-        body: this.props.review.body.slice(0, 251) + '...',
-        additionalBody: this.props.review.body,
-        showAdditionalBodyButton: true
-      });
-    }
-    if (this.props.review.photos.length !== 0) {
-      this.setState({
-        showPhotos: true
-      });
-    }
+    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review.summary, this.props.review.body, this.props.review.photos, this.props.review.review_id);
+    this.setState({
+      summary: formattedReviewTileInfo[0],
+      body: formattedReviewTileInfo[1],
+      additionalBody: formattedReviewTileInfo[2],
+      showBody: true,
+      showAdditionalBody: false,
+      showAdditionalBodyButton: formattedReviewTileInfo[3],
+      showPhotos: formattedReviewTileInfo[4],
+      showRecommend: this.props.review.recommend,
+      showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
+      reportStatus: false,
+      helpfulness: this.props.review.helpfulness + formattedReviewTileInfo[5],
+      showAddHelpfulButton: formattedReviewTileInfo[6],
+      reportStatus: formattedReviewTileInfo[7]
+    });
   }
 
   render() {
     return (
       <div class='review-tile'>
         <div class='review-tile-top-panel'>
-          <span class="stars" style={{'--rating': this.state.rating}}></span>
-          <span>{this.state.name}, {this.state.date}</span>
+          <span class="stars" style={{'--rating': this.props.review.rating}}></span>
+          <span>{this.props.review.reviewer_name}, {helpers.formatDate(this.props.review.date.slice(0, 10))}</span>
         </div>
         <div class='review-summary'>{this.state.summary}</div>
         <div class='review-body' hidden={!this.state.showBody}>{this.state.body}</div>
         <div class='review-additional-body' hidden={!this.state.showAdditionalBody}>{this.state.additionalBody}</div>
         <div class='review-additional-body-button' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
         <div class='review-photos' hidden={!this.state.showPhotos}>
-          {this.state.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
+          {this.props.review.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
         </div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
-        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.state.response}</div>
-        <div><span>Helpful? Yes ({this.state.helpfulness}) | Report</span></div>
+        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
+        <div>
+          <span>Helpful?</span>
+          {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
+          <span>({this.state.helpfulness}) | </span>
+          {!this.state.reportStatus ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
+        </div>
       </div>
     );
   }

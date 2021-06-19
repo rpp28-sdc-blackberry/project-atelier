@@ -4,7 +4,7 @@ import StyleCheckThumbnail from './StyleCheckThumbnail.jsx';
 
 const StyleSelector = (props) => {
   
-  if (props.styleInfo !== undefined) {
+  if (props.styleInfo) {
 
     var i = 0;
 

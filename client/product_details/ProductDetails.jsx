@@ -13,71 +13,29 @@ import ThumbnailList from './ThumbnailList.jsx';
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
-    
-    fetch(`http://localhost:8080/products/${this.props.product_id}`)
-      .then((response) => {
-        return response.json();
-      }) 
-      .then((data) => {
-        this.setState({
-          info: data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    
-    fetch(`http://localhost:8080/products/${this.props.product_id}/styles`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        for (var i = 0; i < data.results.length; i++) {
-          if (data.results[i]['default?']) {
-            var selectedStyle = data.results[i];
-            var indexStyleSelected = i;
-            this.setState({
-              styleInfo: data.results,
-              selectedStyle: selectedStyle,
-              indexStyleSelected: indexStyleSelected,
-            });
-            break;
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
     this.state = {
       view: 'default',
-      selectedStyle: undefined,
-      info: undefined,
-      styleInfo: undefined,
       currPhotoIndex: 0,
-      indexStyleSelected: undefined,
     };
-    this.handleStyleSelection = this.handleStyleSelection.bind(this);
+    
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
     this.handleUpClick = this.handleUpClick.bind(this);
     this.handleDownClick = this.handleDownClick.bind(this);
+    this.toggleView = this.toggleView.bind(this);
   }
   
   toggleView() {
     //TODO
-  }
-
-  toggleStyleSelected() {
-    //TODO
-  }
-
-  handleStyleSelection(e) {
-    e.preventDefault();
-    var index = Number(e.target.id);
-    this.setState({
-      indexStyleSelected: index,
-      selectedStyle: this.state.styleInfo[index],
-    });
+    if (this.state.view === 'default') {
+      this.setState({
+        view: 'expanded'
+      });
+    } else {
+      this.setState({
+        view: 'default'
+      });
+    }
   }
 
   handlePhotoSelection(e) {
@@ -90,7 +48,7 @@ class ProductDetails extends React.Component {
 
   handleUpClick(e) {
     e.preventDefault();
-    var totalPhotos = this.state.selectedStyle.photos.length;
+    var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === 0 ? totalPhotos - 1 : this.state.currPhotoIndex - 1;
     this.setState({
       currPhotoIndex: newIndex
@@ -99,7 +57,7 @@ class ProductDetails extends React.Component {
 
   handleDownClick(e) {
     e.preventDefault();
-    var totalPhotos = this.state.selectedStyle.photos.length;
+    var totalPhotos = this.props.selectedStyle.photos.length;
     var newIndex = this.state.currPhotoIndex === totalPhotos - 1 ? 0 : this.state.currPhotoIndex + 1;
     this.setState({
       currPhotoIndex: newIndex
@@ -112,49 +70,62 @@ class ProductDetails extends React.Component {
       if (this.state.view === 'default') {
         return (
           <DefaultView 
-            selectedStyle={this.state.selectedStyle} 
-            currPhotoIndex={this.state.currPhotoIndex}/>
+            selectedStyle={this.props.selectedStyle} 
+            currPhotoIndex={this.state.currPhotoIndex}
+            toggleView={this.toggleView}/>
         );
-      } else {
+      } else if (this.state.view === 'expand') {
         return (
-          <ExpandedView selectedStyle={this.state.selectedStyle}/>
+          <ExpandedView 
+            selectedStyle={this.props.selectedStyle}
+            currPhotoIndex={this.state.currPhotoIndex}
+            toggleView={this.toggleView}/>
         );
       }
     };
     
     var availableSizes = [];
-    if (this.state.selectedStyle) {
-      var skus = this.state.selectedStyle.skus;
+    if (this.props.selectedStyle) {
+      var skus = this.props.selectedStyle.skus;
       for (var key in skus) {
-        availableSizes.push([skus[key]['size'], skus[key]['quantity']]);
+        availableSizes.push([skus[key]['size'], skus[key]['quantity'], key]);
       }
     }
 
     return (
       <div id="productDetails">
         <ThumbnailList 
-          selectedStyle={this.state.selectedStyle} 
+          selectedStyle={this.props.selectedStyle} 
           currPhotoIndex={this.state.currPhotoIndex}
           handlePhotoSelection={this.handlePhotoSelection}
           handleUpClick={this.handleUpClick}
           handleDownClick={this.handleDownClick}/>
-        {view()}
-        <div id="info">
-          <StarRating />
-          <ProductInfo 
-            info={this.state.info} 
-            selectedStyle={this.state.selectedStyle}/>
-          <StyleSelector 
-            changeStyle={this.handleStyleSelection} 
-            styleInfo={this.state.styleInfo} 
-            indexStyleSelected={this.state.indexStyleSelected} 
-            selectedStyle={this.state.selectedStyle}/>
-          <AddToBag 
-            selectedStyle={this.state.selectedStyle} 
-            availableSizes={availableSizes}/>
-        </div>
-        <OverviewDescription info={this.state.info}/>
-        <OverviewFeatures info={this.state.info}/>
+        {this.state.view === 'default' ?
+          <DefaultView 
+            selectedStyle={this.props.selectedStyle} 
+            currPhotoIndex={this.state.currPhotoIndex}
+            toggleView={this.toggleView}/> :
+          <ExpandedView 
+            selectedStyle={this.props.selectedStyle}
+            currPhotoIndex={this.state.currPhotoIndex}
+            toggleView={this.toggleView}/>}
+        {this.state.view === 'default' ? 
+          <div id="info">
+            <StarRating />
+            <ProductInfo 
+              info={this.props.info} 
+              selectedStyle={this.props.selectedStyle}/>
+            <StyleSelector 
+              changeStyle={this.props.handleStyleSelection} 
+              styleInfo={this.props.styleInfo} 
+              indexStyleSelected={this.props.indexStyleSelected} 
+              selectedStyle={this.props.selectedStyle}/>
+            <AddToBag 
+              selectedStyle={this.props.selectedStyle} 
+              availableSizes={availableSizes}/>
+          </div> : null}
+        <OverviewDescription info={this.props.info}/>
+        <OverviewFeatures info={this.props.info}/>
         <ShareToSocialMedia />
       </div>
     );

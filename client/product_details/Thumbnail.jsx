@@ -5,7 +5,7 @@ const Thumbnail = (props) => {
     return (
       <a target="_blank">
         <img 
-          src={props.photo.thumbnail_url} 
+          src={props.photo.thumbnail_url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} 
           alt={props.name} 
           className="stylePhoto selectedThumbnail" 
           id={props.index}/>
@@ -16,7 +16,7 @@ const Thumbnail = (props) => {
   return (
     <a target="_blank">
       <img 
-        src={props.photo.thumbnail_url} 
+        src={props.photo.thumbnail_url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} 
         alt={props.name} 
         className="stylePhoto" 
         id={props.index}
