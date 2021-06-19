@@ -13,6 +13,8 @@ class ItemCard extends React.Component {
       rating: '',
       features: []
     };
+
+    this.handleRelatedItemClick = this.props.handleRelatedItemClick.bind(this);
   }
 
   componentDidMount() {
@@ -51,8 +53,8 @@ class ItemCard extends React.Component {
     let name = this.state.name;
 
     return (
-      <div className='relatedItemCard' onClick={() => this.props.toggleModal(features, name)}>
-        <div id="action">Action</div>
+      <div className='relatedItemCard' onClick={() => this.handleRelatedItemClick(this.props.id)}>
+        <div id="action" onClick={() => this.props.toggleModal(features, name)}>Action</div>
         <img id="thumbnail" src={this.state.thumbnailUrl}></img>
         <p id="category">{this.state.category}</p>
         <p id="name">{this.state.name}</p>

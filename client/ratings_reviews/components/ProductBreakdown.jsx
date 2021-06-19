@@ -7,12 +7,25 @@ class ProductBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      meta: {},
       characteristics: {}
     };
+    this.initialize = this.initialize.bind(this);
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.meta !== prevProps.meta) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     this.setState({
+      meta: this.props.meta,
       characteristics: helpers.formatCharacteristics(this.props.meta.characteristics)
     });
   }

@@ -7,16 +7,29 @@ class RatingBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      meta: {},
       ratings: {},
       averageRating: [0, 0],
       breakdown: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
       recommended: 0
     };
+    this.initialize = this.initialize.bind(this);
     this.handleRatingBreakdownClick = this.handleRatingBreakdownClick.bind(this);
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.meta !== prevProps.meta) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     this.setState({
+      meta: this.props.meta,
       ratings: this.props.meta.ratings,
       averageRating: helpers.computeAverageRating(this.props.meta.ratings),
       breakdown: helpers.computeRatingBreakdown(this.props.meta.ratings),

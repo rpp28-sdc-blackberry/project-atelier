@@ -17,6 +17,7 @@ class RatingsReviews extends React.Component {
       sortingOption: 'relevance',
       starFilters: []
     };
+    this.initialize = this.initialize.bind(this);
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
     this.handleStarFilters = this.handleStarFilters.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
@@ -24,6 +25,16 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.product_id !== prevProps.product_id) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     $.ajax({
       url: `reviews/meta?product_id=${this.props.product_id}`,
       method: 'GET'
