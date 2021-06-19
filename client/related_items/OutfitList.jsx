@@ -62,42 +62,34 @@ class OutfitList extends React.Component {
       mainProduct: mainProduct
     });
 
-    let outfits = JSON.parse(window.localStorage.getItem('outfits'));
-    if (outfits !== null) {
-      this.setState({ outfits: outfits });
+    if (!localStorage.getItem('outfits')) {
+      localStorage.setItem('outfits', JSON.stringify([]));
+    } else {
+      let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
+      this.setState({ outfits: storedOutfits });
     }
   }
 
   addToOutfit() {
-    let storage = window.localStorage;
+    let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let mainProduct = this.state.mainProduct;
-    let outfits = [];
     let foundDuplicate = false;
-    let currentOutfits = JSON.parse(storage.getItem('outfits'));
 
-    if (currentOutfits === null) {
-      outfits.push(mainProduct);
-      storage.setItem('outfits', JSON.stringify(outfits));
-    } else {
-      outfits = JSON.parse(storage.getItem('outfits'));
-      outfits.forEach(outfit => {
-        if (outfit.id === mainProduct.id) {
-          foundDuplicate = true;
-        }
-      });
-
-      if (!foundDuplicate) {
-        outfits.push(mainProduct);
-        storage.setItem('outfits', JSON.stringify(outfits));
+    storedOutfits.forEach(outfit => {
+      if (outfit.id === mainProduct.id) {
+        foundDuplicate = true;
       }
-    }
+    });
 
-    if (!foundDuplicate) { this.setState({ outfits: outfits }); }
+    if (!foundDuplicate) {
+      storedOutfits.push(mainProduct);
+      localStorage.setItem('outfits', JSON.stringify(storedOutfits));
+      this.setState({ outfits: storedOutfits });
+    }
   }
 
   removeFromOutfit(e) {
-    let storage = window.localStorage;
-    let storedOutfits = JSON.parse(storage.getItem('outfits'));
+    let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let removedItemId = parseInt(e.target.parentNode.id);
 
     if (storedOutfits) {
@@ -108,7 +100,7 @@ class OutfitList extends React.Component {
         if (outfit.id !== removedItemId) { updatedOutfits.push(outfit); }
       });
 
-      storage.setItem('outfits', JSON.stringify(updatedOutfits));
+      localStorage.setItem('outfits', JSON.stringify(updatedOutfits));
       this.setState({ outfits: updatedOutfits });
     }
   }
