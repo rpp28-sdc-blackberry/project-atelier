@@ -23,6 +23,10 @@ class App extends React.Component {
     this.initialize = this.initialize.bind(this);
   }
 
+  componentDidMount() {
+    this.initialize();
+  }
+
   initialize(productId = '22122') {
 
     Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
@@ -68,10 +72,6 @@ class App extends React.Component {
     this.initialize(newId);
   }
 
-  componentDidMount() {
-    this.initialize();
-  }
-
   render() {
 
     if (this.state.product_id === '') {
@@ -94,7 +94,7 @@ class App extends React.Component {
           handleRelatedItemClick={this.handleRelatedItemClick}/>
         <QuestionsAnswers
           product_id={this.state.product_id}
-          info={this.state.info}/>
+          name={this.state.info.name}/>
         <RatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}/>
