@@ -11,49 +11,49 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      'product_id': '22122',
+      product_id: '',
       info: null,
       selectedStyle: null,
       styleInfo: null,
       indexStyleSelected: null,
     };
 
-    fetch(`http://localhost:8080/products/${this.state.product_id}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({
-          info: data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.handleStyleSelection = this.handleStyleSelection.bind(this);
+    this.handleRelatedItemClick = this.handleRelatedItemClick.bind(this);
+    this.initialize = this.initialize.bind(this);
+  }
 
-    fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)
-      .then((response) => {
-        return response.json();
+  componentDidMount() {
+    this.initialize();
+  }
+
+  initialize(productId = '22122') {
+
+    Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
+      .then((responses) => {
+        return Promise.all(responses.map(response => response.json()));
       })
-      .then((data) => {
+      .then((parsedResponses) => {
+        var data = parsedResponses[1];
         for (var i = 0; i < data.results.length; i++) {
           if (data.results[i]['default?']) {
             var selectedStyle = data.results[i];
             var indexStyleSelected = i;
-            this.setState({
-              styleInfo: data.results,
-              selectedStyle: selectedStyle,
-              indexStyleSelected: indexStyleSelected,
-            });
-            break;
           }
         }
+        this.setState({
+          product_id: productId,
+          info: parsedResponses[0],
+          selectedStyle: selectedStyle || data.results[0],
+          indexStyleSelected: indexStyleSelected || 0,
+          styleInfo: data.results
+        });
+
       })
       .catch((error) => {
         console.log(error);
       });
 
-    this.handleStyleSelection = this.handleStyleSelection.bind(this);
   }
 
   handleStyleSelection(e) {
@@ -63,9 +63,22 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
+<<<<<<< HEAD
+=======
+  }
+
+  handleRelatedItemClick(id) {
+    let newId = id.toString();
+    this.initialize(newId);
+>>>>>>> master
   }
 
   render() {
+
+    if (this.state.product_id === '') {
+      return (<div>loading...</div>);
+    }
+
     return (
       <div>
         <ProductDetails
@@ -78,10 +91,11 @@ class App extends React.Component {
         <RelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
-          selectedStyle={this.state.selectedStyle}/>
+          selectedStyle={this.state.selectedStyle}
+          handleRelatedItemClick={this.handleRelatedItemClick}/>
         <QuestionsAnswers
           product_id={this.state.product_id}
-          info={this.state.info}/>
+          name={this.state.info.name}/>
         <RatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}/>

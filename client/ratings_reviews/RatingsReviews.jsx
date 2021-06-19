@@ -17,6 +17,7 @@ class RatingsReviews extends React.Component {
       sortingOption: 'relevance',
       starFilters: []
     };
+    this.initialize = this.initialize.bind(this);
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
     this.handleStarFilters = this.handleStarFilters.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
@@ -24,6 +25,16 @@ class RatingsReviews extends React.Component {
   }
 
   componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.product_id !== prevProps.product_id) {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     $.ajax({
       url: `reviews/meta?product_id=${this.props.product_id}`,
       method: 'GET'
@@ -88,7 +99,7 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.meta) && this.state.reviews.length !== 0) {
+    if (!$.isEmptyObject(this.state.meta) && this.props.info !== null) {
       return (
         <div class='review-overall-container'>
           <span>RATINGS & REVIEWS</span>
@@ -100,7 +111,7 @@ class RatingsReviews extends React.Component {
             <div id='review-right-container' class='review-sub-container right'>
               <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
-              <ReviewForm />
+              <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
             </div>
           </div>
         </div>

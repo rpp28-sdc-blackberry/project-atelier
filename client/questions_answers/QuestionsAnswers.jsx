@@ -10,14 +10,13 @@ class QuestionsAnswers extends React.Component {
   constructor(props) {
     super(props);
 
-    this.queryPage = 3;
     this.state = {
       hasSearched: false,
-      product_id: this.props.product_id,
       showMoreAnsweredQuestionsButton: false,
       showSearch: false,
       nextTwoQuestions: [],
       query: '',
+      queryPage: 3,
       questions: [],
       showQuestionModal: false
 
@@ -33,6 +32,12 @@ class QuestionsAnswers extends React.Component {
 
   componentDidMount() {
     this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.product_id !== this.props.product_id) {
+      this.initialize();
+    }
   }
 
   initialize() {
@@ -51,23 +56,42 @@ class QuestionsAnswers extends React.Component {
         let nextTwoQuestions = data.results.slice(2);
 
         if (!firstTwoQuestions.length) {
-          return;
-        }
-        if (!nextTwoQuestions.length) {
+          // make sure the state is empty if there are no questions
           this.setState({
-            showSearch: true,
-            questions: firstTwoQuestions
+            hasSearched: false,
+            showMoreAnsweredQuestionsButton: false,
+            showSearch: false,
+            nextTwoQuestions: [],
+            query: '',
+            queryPage: 3,
+            questions: [],
+            showQuestionModal: false
           });
-          return;
+
+        } else if (!nextTwoQuestions.length) {
+          this.setState({
+            hasSearched: false,
+            showSearch: true,
+            questions: firstTwoQuestions,
+            showMoreAnsweredQuestionsButton: false,
+            nextTwoQuestions: [],
+            query: '',
+            queryPage: 3,
+            showQuestionModal: false
+          });
+
+        } else {
+          this.setState({
+            hasSearched: false,
+            showSearch: true,
+            questions: firstTwoQuestions,
+            showMoreAnsweredQuestionsButton: true,
+            nextTwoQuestions: nextTwoQuestions,
+            query: '',
+            queryPage: 3,
+            showQuestionModal: false
+          });
         }
-
-        this.setState({
-          showMoreAnsweredQuestionsButton: true,
-          showSearch: true,
-          nextTwoQuestions: nextTwoQuestions,
-          questions: firstTwoQuestions
-        });
-
       });
 
   }
@@ -91,7 +115,7 @@ class QuestionsAnswers extends React.Component {
     }
 
     // this updates the questions list--refactor to different function
-    fetchQuestions(this.state.product_id, 2, this.queryPage)
+    fetchQuestions(this.props.product_id, 2, this.state.queryPage)
       .then((data) => {
         if (!data.results.length) {
           this.setState({
@@ -103,7 +127,7 @@ class QuestionsAnswers extends React.Component {
             questions: [...this.state.questions, ...this.state.nextTwoQuestions],
             nextTwoQuestions: data.results,
           });
-          this.queryPage++;
+          this.state.queryPage = this.state.queryPage + 1;
         }
       });
 
@@ -156,7 +180,7 @@ class QuestionsAnswers extends React.Component {
       return;
     }
 
-    submitQuestion(question, nickname, email, this.state.product_id)
+    submitQuestion(question, nickname, email, this.props.product_id)
       .then((response) => {
         console.log(response);
       })
@@ -171,21 +195,18 @@ class QuestionsAnswers extends React.Component {
   }
 
   render() {
-    if (this.props.info) {
-      return (
-        <div className="qa-component">
-          <div> {`QUESTIONS & ANSWERS`} </div>
-          {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-          <QuestionsList questions={this.state.questions} name={this.props.info.name}/>
-          {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-          <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
-          {this.state.showQuestionModal && <QuestionForm name={this.props.info.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
-        </div>
-      );
-    }
+
     return (
-      <div className="qa.component"></div>
+      <div className="qa-component">
+        <div> {`QUESTIONS & ANSWERS`} </div>
+        {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
+        <QuestionsList questions={this.state.questions} name={this.props.name}/>
+        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+        {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
+      </div>
     );
+
   }
 
 }
