@@ -1,4 +1,5 @@
 import React from 'react';
+import { findComparisonFeatures } from './helpers.js';
 
 const ComparisonModal = (props) => {
   if (!props.showModal) {
@@ -8,22 +9,8 @@ const ComparisonModal = (props) => {
   let key = 0;
   let mainFeatures = props.mainProduct[1];
   let comparisonFeatures = props.productToCompare[1];
-  let allFeatures = [];
 
-  mainFeatures.forEach(feature => {
-    feature.compValue = '';
-    allFeatures.push(feature);
-  });
-
-  comparisonFeatures.forEach(compFeature => {
-    var index = allFeatures.findIndex(item => item.feature === compFeature.feature);
-    if (index !== -1) {
-      allFeatures[index].compValue = compFeature.value;
-    } else {
-      compFeature.compValue = '';
-      allFeatures.push(compFeature);
-    }
-  });
+  let allFeatures = findComparisonFeatures(mainFeatures, comparisonFeatures);
 
   return (
     <div id='comparisonModal' onClick={props.toggleModal}>
@@ -33,9 +20,9 @@ const ComparisonModal = (props) => {
 
       {allFeatures.map(feature =>
         <div>
-          <div class='modal-col-1'>{feature.value}</div>
-          <div class='modal-col-2'>{feature.feature}</div>
-          <div class='modal-col-3'>{feature.compValue}</div>
+          <div key={key++} class='modal-col-1'>{feature.value}</div>
+          <div key={key++} class='modal-col-2'>{feature.feature}</div>
+          <div key={key++} class='modal-col-3'>{feature.compValue}</div>
         </div>
       )}
     </div>

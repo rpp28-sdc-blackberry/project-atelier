@@ -62,4 +62,25 @@ const defineMainProduct = (info, defaultStyle) => {
   return mainProduct;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle, defineMainProduct };
+const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
+  let allFeatures = [];
+
+  mainFeatures.forEach(feature => {
+    feature.compValue = '';
+    allFeatures.push(feature);
+  });
+
+  comparisonFeatures.forEach(compFeature => {
+    var index = allFeatures.findIndex(item => item.feature === compFeature.feature);
+    if (index !== -1) {
+      allFeatures[index].compValue = compFeature.value;
+    } else {
+      compFeature.compValue = '';
+      allFeatures.push(compFeature);
+    }
+  });
+
+  return allFeatures;
+};
+
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle, defineMainProduct, findComparisonFeatures };
