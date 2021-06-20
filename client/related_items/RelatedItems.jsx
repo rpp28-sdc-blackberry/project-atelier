@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemsList from './ItemsList.jsx';
 import OutfitList from './OutfitList.jsx';
-import helpers from './helpers.js';
+import { getRelatedItems } from './helpers.js';
 
 class RelatedItems extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class RelatedItems extends React.Component {
   }
 
   initialize() {
-    helpers.getRelatedItems(this.props.product_id)
+    getRelatedItems(this.props.product_id)
       .then(relatedItems => {
         let uniqueItems = [...new Set(relatedItems)];
         this.setState({ relatedItemsIds: uniqueItems });
@@ -35,7 +35,6 @@ class RelatedItems extends React.Component {
       <div id='relatedItemsWrapper'>
         <h3>Related Items</h3>
         <ItemsList
-          listType='relatedItems'
           items={this.state.relatedItemsIds}
           productName={this.props.info.name}
           productFeatures={this.props.info.features}
@@ -43,7 +42,6 @@ class RelatedItems extends React.Component {
 
         <h3>Your Outfit</h3>
         <OutfitList
-          listType='yourOutfit'
           info={this.props.info}
           defaultStyle={this.props.selectedStyle}
           handleRelatedItemClick={this.props.handleRelatedItemClick} />

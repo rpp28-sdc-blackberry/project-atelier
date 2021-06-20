@@ -28,11 +28,7 @@ class OutfitList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.listType === 'yourOutfit') {
-      if (prevProps.info.id !== this.props.info.id) {
-        this.initialize();
-      }
-    }
+    if (prevProps.info.id !== this.props.info.id) { this.initialize(); }
   }
 
   initialize() {

@@ -1,7 +1,5 @@
 import React from 'react';
-import AddToOutfit from './AddToOutfit.jsx';
 import ItemCard from './ItemCard.jsx';
-import OutfitCard from './OutfitCard.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
 
 class ItemsList extends React.Component {
@@ -38,7 +36,7 @@ class ItemsList extends React.Component {
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
           mainProduct={[this.props.productName, this.props.productFeatures]}
-          productToCompare={[this.state.itemToCompare, this.state.featuresToCompare]}/>
+          productToCompare={[this.state.itemToCompare, this.state.featuresToCompare]} />
 
         {this.props.items.map(itemId =>
           <ItemCard
