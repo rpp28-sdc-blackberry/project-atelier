@@ -11,7 +11,8 @@ const DefaultView = (props) => {
             src={photoGallery[props.currPhotoIndex].url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'} 
             alt={props.selectedStyle.name} 
             className="defaultView" 
-            id={props.selectedStyle.style_id}>
+            id={props.selectedStyle.style_id}
+            onClick={props.toggleView}>
           </img>
           <a onClick={props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
           {props.currPhotoIndex !== 0 ? 

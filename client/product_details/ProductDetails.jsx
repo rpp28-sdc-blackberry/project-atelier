@@ -81,7 +81,8 @@ class ProductDetails extends React.Component {
               selectedStyle={this.props.selectedStyle}
               styleInfo={this.props.styleInfo} 
               currPhotoIndex={this.state.currPhotoIndex}
-              handlePhotoSelection={this.handlePhotoSelection}/>
+              handlePhotoSelection={this.handlePhotoSelection}
+              view={this.state.view}/>
             <DefaultView 
               selectedStyle={this.props.selectedStyle}
               styleInfo={this.props.styleInfo} 
@@ -105,6 +106,12 @@ class ProductDetails extends React.Component {
             </div> 
           </div> :
           <div id="firstPanelExpanded">
+            <ThumbnailList 
+              selectedStyle={this.props.selectedStyle}
+              styleInfo={this.props.styleInfo} 
+              currPhotoIndex={this.state.currPhotoIndex}
+              handlePhotoSelection={this.handlePhotoSelection}
+              view={this.state.view}/>
             <ExpandedView 
               selectedStyle={this.props.selectedStyle}
               styleInfo={this.props.styleInfo}

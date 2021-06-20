@@ -33,8 +33,19 @@ class ExpandedView extends React.Component {
   handleMouseMove(e) {
     console.log('in mouse move');
     var element = document.getElementById('expandedView');
-    element.style.backgroundPositionX = -e.offsetX + "px";
-    element.style.backgroundPositionY = -e.offsetY + "px";
+    console.log('height: ', element.clientHeight);
+    console.log('width: ', element.clientWidth);
+    console.log('e background X: ', element.style.backgroundPositionX);
+    console.log('e background Y: ', element.style.backgroundPositionY);
+    console.log('e offset X: ', -e.offsetX);
+    console.log('e offset Y: ', -e.offsetY);
+    console.log('x%: ', (e.offsetX / element.clientWidth) * 100);
+    console.log('y%: ', (e.offsetY / element.clientHeight) * 100);
+    console.log('background size: ', element.style.backgroundSize);
+    var xPercent = (e.offsetX / element.clientWidth) * 100;
+    var yPercent = (e.offsetY / element.clientHeight) * 100;
+    element.style.backgroundPositionX = xPercent + "%";
+    element.style.backgroundPositionY = yPercent + "%";
   }
 
   render() {

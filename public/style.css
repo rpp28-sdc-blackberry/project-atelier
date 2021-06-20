@@ -53,10 +53,15 @@
   width: 50px;
   height: 50px;
 }
-.stylePhoto {
+.stylePhotodefault {
   padding: 5px;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
+}
+.stylePhotoexpanded {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
 }
 .selectedThumbnail {
   border-bottom: 4px solid black;
@@ -111,10 +116,12 @@
 } */
 .zoomOutView {
   max-height: 100%;
-  cursor: crosshair;
+  cursor: cell;
 }
 .zoomInView {
   display: block;
+  background-size: auto 1250px;
+  cursor: zoom-out;
 }
 #fullscreenIcon {
   float: right;

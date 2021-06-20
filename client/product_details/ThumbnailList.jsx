@@ -31,14 +31,14 @@ class ThumbnailList extends React.Component {
   
   render() {
     if (this.props.selectedStyle) {
-      var photos = this.props.selectedStyle.photos.slice(this.state.firstPhotoIndex);
+      var photos = this.props.selectedStyle.photos.slice(this.state.firstPhotoIndex, this.state.firstPhotoIndex + 7);
       if (photos.length < 7) {
         var remainder = this.props.selectedStyle.photos.slice(0, (7 - photos.length));
-        photos.concat(remainder);
-      }
+        photos = photos.concat(remainder);
+      } 
 
       return (
-        <div id="thumbnailList">
+        <div id="thumbnailList" className={this.props.view}>
           {this.props.selectedStyle.photos.length > 7 ? 
             <a onClick={this.handleUpScroll} id="upScroll-container">
               <i id="upScroll" class="fa fa-angle-up"></i>
@@ -46,19 +46,23 @@ class ThumbnailList extends React.Component {
           <br></br>
           {photos.map((photo, index) => {
             var initIndex = index;
+            console.log('initialIndex: ', initIndex);
+            console.log('length: ', this.props.selectedStyle.photos.length);
             var finalIndex;
-            if ((initIndex + this.state.firstPhotoIndex) > (this.props.selectedStyle.photos.length - 1)) {
-              finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 1;
+            if ((initIndex + this.state.firstPhotoIndex) > this.props.selectedStyle.photos.length) {
+              finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 2;
             } else {
-              finalIndex = initIndex;
+              finalIndex = initIndex + this.state.firstPhotoIndex;
             }
+            console.log('finalIndex: ', finalIndex);
             return (
               <Thumbnail 
                 name={this.props.selectedStyle.name} 
                 photo={photo} 
                 index={finalIndex} 
                 indexSelected={this.props.currPhotoIndex}
-                handlePhotoSelection={this.props.handlePhotoSelection}/>
+                handlePhotoSelection={this.props.handlePhotoSelection}
+                view={this.props.view}/>
             );
           })}
           {this.props.selectedStyle.photos.length > 7 ?

@@ -63,14 +63,11 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
-<<<<<<< HEAD
-=======
   }
 
   handleRelatedItemClick(id) {
     let newId = id.toString();
     this.initialize(newId);
->>>>>>> master
   }
 
   render() {
