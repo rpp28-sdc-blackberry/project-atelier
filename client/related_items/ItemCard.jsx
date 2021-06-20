@@ -54,7 +54,7 @@ class ItemCard extends React.Component {
 
     return (
       <div className='relatedItemCard' onClick={() => this.handleRelatedItemClick(this.props.id)}>
-        <div id="action" onClick={() => this.props.toggleModal(features, name)}>Compare</div>
+        <div id="action" onClick={(e) => this.props.toggleModal(e, features, name)}>Compare</div>
         <img id="thumbnail" src={this.state.thumbnailUrl}></img>
         <p id="category">{this.state.category}</p>
         <p id="name">{this.state.name}</p>

@@ -16,7 +16,13 @@ class ItemsList extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  toggleModal(features, name) {
+  toggleModal(e, features, name) {
+    if (!e.target.id === 'comparisonModal'
+      || !e.target.parentNode.id === 'comparisonModal'
+      || e.target.id === 'action') {
+      e.stopPropagation();
+    }
+
     if (!this.state.showModal) {
       this.setState({
         itemToCompare: name,

@@ -13,7 +13,7 @@ const ComparisonModal = (props) => {
   let allFeatures = findComparisonFeatures(mainFeatures, comparisonFeatures);
 
   return (
-    <div id='comparisonModal' onClick={props.toggleModal}>
+    <div id='comparisonModal' onClick={(e) => props.toggleModal(e)}>
       <p>Comparing</p>
       <h4 class='modal-col-1'>{props.mainProduct[0]}</h4>
       <h4 class='modal-col-3'>{props.productToCompare[0]}</h4>
