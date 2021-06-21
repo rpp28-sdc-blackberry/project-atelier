@@ -19,6 +19,7 @@
     "url": "https://github.com/rpp28-fec-pahu/project-atelier/issues"
   },
   "jest": {
+    "verbose": true,
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
