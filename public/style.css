@@ -180,12 +180,14 @@
 }
 
 .qa-questions-list-container {
-  overflow: scroll;
+  overflow: auto;
+  overflow-x: hidden;
   max-height: 90vh;
 }
 
 .qa-answers-list-container {
-  overflow: scroll;
+  overflow: auto;
+  overflow-x: hidden;
   max-height: 50vh;
   margin: 10px;
 }
