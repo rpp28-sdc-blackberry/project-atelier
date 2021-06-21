@@ -5,6 +5,7 @@ import ProductBreakdown from './components/ProductBreakdown.jsx';
 import SortingOptions from './components/SortingOptions.jsx';
 import ReviewsList from './components/ReviewsList.jsx';
 import ReviewForm from './components/ReviewForm.jsx';
+import SearchBar from './components/SearchBar.jsx';
 import helpers from './helpers.js';
 
 class RatingsReviews extends React.Component {
@@ -112,6 +113,7 @@ class RatingsReviews extends React.Component {
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
+              <SearchBar />
               <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
