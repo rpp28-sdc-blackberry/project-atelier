@@ -155,11 +155,11 @@ class QuestionsAnswers extends React.Component {
 
     return (
       <div className="qa-component">
-        <div> {`QUESTIONS & ANSWERS`} </div>
+        <h5 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h5>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+        {this.state.showMoreAnsweredQuestionsButton && <button className="qa-button" onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+        <button className="qa-button" onClick={this.handleAddQuestionClick}>ADD A QUESTION +</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
       </div>
     );
