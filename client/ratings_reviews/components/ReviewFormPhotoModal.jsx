@@ -35,7 +35,7 @@ class ReviewFormPhotoModal extends React.Component {
         <div className="review-form-photo-modal-content" onClick={e => e.stopPropagation()}>
           <div>Please insert the image URL:</div>
           <div><input name='photo' type='text' placeholder='Image URL here' onChange={this.handleChange} value={this.state.photo}></input></div>
-          <button onClick={this.handleSubmit}>Add Image</button>
+          <button class='review-button' type='button' onClick={this.handleSubmit}>Add Image</button>
         </div>
       </div>
     );
