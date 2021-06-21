@@ -11,16 +11,12 @@ class QuestionsAnswers extends React.Component {
     super(props);
 
     this.state = {
-      hasSearched: false,
       showMoreAnsweredQuestionsButton: false,
       renderedQuestions: [],
       remainingQuestions: [],
       searchResults: null,
       showSearch: false,
-      // nextTwoQuestions: [],
       query: '',
-      // queryPage: 3,
-      // questions: [],
       showQuestionModal: false
 
     };
@@ -80,50 +76,6 @@ class QuestionsAnswers extends React.Component {
         console.log(err);
       });
 
-    // fetchQuestions(this.props.product_id, 4, 1)
-    //   .then((data) => {
-    //     let firstTwoQuestions = data.results.slice(0, 2);
-    //     let nextTwoQuestions = data.results.slice(2);
-
-    //     if (!firstTwoQuestions.length) {
-    //       // make sure the state is empty if there are no questions
-    //       this.setState({
-    //         hasSearched: false,
-    //         showMoreAnsweredQuestionsButton: false,
-    //         showSearch: false,
-    //         nextTwoQuestions: [],
-    //         query: '',
-    //         queryPage: 3,
-    //         questions: [],
-    //         showQuestionModal: false
-    //       });
-
-    //     } else if (!nextTwoQuestions.length) {
-    //       this.setState({
-    //         hasSearched: false,
-    //         showSearch: true,
-    //         questions: firstTwoQuestions,
-    //         showMoreAnsweredQuestionsButton: false,
-    //         nextTwoQuestions: [],
-    //         query: '',
-    //         queryPage: 3,
-    //         showQuestionModal: false
-    //       });
-
-    //     } else {
-    //       this.setState({
-    //         hasSearched: false,
-    //         showSearch: true,
-    //         questions: firstTwoQuestions,
-    //         showMoreAnsweredQuestionsButton: true,
-    //         nextTwoQuestions: nextTwoQuestions,
-    //         query: '',
-    //         queryPage: 3,
-    //         showQuestionModal: false
-    //       });
-    //     }
-    //   });
-
   }
 
   closeQuestionModal() {
@@ -133,6 +85,7 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleMoreQuestionsClick() {
+
     let nextTwoQuestionsToRender = this.state.remainingQuestions.slice(0, 2);
     let remainingQuestions = this.state.remainingQuestions.slice(2);
     this.setState({
@@ -145,30 +98,20 @@ class QuestionsAnswers extends React.Component {
 
   handleSearch(e) {
 
-    // if (!this.state.hasSearched) {
-    //   this.questionsToSearch = this.state.questions.slice();
-    //   this.state.hasSearched = true;
-    // }
-
     let query = e.target.value;
-
     if (query.length < 3) {
       this.setState({
         query: query,
         searchResults: null,
         showMoreAnsweredQuestionsButton: true
       });
-
     } else {
-
       let searchResults = this.state.renderedQuestions.filter((question) => question.question_body.includes(query));
-
       this.setState({
         query: query,
         searchResults: searchResults,
         showMoreAnsweredQuestionsButton: false
       });
-
     }
 
   }
