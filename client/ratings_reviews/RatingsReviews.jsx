@@ -16,13 +16,15 @@ class RatingsReviews extends React.Component {
       reviews: [],
       filteredReviews: [],
       sortingOption: 'relevance',
-      starFilters: []
+      starFilters: [],
+      keyword: ''
     };
     this.initialize = this.initialize.bind(this);
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
     this.handleStarFilters = this.handleStarFilters.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
     this.removeFilters = this.removeFilters.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +69,7 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters);
+    var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters, this.state.keyword);
     this.setState({
       sortingOption: newOption,
       filteredReviews: newFilteredReviews
@@ -81,7 +83,7 @@ class RatingsReviews extends React.Component {
     } else {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters);
+    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
     this.setState({
       starFilters: newStarFilters,
       filteredReviews: newFilteredReviews
@@ -89,17 +91,29 @@ class RatingsReviews extends React.Component {
   }
 
   removeFilters() {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, []);
+    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
       filteredReviews: newFilteredReviews
     });
   }
 
-  updateReviews(review, sortingOption, starFilters) {
+  handleSearch(keyword) {
+    if (keyword.length < 3) {
+      keyword = '';
+    }
+    var queriedReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, this.state.starFilters, keyword);
+    this.setState({
+      keyword: keyword,
+      filteredReviews: queriedReviews
+    });
+  }
+
+  updateReviews(review, sortingOption, starFilters, keyword) {
     var sortedReviews = helpers.sortReviews(review, sortingOption);
     var filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
-    return filteredReviews;
+    var queriedReviews = helpers.applyKeyword(filteredReviews, keyword);
+    return queriedReviews;
   }
 
   render() {
@@ -113,7 +127,7 @@ class RatingsReviews extends React.Component {
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
-              <SearchBar />
+              <SearchBar handleSearch={this.handleSearch}/>
               <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
