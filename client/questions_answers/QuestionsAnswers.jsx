@@ -13,11 +13,14 @@ class QuestionsAnswers extends React.Component {
     this.state = {
       hasSearched: false,
       showMoreAnsweredQuestionsButton: false,
+      renderedQuestions: [],
+      remainingQuestions: [],
+      searchResults: null,
       showSearch: false,
-      nextTwoQuestions: [],
+      // nextTwoQuestions: [],
       query: '',
       queryPage: 3,
-      questions: [],
+      // questions: [],
       showQuestionModal: false
 
     };
@@ -50,49 +53,76 @@ class QuestionsAnswers extends React.Component {
       localStorage.setItem('helpfulAnswers', JSON.stringify([]));
     }
 
-    fetchQuestions(this.props.product_id, 4, 1)
+    fetchQuestions(this.props.product_id, 100, 1)
       .then((data) => {
-        let firstTwoQuestions = data.results.slice(0, 2);
-        let nextTwoQuestions = data.results.slice(2);
-
-        if (!firstTwoQuestions.length) {
-          // make sure the state is empty if there are no questions
+        let questions = data.results;
+        if (!questions.length) {
           this.setState({
-            hasSearched: false,
             showMoreAnsweredQuestionsButton: false,
-            showSearch: false,
-            nextTwoQuestions: [],
-            query: '',
-            queryPage: 3,
-            questions: [],
-            showQuestionModal: false
+            showSearch: false
           });
-
-        } else if (!nextTwoQuestions.length) {
+        } else if (questions.length < 3) {
           this.setState({
-            hasSearched: false,
+            renderedQuestions: questions,
             showSearch: true,
-            questions: firstTwoQuestions,
-            showMoreAnsweredQuestionsButton: false,
-            nextTwoQuestions: [],
-            query: '',
-            queryPage: 3,
-            showQuestionModal: false
+            showMoreAnsweredQuestionsButton: false
           });
-
         } else {
           this.setState({
-            hasSearched: false,
-            showSearch: true,
-            questions: firstTwoQuestions,
+            renderedQuestions: questions.slice(0, 2),
+            remainingQuestions: questions.slice(2),
             showMoreAnsweredQuestionsButton: true,
-            nextTwoQuestions: nextTwoQuestions,
-            query: '',
-            queryPage: 3,
-            showQuestionModal: false
+            showSearch: true
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
+    // fetchQuestions(this.props.product_id, 4, 1)
+    //   .then((data) => {
+    //     let firstTwoQuestions = data.results.slice(0, 2);
+    //     let nextTwoQuestions = data.results.slice(2);
+
+    //     if (!firstTwoQuestions.length) {
+    //       // make sure the state is empty if there are no questions
+    //       this.setState({
+    //         hasSearched: false,
+    //         showMoreAnsweredQuestionsButton: false,
+    //         showSearch: false,
+    //         nextTwoQuestions: [],
+    //         query: '',
+    //         queryPage: 3,
+    //         questions: [],
+    //         showQuestionModal: false
+    //       });
+
+    //     } else if (!nextTwoQuestions.length) {
+    //       this.setState({
+    //         hasSearched: false,
+    //         showSearch: true,
+    //         questions: firstTwoQuestions,
+    //         showMoreAnsweredQuestionsButton: false,
+    //         nextTwoQuestions: [],
+    //         query: '',
+    //         queryPage: 3,
+    //         showQuestionModal: false
+    //       });
+
+    //     } else {
+    //       this.setState({
+    //         hasSearched: false,
+    //         showSearch: true,
+    //         questions: firstTwoQuestions,
+    //         showMoreAnsweredQuestionsButton: true,
+    //         nextTwoQuestions: nextTwoQuestions,
+    //         query: '',
+    //         queryPage: 3,
+    //         showQuestionModal: false
+    //       });
+    //     }
+    //   });
 
   }
 
@@ -200,7 +230,7 @@ class QuestionsAnswers extends React.Component {
       <div className="qa-component">
         <div> {`QUESTIONS & ANSWERS`} </div>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList questions={this.state.questions} name={this.props.name}/>
+        <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>
         {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
         <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
