@@ -19,7 +19,7 @@ class QuestionsAnswers extends React.Component {
       showSearch: false,
       // nextTwoQuestions: [],
       query: '',
-      queryPage: 3,
+      // queryPage: 3,
       // questions: [],
       showQuestionModal: false
 
@@ -133,33 +133,41 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleMoreQuestionsClick() {
-    // these functions are too tightly coupled, will refactor
-    // this updates state for search--refactor to a different function
-    if (this.state.hasSearched) {
-      this.state.questions = this.questionsToSearch;
-      this.questionsToSearch = [];
-      this.setState({
-        hasSearched: false,
-        query: ''
-      });
-    }
+    let nextTwoQuestionsToRender = this.state.remainingQuestions.slice(0, 2);
+    let remainingQuestions = this.state.remainingQuestions.slice(2);
+    this.setState({
+      renderedQuestions: [...this.state.renderedQuestions, ...nextTwoQuestionsToRender],
+      remainingQuestions: remainingQuestions,
+      showMoreAnsweredQuestionsButton: remainingQuestions.length ? true : false
+    });
 
-    // this updates the questions list--refactor to different function
-    fetchQuestions(this.props.product_id, 2, this.state.queryPage)
-      .then((data) => {
-        if (!data.results.length) {
-          this.setState({
-            showMoreAnsweredQuestionsButton: false,
-            questions: [...this.state.questions, ...this.state.nextTwoQuestions]
-          });
-        } else {
-          this.setState({
-            questions: [...this.state.questions, ...this.state.nextTwoQuestions],
-            nextTwoQuestions: data.results,
-          });
-          this.state.queryPage = this.state.queryPage + 1;
-        }
-      });
+    // // these functions are too tightly coupled, will refactor
+    // // this updates state for search--refactor to a different function
+    // if (this.state.hasSearched) {
+    //   this.state.questions = this.questionsToSearch;
+    //   this.questionsToSearch = [];
+    //   this.setState({
+    //     hasSearched: false,
+    //     query: ''
+    //   });
+    // }
+
+    // // this updates the questions list--refactor to different function
+    // fetchQuestions(this.props.product_id, 2, this.state.queryPage)
+    //   .then((data) => {
+    //     if (!data.results.length) {
+    //       this.setState({
+    //         showMoreAnsweredQuestionsButton: false,
+    //         questions: [...this.state.questions, ...this.state.nextTwoQuestions]
+    //       });
+    //     } else {
+    //       this.setState({
+    //         questions: [...this.state.questions, ...this.state.nextTwoQuestions],
+    //         nextTwoQuestions: data.results,
+    //       });
+    //       this.state.queryPage = this.state.queryPage + 1;
+    //     }
+    //   });
 
   }
 
