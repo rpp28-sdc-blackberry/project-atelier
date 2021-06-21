@@ -166,6 +166,10 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   if (currentReportedReviews.indexOf(reviewId) !== -1) {
     reportStatus = true;
   }
+  var allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+  if (allHelpfulReviews && allHelpfulReviews.indexOf(reviewId) !== -1) {
+    showAddHelpfulButton = false;
+  }
   return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
 };
 

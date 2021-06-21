@@ -58,6 +58,9 @@ class RatingsReviews extends React.Component {
       console.log(error);
     });
 
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify([]));
+    }
     sessionStorage.setItem('helpfulReviews', JSON.stringify([]));
     sessionStorage.setItem('reportedReviews', JSON.stringify([]));
   }
