@@ -15,6 +15,7 @@ class AnswersList extends React.Component {
     this.initialize();
     this.collapseAnswersList = this.collapseAnswersList.bind(this);
     this.loadRemainingAnswers = this.loadRemainingAnswers.bind(this);
+    this.incrementHelpfulAnswer = this.incrementHelpfulAnswer.bind(this);
   }
 
   initialize() {
@@ -50,13 +51,26 @@ class AnswersList extends React.Component {
     });
   }
 
+  incrementHelpfulAnswer(answerId) {
+    // if showCollapseAnswersList button is true
+    if (this.state.showCollapseAnswersListButton) {
+      // find the answer in this.state.answers and increment its helpfulness
+      this.state.answers.forEach((answer) => {
+        if (answer.id === answerId) {
+          answer.helpfulness++;
+        }
+      });
+    }
+
+  }
+
   render() {
 
     return (
       this.state.showAnswersList &&
       <div className="qa-answers-list-container">
         <b>A:</b>
-        {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} helpfulness={answer.helpfulness} answer_id={answer.id}/>)}
+        {this.state.answers.map((answer) => <Answer key={answer.id} answer={answer} helpfulness={answer.helpfulness} answer_id={answer.id} incrementHelpfulAnswer={this.incrementHelpfulAnswer}/>)}
         {this.state.showLoadMoreAnswersButton && <button onClick={this.loadRemainingAnswers}> See more answers </button>}
         {this.state.showCollapseAnswersListButton && <button onClick={this.collapseAnswersList}> Collapse answers </button>}
       </div>
