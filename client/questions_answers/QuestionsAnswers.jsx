@@ -141,59 +141,35 @@ class QuestionsAnswers extends React.Component {
       showMoreAnsweredQuestionsButton: remainingQuestions.length ? true : false
     });
 
-    // // these functions are too tightly coupled, will refactor
-    // // this updates state for search--refactor to a different function
-    // if (this.state.hasSearched) {
-    //   this.state.questions = this.questionsToSearch;
-    //   this.questionsToSearch = [];
-    //   this.setState({
-    //     hasSearched: false,
-    //     query: ''
-    //   });
-    // }
-
-    // // this updates the questions list--refactor to different function
-    // fetchQuestions(this.props.product_id, 2, this.state.queryPage)
-    //   .then((data) => {
-    //     if (!data.results.length) {
-    //       this.setState({
-    //         showMoreAnsweredQuestionsButton: false,
-    //         questions: [...this.state.questions, ...this.state.nextTwoQuestions]
-    //       });
-    //     } else {
-    //       this.setState({
-    //         questions: [...this.state.questions, ...this.state.nextTwoQuestions],
-    //         nextTwoQuestions: data.results,
-    //       });
-    //       this.state.queryPage = this.state.queryPage + 1;
-    //     }
-    //   });
-
   }
 
   handleSearch(e) {
 
-    if (!this.state.hasSearched) {
-      this.questionsToSearch = this.state.questions.slice();
-      this.state.hasSearched = true;
-    }
+    // if (!this.state.hasSearched) {
+    //   this.questionsToSearch = this.state.questions.slice();
+    //   this.state.hasSearched = true;
+    // }
 
     let query = e.target.value;
 
     if (query.length < 3) {
       this.setState({
         query: query,
-        questions: this.questionsToSearch
+        searchResults: null,
+        showMoreAnsweredQuestionsButton: true
       });
-      return;
+
+    } else {
+
+      let searchResults = this.state.renderedQuestions.filter((question) => question.question_body.includes(query));
+
+      this.setState({
+        query: query,
+        searchResults: searchResults,
+        showMoreAnsweredQuestionsButton: false
+      });
+
     }
-
-    let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
-
-    this.setState({
-      query: query,
-      questions: queryResult
-    });
 
   }
 
