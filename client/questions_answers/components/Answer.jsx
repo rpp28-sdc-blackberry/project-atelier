@@ -21,6 +21,7 @@ class Answer extends React.Component {
         let helpfulAnswers = JSON.parse(localStorage.getItem('helpfulAnswers'));
         helpfulAnswers.push(this.props.answer_id);
         localStorage.setItem('helpfulAnswers', JSON.stringify(helpfulAnswers));
+        this.props.incrementHelpfulAnswer(this.props.answer_id);
         this.setState({
           helpfulness: this.state.helpfulness + 1
         });
@@ -47,9 +48,13 @@ class Answer extends React.Component {
 
     return (
 
-      <div className="answer">
-        <div>
+      <div className="qa-answer">
+        <div className="qa-answer-text">
           {body}
+        </div>
+        <div className="qa-answer-footer">
+          <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>
+          <span> {' | '} </span>
           <span> <HelpfulReport
             handleHelpfulButtonClick={this.handleHelpfulButtonClick}
             handleReportButtonClick={this.handleReportButtonClick}
@@ -59,9 +64,6 @@ class Answer extends React.Component {
             content_type={'answer'}
           />
           </span>
-        </div>
-        <div>
-          <span> by {formatAnswererName(answerer_name)}, {formatDate(date)} </span>
         </div>
       </div>
 

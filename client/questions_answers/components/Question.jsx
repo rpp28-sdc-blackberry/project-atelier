@@ -93,17 +93,26 @@ class Question extends React.Component {
   render() {
 
     return (
-      <div className="qa-item">
-        <b> {`Q: ${this.props.question}`} </b>
-        <HelpfulReport
-          handleHelpfulButtonClick={this.handleHelpfulButtonClick}
-          handleReportButtonClick={this.handleReportButtonClick}
-          reported={this.state.reported}
-          helpfulness={this.state.helpfulness}
-          content_id={this.props.question_id}
-          content_type={'question'}
-        />
-        <button onClick={this.handleAddAnswerClick}> Add Answer </button>
+      <div className="qa-list-item-container">
+        <div className="qa-question-container">
+          <span className="qa-question-text">
+            {`Q: ${this.props.question}`}
+          </span>
+          <span className="qa-helpful-report-answer">
+            <HelpfulReport
+              handleHelpfulButtonClick={this.handleHelpfulButtonClick}
+              handleReportButtonClick={this.handleReportButtonClick}
+              reported={this.state.reported}
+              helpfulness={this.state.helpfulness}
+              content_id={this.props.question_id}
+              content_type={'question'}
+            />
+            <span>
+              {' | '}
+            </span>
+            <button className="qa-button-link" onClick={this.handleAddAnswerClick}> Add Answer </button>
+          </span>
+        </div>
         <AnswersList answers={this.props.answers}/>
         {this.state.showAnswerModal && <AnswerForm
           closeAnswerModal={this.closeAnswerModal}
