@@ -69,7 +69,7 @@ class AddToBag extends React.Component {
         body: JSON.stringify(options)
       })
         .then((response) => {
-          console.log(response.status);
+          console.log('Posted cart!');
         })
         .catch((error) => {
           console.log(error);
