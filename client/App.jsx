@@ -11,16 +11,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-<<<<<<< HEAD
-      name: 'Morning Joggers',
-      'product_id': '22122'
-=======
-      'product_id': '22122',
+      product_id: '',
       info: null,
       selectedStyle: null,
       styleInfo: null,
       indexStyleSelected: null,
->>>>>>> review-product-breakdown-update
     };
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
@@ -28,9 +23,13 @@ class App extends React.Component {
     this.initialize = this.initialize.bind(this);
   }
 
-  initialize() {
+  componentDidMount() {
+    this.initialize();
+  }
 
-    Promise.all([fetch(`http://localhost:8080/products/${this.state.product_id}`), fetch(`http://localhost:8080/products/${this.state.product_id}/styles`)])
+  initialize(productId = '22122') {
+
+    Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
@@ -43,6 +42,7 @@ class App extends React.Component {
           }
         }
         this.setState({
+          product_id: productId,
           info: parsedResponses[0],
           selectedStyle: selectedStyle || data.results[0],
           indexStyleSelected: indexStyleSelected || 0,
@@ -63,19 +63,19 @@ class App extends React.Component {
       indexStyleSelected: index,
       selectedStyle: this.state.styleInfo[index],
     });
-    console.log(this.state);
   }
 
   handleRelatedItemClick(id) {
     let newId = id.toString();
-    this.setState({ 'product_id': newId }, this.initialize);
-  }
-
-  componentDidMount() {
-    this.initialize();
+    this.initialize(newId);
   }
 
   render() {
+
+    if (this.state.product_id === '') {
+      return (<div>loading...</div>);
+    }
+
     return (
       <div>
         <ProductDetails
@@ -92,7 +92,7 @@ class App extends React.Component {
           handleRelatedItemClick={this.handleRelatedItemClick}/>
         <QuestionsAnswers
           product_id={this.state.product_id}
-          info={this.state.info}/>
+          name={this.state.info.name}/>
         <RatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}/>
