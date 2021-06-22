@@ -36,12 +36,16 @@ class ReviewsList extends React.Component {
         currentReviews: nextProps.reviews.slice(0, 2),
         otherReviews: nextProps.reviews.slice(2),
         showMoreReviewsButton: true,
+        showLessReviewsButton: false,
         sortingOption: nextProps.sortingOption
       });
     } else {
       this.setState({
         allReviews: nextProps.reviews,
         currentReviews: nextProps.reviews,
+        otherReviews: [],
+        showMoreReviewsButton: false,
+        showLessReviewsButton: false,
         sortingOption: nextProps.sortingOption
       });
     }
@@ -54,12 +58,16 @@ class ReviewsList extends React.Component {
         currentReviews: this.props.reviews.slice(0, 2),
         otherReviews: this.props.reviews.slice(2),
         showMoreReviewsButton: true,
+        showLessReviewsButton: false,
         sortingOption: this.props.sortingOption
       });
     } else {
       this.setState({
         allReviews: this.props.reviews,
         currentReviews: this.props.reviews,
+        otherReviews: [],
+        showMoreReviewsButton: false,
+        showLessReviewsButton: false,
         sortingOption: this.props.sortingOption
       });
     }
@@ -75,7 +83,8 @@ class ReviewsList extends React.Component {
     } else {
       this.setState({
         currentReviews: this.state.currentReviews.concat(this.state.otherReviews),
-        showMoreReviewsButton: false
+        showMoreReviewsButton: false,
+        showLessReviewsButton: true
       });
     }
   }
@@ -95,8 +104,8 @@ class ReviewsList extends React.Component {
         <div key={this.props.reviews[0].review_id} class='reviews-list'>
           <div class='reviews-list-tiles'>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
           <div>
-            <button class='review-show-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
-            <button class='review-show-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
+            <button class='review-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
+            <button class='review-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
           </div>
         </div>
       );

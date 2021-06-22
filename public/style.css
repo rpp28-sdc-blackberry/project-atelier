@@ -3,9 +3,48 @@
   display: grid;
   grid-template-rows: 500px;
   gap: 10px;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 100%;
   /* padding-left: 100px;
   padding-right: 100px; */
+}
+#firstPanelDefault {
+  display: grid;
+  grid-template-rows: 500px;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
+}
+#defaultView {
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: center;
+  grid-column: 1;
+  grid-row: 1;
+}
+#defaultView img {
+  max-height: 100%;
+  cursor: zoom-in;
+}
+#leftArrow {
+  font-size: xx-large;
+  float: left;
+  position: relative;
+  top: 45%;
+  left: 80px;
+}
+#rightArrow {
+  font-size: xx-large;
+  float: right;
+  position: relative;
+  top: 45%;
+  right: 80px;
+}
+#thumbnailList {
+  text-align: center;
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  width: 100px;
+  height: fit-content;
 }
 .style {
   border: 1px solid #ddd;
@@ -14,39 +53,15 @@
   width: 50px;
   height: 50px;
 }
-.stylePhoto {
+.stylePhotodefault {
   padding: 5px;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
-.defaultView {
-  height: 500px;
-}
-#defaultView {
-  border: 1px solid #ddd;
-  padding: 2px;
-  text-align: center;
-  grid-column: 1 / 2;
-  grid-row: 1;
-  width: 100%
-}
-#expandedView {
-  border: 1px solid #ddd;
-  text-align: center;
-
-}
-#fullscreenIcon {
-  float: right;
-  position: relative;
-  margin-right: 2%;
-}
-#thumbnailList {
-  text-align: center;
-  grid-column: 1 / 2;
-  grid-row: 1;
-  position: relative;
-  width: 100px;
-  height: fit-content;
+.stylePhotoexpanded {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
 }
 .selectedThumbnail {
   border-bottom: 4px solid black;
@@ -58,11 +73,74 @@
   text-align: center;
 }
 #info {
-  grid-column: 2 / 2;
+  grid-column: 2;
   grid-row: 1;
   border: 1px solid #ddd;
   padding: 2px;
   text-align: left;
+}
+#firstPanelExpanded {
+  display: grid;
+  grid-template-rows: 500px;
+  gap: 10px;
+  grid-template-columns: 100%;
+}
+#expandedView {
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: center;
+  align-content: center;
+  grid-column: 1;
+  grid-row: 1;
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+  width: -webkit-fill-available;
+}
+/* #expandedContainer {
+  display: block;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+#expandedMover {
+  width: 100%;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: -30px 40px;
+  transform: scale(2.5);
+  transition: background-position 0.25s;
+  &.no-more-slidey {
+    transition: none;
+  }
+} */
+.zoomOutView {
+  max-height: 100%;
+  cursor: cell;
+}
+.zoomInView {
+  display: block;
+  background-size: auto 1250px;
+  cursor: zoom-out;
+}
+#fullscreenIcon {
+  float: right;
+  position: relative;
+  margin-right: 2%;
+}
+
+/* #productOverview {
+  display: grid;
+  grid-template-rows: 150px;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
+  border: 1px solid #ddd;
+  padding: 2px;
+} */
+#secondPanel {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 70% 30%;
 }
 #overviewDescription {
   grid-column: 1 / 2;
@@ -155,15 +233,118 @@
 }
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
+.qa-component {
+  font-family: arial, sans-serif;
+  margin: 10px;
+  width: 90%;
+}
+
+.qa-heading {
+  font-weight: lighter;
+  margin: 10px;
+}
+
+.qa-search {
+  width: 100%;
+  margin: 10px;
+}
+
+.qa-search-input {
+  width: 100%;
+  padding: 10px;
+  /* background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
+  background-repeat: no-repeat;
+  background-position: right center; */
+}
 
 .qa-questions-list-container {
-  overflow: scroll;
+  overflow: auto;
+  overflow-x: hidden;
   max-height: 90vh;
 }
 
 .qa-answers-list-container {
-  overflow: scroll;
+  overflow: auto;
+  overflow-x: hidden;
   max-height: 50vh;
+  margin: 10px;
+}
+
+.qa-question-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.qa-question-text {
+  font-weight: bold;
+}
+
+.qa-helpful-report-answer {
+  font-size: small;
+}
+
+.qa-answers-list-container {
+  display: flex;
+
+}
+.qa-big-a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.qa-answers-list {
+  display: inline-block;
+}
+.qa-answer-text {
+  font-size: small;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.qa-answer-footer {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: small;
+}
+
+.qa-button-link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.qa-button {
+   border: 1px outset black;
+   background-color: transparent;
+   cursor: pointer;
+   font-weight: bold;
+   margin: 10px;
+   padding: 10px;
+}
+.qa-button:hover {
+  background-color: blue;
+  color:white;
+}
+
+.qa-answers-list-button {
+  background: none!important;
+  border: none;
+  padding: 10;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  /* text-decoration: underline; */
+  cursor: pointer;
 }
 
 .qa-modal {
@@ -238,9 +419,8 @@
   flex-basis: 50rem;
 }
 
-#review-left-container > * {
-  margin: 1%;
-  padding: 1%;
+#review-right-container > * {
+  margin-bottom: 1%;
 }
 
 .review-average-rating-number {
@@ -276,7 +456,6 @@
   padding: 1%;
 }
 
-/*--------*/
 .review-product-breakdown-container {
   display: flex;
   flex-direction: column;
@@ -300,6 +479,10 @@
   width: 100%;
 }
 
+.review-search-bar {
+  width: 50%
+}
+
 .reviews-list-tiles {
   overflow: scroll;
   max-height: 70vh;
@@ -309,8 +492,18 @@
   margin: 1% 0;
 }
 
-.review-show-button {
+.review-button {
   margin: 1%;
+  padding: 1%;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  border: solid black 0.1em;
+}
+
+.review-button:hover {
+  cursor: pointer;
+  background-color:rgb(226, 215, 215);
 }
 
 .review-tile {

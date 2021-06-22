@@ -11,13 +11,12 @@ class QuestionsAnswers extends React.Component {
     super(props);
 
     this.state = {
-      hasSearched: false,
       showMoreAnsweredQuestionsButton: false,
+      renderedQuestions: [],
+      remainingQuestions: [],
+      searchResults: null,
       showSearch: false,
-      nextTwoQuestions: [],
       query: '',
-      queryPage: 3,
-      questions: [],
       showQuestionModal: false
 
     };
@@ -31,6 +30,14 @@ class QuestionsAnswers extends React.Component {
   }
 
   componentDidMount() {
+    // initialize localStorage
+    if (!localStorage.getItem('helpfulQuestions')) {
+      localStorage.setItem('helpfulQuestions', JSON.stringify([]));
+    }
+
+    if (!localStorage.getItem('helpfulAnswers')) {
+      localStorage.setItem('helpfulAnswers', JSON.stringify([]));
+    }
     this.initialize();
   }
 
@@ -41,57 +48,32 @@ class QuestionsAnswers extends React.Component {
   }
 
   initialize() {
-    // initialize localStorage
-    if (!localStorage.getItem('helpfulQuestions')) {
-      localStorage.setItem('helpfulQuestions', JSON.stringify([]));
-    }
 
-    if (!localStorage.getItem('helpfulAnswers')) {
-      localStorage.setItem('helpfulAnswers', JSON.stringify([]));
-    }
-
-    fetchQuestions(this.props.product_id, 4, 1)
+    fetchQuestions(this.props.product_id, 100, 1)
       .then((data) => {
-        let firstTwoQuestions = data.results.slice(0, 2);
-        let nextTwoQuestions = data.results.slice(2);
-
-        if (!firstTwoQuestions.length) {
-          // make sure the state is empty if there are no questions
+        let questions = data.results;
+        if (!questions.length) {
           this.setState({
-            hasSearched: false,
             showMoreAnsweredQuestionsButton: false,
-            showSearch: false,
-            nextTwoQuestions: [],
-            query: '',
-            queryPage: 3,
-            questions: [],
-            showQuestionModal: false
+            showSearch: false
           });
-
-        } else if (!nextTwoQuestions.length) {
+        } else if (questions.length < 3) {
           this.setState({
-            hasSearched: false,
+            renderedQuestions: questions,
             showSearch: true,
-            questions: firstTwoQuestions,
-            showMoreAnsweredQuestionsButton: false,
-            nextTwoQuestions: [],
-            query: '',
-            queryPage: 3,
-            showQuestionModal: false
+            showMoreAnsweredQuestionsButton: false
           });
-
         } else {
           this.setState({
-            hasSearched: false,
-            showSearch: true,
-            questions: firstTwoQuestions,
+            renderedQuestions: questions.slice(0, 2),
+            remainingQuestions: questions.slice(2),
             showMoreAnsweredQuestionsButton: true,
-            nextTwoQuestions: nextTwoQuestions,
-            query: '',
-            queryPage: 3,
-            showQuestionModal: false
+            showSearch: true
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
 
   }
@@ -103,59 +85,34 @@ class QuestionsAnswers extends React.Component {
   }
 
   handleMoreQuestionsClick() {
-    // these functions are too tightly coupled, will refactor
-    // this updates state for search--refactor to a different function
-    if (this.state.hasSearched) {
-      this.state.questions = this.questionsToSearch;
-      this.questionsToSearch = [];
-      this.setState({
-        hasSearched: false,
-        query: ''
-      });
-    }
 
-    // this updates the questions list--refactor to different function
-    fetchQuestions(this.props.product_id, 2, this.state.queryPage)
-      .then((data) => {
-        if (!data.results.length) {
-          this.setState({
-            showMoreAnsweredQuestionsButton: false,
-            questions: [...this.state.questions, ...this.state.nextTwoQuestions]
-          });
-        } else {
-          this.setState({
-            questions: [...this.state.questions, ...this.state.nextTwoQuestions],
-            nextTwoQuestions: data.results,
-          });
-          this.state.queryPage = this.state.queryPage + 1;
-        }
-      });
+    let nextTwoQuestionsToRender = this.state.remainingQuestions.slice(0, 2);
+    let remainingQuestions = this.state.remainingQuestions.slice(2);
+    this.setState({
+      renderedQuestions: [...this.state.renderedQuestions, ...nextTwoQuestionsToRender],
+      remainingQuestions: remainingQuestions,
+      showMoreAnsweredQuestionsButton: remainingQuestions.length ? true : false
+    });
 
   }
 
   handleSearch(e) {
 
-    if (!this.state.hasSearched) {
-      this.questionsToSearch = this.state.questions.slice();
-      this.state.hasSearched = true;
-    }
-
     let query = e.target.value;
-
     if (query.length < 3) {
       this.setState({
         query: query,
-        questions: this.questionsToSearch
+        searchResults: null,
+        showMoreAnsweredQuestionsButton: true
       });
-      return;
+    } else {
+      let searchResults = this.state.renderedQuestions.filter((question) => question.question_body.includes(query));
+      this.setState({
+        query: query,
+        searchResults: searchResults,
+        showMoreAnsweredQuestionsButton: false
+      });
     }
-
-    let queryResult = this.questionsToSearch.filter((question) => question.question_body.includes(query));
-
-    this.setState({
-      query: query,
-      questions: queryResult
-    });
 
   }
 
@@ -198,11 +155,11 @@ class QuestionsAnswers extends React.Component {
 
     return (
       <div className="qa-component">
-        <div> {`QUESTIONS & ANSWERS`} </div>
+        <h5 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h5>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
-        <QuestionsList questions={this.state.questions} name={this.props.name}/>
-        {this.state.showMoreAnsweredQuestionsButton && <button onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
-        <button onClick={this.handleAddQuestionClick}>ADD A QUESTION</button>
+        <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>
+        {this.state.showMoreAnsweredQuestionsButton && <button className="qa-button" onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
+        <button className="qa-button" onClick={this.handleAddQuestionClick}>ADD A QUESTION +</button>
         {this.state.showQuestionModal && <QuestionForm name={this.props.name} handleQuestionSubmit={this.handleQuestionSubmit} closeQuestionModal={this.closeQuestionModal}/>}
       </div>
     );

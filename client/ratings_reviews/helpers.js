@@ -139,6 +139,16 @@ const applyStarFilters = (reviews, starFilters) => {
   return output;
 };
 
+const applyKeyword = (reviews, keyword) => {
+  let output = reviews.filter(review => {
+    if (review.response === null) {
+      review.response = '';
+    }
+    return review.summary.includes(keyword) || review.body.includes(keyword) || review.reviewer_name.includes(keyword) || review.response.includes(keyword);
+  });
+  return output;
+};
+
 const formatReviewTile = (summary, body, photos, reviewId) => {
   var additionalBody = '';
   var showAdditionalBodyButton = false;
@@ -165,6 +175,10 @@ const formatReviewTile = (summary, body, photos, reviewId) => {
   var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
   if (currentReportedReviews.indexOf(reviewId) !== -1) {
     reportStatus = true;
+  }
+  var allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+  if (allHelpfulReviews && allHelpfulReviews.indexOf(reviewId) !== -1) {
+    showAddHelpfulButton = false;
   }
   return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
 };
@@ -223,6 +237,7 @@ module.exports = {
   formatCharacteristics: formatCharacteristics,
   sortReviews: sortReviews,
   applyStarFilters: applyStarFilters,
+  applyKeyword: applyKeyword,
   formatReviewTile: formatReviewTile,
   productCharacteristics: productCharacteristics
 };

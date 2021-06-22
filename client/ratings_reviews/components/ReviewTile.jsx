@@ -44,9 +44,14 @@ class ReviewTile extends React.Component {
       url: `reviews/${this.props.review.review_id}/helpful`,
       method: 'PUT'
     }).then(() => {
-      var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
       currentHelpfulReviews.push(this.props.review.review_id);
       sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
+
+      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+      allHelpfulReviews.push(this.props.review.review_id);
+      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
+
       this.setState({
         helpfulness: this.state.helpfulness + 1,
         showAddHelpfulButton: false
@@ -61,9 +66,10 @@ class ReviewTile extends React.Component {
       url: `reviews/${this.props.review.review_id}/report`,
       method: 'PUT'
     }).then(() => {
-      var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
       currentReportedReviews.push(this.props.review.review_id);
       sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
+
       this.setState({
         reportStatus: true
       });

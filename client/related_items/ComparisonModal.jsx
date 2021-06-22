@@ -1,51 +1,32 @@
 import React from 'react';
+import { findComparisonFeatures } from './helpers.js';
 
-class ComparisonModal extends React.Component {
-  constructor(props) {
-    super(props);
+const ComparisonModal = (props) => {
+  if (!props.showModal) {
+    return null;
   }
 
-  render() {
-    if (!this.props.showModal) {
-      return null;
-    }
+  let key = 0;
+  let mainFeatures = props.mainProduct[1];
+  let comparisonFeatures = props.productToCompare[1];
 
-    let key = 0;
-    let mainFeatures = this.props.mainProduct[1];
-    let comparisonFeatures = this.props.productToCompare[1];
-    let allFeatures = [];
+  let allFeatures = findComparisonFeatures(mainFeatures, comparisonFeatures);
 
-    mainFeatures.forEach(feature => {
-      feature.compValue = '';
-      allFeatures.push(feature);
-    });
+  return (
+    <div id='comparisonModal' onClick={(e) => props.toggleModal(e)}>
+      <p>Comparing</p>
+      <h4 class='modal-col-1'>{props.mainProduct[0]}</h4>
+      <h4 class='modal-col-3'>{props.productToCompare[0]}</h4>
 
-    comparisonFeatures.forEach(compFeature => {
-      var index = allFeatures.findIndex(item => item.feature === compFeature.feature);
-      if (index !== -1) {
-        allFeatures[index].compValue = compFeature.value;
-      } else {
-        compFeature.compValue = '';
-        allFeatures.push(compFeature);
-      }
-    });
-
-    return (
-      <div id='comparisonModal' onClick={this.props.toggleModal}>
-        <p>Comparing</p>
-        <h4 class='modal-col-1'>{this.props.mainProduct[0]}</h4>
-        <h4 class='modal-col-3'>{this.props.productToCompare[0]}</h4>
-
-        {allFeatures.map(feature =>
-          <div>
-            <div class='modal-col-1'>{feature.value}</div>
-            <div class='modal-col-2'>{feature.feature}</div>
-            <div class='modal-col-3'>{feature.compValue}</div>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+      {allFeatures.map(feature =>
+        <div>
+          <div key={key++} class='modal-col-1'>{feature.value}</div>
+          <div key={key++} class='modal-col-2'>{feature.feature}</div>
+          <div key={key++} class='modal-col-3'>{feature.compValue}</div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ComparisonModal;

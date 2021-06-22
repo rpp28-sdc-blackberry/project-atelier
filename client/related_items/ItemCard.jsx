@@ -1,5 +1,5 @@
 import React from 'react';
-import helpers from './helpers.js';
+import { getProductInfo, getProductStyles, findDefaultStyle } from './helpers.js';
 
 class ItemCard extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ItemCard extends React.Component {
   }
 
   componentDidMount() {
-    helpers.getProductInfo(this.props.id)
+    getProductInfo(this.props.id)
       .then(productInfo => this.setState({
         category: productInfo.category,
         name: productInfo.name,
@@ -26,19 +26,19 @@ class ItemCard extends React.Component {
         features: productInfo.features
       }));
 
-    helpers.getProductStyles(this.props.id)
+    getProductStyles(this.props.id)
       .then(productStyles => {
-        helpers.findDefaultStyle(productStyles.results)
+        findDefaultStyle(productStyles.results)
           .then(defaultStyle => {
             let price, thumbnailUrl;
 
-            if (defaultStyle.sale_price === null) {
-              price = defaultStyle.original_price;
-            } else { price = defaultStyle.sale_price; }
+            !defaultStyle.sale_price
+              ? price = defaultStyle.original_price
+              : price = defaultStyle.sale_price;
 
-            if (defaultStyle.photos[0].thumbnail_url === null) {
-              thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081';
-            } else { thumbnailUrl = defaultStyle.photos[0].thumbnail_url; }
+            !defaultStyle.photos[0].thumbnail_url
+              ? thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081'
+              : thumbnailUrl = defaultStyle.photos[0].thumbnail_url;
 
             this.setState({
               thumbnailUrl: thumbnailUrl,
@@ -54,7 +54,7 @@ class ItemCard extends React.Component {
 
     return (
       <div className='relatedItemCard' onClick={() => this.handleRelatedItemClick(this.props.id)}>
-        <div id="action" onClick={() => this.props.toggleModal(features, name)}>Action</div>
+        <div id="action" onClick={(e) => this.props.toggleModal(e, features, name)}>Compare</div>
         <img id="thumbnail" src={this.state.thumbnailUrl}></img>
         <p id="category">{this.state.category}</p>
         <p id="name">{this.state.name}</p>
