@@ -341,9 +341,8 @@
   flex-basis: 50rem;
 }
 
-#review-left-container > * {
-  margin: 1%;
-  padding: 1%;
+#review-right-container > * {
+  margin-bottom: 1%;
 }
 
 .review-average-rating-number {
@@ -379,7 +378,6 @@
   padding: 1%;
 }
 
-/*--------*/
 .review-product-breakdown-container {
   display: flex;
   flex-direction: column;
@@ -403,6 +401,10 @@
   width: 100%;
 }
 
+.review-search-bar {
+  width: 50%
+}
+
 .reviews-list-tiles {
   overflow: scroll;
   max-height: 70vh;
@@ -412,8 +414,18 @@
   margin: 1% 0;
 }
 
-.review-show-button {
+.review-button {
   margin: 1%;
+  padding: 1%;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  border: solid black 0.1em;
+}
+
+.review-button:hover {
+  cursor: pointer;
+  background-color:rgb(226, 215, 215);
 }
 
 .review-tile {
