@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import ReviewFormCharacterisics from './ReviewFormCharacteristics.jsx';
-import ReviewFormPhotoModal from './ReviewFormPhotoModal.jsx';
 import helpers from '../helpers.js';
 
 class ReviewFormModal extends React.Component {
@@ -17,7 +16,6 @@ class ReviewFormModal extends React.Component {
       photos: [],
       characteristics: {},
       photoCount: 0,
-      photo: '',
       show: false,
       showUploadPhotosButton: true
     };
@@ -31,26 +29,14 @@ class ReviewFormModal extends React.Component {
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    let photoIncrement = 0;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
-    if (name === 'photo' && value !== '') {
-      let currentPhotos = this.state.photos;
-      currentPhotos.push(value);
-      value = currentPhotos;
-      name = 'photos';
-      photoIncrement++;
-      console.log('photo: ', value);
-    }
-    let showUploadPhotosButton = this.state.photoCount + photoIncrement < 5;
     this.setState({
-      [name]: value,
-      photoCount: this.state.photoCount + photoIncrement,
-      showUploadPhotosButton: showUploadPhotosButton
+      [name]: value
     });
   }
 
@@ -209,8 +195,6 @@ class ReviewFormModal extends React.Component {
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
                 {uploadedImagePreviews}
-                {/* <div><button class='review-button' type='button' onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
-                <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/> */}
                 <div>
                   <div><input type='file' name='photo' accept='image/*' value={this.state.photo} id='review-uploaded-photo' onChange={this.handlePhotoUpload} hidden={!this.state.showUploadPhotosButton} style={{'display': 'none'}}></input></div>
                   <div><label class='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label></div>
