@@ -26,22 +26,38 @@ class App extends React.Component {
   componentDidMount() {
     this.initialize();
     // added this click handler
-    this._initClickHandler();
+    // this.initClickHandler();
   }
 
-  // added these two functions
-  _initClickHandler() {
-    window.addEventListener('click', this._handleClick, false);
-  }
+  // REFACTOR THESE TO HOC/RENDER PROPS
+  // initClickHandler() {
+  //   window.addEventListener('click', this.handleClick, false);
+  // }
 
-  _handleClick (e) {
-    // Handle adding click event to analytics manager here
-    // console.log('Click Event fired');
-    // console.log(e.target);
-    console.log('nodeName: ', e.target.nodeName, 'className: ', e.target.className, 'timestamp: ', new Date);
-    console.log('parent element: ', e.target.parentElement);
-    console.log('parent parent element: ', e.target.parentElement.parentElement);
-  }
+  // handleClick(e) {
+
+  //   const findModule = (element, idsToMatch) => {
+  //     // element has an ID matching one of the modules
+  //     // if (element.id === 'qa-component' || element.id === 'productDetails' || element.id === 'ratings-and-reviews' || element.id === 'relatedItemsWrapper') {
+  //     if (idsToMatch.includes(element.id)) {
+  //       // return the name of the module
+  //       return element.id;
+  //     }
+
+  //     // element has no parent -> return some string 'N/A'
+  //     if (!element.parentElement) {
+  //       return 'module not found';
+  //     }
+
+  //     // return an invocation of findModule on element.parentElement
+  //     return findModule(element.parentElement, idsToMatch);
+
+  //   };
+
+  //   let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
+
+  //   console.log('element: ', e.target.outerHTML, 'module :', findModule(e.target, atelierModuleIds), 'timestamp: ', new Date);
+  // }
 
   initialize(productId = '22122') {
     Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
@@ -116,5 +132,32 @@ class App extends React.Component {
   }
 
 }
+
+const initClickHandler = () => {
+  window.addEventListener('click', handleClick, false);
+};
+
+const handleClick = (e) => {
+
+  const findModule = (element, idsToMatch) => {
+    // element has an ID matching one of the modules
+    if (idsToMatch.includes(element.id)) {
+      // return the name of the module
+      return element.id;
+    }
+    // element has no parent -> return some string
+    if (!element.parentElement) {
+      return 'module not found';
+    }
+    // return an invocation of findModule on element.parentElement
+    return findModule(element.parentElement, idsToMatch);
+  };
+
+  let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
+
+  console.log('element: ', e.target.outerHTML, 'module :', findModule(e.target, atelierModuleIds), 'timestamp: ', new Date);
+};
+
+initClickHandler();
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -155,7 +155,7 @@
 }
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
-.qa-component {
+#qa-component {
   font-family: arial, sans-serif;
   margin: 10px;
   width: 90%;
