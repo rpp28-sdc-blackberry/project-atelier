@@ -25,6 +25,20 @@ class App extends React.Component {
 
   componentDidMount() {
     this.initialize();
+    // added this click handler
+    this._initClickHandler();
+  }
+
+  // added these two functions
+  _initClickHandler() {
+    window.addEventListener('click', this._handleClick, false);
+  }
+
+  _handleClick (e) {
+    // Handle adding click event to analytics manager here
+    // console.log('Click Event fired');
+    // console.log(e.target);
+    console.log('nodeName: ', e.target.nodeName, 'className: ', e.target.className, 'timestamp: ', new Date);
   }
 
   initialize(productId = '22122') {
