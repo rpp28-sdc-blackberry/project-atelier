@@ -39,6 +39,8 @@ class App extends React.Component {
     // console.log('Click Event fired');
     // console.log(e.target);
     console.log('nodeName: ', e.target.nodeName, 'className: ', e.target.className, 'timestamp: ', new Date);
+    console.log('parent element: ', e.target.parentElement);
+    console.log('parent parent element: ', e.target.parentElement.parentElement);
   }
 
   initialize(productId = '22122') {
