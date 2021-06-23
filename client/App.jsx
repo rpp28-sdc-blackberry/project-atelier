@@ -4,6 +4,7 @@ import ProductDetails from './product_details/ProductDetails.jsx';
 import QuestionsAnswers from './questions_answers/QuestionsAnswers.jsx';
 import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
+import {computeAverageRating} from './ratings_reviews/helpers.js';
 
 class App extends React.Component {
 
@@ -16,6 +17,8 @@ class App extends React.Component {
       selectedStyle: null,
       styleInfo: null,
       indexStyleSelected: null,
+      meta: null,
+      averageRating: null
     };
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
@@ -28,7 +31,7 @@ class App extends React.Component {
   }
 
   initialize(productId = '22122') {
-    Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
+    Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`), fetch(`http://localhost:8080/reviews/meta?product_id=${productId}`)])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
@@ -45,9 +48,10 @@ class App extends React.Component {
           info: parsedResponses[0],
           selectedStyle: selectedStyle || data.results[0],
           indexStyleSelected: indexStyleSelected || 0,
-          styleInfo: data.results
+          styleInfo: data.results,
+          meta: parsedResponses[2],
+          averageRating: computeAverageRating(parsedResponses[2].ratings)[1]
         });
-
       })
       .catch((error) => {
         console.log(error);
@@ -94,7 +98,8 @@ class App extends React.Component {
           name={this.state.info.name}/>
         <RatingsReviews
           product_id={this.state.product_id}
-          info={this.state.info}/>
+          info={this.state.info}
+          meta={this.state.meta}/>
       </div>
     );
   }
