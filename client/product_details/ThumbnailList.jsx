@@ -6,11 +6,16 @@ class ThumbnailList extends React.Component {
     super(props);
 
     this.state = {
-      firstPhotoIndex: 0
+      firstPhotoIndex: 0,
+      photoIndexList: null
     };
 
     this.handleUpScroll = this.handleUpScroll.bind(this);
     this.handleDownScroll = this.handleDownScroll.bind(this);
+  }
+
+  componentDidMount() {
+    
   }
 
   handleUpScroll() {
@@ -46,10 +51,13 @@ class ThumbnailList extends React.Component {
           <br></br>
           {photos.map((photo, index) => {
             var initIndex = index;
-            if ((initIndex + this.state.firstPhotoIndex) > this.props.selectedStyle.photos.length) {
-              finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 2;
+            console.log('initIndex: ', initIndex);
+            if ((initIndex + this.state.firstPhotoIndex) >= this.props.selectedStyle.photos.length) {
+              var finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length;
+              console.log('in if finalIndex: ', finalIndex);
             } else {
-              finalIndex = initIndex + this.state.firstPhotoIndex;
+              var finalIndex = initIndex + this.state.firstPhotoIndex;
+              console.log('in else finalIndex: ', finalIndex);
             }
             return (
               <Thumbnail 

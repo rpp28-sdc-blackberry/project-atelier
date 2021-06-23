@@ -20,7 +20,7 @@ const DefaultView = (props) => {
               onClick={props.handleLeftClick} 
               id="leftArrow">&larr;
             </a> : null}
-          {props.currPhotoIndex !== (props.styleInfo.length - 1) ?
+          {props.currPhotoIndex !== (photoGallery.length - 1) ?
             <a 
               onClick={props.handleRightClick}
               id="rightArrow">&rarr;
