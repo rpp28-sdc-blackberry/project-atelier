@@ -6,7 +6,6 @@ import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -25,39 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.initialize();
-    // added this click handler
-    // this.initClickHandler();
   }
-
-  // REFACTOR THESE TO HOC/RENDER PROPS
-  // initClickHandler() {
-  //   window.addEventListener('click', this.handleClick, false);
-  // }
-
-  // handleClick(e) {
-
-  //   const findModule = (element, idsToMatch) => {
-  //     // element has an ID matching one of the modules
-  //     // if (element.id === 'qa-component' || element.id === 'productDetails' || element.id === 'ratings-and-reviews' || element.id === 'relatedItemsWrapper') {
-  //     if (idsToMatch.includes(element.id)) {
-  //       // return the name of the module
-  //       return element.id;
-  //     }
-
-  //     // element has no parent -> return some string 'N/A'
-  //     if (!element.parentElement) {
-  //       return 'module not found';
-  //     }
-
-  //     // return an invocation of findModule on element.parentElement
-  //     return findModule(element.parentElement, idsToMatch);
-
-  //   };
-
-  //   let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
-
-  //   console.log('element: ', e.target.outerHTML, 'module :', findModule(e.target, atelierModuleIds), 'timestamp: ', new Date);
-  // }
 
   initialize(productId = '22122') {
     Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
