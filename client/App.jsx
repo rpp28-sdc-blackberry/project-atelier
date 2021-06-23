@@ -127,6 +127,6 @@ const handleClick = (e, functionToInvoke, idsToSearchFor) => {
   console.log('element: ', e.target.outerHTML, 'module :', functionToInvoke(e.target, idsToSearchFor), 'timestamp: ', new Date);
 };
 
-initClickHandler(findModule, atelierModuleIds);
+// initClickHandler(findModule, atelierModuleIds);
 
 ReactDOM.render(<App />, document.getElementById('app'));
