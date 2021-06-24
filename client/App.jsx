@@ -76,14 +76,14 @@ class App extends React.Component {
 
     return (
       <div>
-        <ProductDetails
+        <WrappedProductDetails
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
           handleStyleSelection={this.handleStyleSelection}/>
-        <RelatedItems
+        <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
@@ -91,7 +91,7 @@ class App extends React.Component {
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>
-        <RatingsReviews
+        <WrappedRatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}/>
       </div>
@@ -103,7 +103,7 @@ class App extends React.Component {
 const clickWrapper = (ComponentToWrap, moduleName) => {
   return (props) => (
     <div onClick={(e) => {
-      // console.log(e.target.outerHTML, moduleName, new Date);
+      console.log('clicked element:', e.target.outerHTML, '\nclicked module', moduleName, '\ntimestamp:', new Date);
       fetch('http://localhost:8080/interactions', {
         method: 'POST',
         headers: {
@@ -123,6 +123,9 @@ const clickWrapper = (ComponentToWrap, moduleName) => {
   );
 };
 
+const WrappedProductDetails = clickWrapper(ProductDetails, 'Product Details');
+const WrappedRelatedItems = clickWrapper(RelatedItems, 'Related Items');
 const WrappedQuestionsAnswers = clickWrapper(QuestionsAnswers, 'Questions and Answers');
+const WrappedRatingsReviews = clickWrapper(RatingsReviews, 'Ratings and Reviews');
 
 ReactDOM.render(<App />, document.getElementById('app'));
