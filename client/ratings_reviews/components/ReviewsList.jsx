@@ -104,8 +104,8 @@ class ReviewsList extends React.Component {
         <div key={this.props.reviews[0].review_id} class='reviews-list'>
           <div class='reviews-list-tiles'>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
           <div>
-            <button class='review-button' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>More Reviews</button>
-            <button class='review-button' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>Less Reviews</button>
+            <button class='review-button review-more' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>MORE REVIEWS</button>
+            <button class='review-button review-less' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>LESS REVIEWS</button>
           </div>
         </div>
       );
