@@ -3,3 +3,4 @@ public/bundle.js
 config.js
 coverage
 cloudinary.config.js
+.env

@@ -1,11 +1,12 @@
 const axios = require('axios');
 const TOKEN = require('../config.js');
+require('dotenv').config();
 
 const queryAPI = (method, url, body) => {
 
   return axios({
     headers: {
-      Authorization: TOKEN
+      Authorization: process.env.ATELIER_API_KEY
     },
     method: method,
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}`,
