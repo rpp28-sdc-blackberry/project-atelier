@@ -1,4 +1,4 @@
-var products = [
+module.exports.products = [
   {
     'id': 22122,
     'campus': 'hr-rpp',
@@ -56,7 +56,7 @@ var products = [
   }
 ];
 
-var one = {
+module.exports.one = {
   'id': 22122,
   'campus': 'hr-rpp',
   'name': 'Camo Onesie',
@@ -78,7 +78,7 @@ var one = {
   ]
 };
 
-var oneStyle = {
+module.exports.oneStyles = {
   'product_id': '22122',
   'results': [
     {
@@ -436,9 +436,9 @@ var oneStyle = {
       }
     }
   ]
-}
+};
 
-var two = {
+module.exports.two = {
   'id': 22123,
   'campus': 'hr-rpp',
   'name': 'Bright Future Sunglasses',
@@ -462,9 +462,9 @@ var two = {
       'value': 'LightCompose'
     }
   ]
-}
+};
 
-var twoStyles = {
+module.exports.twoStyles = {
   'product_id': '22123',
   'results': [
     {
@@ -544,9 +544,9 @@ var twoStyles = {
       }
     }
   ]
-}
+};
 
-var three = {
+module.exports.three = {
   'id': 22124,
   'campus': 'hr-rpp',
   'name': 'Morning Joggers',
@@ -566,9 +566,9 @@ var three = {
       'value': 'Skinny'
     }
   ]
-}
+};
 
-var threeStyles = {
+module.exports.threeStyles = {
   'product_id': '22124',
   'results': [
     {
@@ -926,9 +926,9 @@ var threeStyles = {
       }
     }
   ]
-}
+};
 
-var four = {
+module.exports.four = {
   'id': 22125,
   'campus': 'hr-rpp',
   'name': 'Slacker\'s Slacks',
@@ -948,9 +948,9 @@ var four = {
       'value': 'Loose'
     }
   ]
-}
+};
 
-var fourStyles = {
+module.exports.fourStyles = {
   'product_id': '22125',
   'results': [
     {
@@ -1485,9 +1485,9 @@ var fourStyles = {
       }
     }
   ]
-}
+};
 
-var five = {
+module.exports.five = {
   'id': 22126,
   'campus': 'hr-rpp',
   'name': 'Heir Force Ones',
@@ -1515,9 +1515,9 @@ var five = {
       'value': 'Double Stitch'
     }
   ]
-}
+};
 
-var fiveStyles = {
+module.exports.fiveStyles = {
   'product_id': '22126',
   'results': [
     {
@@ -1917,4 +1917,4 @@ var fiveStyles = {
       }
     }
   ]
-}
+};
