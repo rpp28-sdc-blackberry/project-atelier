@@ -5,10 +5,10 @@ const RatingBreakdownBar = (props) => {
     props.handleRatingBreakdownClick(props.star);
   };
   return (
-    <div onClick={handleClick} class='review-breakdown-bar'>
+    <div onClick={handleClick} class='review-breakdown-bar review-clickable'>
       <span class='review-clickable'>{props.star} stars:</span>
       <span><progress max="100" value={props.percentage}></progress></span>
-      <span>{props.freq}</span>
+      <span class='review-breakdown-freq'>{props.freq}</span>
     </div>
   );
 };

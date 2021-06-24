@@ -53,7 +53,7 @@ class RatingBreakdown extends React.Component {
             <span>{this.state.recommended} of reviews recommended this product</span>
           </div>
           <div class='review-filter-panel'>
-            <div>Rating Breakdown</div>
+            <div id='review-filter-panel-title'>Rating Breakdown</div>
             <div>Currently applied filters: {this.props.starFilters.map(starFilter => starFilter + ' ')}</div>
             <div class='review-clickable' onClick={this.props.removeFilters}>Remove all filters</div>
           </div>
