@@ -4,10 +4,15 @@ import ProductDetails from './product_details/ProductDetails.jsx';
 import QuestionsAnswers from './questions_answers/QuestionsAnswers.jsx';
 import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
+import ClickWrapper from './ClickWrapper.jsx';
 import {computeAverageRating} from './ratings_reviews/helpers.js';
 
-class App extends React.Component {
+const WrappedProductDetails = ClickWrapper(ProductDetails, 'Product Details');
+const WrappedRelatedItems = ClickWrapper(RelatedItems, 'Related Items');
+const WrappedQuestionsAnswers = ClickWrapper(QuestionsAnswers, 'Questions and Answers');
+const WrappedRatingsReviews = ClickWrapper(RatingsReviews, 'Ratings and Reviews');
 
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -81,22 +86,22 @@ class App extends React.Component {
 
     return (
       <div>
-        <ProductDetails
+        <WrappedProductDetails
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
           handleStyleSelection={this.handleStyleSelection}/>
-        <RelatedItems
+        <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           handleRelatedItemClick={this.handleRelatedItemClick}/>
-        <QuestionsAnswers
+        <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>
-        <RatingsReviews
+        <WrappedRatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}
           meta={this.state.meta}/>
