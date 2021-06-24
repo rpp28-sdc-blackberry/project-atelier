@@ -351,31 +351,6 @@
   margin-left: 1%;
 }
 
-/* Buttons and Clickable Texts */
-.review-clickable {
-  color: #069;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.review-clickable:hover {
-  color: rgb(14, 51, 96);
-}
-
-.review-button {
-  border: 1px outset rgb(94, 86, 86);
-  background-color: transparent;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 10px;
-  padding: 10px;
-}
-
-.review-button:hover {
-  cursor: pointer;
-  background-color:rgb(242, 235, 235);
-}
-
 /* Rating Breakdown */
 .review-rating-breakdown {
   padding-bottom: 8%;
@@ -434,7 +409,7 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
-  background-color: rgb(127, 184, 34);
+  background-color: rgb(49, 52, 44);
   border-radius: 20px;
 }
 
@@ -630,6 +605,16 @@ input[type=range]::-webkit-slider-thumb {
   margin: 1%;
 }
 
+#review-form-overall-rating {
+  display: inline-block;
+  font-family: arial, sans-serif;
+  color: rgb(94, 86, 86);
+}
+
+#review-form-recommend > * {
+  padding-bottom: 0;
+}
+
 .review-form-all-characteristics > * {
   padding: 1%;
   margin: 1%;
@@ -640,12 +625,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .review-form-characteristic-description {
-  font-size: 90%;
-}
-
-.review-form-chracteristic-radio-container > * {
-  padding: 1%;
-  margin: 1%;
+  font-size: 80%;
 }
 
 .review-form-characteristic-radio {
@@ -664,27 +644,22 @@ input[type=range]::-webkit-slider-thumb {
   text-align: center;
 }
 
-.review-form-photo-modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.review-thumbnail {
+  cursor: auto;
 }
 
-.review-form-photo-modal-content {
-  width: 300px;
-  background: #fff;
-  padding: 2%;
+.review-form-characteristic-name {
+  padding: 1% 0;
 }
 
-.review-form-photo-modal-content > * {
+#review-form-body {
+  font-family: arial, sans-serif;
+  resize: none;
   padding: 1%;
-  margin: 1%;
+}
+
+#review-form-upload-photo-button {
+  font-size: 90%;
 }
 
 .review-form-modal-header {
@@ -702,8 +677,13 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .review-form-modal-body > * {
-  padding: 1%;
-  margin: 1%
+  padding: 1% 0;
+  margin-bottom: 1% 0;
+}
+
+.review-form-modal-body > * > *{
+  padding: 1% 0;
+  margin-bottom: 1% 0;
 }
 
 .review-form-invalid-warning {
@@ -714,8 +694,36 @@ input[type=range]::-webkit-slider-thumb {
   margin: 1%;
 }
 
-/* STAR RATING */
+/* Buttons and Clickable Texts */
+.review-clickable {
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
+.review-clickable:hover {
+  color: rgb(14, 51, 96);
+}
+
+.review-button {
+  border: 1px outset rgb(94, 86, 86);
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px;
+}
+
+.review-button:hover {
+  cursor: pointer;
+  background-color:rgb(242, 235, 235);
+}
+
+#review-form-add-button {
+  margin-top: 0;
+}
+
+/* STAR RATING */
 :root {
   --star-size: 15px;
   --star-color: rgb(216, 207, 207);
