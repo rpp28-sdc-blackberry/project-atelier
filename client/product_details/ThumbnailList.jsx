@@ -47,9 +47,9 @@ class ThumbnailList extends React.Component {
           {photos.map((photo, index) => {
             var initIndex = index;
             if ((initIndex + this.state.firstPhotoIndex) > this.props.selectedStyle.photos.length) {
-              finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 2;
+              var finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 2;
             } else {
-              finalIndex = initIndex + this.state.firstPhotoIndex;
+              var finalIndex = initIndex + this.state.firstPhotoIndex;
             }
             return (
               <Thumbnail 
