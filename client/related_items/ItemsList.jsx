@@ -50,6 +50,10 @@ class ItemsList extends React.Component {
             key={itemId}
             toggleModal={this.toggleModal}
             handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
+
+        <div id='relatedItemsArrow'>
+          {'>'}
+        </div>
       </div>
     );
   }
