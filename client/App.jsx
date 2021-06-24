@@ -100,39 +100,10 @@ class App extends React.Component {
 
 }
 
-// const initClickHandler = (functionToInvoke, idsToSearchFor) => {
-//   window.addEventListener('click', (e) => {
-//     handleClick(e, functionToInvoke, idsToSearchFor);
-//   }, false);
-// };
-
-// const findModule = (element, idsToMatch) => {
-//   // element has an ID matching one of the modules
-//   if (idsToMatch.includes(element.id)) {
-//     // return the name of the module
-//     return element.id;
-//   }
-//   // element has no parent -> return some string
-//   if (!element.parentElement) {
-//     return 'module not found';
-//   }
-//   // return an invocation of findModule on element.parentElement
-//   return findModule(element.parentElement, idsToMatch);
-// };
-
-// let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
-
-// const handleClick = (e, functionToInvoke, idsToSearchFor) => {
-
-//   console.log('element: ', e.target.outerHTML, 'module :', functionToInvoke(e.target, idsToSearchFor), 'timestamp: ', new Date);
-// };
-
-// initClickHandler(findModule, atelierModuleIds);
-
 const clickWrapper = (ComponentToWrap, moduleName) => {
   return (props) => (
     <div onClick={(e) => {
-      console.log(e.target.outerHTML, moduleName, new Date);
+      // console.log(e.target.outerHTML, moduleName, new Date);
       fetch('http://localhost:8080/interactions', {
         method: 'POST',
         headers: {
@@ -144,7 +115,7 @@ const clickWrapper = (ComponentToWrap, moduleName) => {
           time: new Date
         })
       })
-        .then(data => console.log('Success:', data))
+        .then(data => console.log('Click event recorded!', data))
         .catch(error => console.log('Error:', error));
     }}>
       <ComponentToWrap {...props}/>
@@ -153,6 +124,5 @@ const clickWrapper = (ComponentToWrap, moduleName) => {
 };
 
 const WrappedQuestionsAnswers = clickWrapper(QuestionsAnswers, 'Questions and Answers');
-
 
 ReactDOM.render(<App />, document.getElementById('app'));
