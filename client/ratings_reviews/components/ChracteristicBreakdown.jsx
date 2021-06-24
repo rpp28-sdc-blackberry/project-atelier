@@ -5,7 +5,7 @@ const CharacteristicBreakdown = (props) => {
   if (props.characteristic.value !== null) {
     return (
       <div>
-        <label>{props.characteristic.name}</label><br></br>
+        <label class='review-product-characteristic-name'>{props.characteristic.name}</label><br></br>
         <div class='review-product-breakdown-container'>
           <div>
             <input class='review-product-breakdown-bar' type='range' min='1' max='5' value={props.characteristic.value}></input>
