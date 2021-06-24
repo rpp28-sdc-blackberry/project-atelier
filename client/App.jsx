@@ -4,6 +4,12 @@ import ProductDetails from './product_details/ProductDetails.jsx';
 import QuestionsAnswers from './questions_answers/QuestionsAnswers.jsx';
 import RatingsReviews from './ratings_reviews/RatingsReviews.jsx';
 import RelatedItems from './related_items/RelatedItems.jsx';
+import ClickWrapper from './ClickWrapper.jsx';
+
+const WrappedProductDetails = ClickWrapper(ProductDetails, 'Product Details');
+const WrappedRelatedItems = ClickWrapper(RelatedItems, 'Related Items');
+const WrappedQuestionsAnswers = ClickWrapper(QuestionsAnswers, 'Questions and Answers');
+const WrappedRatingsReviews = ClickWrapper(RatingsReviews, 'Ratings and Reviews');
 
 class App extends React.Component {
   constructor(props) {
@@ -99,33 +105,5 @@ class App extends React.Component {
   }
 
 }
-
-const clickWrapper = (ComponentToWrap, moduleName) => {
-  return (props) => (
-    <div onClick={(e) => {
-      console.log('clicked element:', e.target.outerHTML, '\nclicked module', moduleName, '\ntimestamp:', new Date);
-      fetch('http://localhost:8080/interactions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          element: e.target.outerHTML,
-          widget: moduleName,
-          time: new Date
-        })
-      })
-        .then(data => console.log('Click event recorded!', data))
-        .catch(error => console.log('Error:', error));
-    }}>
-      <ComponentToWrap {...props}/>
-    </div>
-  );
-};
-
-const WrappedProductDetails = clickWrapper(ProductDetails, 'Product Details');
-const WrappedRelatedItems = clickWrapper(RelatedItems, 'Related Items');
-const WrappedQuestionsAnswers = clickWrapper(QuestionsAnswers, 'Questions and Answers');
-const WrappedRatingsReviews = clickWrapper(RatingsReviews, 'Ratings and Reviews');
 
 ReactDOM.render(<App />, document.getElementById('app'));
