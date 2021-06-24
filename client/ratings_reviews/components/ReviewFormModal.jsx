@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import ReviewFormCharacterisics from './ReviewFormCharacteristics.jsx';
-import ReviewFormPhotoModal from './ReviewFormPhotoModal.jsx';
 import helpers from '../helpers.js';
 
 class ReviewFormModal extends React.Component {
@@ -21,6 +20,7 @@ class ReviewFormModal extends React.Component {
       showUploadPhotosButton: true
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -29,26 +29,44 @@ class ReviewFormModal extends React.Component {
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    let photoIncrement = 0;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
-    if (name === 'photo' && value !== '') {
-      let currentPhotos = this.state.photos;
-      currentPhotos.push(value);
-      value = currentPhotos;
-      name = 'photos';
-      photoIncrement++;
-    }
-    let showUploadPhotosButton = this.state.photoCount + photoIncrement < 5;
     this.setState({
-      [name]: value,
-      photoCount: this.state.photoCount + photoIncrement,
-      showUploadPhotosButton: showUploadPhotosButton
+      [name]: value
     });
+  }
+
+  handlePhotoUpload(e) {
+    let photo = document.getElementById('review-uploaded-photo').files[0];
+    let reader = new FileReader();
+    let dataURI;
+    reader.onload = () => {
+      dataURI = reader.result;
+      $.ajax({
+        url: '/review/image',
+        method: 'POST',
+        dataType: 'text',
+        data: {
+          dataURI: dataURI
+        }
+      }).then((cloudinaryURL) => {
+        let showUploadPhotosButton = this.state.photoCount + 1 < 5;
+        let currentPhotos = this.state.photos;
+        currentPhotos.push(cloudinaryURL);
+        this.setState({
+          photos: currentPhotos,
+          photoCount: this.state.photoCount + 1,
+          showUploadPhotosButton: showUploadPhotosButton
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+    };
+    reader.readAsDataURL(photo);
   }
 
   handleSubmit(e) {
@@ -177,8 +195,10 @@ class ReviewFormModal extends React.Component {
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
                 {uploadedImagePreviews}
-                <div><button class='review-button' type='button' onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
-                <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
+                <div>
+                  <div><input type='file' name='photo' accept='image/*' value={this.state.photo} id='review-uploaded-photo' onChange={this.handlePhotoUpload} hidden={!this.state.showUploadPhotosButton} style={{'display': 'none'}}></input></div>
+                  <div><label class='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label></div>
+                </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your nickname:</label><span id='review-form-name' class='review-form-invalid-warning'></span>
