@@ -1,5 +1,4 @@
 const cloudinary = require('cloudinary');
-const config = require('../cloudinary.config.js');
 require('dotenv').config();
 
 cloudinary.config({
@@ -21,4 +20,3 @@ const uploadPhotoToCloudinary = (body) => {
 };
 
 module.exports = uploadPhotoToCloudinary;
-

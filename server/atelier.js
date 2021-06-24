@@ -1,5 +1,4 @@
 const axios = require('axios');
-const TOKEN = require('../config.js');
 require('dotenv').config();
 
 const queryAPI = (method, url, body) => {
