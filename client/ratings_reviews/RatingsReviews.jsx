@@ -39,21 +39,11 @@ class RatingsReviews extends React.Component {
 
   initialize() {
     $.ajax({
-      url: `reviews/meta?product_id=${this.props.product_id}`,
-      method: 'GET'
-    }).then((meta) => {
-      this.setState({
-        meta: meta
-      });
-    }).catch((error) => {
-      console.log(error);
-    });
-
-    $.ajax({
       url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
       method: 'GET'
     }).then((reviews) => {
       this.setState({
+        meta: this.props.meta,
         reviews: reviews.results,
         filteredReviews: helpers.sortReviews(reviews.results, this.state.sortingOption)
       });

@@ -28,6 +28,7 @@
   "homepage": "https://github.com/rpp28-fec-pahu/project-atelier#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "react": "^17.0.2",
@@ -43,6 +44,7 @@
     "babel": "^6.23.0",
     "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
+    "cloudinary": "^1.26.0",
     "dotenv": "^10.0.0",
     "enzyme": "^3.11.0",
     "eslint": "^7.27.0",
