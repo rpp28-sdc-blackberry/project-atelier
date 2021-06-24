@@ -18,9 +18,9 @@ class SortingOptions extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class='review-sorting-options'>
         <label for="options">{this.props.reviews.length} reviews, sorted by </label>
-        <select value={this.state.value} onChange={this.handleChange} name="options" id="sorting-options">
+        <select value={this.state.value} onChange={this.handleChange} name='options' id='sorting-options' class='review-clickable'>
           <option selected='selected' value="relevance">Relevant</option>
           <option value="helpfulness">Helpful</option>
           <option value="date">Newest</option>
