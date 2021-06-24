@@ -88,7 +88,7 @@ class App extends React.Component {
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           handleRelatedItemClick={this.handleRelatedItemClick}/>
-        <QuestionsAnswers
+        <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>
         <RatingsReviews
@@ -100,33 +100,44 @@ class App extends React.Component {
 
 }
 
-const initClickHandler = (functionToInvoke, idsToSearchFor) => {
-  window.addEventListener('click', (e) => {
-    handleClick(e, functionToInvoke, idsToSearchFor);
-  }, false);
-};
+// const initClickHandler = (functionToInvoke, idsToSearchFor) => {
+//   window.addEventListener('click', (e) => {
+//     handleClick(e, functionToInvoke, idsToSearchFor);
+//   }, false);
+// };
 
-const findModule = (element, idsToMatch) => {
-  // element has an ID matching one of the modules
-  if (idsToMatch.includes(element.id)) {
-    // return the name of the module
-    return element.id;
-  }
-  // element has no parent -> return some string
-  if (!element.parentElement) {
-    return 'module not found';
-  }
-  // return an invocation of findModule on element.parentElement
-  return findModule(element.parentElement, idsToMatch);
-};
+// const findModule = (element, idsToMatch) => {
+//   // element has an ID matching one of the modules
+//   if (idsToMatch.includes(element.id)) {
+//     // return the name of the module
+//     return element.id;
+//   }
+//   // element has no parent -> return some string
+//   if (!element.parentElement) {
+//     return 'module not found';
+//   }
+//   // return an invocation of findModule on element.parentElement
+//   return findModule(element.parentElement, idsToMatch);
+// };
 
-let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
+// let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
 
-const handleClick = (e, functionToInvoke, idsToSearchFor) => {
+// const handleClick = (e, functionToInvoke, idsToSearchFor) => {
 
-  console.log('element: ', e.target.outerHTML, 'module :', functionToInvoke(e.target, idsToSearchFor), 'timestamp: ', new Date);
-};
+//   console.log('element: ', e.target.outerHTML, 'module :', functionToInvoke(e.target, idsToSearchFor), 'timestamp: ', new Date);
+// };
 
 // initClickHandler(findModule, atelierModuleIds);
+
+const clickWrapper = (ComponentToWrap, moduleName) => {
+  return (props) => (
+    <div onClick={(e) => console.log(e.target.outerHTML, moduleName, new Date)}>
+      <ComponentToWrap {...props}/>
+    </div>
+  );
+};
+
+const WrappedQuestionsAnswers = clickWrapper(QuestionsAnswers, 'Questions and Answers');
+
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -152,23 +152,23 @@ class QuestionsAnswers extends React.Component {
   }
 
   render() {
-    let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
-    const findModule = (element, idsToMatch) => {
-      // element has an ID matching one of the modules
-      if (idsToMatch.includes(element.id)) {
-        // return the name of the module
-        return element.id;
-      }
-      // element has no parent -> return some string
-      if (!element.parentElement) {
-        return 'module not found';
-      }
-      // return an invocation of findModule on element.parentElement
-      return findModule(element.parentElement, idsToMatch);
-    };
+    // let atelierModuleIds = ['qa-component', 'productDetails', 'ratings-and-reviews', 'relatedItemsWrapper'];
+    // const findModule = (element, idsToMatch) => {
+    //   // element has an ID matching one of the modules
+    //   if (idsToMatch.includes(element.id)) {
+    //     // return the name of the module
+    //     return element.id;
+    //   }
+    //   // element has no parent -> return some string
+    //   if (!element.parentElement) {
+    //     return 'module not found';
+    //   }
+    //   // return an invocation of findModule on element.parentElement
+    //   return findModule(element.parentElement, idsToMatch);
+    // };
 
     return (
-      <div id="qa-component" onClick={(e) => console.log(findModule(e.target, atelierModuleIds), 'e.target in render: ', e.target.outerHTML, new Date)}>
+      <div id="qa-component" >
         <h5 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h5>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>
