@@ -3,7 +3,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const queryAPI = (method, url, body) => {
-
+  console.log('token: ', process.env.TOKEN);
   return axios({
     headers: {
       Authorization: process.env.TOKEN
