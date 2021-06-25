@@ -107,16 +107,17 @@ class ReviewTile extends React.Component {
         <div class='review-summary'>{this.state.summary}</div>
         <div class='review-body' hidden={!this.state.showBody}>{this.state.body}</div>
         <div class='review-additional-body' hidden={!this.state.showAdditionalBody}>{this.state.additionalBody}</div>
-        <div class='review-additional-body-button' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
+        <div class='review-additional-body-button review-clickable' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
         <div class='review-photos' hidden={!this.state.showPhotos}>
           {this.props.review.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
         </div>
         <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
         <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
-        <div>
+        <div class='review-bottom-panel'>
           <span>Helpful?</span>
           {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
-          <span>({this.state.helpfulness}) | </span>
+          <span>({this.state.helpfulness})</span>
+          <span>|</span>
           {!this.state.reportStatus ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
         </div>
       </div>
