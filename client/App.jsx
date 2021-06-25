@@ -27,7 +27,7 @@ class App extends React.Component {
     this.initialize();
   }
 
-  initialize(productId = '22126') {
+  initialize(productId = '22122') {
     Promise.all([fetch(`http://localhost:8080/products/${productId}`), fetch(`http://localhost:8080/products/${productId}/styles`)])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));

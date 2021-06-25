@@ -14,10 +14,6 @@ class ThumbnailList extends React.Component {
     this.handleDownScroll = this.handleDownScroll.bind(this);
   }
 
-  componentDidMount() {
-    
-  }
-
   handleUpScroll() {
     var newIndex = this.state.firstPhotoIndex === 0 ?
       (this.props.selectedStyle.photos.length - 1) : this.state.firstPhotoIndex - 1;

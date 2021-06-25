@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer';
 import { spawn } from 'child_process';
-import { last } from 'lodash';
 
 let browser;
 let serverProcess;
