@@ -4,6 +4,9 @@ require('dotenv').config();
 
 const queryAPI = (method, url, body) => {
   console.log('token: ', process.env.TOKEN);
+  console.log('method: ', method);
+  console.log('url: ', url);
+  
   return axios({
     headers: {
       Authorization: process.env.TOKEN
