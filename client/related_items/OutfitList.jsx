@@ -82,15 +82,31 @@ class OutfitList extends React.Component {
     }
   }
 
+  scrollLeft(e) {
+    e.target.parentNode.scrollLeft += 320;
+  }
+
+  scrollRight(e) {
+    e.target.parentNode.scrollLeft -= 320;
+  }
+
   render() {
     return (
-      <div className='relatedItemsStrip'>
+      <div className='rp-strip'>
+        <div id='rp-left-arrow' onClick={this.scrollRight}>
+          {'<'}
+        </div>
+
         <AddToOutfit addToOutfit={this.addToOutfit} />
         {this.state.outfits.length !== 0 && this.state.outfits.map(outfit => <OutfitCard
           key={outfit.id}
           productInfo={outfit}
           removeFromOutfit={this.removeFromOutfit}
           handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
+
+        <div id='rp-right-arrow' onClick={this.scrollLeft}>
+          {'>'}
+        </div>
       </div>
     );
   }
