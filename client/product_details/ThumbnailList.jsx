@@ -6,7 +6,8 @@ class ThumbnailList extends React.Component {
     super(props);
 
     this.state = {
-      firstPhotoIndex: 0
+      firstPhotoIndex: 0,
+      photoIndexList: null
     };
 
     this.handleUpScroll = this.handleUpScroll.bind(this);
@@ -46,8 +47,8 @@ class ThumbnailList extends React.Component {
           <br></br>
           {photos.map((photo, index) => {
             var initIndex = index;
-            if ((initIndex + this.state.firstPhotoIndex) > this.props.selectedStyle.photos.length) {
-              var finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length - 2;
+            if ((initIndex + this.state.firstPhotoIndex) >= this.props.selectedStyle.photos.length) {
+              var finalIndex = initIndex + this.state.firstPhotoIndex - this.props.selectedStyle.photos.length;
             } else {
               var finalIndex = initIndex + this.state.firstPhotoIndex;
             }
