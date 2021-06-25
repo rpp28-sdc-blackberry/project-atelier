@@ -63,14 +63,20 @@ class ItemCard extends React.Component {
     let name = this.state.name;
 
     return (
-      <div className='relatedItemCard' onClick={() => this.handleRelatedItemClick(this.props.id)}>
-        <div id="action" onClick={(e) => this.props.toggleModal(e, features, name)}>Compare</div>
-        <img id="thumbnail" src={this.state.thumbnailUrl}></img>
-        <p id="category">{this.state.category}</p>
-        <p id="name">{this.state.name}</p>
-        <p id="price">{this.state.price}</p>
-        {/* <p id="rating">{this.state.rating}</p> */}
-        <span class="stars" style={{'--rating': this.state.rating}}></span>
+      <div className='rp-card' onClick={() => this.handleRelatedItemClick(this.props.id)}>
+        <div id='rp-action-container'>
+          <div id='rp-card-action' onClick={(e) => this.props.toggleModal(e, features, name)}>Compare</div>
+        </div>
+        <div id='rp-thumbnail-container'>
+          <img id='rp-thumbnail-image' src={this.state.thumbnailUrl}></img>
+        </div>
+        <div id='rp-content-container'>
+          <p id='rp-card-category'>{this.state.category}</p>
+          <p id='rp-card-name'>{this.state.name}</p>
+          <p id='rp-card-price'>${this.state.price}</p>
+          {/* <p id='rp-card-rating'>{this.state.rating}</p> */}
+          <span class='stars' style={{'--rating': this.state.rating}}></span>
+        </div>
       </div>
     );
   }
