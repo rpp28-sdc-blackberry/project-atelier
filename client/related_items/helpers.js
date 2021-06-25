@@ -16,7 +16,7 @@ const getProductInfo = (productId) => {
 
 const getProductStyles = (productId) => {
   return new Promise (resolve => {
-    fetch(`/${productId}/styles`)
+    fetch(`/products/${productId}/styles`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
