@@ -2,4 +2,5 @@ node_modules
 config.js
 coverage
 cloudinary.config.js
+.env
 ec2-amazon-linux.pem
