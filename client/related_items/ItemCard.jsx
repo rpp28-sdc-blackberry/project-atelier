@@ -1,5 +1,6 @@
 import React from 'react';
-import { getProductInfo, getProductStyles, findDefaultStyle } from './helpers.js';
+import { getProductInfo, getProductStyles, getProductRatings, findDefaultStyle } from './helpers.js';
+import { computeAverageRating } from '../ratings_reviews/helpers.js';
 
 class ItemCard extends React.Component {
   constructor(props) {
@@ -46,6 +47,15 @@ class ItemCard extends React.Component {
             });
           });
       });
+
+    getProductRatings(this.props.id)
+      .then(ratingsMeta => {
+        let averageRating = computeAverageRating(ratingsMeta.ratings)[1];
+        if (averageRating === 'NaN') { averageRating = '0.00'; }
+        this.setState({
+          rating: averageRating
+        });
+      });
   }
 
   render() {
@@ -64,7 +74,7 @@ class ItemCard extends React.Component {
           <p id='rp-card-category'>{this.state.category}</p>
           <p id='rp-card-name'>{this.state.name}</p>
           <p id='rp-card-price'>${this.state.price}</p>
-          <p id='rp-card-rating'>{this.state.rating}</p>
+          <span class='stars' style={{'--rating': this.state.rating}}></span>
         </div>
       </div>
     );
