@@ -2,7 +2,11 @@ const getRelatedItems = (productId) => {
   return new Promise (resolve => {
     fetch(`http://localhost:8080/products/${productId}/related`)
       .then(response => response.json())
-      .then(data => resolve(data));
+      .then(data => {
+        let mainProductId = parseInt(productId);
+        let noDuplicates = data.filter(id => id !== mainProductId);
+        resolve(noDuplicates);
+      });
   });
 };
 
