@@ -1,5 +1,5 @@
 node_modules
-public/bundle.js
 config.js
 coverage
 cloudinary.config.js
+ec2-amazon-linux.pem
