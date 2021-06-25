@@ -22,6 +22,14 @@ const getProductStyles = (productId) => {
   });
 };
 
+const getProductRatings = (productId) => {
+  return new Promise (resolve => {
+    fetch(`http://localhost:8080/reviews/meta?product_id=${productId}`)
+      .then(response => response.json())
+      .then(data => resolve(data));
+  });
+};
+
 const findDefaultStyle = (styles) => {
   let foundDefault = false;
 
@@ -39,8 +47,9 @@ const findDefaultStyle = (styles) => {
   });
 };
 
-const defineMainProduct = (info, defaultStyle) => {
-  let price, thumbnailUrl, mainProduct;
+const defineMainProduct = (info, defaultStyle, averageRating) => {
+  let price, thumbnailUrl, mainProduct, rating;
+  averageRating === 'NaN' ? rating = '0.00' : rating = averageRating;
 
   !defaultStyle.sale_price
     ? price = defaultStyle.original_price
@@ -55,7 +64,7 @@ const defineMainProduct = (info, defaultStyle) => {
     category: info.category,
     name: info.name,
     price: price,
-    rating: '4.5',
+    rating: rating,
     id: info.id
   };
 
@@ -83,4 +92,4 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle, defineMainProduct, findComparisonFeatures };
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures };

@@ -32,7 +32,7 @@ class OutfitList extends React.Component {
   }
 
   initialize() {
-    let mainProduct = defineMainProduct(this.props.info, this.props.defaultStyle);
+    let mainProduct = defineMainProduct(this.props.info, this.props.defaultStyle, this.props.averageRating);
 
     this.setState({
       mainProduct: mainProduct
