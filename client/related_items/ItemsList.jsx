@@ -35,9 +35,21 @@ class ItemsList extends React.Component {
     });
   }
 
+  scrollLeft(e) {
+    e.target.parentNode.scrollLeft += 320;
+  }
+
+  scrollRight(e) {
+    e.target.parentNode.scrollLeft -= 320;
+  }
+
   render() {
     return (
-      <div className='relatedItemsStrip'>
+      <div className='rp-strip'>
+        <div id='rp-left-arrow' onClick={this.scrollRight}>
+          {'<'}
+        </div>
+
         <ComparisonModal
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
@@ -50,6 +62,10 @@ class ItemsList extends React.Component {
             key={itemId}
             toggleModal={this.toggleModal}
             handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
+
+        <div id='rp-right-arrow' onClick={this.scrollLeft}>
+          {'>'}
+        </div>
       </div>
     );
   }
