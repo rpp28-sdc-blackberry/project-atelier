@@ -36,7 +36,7 @@ class App extends React.Component {
   }
 
   initialize(productId = '22122') {
-    Promise.all([fetch(`products/${productId}`, { mode: 'no-cors' }), fetch(`products/${productId}/styles`, { mode: 'no-cors' }), fetch(`reviews/meta?product_id=${productId}`, { mode: 'no-cors' })])
+    Promise.all([fetch(`/products/${productId}`, { mode: 'no-cors' }), fetch(`/products/${productId}/styles`, { mode: 'no-cors' }), fetch(`/reviews/meta?product_id=${productId}`, { mode: 'no-cors' })])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
