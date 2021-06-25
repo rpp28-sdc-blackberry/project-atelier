@@ -2,7 +2,11 @@ const getRelatedItems = (productId) => {
   return new Promise (resolve => {
     fetch(`http://localhost:8080/products/${productId}/related`)
       .then(response => response.json())
-      .then(data => resolve(data));
+      .then(data => {
+        let mainProductId = parseInt(productId);
+        let noDuplicates = data.filter(id => id !== mainProductId);
+        resolve(noDuplicates);
+      });
   });
 };
 
@@ -17,6 +21,14 @@ const getProductInfo = (productId) => {
 const getProductStyles = (productId) => {
   return new Promise (resolve => {
     fetch(`http://localhost:8080/products/${productId}/styles`)
+      .then(response => response.json())
+      .then(data => resolve(data));
+  });
+};
+
+const getProductRatings = (productId) => {
+  return new Promise (resolve => {
+    fetch(`http://localhost:8080/reviews/meta?product_id=${productId}`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -39,8 +51,9 @@ const findDefaultStyle = (styles) => {
   });
 };
 
-const defineMainProduct = (info, defaultStyle) => {
-  let price, thumbnailUrl, mainProduct;
+const defineMainProduct = (info, defaultStyle, averageRating) => {
+  let price, thumbnailUrl, mainProduct, rating;
+  averageRating === 'NaN' ? rating = '0.00' : rating = averageRating;
 
   !defaultStyle.sale_price
     ? price = defaultStyle.original_price
@@ -55,7 +68,7 @@ const defineMainProduct = (info, defaultStyle) => {
     category: info.category,
     name: info.name,
     price: price,
-    rating: '4.5',
+    rating: rating,
     id: info.id
   };
 
@@ -83,4 +96,4 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, findDefaultStyle, defineMainProduct, findComparisonFeatures };
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures };
