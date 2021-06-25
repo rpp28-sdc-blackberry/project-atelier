@@ -97,6 +97,7 @@ class App extends React.Component {
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
+          averageRating={this.state.averageRating}
           handleRelatedItemClick={this.handleRelatedItemClick}/>
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
