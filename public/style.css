@@ -419,6 +419,10 @@
   cursor: pointer;
 }
 
+.qa-button-link:hover {
+  color: rgb(14, 51, 96);
+}
+
 .qa-button {
    border: 1px outset black;
    background-color: transparent;
