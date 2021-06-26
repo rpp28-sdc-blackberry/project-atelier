@@ -43,7 +43,7 @@ class AddToBag extends React.Component {
       maxQuantity: maxAvailable
     });
   }
-  
+
   handleQuantityChange(e) {
     var selectedQuantity = e.target.value;
     this.setState({
@@ -63,7 +63,7 @@ class AddToBag extends React.Component {
         "count": this.state.selectedQuantity
       };
       // TODO: Add call to post data here & to server
-      fetch(`http://localhost:8080/cart`, {
+      fetch(`/cart`, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(options)
@@ -102,7 +102,7 @@ class AddToBag extends React.Component {
           {this.state.selectedSize === 'SELECT SIZE' ? <option value="-">-</option> : null}
           {quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>)}
         </select><br></br>
-        <AddToBagButton 
+        <AddToBagButton
           handleAddToBagSubmit={this.handleAddToBagSubmit}
           availableSizes={this.props.availableSizes}/>
         <button id="starButton">&#9734;</button>

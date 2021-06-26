@@ -1,6 +1,6 @@
 const getRelatedItems = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}/related`)
+    fetch(`/products/${productId}/related`)
       .then(response => response.json())
       .then(data => {
         let mainProductId = parseInt(productId);
@@ -12,7 +12,7 @@ const getRelatedItems = (productId) => {
 
 const getProductInfo = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}`)
+    fetch(`/products/${productId}`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -20,7 +20,7 @@ const getProductInfo = (productId) => {
 
 const getProductStyles = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}/styles`)
+    fetch(`/products/${productId}/styles`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -28,7 +28,7 @@ const getProductStyles = (productId) => {
 
 const getProductRatings = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/reviews/meta?product_id=${productId}`)
+    fetch(`/reviews/meta?product_id=${productId}`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
