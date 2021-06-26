@@ -346,10 +346,17 @@
   background-position: right center; */
 }
 
-.qa-questions-list-container {
+/* .qa-questions-list-container {
   overflow: auto;
   overflow-x: hidden;
   max-height: 90vh;
+} */
+
+.qa-questions-list-container-wrapper {
+  max-height: 80vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .qa-answers-list-container {
