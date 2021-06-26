@@ -341,9 +341,10 @@
 .qa-search-input {
   width: 100%;
   padding: 10px;
-  /* background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
+  padding-left: 25px;
+  background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
   background-repeat: no-repeat;
-  background-position: right center; */
+  background-position: left center;
 }
 
 /* .qa-questions-list-container {
@@ -427,8 +428,7 @@
    padding: 10px;
 }
 .qa-button:hover {
-  background-color: blue;
-  color:white;
+  background-color:rgb(242, 235, 235);
 }
 
 .qa-answers-list-button {
