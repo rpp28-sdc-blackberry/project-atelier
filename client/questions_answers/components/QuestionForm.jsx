@@ -34,14 +34,14 @@ class QuestionForm extends React.Component {
               <label>
                 Your Question*
                 <br />
-                <textarea name="question" value={this.state.question} onChange={this.handleChange}/>
+                <textarea maxlength="1000" cols="50" rows="10" name="question" value={this.state.question} onChange={this.handleChange}/>
               </label>
               <br />
               <label>
                 What Is Your Nickname?*
                 <br />
                 <input
-                  name="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Example: jackson11!"
+                  maxlength="60" size="60" name="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Example: jackson11!"
                 />
                 <br />
                 <small> For privacy reasons, do not use your full name or email address </small>
@@ -51,13 +51,13 @@ class QuestionForm extends React.Component {
                 Your Email*
                 <br />
                 <input
-                  name="email" value={this.state.email} onChange={this.handleChange} placeholder="Example: jack@email.com"
+                  maxlength="60" size="60" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Example: jack@email.com"
                 />
                 <br />
                 <small> For authentication reasons, you will not be emailed </small>
               </label>
               <br />
-              <input type="submit" value="Submit Question"/>
+              <input className="qa-button" type="submit" value="SUBMIT QUESTION"/>
             </form>
           </div>
         </div>
