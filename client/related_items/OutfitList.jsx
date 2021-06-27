@@ -69,8 +69,6 @@ class OutfitList extends React.Component {
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let removedItemId = parseInt(e.target.parentNode.parentNode.id);
 
-    console.log(storedOutfits);
-    console.log(removedItemId);
     if (storedOutfits) {
       let currentOutfits = this.state.outfits;
       let updatedOutfits = [];
