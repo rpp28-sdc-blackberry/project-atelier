@@ -1,6 +1,7 @@
 import React from 'react';
 import ItemCard from './ItemCard.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
+import { preventScroll } from './helpers.js';
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class ItemsList extends React.Component {
 
     this.setState({
       showModal: !this.state.showModal
-    });
+    }, preventScroll());
   }
 
   scrollLeft(e) {

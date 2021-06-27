@@ -102,4 +102,14 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures };
+const preventScroll = () => {
+  let elem = document.getElementsByTagName('body')[0];
+
+  if (elem.style.overflow === '') {
+    elem.style.overflow = 'hidden';
+  } else if (elem.style.overflow === 'hidden') {
+    elem.style.overflow = '';
+  }
+};
+
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures, preventScroll };
