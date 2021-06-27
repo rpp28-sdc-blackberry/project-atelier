@@ -79,16 +79,22 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   let allFeatures = [];
 
   mainFeatures.forEach(feature => {
-    feature.compValue = '';
+    if (feature.value === null) { feature.value = '--'; }
+    feature.compValue = '--';
+    feature.product = 'main';
     allFeatures.push(feature);
   });
 
   comparisonFeatures.forEach(compFeature => {
+    if (compFeature.value === null) { compFeature.value = '--'; }
     var index = allFeatures.findIndex(item => item.feature === compFeature.feature);
+
     if (index !== -1) {
       allFeatures[index].compValue = compFeature.value;
+      compFeature.product = 'comp';
     } else {
-      compFeature.compValue = '';
+      compFeature.compValue = '--';
+      compFeature.product = 'comp';
       allFeatures.push(compFeature);
     }
   });
