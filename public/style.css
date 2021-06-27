@@ -261,14 +261,20 @@
   right: 0;
 }
 
+#rp-card-compare, #rp-card-remove {
+  padding: 12px;
+}
+
 #rp-card-compare:before {
   content: '\f005';
   font-family: FontAwesome;
+  color: rgb(255, 217, 0);
 }
 
 #rp-card-remove:before {
   content: '\f057';
   font-family: FontAwesome;
+  color: rgb(216, 65, 65);
 }
 
 #rp-thumbnail-container {
