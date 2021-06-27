@@ -261,6 +261,16 @@
   right: 0;
 }
 
+#rp-card-compare:before {
+  content: '\f005';
+  font-family: FontAwesome;
+}
+
+#rp-card-remove:before {
+  content: '\f057';
+  font-family: FontAwesome;
+}
+
 #rp-thumbnail-container {
   display: flex;
   width: 100%;
