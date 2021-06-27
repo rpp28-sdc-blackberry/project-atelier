@@ -254,7 +254,7 @@
   z-index: 1;
 }
 
-#rp-card-action {
+.rp-card-action {
   cursor: pointer;
   z-index: 1;
   position: absolute;

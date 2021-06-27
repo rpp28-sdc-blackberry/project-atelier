@@ -3,7 +3,7 @@ import React from 'react';
 const OutfitCard = (props) => (
   <div className='rp-card' id={props.productInfo.id} onClick={() => props.handleRelatedItemClick(props.productInfo.id)}>
     <div id='rp-action-container'>
-      <div id='rp-card-action' onClick={(e) => props.removeFromOutfit(e)}>Remove</div>
+      <div className='rp-card-action' id='rp-card-remove' onClick={(e) => props.removeFromOutfit(e)}>Remove</div>
     </div>
     <div id='rp-thumbnail-container'>
       <img id='rp-thumbnail-image' src={props.productInfo.thumbnailUrl}></img>
