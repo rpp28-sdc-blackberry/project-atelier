@@ -25,10 +25,12 @@ class QuestionForm extends React.Component {
     return (
       <div className="qa-modal" onClick={this.props.closeQuestionModal}>
         <div className="qa-modal-content" onClick={e => e.stopPropagation()}>
-          <img onClick={this.props.closeQuestionModal} width="20px" height="20px" src="/images/close.png" />
-          <div className="qa-modal-header">
-            <h4 className="qa-modal-title"> ASK YOUR QUESTION </h4>
-            <h5 className="qa-modal-title"> {`About the ${this.props.name}`} </h5>
+          <div className="qa-modal-top-row">
+            <div className="qa-modal-header">
+              <h4 className="qa-modal-title"> ASK YOUR QUESTION </h4>
+              <h5 className="qa-modal-title"> {`About the ${this.props.name}`} </h5>
+            </div>
+            <img className="qa-modal-close" onClick={this.props.closeQuestionModal} src="/images/close.png" />
           </div>
           <div className="qa-modal-body">
             <form className="qa-modal-form" onSubmit={this.props.handleQuestionSubmit}>
