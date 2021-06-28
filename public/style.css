@@ -420,7 +420,7 @@
   cursor: pointer;
 }
 
-.qa-button-link:hover {
+.qa-button-link:hover, .qa-answers-list-button:hover {
   color: rgb(14, 51, 96);
 }
 
