@@ -29,7 +29,7 @@ class AnswerForm extends React.Component {
             <h5 className="qa-modal-title"> {`${this.props.name}: ${this.props.question}`} </h5>
           </div>
           <div className="qa-modal-body">
-            <form onSubmit={this.props.handleAnswerSubmit}>
+            <form className="qa-modal-form" onSubmit={this.props.handleAnswerSubmit}>
               <label>
                 Your Answer*
                 <br />
