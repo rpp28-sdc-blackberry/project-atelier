@@ -341,8 +341,9 @@
 .qa-search-input {
   width: 100%;
   padding: 10px;
-  padding-left: 25px;
+  padding-left: 22px;
   background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
+  background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: left center;
 }
