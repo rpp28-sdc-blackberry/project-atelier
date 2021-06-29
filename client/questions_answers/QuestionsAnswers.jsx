@@ -154,7 +154,7 @@ class QuestionsAnswers extends React.Component {
   render() {
 
     return (
-      <div className="qa-component">
+      <div id="qa-component">
         <h5 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h5>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>

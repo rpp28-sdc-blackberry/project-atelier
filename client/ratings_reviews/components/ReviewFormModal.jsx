@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import ReviewFormCharacterisics from './ReviewFormCharacteristics.jsx';
-import ReviewFormPhotoModal from './ReviewFormPhotoModal.jsx';
 import helpers from '../helpers.js';
 
 class ReviewFormModal extends React.Component {
@@ -21,6 +20,7 @@ class ReviewFormModal extends React.Component {
       showUploadPhotosButton: true
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -29,26 +29,48 @@ class ReviewFormModal extends React.Component {
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    let photoIncrement = 0;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
-    if (name === 'photo' && value !== '') {
-      let currentPhotos = this.state.photos;
-      currentPhotos.push(value);
-      value = currentPhotos;
-      name = 'photos';
-      photoIncrement++;
-    }
-    let showUploadPhotosButton = this.state.photoCount + photoIncrement < 5;
     this.setState({
-      [name]: value,
-      photoCount: this.state.photoCount + photoIncrement,
-      showUploadPhotosButton: showUploadPhotosButton
+      [name]: value
     });
+  }
+
+  handlePhotoUpload(e) {
+    $('#review-form-upload-photo').text('uploading...');
+    let photo = document.getElementById('review-uploaded-photo').files[0];
+    let reader = new FileReader();
+    let dataURI;
+    reader.onload = () => {
+      dataURI = reader.result;
+      $.ajax({
+        url: '/review/image',
+        method: 'POST',
+        dataType: 'text',
+        data: {
+          dataURI: dataURI
+        }
+      }).then((cloudinaryURL) => {
+        let showUploadPhotosButton = this.state.photoCount + 1 < 5;
+        let currentPhotos = this.state.photos;
+        currentPhotos.push(cloudinaryURL);
+        this.setState({
+          photos: currentPhotos,
+          photoCount: this.state.photoCount + 1,
+          showUploadPhotosButton: showUploadPhotosButton
+        }, () => {
+          $('#review-form-upload-photo').text('');
+        });
+      }).catch((error) => {
+        console.log(error);
+        $('#review-form-upload-photo').text('upload failed');
+      });
+    };
+    reader.readAsDataURL(photo);
   }
 
   handleSubmit(e) {
@@ -120,7 +142,7 @@ class ReviewFormModal extends React.Component {
     let uploadedImagePreviews;
     if (this.state.photos.length !== 0) {
       uploadedImagePreviews = (
-        <div>{this.state.photos.map(photo => <img class='review-photo' src={photo}/>)}</div>
+        <div>{this.state.photos.map(photo => <img class='review-photo review-thumbnail' src={photo}/>)}</div>
       );
     }
     return (
@@ -135,7 +157,7 @@ class ReviewFormModal extends React.Component {
               <div>
                 <label class='review-form-sub-heading'>Overall rating:</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
                 <div>
-                  <select name='rating' value={this.state.rating} onChange={this.handleChange}>
+                  <select id='review-form-overall-rating' name='rating' value={this.state.rating} onChange={this.handleChange}>
                     <option value=''>--Please choose an option--</option>
                     <option value={5}>5</option>
                     <option value={4}>4</option>
@@ -145,7 +167,7 @@ class ReviewFormModal extends React.Component {
                   </select>
                 </div>
               </div>
-              <div>
+              <div id='review-form-recommend'>
                 <label class='review-form-sub-heading'>Do you recommend this product?</label>
                 <div>
                   <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
@@ -165,35 +187,37 @@ class ReviewFormModal extends React.Component {
               <div>
                 <label class='review-form-sub-heading'>Review summary:</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
                 <div>
-                  <input name='summary' type='text' maxlength='60' size='70' placeholder='Best Product Ever!' value={this.state.summary} onChange={this.handleChange}></input>
+                  <input name='summary' type='text' maxlength='60' size='70' placeholder='Example: Best purchase ever!' value={this.state.summary} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Review body:</label><span id='review-form-body' class='review-form-invalid-warning'></span>
                 <div>
-                  <textarea name='body' rows='5' cols='60' placeholder='Please share with us your thoughts on the product!' value={this.state.body} onChange={this.handleChange}></textarea>
+                  <textarea id='review-form-body' name='body' rows='10' cols='70' placeholder='Why did you like the product or not?' value={this.state.body} onChange={this.handleChange}></textarea>
                 </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
                 {uploadedImagePreviews}
-                <div><button class='review-button' type='button' onClick={this.toggleModal} hidden={!this.state.showUploadPhotosButton}>Upload Photo</button></div>
-                <ReviewFormPhotoModal show={this.state.show} toggleModal={this.toggleModal} handleChange={this.handleChange}/>
+                <div>
+                  <div><input type='file' name='photo' accept='image/*' value={this.state.photo} id='review-uploaded-photo' onChange={this.handlePhotoUpload} hidden={!this.state.showUploadPhotosButton} style={{'display': 'none'}}></input></div>
+                  <div><label id='review-form-upload-photo-button' class='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label><span id='review-form-upload-photo' class='review-form-invalid-warning'></span></div>
+                </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your nickname:</label><span id='review-form-name' class='review-form-invalid-warning'></span>
                 <div>
-                  <input name='name' type='text' maxlength='40' size='50' placeholder='Your name here' value={this.state.name} onChange={this.handleChange}></input>
+                  <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your email:</label><span id='review-form-email' class='review-form-invalid-warning'></span>
                 <div>
-                  <input name='email' type='text' maxlength='40' size='50' placeholder='Your email here' value={this.state.email} onChange={this.handleChange}></input>
+                  <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
-                <button class='review-button'>Submit Review</button>
+                <button class='review-button'>SUBMIT REVIEW</button>
               </div>
             </div>
           </form>

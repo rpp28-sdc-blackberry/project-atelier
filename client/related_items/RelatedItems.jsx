@@ -32,18 +32,19 @@ class RelatedItems extends React.Component {
 
   render() {
     return (
-      <div id='relatedItemsWrapper'>
-        <h3>Related Items</h3>
+      <div id='rp-wrapper'>
+        <h4>RELATED PRODUCTS</h4>
         <ItemsList
           items={this.state.relatedItemsIds}
           productName={this.props.info.name}
           productFeatures={this.props.info.features}
           handleRelatedItemClick={this.props.handleRelatedItemClick} />
 
-        <h3>Your Outfit</h3>
+        <h4>YOUR OUTFIT</h4>
         <OutfitList
           info={this.props.info}
           defaultStyle={this.props.selectedStyle}
+          averageRating={this.props.averageRating}
           handleRelatedItemClick={this.props.handleRelatedItemClick} />
       </div>
     );
