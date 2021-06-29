@@ -2,7 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const queryAPI = (method, url, body) => {
-
+  console.log('github token: ', process.env.GITHUB_TOKEN);
   return axios({
     headers: {
       Authorization: process.env.GITHUB_TOKEN
