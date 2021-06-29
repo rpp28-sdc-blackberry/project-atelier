@@ -96,4 +96,27 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures };
+const hideArrows = (cardStrip) => {
+  let childNodes = cardStrip.children;
+  let leftArrow = childNodes[0];
+  let rightArrow = childNodes[childNodes.length - 1];
+  let firstCard = childNodes[1];
+  let lastCard = childNodes[childNodes.length - 2];
+  let xPosFirstCard = firstCard.getBoundingClientRect().x;
+  let xEdgeLastCard = lastCard.getBoundingClientRect().x + lastCard.getBoundingClientRect().width;
+  let xEdgeCardStrip = cardStrip.getBoundingClientRect().x + cardStrip.getBoundingClientRect().width;
+
+  if (xPosFirstCard < 28) {
+    leftArrow.style.display = 'flex';
+  } else {
+    leftArrow.style.display = 'none';
+  }
+
+  if (xEdgeCardStrip - xEdgeLastCard >= 8) {
+    rightArrow.style.display = 'none';
+  } else {
+    rightArrow.style.display = 'flex';
+  }
+};
+
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures, hideArrows };
