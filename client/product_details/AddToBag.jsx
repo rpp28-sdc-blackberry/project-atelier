@@ -63,7 +63,7 @@ class AddToBag extends React.Component {
         "count": this.state.selectedQuantity
       };
       // TODO: Add call to post data here & to server
-      fetch(`http://localhost:8080/cart`, {
+      fetch(`/cart`, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(options)

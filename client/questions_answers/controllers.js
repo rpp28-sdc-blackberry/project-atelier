@@ -3,7 +3,7 @@ import $ from 'jquery';
 const fetchQuestions = (product_id, count, page) => {
 
   return $.ajax({
-    url: `http://localhost:8080/qa/questions?product_id=${product_id}&count=${count}&page=${page}`,
+    url: `/qa/questions?product_id=${product_id}&count=${count}&page=${page}`,
     method: 'GET'
   });
 
@@ -12,7 +12,7 @@ const fetchQuestions = (product_id, count, page) => {
 const submitQuestion = (question, nickname, email, product_id) => {
 
   return $.ajax({
-    url: `http://localhost:8080/qa/questions`,
+    url: `/qa/questions`,
     method: 'POST',
     contentType: 'application/json',
     processData: false,
@@ -28,7 +28,7 @@ const submitQuestion = (question, nickname, email, product_id) => {
 const submitAnswer = (answer, nickname, email, question_id) => {
 
   return $.ajax({
-    url: `http://localhost:8080/qa/questions/${question_id.toString()}/answers`,
+    url: `/qa/questions/${question_id.toString()}/answers`,
     method: 'POST',
     contentType: 'application/json',
     processData: false,
@@ -44,28 +44,28 @@ const submitAnswer = (answer, nickname, email, question_id) => {
 
 const markQuestionHelpful = (question_id) => {
   return $.ajax({
-    url: `http://localhost:8080/qa/questions/${question_id}/helpful`,
+    url: `/qa/questions/${question_id}/helpful`,
     method: 'PUT'
   });
 };
 
 const reportQuestion = (question_id) => {
   return $.ajax({
-    url: `http://localhost:8080/qa/questions/${question_id}/report`,
+    url: `/qa/questions/${question_id}/report`,
     method: 'PUT'
   });
 };
 
 const markAnswerHelpful = (answer_id) => {
   return $.ajax({
-    url: `http://localhost:8080/qa/answers/${answer_id}/helpful`,
+    url: `/qa/answers/${answer_id}/helpful`,
     method: 'PUT'
   });
 };
 
 const reportAnswer = (answer_id) => {
   return $.ajax({
-    url: `http://localhost:8080/qa/answers/${answer_id}/report`,
+    url: `/qa/answers/${answer_id}/report`,
     method: 'PUT'
   });
 };
