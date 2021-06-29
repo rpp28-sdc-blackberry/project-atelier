@@ -1,4 +1,3 @@
-node_modules
-public/bundle.js
+node_moduless
 coverage
 .env
