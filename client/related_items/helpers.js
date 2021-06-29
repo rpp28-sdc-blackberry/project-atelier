@@ -21,8 +21,6 @@ const getProductInfo = (productId) => {
 const getProductStyles = (productId) => {
   return new Promise (resolve => {
     fetch(`/products/${productId}/styles`)
-<<<<<<< HEAD
-=======
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -31,7 +29,6 @@ const getProductStyles = (productId) => {
 const getProductRatings = (productId) => {
   return new Promise (resolve => {
     fetch(`/reviews/meta?product_id=${productId}`)
->>>>>>> master
       .then(response => response.json())
       .then(data => resolve(data));
   });
