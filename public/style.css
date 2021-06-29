@@ -1,3 +1,56 @@
+/* --------------------- NAVIGATION + ANNOUNCEMENT BANNER --------------------- */
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: rgb(78, 92, 106);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#nav-logo {
+  margin-left: 20px;
+}
+
+#nav-search {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+#nav-search > input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  max-height: 30px;
+  margin-right: 12px;
+  color: white;
+}
+
+#nav-search > input:focus {
+  outline: none;
+}
+
+.search-icon:before {
+  content: '\f002';
+  font-family: FontAwesome;
+  cursor: pointer;
+}
+
+#announcement-banner {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  height: 20px;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  white-space: pre;
+}
+
 /* --------------------- PRODUCT DETAILS --------------------- */
 #productDetails {
   display: grid;
