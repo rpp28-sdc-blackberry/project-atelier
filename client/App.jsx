@@ -86,6 +86,15 @@ class App extends React.Component {
 
     return (
       <div>
+        <nav>
+          <div id='nav-logo'>LOGO</div>
+          <div id='nav-search'>
+            <input type='text'></input>
+            <div class='search-icon'> </div>
+          </div>
+        </nav>
+        <div id='announcement-banner'><em>SITE-WIDE ANNOUNCEMENT MESSAGE!</em>  —  SALE / DISCOUNT <strong>OFFER</strong>  —  <u>NEW PRODUCT HIGHLIGHT</u></div>
+
         <WrappedProductDetails
           product_id={this.state.product_id}
           info={this.state.info}
@@ -97,6 +106,7 @@ class App extends React.Component {
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
+          averageRating={this.state.averageRating}
           handleRelatedItemClick={this.handleRelatedItemClick}/>
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
