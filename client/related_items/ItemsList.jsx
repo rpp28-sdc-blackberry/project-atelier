@@ -17,11 +17,7 @@ class ItemsList extends React.Component {
   }
 
   toggleModal(e, features, name) {
-    if (!e.target.id === 'comparisonModal'
-      || !e.target.parentNode.id === 'comparisonModal'
-      || e.target.id === 'action') {
-      e.stopPropagation();
-    }
+    e.stopPropagation();
 
     if (!this.state.showModal) {
       this.setState({
