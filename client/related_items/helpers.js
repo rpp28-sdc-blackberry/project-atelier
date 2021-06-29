@@ -1,6 +1,6 @@
 const getRelatedItems = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}/related`)
+    fetch(`/products/${productId}/related`)
       .then(response => response.json())
       .then(data => {
         let mainProductId = parseInt(productId);
@@ -12,7 +12,7 @@ const getRelatedItems = (productId) => {
 
 const getProductInfo = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}`)
+    fetch(`/products/${productId}`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -20,7 +20,7 @@ const getProductInfo = (productId) => {
 
 const getProductStyles = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/products/${productId}/styles`)
+    fetch(`/products/${productId}/styles`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -28,7 +28,7 @@ const getProductStyles = (productId) => {
 
 const getProductRatings = (productId) => {
   return new Promise (resolve => {
-    fetch(`http://localhost:8080/reviews/meta?product_id=${productId}`)
+    fetch(`/reviews/meta?product_id=${productId}`)
       .then(response => response.json())
       .then(data => resolve(data));
   });
@@ -79,16 +79,22 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   let allFeatures = [];
 
   mainFeatures.forEach(feature => {
-    feature.compValue = '';
+    if (feature.value === null) { feature.value = '--'; }
+    feature.compValue = '--';
+    feature.product = 'main';
     allFeatures.push(feature);
   });
 
   comparisonFeatures.forEach(compFeature => {
+    if (compFeature.value === null) { compFeature.value = '--'; }
     var index = allFeatures.findIndex(item => item.feature === compFeature.feature);
+
     if (index !== -1) {
       allFeatures[index].compValue = compFeature.value;
+      compFeature.product = 'comp';
     } else {
-      compFeature.compValue = '';
+      compFeature.compValue = '--';
+      compFeature.product = 'comp';
       allFeatures.push(compFeature);
     }
   });
@@ -96,4 +102,14 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures };
+const preventScroll = () => {
+  let elem = document.getElementsByTagName('body')[0];
+
+  if (elem.style.overflow === '') {
+    elem.style.overflow = 'hidden';
+  } else if (elem.style.overflow === 'hidden') {
+    elem.style.overflow = '';
+  }
+};
+
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures, preventScroll };
