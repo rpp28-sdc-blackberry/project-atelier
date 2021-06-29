@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemCard from './ItemCard.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
-import { hideArrows } from './helpers.js';
+import { hideArrows, preventScroll } from './helpers.js';
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -18,11 +18,7 @@ class ItemsList extends React.Component {
   }
 
   toggleModal(e, features, name) {
-    if (!e.target.id === 'comparisonModal'
-      || !e.target.parentNode.id === 'comparisonModal'
-      || e.target.id === 'action') {
-      e.stopPropagation();
-    }
+    e.stopPropagation();
 
     if (!this.state.showModal) {
       this.setState({
@@ -33,7 +29,7 @@ class ItemsList extends React.Component {
 
     this.setState({
       showModal: !this.state.showModal
-    });
+    }, preventScroll());
   }
 
   scrollLeft(e) {

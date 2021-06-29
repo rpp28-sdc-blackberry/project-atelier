@@ -68,7 +68,7 @@ class OutfitList extends React.Component {
   removeFromOutfit(e) {
     e.stopPropagation();
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
-    let removedItemId = parseInt(e.target.parentNode.id);
+    let removedItemId = parseInt(e.target.parentNode.parentNode.id);
 
     if (storedOutfits) {
       let currentOutfits = this.state.outfits;

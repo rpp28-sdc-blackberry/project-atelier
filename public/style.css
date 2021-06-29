@@ -1,3 +1,56 @@
+/* --------------------- NAVIGATION + ANNOUNCEMENT BANNER --------------------- */
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: rgb(78, 92, 106);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#nav-logo {
+  margin-left: 20px;
+}
+
+#nav-search {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+#nav-search > input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  max-height: 30px;
+  margin-right: 12px;
+  color: white;
+}
+
+#nav-search > input:focus {
+  outline: none;
+}
+
+.search-icon:before {
+  content: '\f002';
+  font-family: FontAwesome;
+  cursor: pointer;
+}
+
+#announcement-banner {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  height: 20px;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  white-space: pre;
+}
+
 /* --------------------- PRODUCT DETAILS --------------------- */
 #productDetails {
   display: grid;
@@ -254,11 +307,27 @@
   z-index: 1;
 }
 
-#rp-card-action {
+.rp-card-action {
   cursor: pointer;
   z-index: 1;
   position: absolute;
   right: 0;
+}
+
+#rp-card-compare, #rp-card-remove {
+  padding: 12px;
+}
+
+#rp-card-compare:before {
+  content: '\f005';
+  font-family: FontAwesome;
+  color: rgb(255, 217, 0);
+}
+
+#rp-card-remove:before {
+  content: '\f057';
+  font-family: FontAwesome;
+  color: rgb(216, 65, 65);
 }
 
 #rp-thumbnail-container {
@@ -308,17 +377,76 @@
   justify-content: center;
 }
 
+#rp-comparison-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 888;
+}
+
 #rp-comparison-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   width: 500px;
-  height: 500px;
-  overflow: auto;
-  z-index: 2;
+  min-height: min-content;
+  max-height: 500px;
+  padding: 16px;
+  overflow: scroll;
+  z-index: 999;
   transform: translate(-50%, -50%);
   border: 1px solid gray;
   background: white;
+}
+
+#rp-comparison-modal > h4 {
+  font-weight: lighter;
+  font-size: small;
+  margin: 0px;
+}
+
+.rp-modal-product-names {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0px;
+}
+
+.rp-modal-product-names > p {
+  font-weight: bold;
+  margin: 8px 0px 24px 0px;
+}
+
+.rp-modal-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 8px 0px;
+  font-size: smaller;
+}
+
+.rp-modal-col-1 {
+  display: flex;
+  width: 33%;
+  justify-content: flex-start;
+}
+
+.rp-modal-col-3 {
+  display: flex;
+  width: 33%;
+  justify-content: flex-end;
+}
+
+.rp-modal-col-2 {
+  display: flex;
+  width: 33%;
+  justify-content: center;
 }
 
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
