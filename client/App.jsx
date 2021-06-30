@@ -101,7 +101,8 @@ class App extends React.Component {
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
-          handleStyleSelection={this.handleStyleSelection}/>
+          handleStyleSelection={this.handleStyleSelection}
+          averageRating={this.state.averageRating}/>
         <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
