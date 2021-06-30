@@ -180,7 +180,7 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div id='review-form-recommend'>
-                <label class='review-form-sub-heading'>Do you recommend this product?</label>
+                <label class='review-form-sub-heading'>Do you recommend this product?*</label>
                 <div>
                   <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
                   <label for='recommend'>Yes</label>
@@ -191,19 +191,19 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Characteristics:</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Characteristics*</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
                 <div class='review-form-all-characteristics'>
                   {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review summary:</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Review summary*</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='summary' type='text' maxlength='60' size='70' placeholder='Example: Best purchase ever!' value={this.state.summary} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review body:</label><span id='review-form-body' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Review body*</label><span id='review-form-body' class='review-form-invalid-warning'></span>
                 <div>
                   <textarea id='review-form-body' name='body' rows='10' cols='70' placeholder='Why did you like the product or not?' value={this.state.body} onChange={this.handleChange}></textarea>
                 </div>
@@ -217,13 +217,13 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your nickname:</label><span id='review-form-name' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Your nickname*</label><span id='review-form-name' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your email:</label><span id='review-form-email' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Your email*</label><span id='review-form-email' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
