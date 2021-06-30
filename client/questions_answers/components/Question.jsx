@@ -96,7 +96,8 @@ class Question extends React.Component {
       <div className="qa-list-item-container">
         <div className="qa-question-container">
           <span className="qa-question-text">
-            {`Q: ${this.props.question}`}
+            {'Q:  '}
+            {this.props.question}
           </span>
           <span className="qa-helpful-report-answer">
             <HelpfulReport
