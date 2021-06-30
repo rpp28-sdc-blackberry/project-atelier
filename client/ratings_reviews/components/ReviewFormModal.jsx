@@ -221,12 +221,14 @@ class ReviewFormModal extends React.Component {
                 <div>
                   <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
+                <div class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</div>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your email*</label><span id='review-form-email' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
+                <div class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</div>
               </div>
               <div>
                 <button class='review-button'>SUBMIT REVIEW</button>
