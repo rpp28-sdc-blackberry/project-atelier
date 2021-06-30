@@ -10,11 +10,11 @@ const StyleSelector = (props) => {
 
     return (
       <div id="styleSelector">
-        <StyleCheckThumbnail changeStyle={props.changeStyle} style={props.selectedStyle} index={props.indexStyleSelected}/>
         {props.styleInfo.map((style, index) => {
           if (index !== props.indexStyleSelected) {
-            i = i + 1;
-            return (<StyleThumbnail changeStyle={props.changeStyle} style={style} index={index} i={i}/>);
+            return (<StyleThumbnail changeStyle={props.changeStyle} style={style} index={index}/>);
+          } else {
+            return (<StyleCheckThumbnail changeStyle={props.changeStyle} style={props.selectedStyle} index={index}/>);
           }
         })}
       </div>
