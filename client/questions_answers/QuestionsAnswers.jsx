@@ -3,7 +3,6 @@ import { fetchQuestions, submitQuestion } from './controllers.js';
 import Search from './components/Search.jsx';
 import QuestionsList from './components/QuestionsList.jsx';
 import QuestionForm from './components/QuestionForm.jsx';
-import Modal from './components/Modal.jsx';
 import { validateFormFields } from './helpers.js';
 
 class QuestionsAnswers extends React.Component {
