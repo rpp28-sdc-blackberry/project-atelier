@@ -106,12 +106,11 @@ class AddToBag extends React.Component {
             {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
           </select>
         }
-        {defaultSizeOption === 'OUT OF STOCK' || defaultSizeOption === 'SELECT SIZE' ?
+        {defaultSizeOption === 'OUT OF STOCK' || this.state.selectedSize === 'SELECT SIZE' ?
           <select disabled name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
             <option value="-">-</option>
           </select> :
           <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
-            {this.state.selectedSize === 'SELECT SIZE' ? <option value="-">-</option> : null}
             {quantityArr.length !== 0 ? quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>) : null}
           </select>
         }
