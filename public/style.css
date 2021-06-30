@@ -469,15 +469,24 @@ nav {
 .qa-search-input {
   width: 100%;
   padding: 10px;
-  /* background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
+  padding-left: 22px;
+  background-image: url("https://img.icons8.com/ios/24/000000/search--v1.png");
+  background-size: 20px 20px;
   background-repeat: no-repeat;
-  background-position: right center; */
+  background-position: left center;
 }
 
-.qa-questions-list-container {
+/* .qa-questions-list-container {
   overflow: auto;
   overflow-x: hidden;
   max-height: 90vh;
+} */
+
+.qa-questions-list-container-wrapper {
+  max-height: 80vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .qa-answers-list-container {
@@ -514,7 +523,7 @@ nav {
   display: inline-block;
 }
 .qa-answer-text {
-  font-size: small;
+  font-size: 15px;
   margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 5px;
@@ -539,17 +548,21 @@ nav {
   cursor: pointer;
 }
 
+.qa-button-link:hover, .qa-answers-list-button:hover {
+  color: rgb(14, 51, 96);
+}
+
 .qa-button {
-   border: 1px outset black;
-   background-color: transparent;
-   cursor: pointer;
-   font-weight: bold;
-   margin: 10px;
-   padding: 10px;
+  width: fit-content;
+  border: 1px outset black;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px;
 }
 .qa-button:hover {
-  background-color: blue;
-  color:white;
+  background-color:rgb(242, 235, 235);
 }
 
 .qa-answers-list-button {
@@ -574,11 +587,23 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2
 }
 
 .qa-modal-content {
   width: 500px;
   background: #fff;
+}
+
+.qa-modal-top-row {
+  display: flex;
+  justify-content: space-between
+}
+
+.qa-modal-close {
+  cursor: pointer;
+  width: 25px;
+  height: 25px
 }
 
 .qa-modal-header {
@@ -589,7 +614,20 @@ nav {
   margin: 0;
 }
 
-.qa-modal-body {
+/* .qa-modal-body {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+} */
+
+.qa-modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
