@@ -1,11 +1,11 @@
 import React from 'react';
 
 const OverviewDescription = (props) => {
-  if (props.info && props.info.slogan) {
+  if (props.info) {
     return (
       <div id="overviewDescription">
-        <h2>{props.info.slogan}</h2>
-        <div>{props.info.description}</div>
+        {props.info.slogan ? <h2>{props.info.slogan}</h2> : null}
+        {props.info.description ? <div>{props.info.description}</div> : null}
       </div>
     );
   } else {
