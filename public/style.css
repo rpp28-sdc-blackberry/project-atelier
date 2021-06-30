@@ -875,6 +875,56 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Review Form */
+
+/* Form Star Rating */
+.review-form-star-hide {
+  display: none;
+}
+.review-form-star-clear {
+  float: none;
+  clear: both;
+}
+.review-form-star-rating {
+    width: 90px;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+.review-form-star-rating > label {
+    float: right;
+    display: inline;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+.review-form-star-rating > label:hover,
+.review-form-star-rating > label:hover ~ label,
+.review-form-star-rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+.review-form-star-rating > label:hover:before,
+.review-form-star-rating > label:hover ~ label:before,
+.review-form-star-rating > input.radio-btn:checked ~ label:before,
+.review-form-star-rating > input.radio-btn:checked ~ label:before {
+    content: '\2605';
+    position: absolute;
+    left: 0;
+    color: rgb(21, 20, 20);
+}
+/*-----*/
+
+#review-form-star-container {
+  display: flex;
+}
+
+#review-form-star-description {
+  display: flex;
+  align-items: center;
+  margin-left: 2%;
+  font-size: 90%;
+}
+
 .review-form-modal {
   position: fixed;
   left: 0;

@@ -21,6 +21,7 @@ class ReviewFormModal extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
+    this.handleStar = this.handleStar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -71,6 +72,16 @@ class ReviewFormModal extends React.Component {
       });
     };
     reader.readAsDataURL(photo);
+  }
+
+  handleStar(e) {
+    let starValue = Number.parseInt(e.target.value);
+    let starDescription = helpers.starDescriptions[starValue];
+    this.setState({
+      rating: starValue
+    }, () => {
+      $('#review-form-star-description').text(starDescription);
+    });
   }
 
   handleSubmit(e) {
@@ -126,7 +137,7 @@ class ReviewFormModal extends React.Component {
       let invalidCharacteristics = (property === 'characteristics' && Object.keys(this.state[property]).length !== Object.keys(this.props.meta.characteristics).length);
       let invalidEmail = (property === 'email' && this.state[property].indexOf('@') === -1);
       if (invalidEmail || invalidCharacteristics || this.state[property] === '') {
-        $('#review-form-' + property).text('*required');
+        $('#review-form-' + property).text('required');
         valid = false;
       } else {
         $('#review-form-' + property).text('');
@@ -155,16 +166,17 @@ class ReviewFormModal extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <div className='review-form-modal-body'>
               <div>
-                <label class='review-form-sub-heading'>Overall rating:</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
-                <div>
-                  <select id='review-form-overall-rating' name='rating' value={this.state.rating} onChange={this.handleChange}>
-                    <option value=''>--Please choose an option--</option>
-                    <option value={5}>5</option>
-                    <option value={4}>4</option>
-                    <option value={3}>3</option>
-                    <option value={2}>2</option>
-                    <option value={1}>1</option>
-                  </select>
+                <label class='review-form-sub-heading'>Overall rating*</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
+                <div id='review-form-star-container'>
+                  <div class='review-form-star-rating'>
+                    <input id='star5' name='star' type='radio' value='5' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star5' >☆</label>
+                    <input id='star4' name='star' type='radio' value='4' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star4' >☆</label>
+                    <input id='star3' name='star' type='radio' value='3' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star3' >☆</label>
+                    <input id='star2' name='star' type='radio' value='2' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star2' >☆</label>
+                    <input id='star1' name='star' type='radio' value='1' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star1' >☆</label>
+                    <div class="review-form-star-clear"></div>
+                  </div>
+                  <div id='review-form-star-description'></div>
                 </div>
               </div>
               <div id='review-form-recommend'>
