@@ -123,7 +123,7 @@ class ProductDetails extends React.Component {
         <div id="secondPanel">
           <OverviewDescription info={this.props.info}/>
           <OverviewFeatures info={this.props.info}/>
-          <ShareToSocialMedia />
+          <ShareToSocialMedia currPhotoIndex={this.state.currPhotoIndex} selectedStyle={this.props.selectedStyle}/>
         </div>
       </div>
     );
