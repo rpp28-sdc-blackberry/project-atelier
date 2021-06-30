@@ -54,17 +54,24 @@ class QuestionsAnswers extends React.Component {
         let questions = data.results;
         if (!questions.length) {
           this.setState({
+            searchResults: null,
+            query: '',
+            renderedQuestions: [],
             showMoreAnsweredQuestionsButton: false,
             showSearch: false
           });
         } else if (questions.length < 3) {
           this.setState({
+            searchResults: null,
+            query: '',
             renderedQuestions: questions,
             showSearch: true,
             showMoreAnsweredQuestionsButton: false
           });
         } else {
           this.setState({
+            searchResults: null,
+            query: '',
             renderedQuestions: questions.slice(0, 2),
             remainingQuestions: questions.slice(2),
             showMoreAnsweredQuestionsButton: true,
