@@ -106,20 +106,18 @@ class QuestionsAnswers extends React.Component {
         showMoreAnsweredQuestionsButton: true
       });
     } else {
-      console.log('rendered questions: ', this.state.renderedQuestions);
       let searchResults = JSON.parse(JSON.stringify(this.state.renderedQuestions));
-      let filteredSearchResults = searchResults.filter((question) => question.question_body.includes(query));
+      searchResults = searchResults.filter((question) => question.question_body.includes(query));
 
-      filteredSearchResults.forEach((question) => {
+      searchResults.forEach((question) => {
         question.question_body = (
           <span dangerouslySetInnerHTML={{__html: question.question_body.split(query).join(`<mark>${query}</mark>`)}}></span>
         );
       });
 
-      console.log('filtered search results: ', filteredSearchResults);
       this.setState({
         query: query,
-        searchResults: filteredSearchResults,
+        searchResults: searchResults,
         showMoreAnsweredQuestionsButton: false
       });
     }
