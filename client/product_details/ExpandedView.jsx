@@ -49,7 +49,7 @@ class ExpandedView extends React.Component {
               className={this.state.zoomView ? 'zoomInView' : 'zoomOutView'} 
               id={this.props.selectedStyle.style_id}>
             </img>
-            <a onClick={this.props.toggleView} id="fullscreenIcon"><i class="fas fa-expand"></i></a>
+            <a onClick={this.props.toggleView} id="fullscreenIcon">X</a>
             {this.props.currPhotoIndex !== 0 ? 
               <a
                 onClick={this.props.handleLeftClick} 
