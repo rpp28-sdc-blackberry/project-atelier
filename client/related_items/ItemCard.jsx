@@ -38,7 +38,7 @@ class ItemCard extends React.Component {
               : price = defaultStyle.sale_price;
 
             !defaultStyle.photos[0].thumbnail_url
-              ? thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081'
+              ? thumbnailUrl = '/images/no-image.png'
               : thumbnailUrl = defaultStyle.photos[0].thumbnail_url;
 
             this.setState({
