@@ -132,6 +132,14 @@ nav {
   padding: 2px;
   text-align: left;
 }
+.sale {
+  text-decoration: line-through;
+}
+#productSalePrice {
+  color: red;
+  font-weight: bold;
+  margin-right: 10px;
+}
 #firstPanelExpanded {
   display: grid;
   grid-template-rows: 500px;
