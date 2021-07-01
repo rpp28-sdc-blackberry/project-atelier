@@ -11,6 +11,7 @@ class AddToBag extends React.Component {
       selectedQuantity: '-',
       maxQuantity: 1,
       showMessage: false,
+      expandSizeSelectDropdown: false
     };
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -43,7 +44,7 @@ class AddToBag extends React.Component {
       maxQuantity: maxAvailable
     });
   }
-  
+
   handleQuantityChange(e) {
     var selectedQuantity = e.target.value;
     this.setState({
@@ -77,6 +78,7 @@ class AddToBag extends React.Component {
     } else {
       // TODO: Add code to open the size dropdown
       this.setState({
+        expandSizeSelectDropdown: true,
         showMessage: true
       });
     }
@@ -94,7 +96,12 @@ class AddToBag extends React.Component {
       <div id="addToBag">
         {this.state.showMessage ? <a id="errorMessage">Please Select Size</a> : null}
         <br></br>
-        <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
+        <select
+          size={this.state.expandSizeSelectDropdown ? this.props.availableSizes.length + 1 : 1}
+          name={this.state.selectedSize}
+          id="selectSize"
+          placeholder={defaultSizeOption}
+          onChange={this.handleSizeChange}>
           <option value={defaultSizeOption}>{defaultSizeOption}</option>
           {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
         </select>
@@ -102,7 +109,7 @@ class AddToBag extends React.Component {
           {this.state.selectedSize === 'SELECT SIZE' ? <option value="-">-</option> : null}
           {quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>)}
         </select><br></br>
-        <AddToBagButton 
+        <AddToBagButton
           handleAddToBagSubmit={this.handleAddToBagSubmit}
           availableSizes={this.props.availableSizes}/>
         <button id="starButton">&#9734;</button>
