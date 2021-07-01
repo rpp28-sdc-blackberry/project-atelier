@@ -68,15 +68,12 @@ class ProductDetails extends React.Component {
     var availableSizes = [];
     if (this.props.selectedStyle) {
       var skus = this.props.selectedStyle.skus;
-      console.log('skus: ', skus);
       for (var key in skus) {
-        console.log('key: ', key);
         if (key !== null && key !== 'null') {
           availableSizes.push([skus[key]['size'], skus[key]['quantity'], key]);
         }
       }
     }
-    console.log('availableSizes: ', availableSizes);
 
     return (
       <div id="productDetails">
