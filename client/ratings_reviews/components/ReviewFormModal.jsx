@@ -17,7 +17,8 @@ class ReviewFormModal extends React.Component {
       characteristics: {},
       photoCount: 0,
       show: false,
-      showUploadPhotosButton: true
+      showUploadPhotosButton: true,
+      minimumBodyChar: 50
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
@@ -30,14 +31,20 @@ class ReviewFormModal extends React.Component {
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
+    let charactersLeft = this.state.minimumBodyChar;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
+    if (name === 'body') {
+      let valueWithOutSpace = value.replace(/\s+/g, 'z');
+      charactersLeft = valueWithOutSpace.length >= 50 ? 0 : 50 - valueWithOutSpace.length;
+    }
     this.setState({
-      [name]: value
+      [name]: value,
+      minimumBodyChar: charactersLeft
     });
   }
 
@@ -207,6 +214,7 @@ class ReviewFormModal extends React.Component {
                 <div>
                   <textarea id='review-form-body' name='body' rows='10' cols='70' placeholder='Why did you like the product or not?' value={this.state.body} onChange={this.handleChange}></textarea>
                 </div>
+                <span class='review-form-characteristic-description'>Mininum required character left: {this.state.minimumBodyChar}</span>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
@@ -221,14 +229,14 @@ class ReviewFormModal extends React.Component {
                 <div>
                   <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
-                <div class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</div>
+                <span class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</span>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your email*</label><span id='review-form-email' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
-                <div class='review-form-characteristic-description'>For authentication reasons, you will not be emailed</div>
+                <span class='review-form-characteristic-description'>For authentication reasons, you will not be emailed</span>
               </div>
               <div>
                 <button class='review-button'>SUBMIT REVIEW</button>
