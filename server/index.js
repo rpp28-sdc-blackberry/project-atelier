@@ -1,9 +1,10 @@
 const express = require('express');
+const expressStaticGzip = require('express-static-gzip');
 const app = express();
 const port = 8080;
 const queryAPI = require('./atelier.js');
 const uploadPhotoToCloudinary = require('./cloudinary.js');
-app.use(express.static('public'));
+app.use(expressStaticGzip('public'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
