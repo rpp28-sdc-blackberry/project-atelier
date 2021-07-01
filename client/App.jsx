@@ -86,13 +86,23 @@ class App extends React.Component {
 
     return (
       <div>
+        <nav>
+          <div id='nav-logo'>LOGO</div>
+          <div id='nav-search'>
+            <input type='text'></input>
+            <div class='search-icon'> </div>
+          </div>
+        </nav>
+        <div id='announcement-banner'><em>SITE-WIDE ANNOUNCEMENT MESSAGE!</em>  —  SALE / DISCOUNT <strong>OFFER</strong>  —  <u>NEW PRODUCT HIGHLIGHT</u></div>
+
         <WrappedProductDetails
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
-          handleStyleSelection={this.handleStyleSelection}/>
+          handleStyleSelection={this.handleStyleSelection}
+          averageRating={this.state.averageRating}/>
         <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
