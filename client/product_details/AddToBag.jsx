@@ -76,7 +76,6 @@ class AddToBag extends React.Component {
           console.log(error);
         });
     } else {
-      // TODO: Add code to open the size dropdown
       this.setState({
         expandSizeSelectDropdown: true,
         showMessage: true
