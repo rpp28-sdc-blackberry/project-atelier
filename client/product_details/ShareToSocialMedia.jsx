@@ -1,40 +1,33 @@
 import React from 'react';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, PinterestShareButton, PinterestIcon} from 'react-share';
 
-class ShareToSocialMedia extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  componentDidMount() {
-    twttr.widgets.load();
-    //FB.init({ xfbml: true, version: ' v11.0 ' });
-  }
-
-  render() {
-    return (
-      <div id="share">
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-          class="twitter-share-button" 
-          data-size="large" 
-          data-text="Hi There! I love this product! You should check it out!" 
-          data-url={window.location.href}
-          data-lang="en" 
-          data-show-count="false">Tweet</a>
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0" nonce="dilSYGI6"></script>
-        <div class="fb-share-button" 
-          data-href="https://www.mocacleveland.org/exhibitions/lee-mingwei-you-are-not-stranger" 
-          data-layout="button" 
-          data-size="small">
-          <a target="_blank" 
-            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.mocacleveland.org%2Fexhibitions%2Flee-mingwei-you-are-not-stranger&amp;src=sdkpreparse" 
-            class="fb-xfbml-parse-ignore">Share</a>
-        </div>
-      </div>
-    );
-  }
+var ShareToSocialMedia = (props) => {
+  return (
+    <div id="share">
+      <FacebookShareButton 
+        url={window.location.href}
+        title='Hi There! I love this product! You should check it out!'>
+        <FacebookIcon 
+          size={32}
+          round={true}/>
+      </FacebookShareButton>
+      <TwitterShareButton 
+        url={window.location.href}
+        title='Hi There! I love this product! You should check it out!'>
+        <TwitterIcon 
+          size={32}
+          round={true}/>
+      </TwitterShareButton>
+      <PinterestShareButton 
+        url={window.location.href}
+        description='Hi There! I love this product! You should check it out!'
+        media={props.selectedStyle.photos[props.currPhotoIndex].url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'}>
+        <PinterestIcon 
+          size={32}
+          round={true}/>
+      </PinterestShareButton>
+    </div>
+  );
 }
 
 export default ShareToSocialMedia;
