@@ -1,11 +1,16 @@
 var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client');
 var DIST_DIR = path.join(__dirname, '/public');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
   entry: `${SRC_DIR}/App.jsx`,
-  mode: 'development',
+  mode: 'production',
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
+  },
   output: {
     filename: 'bundle.js',
     path: DIST_DIR
