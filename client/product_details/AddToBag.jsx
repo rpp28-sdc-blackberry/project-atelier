@@ -71,6 +71,10 @@ class AddToBag extends React.Component {
       })
         .then((response) => {
           console.log('Posted cart!');
+          this.setState({
+            showMessage: false,
+            expandSizeSelectDropdown: false
+          });
         })
         .catch((error) => {
           console.log(error);
