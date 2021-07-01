@@ -84,27 +84,43 @@ class AddToBag extends React.Component {
 
   render() {
     var quantityArr = [];
-    for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
-      quantityArr.push(i);
+    if (this.state.selectedSize !== 'SELECT SIZE' && this.state.selectedSize !== 'OUT OF STOCK') {
+      for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
+        quantityArr.push(i);
+      }
     }
-    var defaultSizeOption = !this.props.availableSizes[0] ? 'OUT OF STOCK' : 'SELECT SIZE';
+
+    var defaultSizeOption = this.props.availableSizes.length === 0 ? 'OUT OF STOCK' : 'SELECT SIZE';
     var defaultQuantity = this.state.selectedSize === 'SELECT SIZE' ? '-' : 1;
 
     return (
       <div id="addToBag">
         {this.state.showMessage ? <a id="errorMessage">Please Select Size</a> : null}
         <br></br>
-        <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
-          <option value={defaultSizeOption}>{defaultSizeOption}</option>
-          {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
-        </select>
-        <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
-          {this.state.selectedSize === 'SELECT SIZE' ? <option value="-">-</option> : null}
-          {quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>)}
-        </select><br></br>
-        <AddToBagButton 
-          handleAddToBagSubmit={this.handleAddToBagSubmit}
-          availableSizes={this.props.availableSizes}/>
+        {defaultSizeOption === 'OUT OF STOCK' ? 
+          <select disabled name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
+            <option value={defaultSizeOption}>{defaultSizeOption}</option>
+          </select> :
+          <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
+            <option value={defaultSizeOption}>{defaultSizeOption}</option>
+            {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
+          </select>
+        }
+        {defaultSizeOption === 'OUT OF STOCK' || this.state.selectedSize === 'SELECT SIZE' ?
+          <select disabled name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
+            <option value="-">-</option>
+          </select> :
+          <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
+            {quantityArr.length !== 0 ? quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>) : null}
+          </select>
+        }
+        <br></br>
+        {defaultSizeOption === 'OUT OF STOCK' ? 
+          null :
+          <AddToBagButton 
+            handleAddToBagSubmit={this.handleAddToBagSubmit}
+            availableSizes={this.props.availableSizes}/>         
+        }
         <button id="starButton">&#9734;</button>
       </div>
     );
