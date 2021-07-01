@@ -91,7 +91,7 @@ class ProductDetails extends React.Component {
               handleLeftClick={this.handleLeftClick}
               handleRightClick={this.handleRightClick}/>
             <div id="info">
-              <StarRating />
+              <StarRating averageRating={this.props.averageRating}/>
               <ProductInfo 
                 info={this.props.info} 
                 selectedStyle={this.props.selectedStyle}/>
