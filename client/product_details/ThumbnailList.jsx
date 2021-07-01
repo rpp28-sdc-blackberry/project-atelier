@@ -33,7 +33,7 @@ class ThumbnailList extends React.Component {
   render() {
     if (this.props.selectedStyle) {
       var photos = this.props.selectedStyle.photos.slice(this.state.firstPhotoIndex, this.state.firstPhotoIndex + 7);
-      if (photos.length < 7) {
+      if (this.props.selectedStyle.photos.length > 7 && photos.length < 7) {
         var remainder = this.props.selectedStyle.photos.slice(0, (7 - photos.length));
         photos = photos.concat(remainder);
       }

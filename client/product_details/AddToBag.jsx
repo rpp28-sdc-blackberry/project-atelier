@@ -11,6 +11,7 @@ class AddToBag extends React.Component {
       selectedQuantity: '-',
       maxQuantity: 1,
       showMessage: false,
+      expandSizeSelectDropdown: false
     };
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -43,7 +44,7 @@ class AddToBag extends React.Component {
       maxQuantity: maxAvailable
     });
   }
-  
+
   handleQuantityChange(e) {
     var selectedQuantity = e.target.value;
     this.setState({
@@ -70,13 +71,17 @@ class AddToBag extends React.Component {
       })
         .then((response) => {
           console.log('Posted cart!');
+          this.setState({
+            showMessage: false,
+            expandSizeSelectDropdown: false
+          });
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      // TODO: Add code to open the size dropdown
       this.setState({
+        expandSizeSelectDropdown: true,
         showMessage: true
       });
     }
@@ -101,10 +106,15 @@ class AddToBag extends React.Component {
           <select disabled name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
             <option value={defaultSizeOption}>{defaultSizeOption}</option>
           </select> :
-          <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
-            <option value={defaultSizeOption}>{defaultSizeOption}</option>
-            {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
-          </select>
+           <select
+          size={this.state.expandSizeSelectDropdown ? this.props.availableSizes.length + 1 : 1}
+          name={this.state.selectedSize}
+          id="selectSize"
+          placeholder={defaultSizeOption}
+          onChange={this.handleSizeChange}>
+          <option value={defaultSizeOption}>{defaultSizeOption}</option>
+          {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
+        </select>
         }
         {defaultSizeOption === 'OUT OF STOCK' || this.state.selectedSize === 'SELECT SIZE' ?
           <select disabled name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
