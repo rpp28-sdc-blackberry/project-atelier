@@ -138,19 +138,26 @@ class ReviewFormModal extends React.Component {
   }
 
   validateForm() {
-    let valid = true;
     let properties = ['rating', 'summary', 'body', 'name', 'email', 'characteristics'];
-    properties.forEach(property => {
-      let invalidCharacteristics = (property === 'characteristics' && Object.keys(this.state[property]).length !== Object.keys(this.props.meta.characteristics).length);
-      let invalidEmail = (property === 'email' && this.state[property].indexOf('@') === -1);
-      if (invalidEmail || invalidCharacteristics || this.state[property] === '') {
+    let warningText = '';
+    for (let i = 0; i < properties.length; i++) {
+      let property = properties[i];
+      if ((property === 'rating' && this.state.rating === '') ||
+      (property === 'summary' && (this.state.summary.replace(/\s+/g, 'z').length > 60 || this.state.summary === '')) ||
+      (property === 'body' && this.state.minimumBodyChar !== 0) ||
+      (property === 'name' && this.state.name === '') ||
+      (property === 'email' && !helpers.validateEmail(this.state.email)) ||
+      (property === 'characteristics' && Object.keys(this.state.characteristics).length !== Object.keys(this.props.meta.characteristics).length)) {
+        warningText += '\n' + property;
         $('#review-form-' + property).text('required');
-        valid = false;
       } else {
         $('#review-form-' + property).text('');
       }
-    });
-    return valid;
+    }
+    if (warningText !== '') {
+      alert('You must enter the following:' + warningText);
+    }
+    return warningText === '';
   }
 
   render() {
