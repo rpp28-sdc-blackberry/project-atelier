@@ -228,16 +228,31 @@ const productCharacteristics = {
   }
 };
 
+const starDescriptions = {
+  1: 'Poor',
+  2: 'Fair',
+  3: 'Average',
+  4: 'Good',
+  5: 'Great'
+};
+
+const validateEmail = (email) => {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
 module.exports = {
-  formatDate: formatDate,
-  fetchReviews: fetchReviews,
-  computeAverageRating: computeAverageRating,
-  computeRatingBreakdown: computeRatingBreakdown,
-  computeRecommendedPercentage: computeRecommendedPercentage,
-  formatCharacteristics: formatCharacteristics,
-  sortReviews: sortReviews,
-  applyStarFilters: applyStarFilters,
-  applyKeyword: applyKeyword,
-  formatReviewTile: formatReviewTile,
-  productCharacteristics: productCharacteristics
+  formatDate,
+  fetchReviews,
+  computeAverageRating,
+  computeRatingBreakdown,
+  computeRecommendedPercentage,
+  formatCharacteristics,
+  sortReviews,
+  applyStarFilters,
+  applyKeyword,
+  formatReviewTile,
+  productCharacteristics,
+  starDescriptions,
+  validateEmail
 };
