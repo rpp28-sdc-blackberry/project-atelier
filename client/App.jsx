@@ -23,7 +23,8 @@ class App extends React.Component {
       styleInfo: null,
       indexStyleSelected: null,
       meta: null,
-      averageRating: null
+      averageRating: null,
+      reviews: null
     };
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
@@ -36,7 +37,11 @@ class App extends React.Component {
   }
 
   initialize(productId = '22122') {
-    Promise.all([fetch(`/products/${productId}`), fetch(`/products/${productId}/styles`), fetch(`/reviews/meta?product_id=${productId}`)])
+    Promise.all([fetch(`/products/${productId}`),
+      fetch(`/products/${productId}/styles`),
+      fetch(`/reviews/meta?product_id=${productId}`),
+      fetch(`reviews/?product_id=${productId}&page=1&count=1000&sort=relevant`)
+    ])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
@@ -55,7 +60,8 @@ class App extends React.Component {
           indexStyleSelected: indexStyleSelected || 0,
           styleInfo: data.results,
           meta: parsedResponses[2],
-          averageRating: computeAverageRating(parsedResponses[2].ratings)[1]
+          averageRating: computeAverageRating(parsedResponses[2].ratings)[1],
+          reviews: parsedResponses[3].results
         });
       })
       .catch((error) => {
@@ -102,7 +108,8 @@ class App extends React.Component {
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
           handleStyleSelection={this.handleStyleSelection}
-          averageRating={this.state.averageRating}/>
+          averageRating={this.state.averageRating}
+          reviewsNumber={this.state.reviews.length}/>
         <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
@@ -115,7 +122,8 @@ class App extends React.Component {
         <WrappedRatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}
-          meta={this.state.meta}/>
+          meta={this.state.meta}
+          reviews={this.state.reviews}/>
       </div>
     );
   }
