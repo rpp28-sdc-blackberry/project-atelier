@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression')
 const app = express();
 const port = 8080;
 const queryAPI = require('./atelier.js');
@@ -6,6 +7,7 @@ const uploadPhotoToCloudinary = require('./cloudinary.js');
 app.use(express.static('public'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
+app.use(compression());
 
 app.all('*', (req, res) => {
   if (req.url === '/review/image') {
