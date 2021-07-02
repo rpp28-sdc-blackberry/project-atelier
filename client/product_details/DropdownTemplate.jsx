@@ -23,7 +23,6 @@ class DropdownTemplate extends React.Component {
 
   selectItem(e) {
     e.stopPropagation();
-    console.log('e: ', e);
     this.setState({
       headerTitle: e.target.id,
       isListOpen: !this.state.isListOpen

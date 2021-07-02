@@ -27,7 +27,6 @@ class AddToBag extends React.Component {
     for (var i = 0; i < this.props.availableSizes.length; i++) {
       sizesArr.push(this.props.availableSizes[i][0]);
     }
-    console.log('sizesArr: ', sizesArr);
 
     var defaultSizeOption = this.props.availableSizes.length === 0 ? 'OUT OF STOCK' : 'SELECT SIZE';
 
@@ -38,13 +37,11 @@ class AddToBag extends React.Component {
   }
 
   handleSizeChange(size) {
-    console.log('selectedSize: ', size);
     var maxQuantity = this.updateMaxQuantity(size);
     var quantityArr = [];
     for (var i = 1; i < (maxQuantity + 1); i++) {
       quantityArr.push(i);
     }
-    console.log('quantityArr: ', quantityArr);
     this.setState({
       selectedSize: size,
       selectedQuantity: 1,
@@ -91,7 +88,6 @@ class AddToBag extends React.Component {
         body: JSON.stringify(options)
       })
         .then((response) => {
-          console.log('Posted cart!');
           this.setState({
             showMessage: false,
           });
