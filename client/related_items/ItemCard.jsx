@@ -73,7 +73,7 @@ class ItemCard extends React.Component {
           <div className='rp-card-action' id='rp-card-compare' onClick={(e) => this.props.toggleModal(e, features, name)}> </div>
         </div>
         <div id='rp-thumbnail-container'>
-          <img id='rp-thumbnail-image' src={this.state.thumbnailUrl}></img>
+          <img id='rp-thumbnail-image' alt={this.state.name} src={this.state.thumbnailUrl}></img>
         </div>
         <div id='rp-content-container'>
           <p id='rp-card-category'>{this.state.category}</p>

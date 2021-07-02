@@ -262,7 +262,7 @@ nav {
 .rp-strip {
   display: flex;
   width: 90%;
-  height: 550px;
+  height: 450px;
   margin: 10px;
   overflow: scroll;
   scroll-behavior: smooth;
@@ -281,7 +281,7 @@ nav {
   right: 10%;
   z-index: 1;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
-  min-height: 550px;
+  min-height: 450px;
   width: 50px;
 }
 
@@ -294,7 +294,7 @@ nav {
   left: 28px;
   z-index: 1;
   background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
-  min-height: 550px;
+  min-height: 450px;
   width: 50px;
 }
 
@@ -308,6 +308,30 @@ nav {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+#rp-add-to-outfit-card {
+  cursor: pointer;
+  border: 1px solid gray;
+  margin-right: 20px;
+  min-width: 300px;
+  max-width: 300px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-to-outfit-action:before {
+  content: '\f067';
+  font-family: FontAwesome;
+  color: rgb(0, 0, 0);
+}
+
+#add-to-outfit-text {
+  font-weight: lighter;
+  padding: 12px;
 }
 
 #rp-action-container {
@@ -359,6 +383,11 @@ nav {
   padding-left: 10px;
 }
 
+#rp-content-container > p {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
 #rp-card-category {
   text-transform: uppercase;
   font-weight: lighter;
@@ -371,18 +400,6 @@ nav {
 
 #rp-card-price {
   font-weight: lighter;
-}
-
-#rp-add-to-outfit-card {
-  cursor: pointer;
-  border: 1px solid gray;
-  margin-right: 20px;
-  min-width: 300px;
-  max-width: 300px;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #rp-comparison-modal-background {
