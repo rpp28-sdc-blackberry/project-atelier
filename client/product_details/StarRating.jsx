@@ -12,7 +12,7 @@ class StarRating extends React.Component {
       return (
         <div id="starRating">
           <span class="stars" style={{'--rating': this.props.averageRating}}></span>
-          <a href=".review-overall-container" class="overview-reviews-link">Read all {this.props.reviewsNumber} reviews</a>
+          <a href="#review-overall-container" class="overview-reviews-link">Read all {this.props.reviewsNumber} reviews</a>
         </div>
       );
     } else {

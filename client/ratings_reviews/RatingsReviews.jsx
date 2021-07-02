@@ -101,7 +101,7 @@ class RatingsReviews extends React.Component {
   render() {
     if (!$.isEmptyObject(this.state.meta) && this.props.info !== null) {
       return (
-        <div class='review-overall-container'>
+        <div class='review-overall-container' id='review-overall-container'>
           <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
