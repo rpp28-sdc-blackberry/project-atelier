@@ -43,7 +43,7 @@ Get a personal access token with your Github account. Go to **Settings > Develop
 
 ### Cloudinary API Keys
 
-Steps to get Cloudinary API keys go here...
+Go to Cloudinary, set up an account, and get your keys! https://cloudinary.com/documentation/how_to_integrate_cloudinary
 
 ---
 
@@ -51,6 +51,8 @@ Steps to get Cloudinary API keys go here...
 
 Project Atelier relies primarily on:
  - React
+ - React FontAwesome
+ - React Share
  - Express
  - Axios
  - JQuery
