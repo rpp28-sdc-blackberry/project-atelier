@@ -109,11 +109,14 @@ const hideArrows = (cardStrip) => {
   let firstCard = childNodes[1];
   let lastCard = childNodes[childNodes.length - 2];
   let xPosFirstCard = firstCard.getBoundingClientRect().x;
+  let xPosStrip = cardStrip.getBoundingClientRect().x;
   let xEdgeLastCard = lastCard.getBoundingClientRect().x + lastCard.getBoundingClientRect().width;
   let xEdgeCardStrip = cardStrip.getBoundingClientRect().x + cardStrip.getBoundingClientRect().width;
 
-  if (xPosFirstCard < 28) {
+  if (xPosFirstCard < xPosStrip) {
     leftArrow.style.display = 'flex';
+  } else if (xPosFirstCard === xPosStrip) {
+    leftArrow.style.display = 'none';
   } else {
     leftArrow.style.display = 'none';
   }

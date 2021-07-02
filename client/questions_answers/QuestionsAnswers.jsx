@@ -169,7 +169,7 @@ class QuestionsAnswers extends React.Component {
 
     return (
       <div id="qa-component">
-        <h5 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h5>
+        <h4 className="qa-heading"> {`QUESTIONS & ANSWERS`} </h4>
         {this.state.showSearch && <Search query={this.state.query} handleSearch={this.handleSearch}/>}
         <QuestionsList questions={this.state.searchResults || this.state.renderedQuestions} name={this.props.name}/>
         {this.state.showMoreAnsweredQuestionsButton && <button className="qa-button" onClick={this.handleMoreQuestionsClick}>MORE ANSWERED QUESTIONS</button>}
