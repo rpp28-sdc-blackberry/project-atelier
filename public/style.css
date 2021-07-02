@@ -272,10 +272,10 @@ nav {
   display: none;
 }
 
-#rp-right-arrow {
+.rp-right-arrow {
   cursor: pointer;
   position: absolute;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   right: 10%;
@@ -285,10 +285,10 @@ nav {
   width: 50px;
 }
 
-#rp-left-arrow {
+.rp-left-arrow {
   cursor: pointer;
   position: absolute;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   left: 28px;

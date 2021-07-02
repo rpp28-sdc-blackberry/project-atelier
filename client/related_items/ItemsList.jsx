@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemCard from './ItemCard.jsx';
 import ComparisonModal from './ComparisonModal.jsx';
-import { preventScroll } from './helpers.js';
+import { hideArrows, preventScroll } from './helpers.js';
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -33,17 +33,21 @@ class ItemsList extends React.Component {
   }
 
   scrollLeft(e) {
-    e.target.parentNode.scrollLeft += 320;
+    let cardStrip = e.target.parentNode;
+    cardStrip.scrollLeft += 320;
+    setTimeout(() => hideArrows(cardStrip), 250);
   }
 
   scrollRight(e) {
+    let cardStrip = e.target.parentNode;
     e.target.parentNode.scrollLeft -= 320;
+    setTimeout(() => hideArrows(cardStrip), 250);
   }
 
   render() {
     return (
       <div className='rp-strip'>
-        <div id='rp-left-arrow' onClick={this.scrollRight}>
+        <div className='rp-left-arrow' onClick={this.scrollRight}>
           {'<'}
         </div>
 
@@ -60,7 +64,7 @@ class ItemsList extends React.Component {
             toggleModal={this.toggleModal}
             handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
 
-        <div id='rp-right-arrow' onClick={this.scrollLeft}>
+        <div className='rp-right-arrow' onClick={this.scrollLeft}>
           {'>'}
         </div>
       </div>

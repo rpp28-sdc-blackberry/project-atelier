@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProductInfo, getProductStyles, getProductRatings, findDefaultStyle } from './helpers.js';
+import { getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, hideArrows } from './helpers.js';
 import { computeAverageRating } from '../ratings_reviews/helpers.js';
 
 class ItemCard extends React.Component {
@@ -56,6 +56,11 @@ class ItemCard extends React.Component {
           rating: averageRating
         });
       });
+
+    const firstStrip = document.getElementsByClassName('rp-strip')[0];
+    const secondStrip = document.getElementsByClassName('rp-strip')[1];
+    hideArrows(firstStrip);
+    hideArrows(secondStrip);
   }
 
   render() {
