@@ -224,6 +224,10 @@ nav {
   border: 1px solid #ddd;
   padding: 2px;
   text-align: left;
+  padding-right: 5px;
+}
+html {
+  scroll-behavior: smooth;
 }
 #productTitle {
   font-weight: bold;
