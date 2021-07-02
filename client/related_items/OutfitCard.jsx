@@ -6,7 +6,7 @@ const OutfitCard = (props) => (
       <div className='rp-card-action' id='rp-card-remove' onClick={(e) => props.removeFromOutfit(e)}> </div>
     </div>
     <div id='rp-thumbnail-container'>
-      <img id='rp-thumbnail-image' src={props.productInfo.thumbnailUrl}></img>
+      <img id='rp-thumbnail-image' alt={props.productInfo.name} src={props.productInfo.thumbnailUrl}></img>
     </div>
     <div id='rp-content-container'>
       <p id='rp-card-category'>{props.productInfo.category}</p>
