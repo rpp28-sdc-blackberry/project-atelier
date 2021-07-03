@@ -17,7 +17,8 @@ class RatingsReviews extends React.Component {
       filteredReviews: [],
       sortingOption: 'relevance',
       starFilters: [],
-      keyword: ''
+      keyword: '',
+      showRemoveFilters: false
     };
     this.initialize = this.initialize.bind(this);
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
@@ -66,9 +67,11 @@ class RatingsReviews extends React.Component {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
     var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
+    var showRemoveFilters = newStarFilters.length !== 0;
     this.setState({
       starFilters: newStarFilters,
-      filteredReviews: newFilteredReviews
+      filteredReviews: newFilteredReviews,
+      showRemoveFilters: showRemoveFilters
     });
   }
 
@@ -76,7 +79,8 @@ class RatingsReviews extends React.Component {
     var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
-      filteredReviews: newFilteredReviews
+      filteredReviews: newFilteredReviews,
+      showRemoveFilters: false
     });
   }
 
@@ -105,7 +109,7 @@ class RatingsReviews extends React.Component {
           <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters} showRemoveFilters={this.state.showRemoveFilters}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
