@@ -664,8 +664,8 @@ nav {
 .review-overall-container {
   font-family: arial, sans-serif;
   color: rgb(94, 86, 86);
-  margin: 1%;
-  padding: 1%;
+  margin: 0 10% 0 10%;
+  /* padding: 1%; */
 }
 
 /* Containers */
