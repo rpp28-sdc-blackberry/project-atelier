@@ -756,6 +756,9 @@ html {
   font-family: arial, sans-serif;
   color: rgb(94, 86, 86);
   margin: 40px 10% 0 10%;
+  /* height: 100%;
+  overflow: auto; */
+  overflow: hidden;
 }
 
 /* Containers */
@@ -789,6 +792,8 @@ html {
 
 #review-right-container {
   flex-basis: 50rem;
+  height: 100%;
+  overflow: auto;
 }
 
 #review-right-container > * {
@@ -943,7 +948,7 @@ input[type=range]::-webkit-slider-thumb {
 .reviews-list-tiles {
   width: 100%;
   overflow: auto;
-  max-height: 52vh;
+  max-height: 54vh;
 }
 
 .reviews-list-tiles > * {
@@ -954,7 +959,7 @@ input[type=range]::-webkit-slider-thumb {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 100%;
+  width: 97%;
   height: 220px;
   border-bottom: solid black 0.1em;
   padding: 1% 0;
@@ -962,6 +967,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .review-tile > * {
   margin-bottom: 0.5%;
+  margin-right: 5%;
   font-size: 90%;
 }
 
@@ -979,10 +985,14 @@ input[type=range]::-webkit-slider-thumb {
 
 .review-body {
   font-size: 90%;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .review-additional-body {
-  font-size: 90%;
+  font-size: 80%;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .review-additional-body-button {
