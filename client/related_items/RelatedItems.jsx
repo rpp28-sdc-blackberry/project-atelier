@@ -45,7 +45,9 @@ class RelatedItems extends React.Component {
           info={this.props.info}
           defaultStyle={this.props.selectedStyle}
           averageRating={this.props.averageRating}
-          handleRelatedItemClick={this.props.handleRelatedItemClick} />
+          handleRelatedItemClick={this.props.handleRelatedItemClick}
+          currProductAddedToOutfit={this.props.currProductAddedToOutfit}
+          addCurrProductToOutfit={this.props.addCurrProductToOutfit}/>
       </div>
     );
   }

@@ -24,12 +24,14 @@ class App extends React.Component {
       indexStyleSelected: null,
       meta: null,
       averageRating: null,
-      reviews: null
+      reviews: null,
+      currProductAddedToOutfit: false
     };
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
     this.handleRelatedItemClick = this.handleRelatedItemClick.bind(this);
     this.initialize = this.initialize.bind(this);
+    this.addCurrProductToOutfit = this.addCurrProductToOutfit.bind(this);
   }
 
   componentDidMount() {
@@ -83,6 +85,12 @@ class App extends React.Component {
     let newId = id.toString();
     this.initialize(newId);
   }
+  
+  addCurrProductToOutfit(boolean) {
+    this.setState({
+      currProductAddedToOutfit: boolean
+    });
+  }
 
   render() {
 
@@ -109,13 +117,17 @@ class App extends React.Component {
           indexStyleSelected={this.state.indexStyleSelected}
           handleStyleSelection={this.handleStyleSelection}
           averageRating={this.state.averageRating}
-          reviewsNumber={this.state.reviews.length}/>
+          reviewsNumber={this.state.reviews.length}
+          addToOutfit={this.addCurrProductToOutfit}
+          currProductAddedToOutfit={this.state.currProductAddedToOutfit}/>
         <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           averageRating={this.state.averageRating}
-          handleRelatedItemClick={this.handleRelatedItemClick}/>
+          handleRelatedItemClick={this.handleRelatedItemClick}
+          currProductAddedToOutfit={this.state.currProductAddedToOutfit}
+          addCurrProductToOutfit={this.addCurrProductToOutfit}/>
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>

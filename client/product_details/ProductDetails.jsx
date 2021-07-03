@@ -106,7 +106,9 @@ class ProductDetails extends React.Component {
                 selectedStyle={this.props.selectedStyle}/>
               <AddToBag 
                 selectedStyle={this.props.selectedStyle} 
-                availableSizes={availableSizes}/>
+                availableSizes={availableSizes}
+                addToOutfit={this.props.addToOutfit}
+                currProductAddedToOutfit={this.props.currProductAddedToOutfit}/>
             </div> 
           </div> :
           <div id="firstPanelExpanded">

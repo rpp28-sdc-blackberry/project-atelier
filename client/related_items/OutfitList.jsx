@@ -30,6 +30,9 @@ class OutfitList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.info.id !== this.props.info.id) { this.initialize(); }
+    if (prevProps.currProductAddedToOutfit !== this.props.currProductAddedToOutfit) {
+      this.addToOutfit();
+    }
   }
 
   initialize() {
@@ -44,10 +47,15 @@ class OutfitList extends React.Component {
     } else {
       let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
       this.setState({ outfits: storedOutfits });
+      storedOutfits.forEach(outfit => {
+        if (outfit.id === mainProduct.id) {
+          this.props.addCurrProductToOutfit(true);
+        }
+      });
     }
   }
 
-  addToOutfit() {
+  addToOutfit(outfit) {
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let mainProduct = this.state.mainProduct;
     let foundDuplicate = false;
@@ -62,6 +70,7 @@ class OutfitList extends React.Component {
       storedOutfits.push(mainProduct);
       localStorage.setItem('outfits', JSON.stringify(storedOutfits));
       this.setState({ outfits: storedOutfits });
+      this.props.addCurrProductToOutfit(true);
     }
   }
 
