@@ -224,6 +224,14 @@ nav {
   height: auto;
   padding-bottom: 5px;
   text-align: left;
+  padding-right: 5px;
+}
+.overview-reviews-link {
+  font-size: x-small;
+  padding-left: 5px;
+}
+html {
+  scroll-behavior: smooth;
 }
 #productCategory {
   padding-top: 10px;
