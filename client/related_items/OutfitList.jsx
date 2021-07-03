@@ -30,6 +30,7 @@ class OutfitList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.info.id !== this.props.info.id) { this.initialize(); }
+    // ADD if prevProps statement for currentStyleAddedToOutfit
   }
 
   initialize() {
