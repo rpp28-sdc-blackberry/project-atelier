@@ -332,21 +332,21 @@ nav {
 #rp-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 0 10%;
   font-family: arial, sans-serif;
 }
 
 #rp-wrapper > h4 {
-  margin: 40px 10px 10px 10px;
-  width: 90%;
+  margin: 40px 0 10px 0;
+  width: 100%;
   font-weight: lighter;
 }
 
 .rp-strip {
   display: flex;
-  width: 90%;
+  width: 100%;
   height: 450px;
-  margin: 10px;
+  margin: 10px 0 10px 0;
   overflow: scroll;
   scroll-behavior: smooth;
 }
@@ -361,7 +361,7 @@ nav {
   display: none;
   align-items: center;
   justify-content: center;
-  right: 10%;
+  right: 9.5%;
   z-index: 1;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
   min-height: 450px;
@@ -374,7 +374,7 @@ nav {
   display: none;
   align-items: center;
   justify-content: center;
-  left: 28px;
+  left: 10%;
   z-index: 1;
   background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
   min-height: 450px;
@@ -560,18 +560,18 @@ nav {
 /* --------------------- QUESTIONS AND ANSWERS --------------------- */
 #qa-component {
   font-family: arial, sans-serif;
-  margin: 10px;
-  width: 90%;
+  margin: 0 10%;
+  /* width: 100%; */
 }
 
 .qa-heading {
   font-weight: lighter;
-  margin: 10px;
+  margin: 40px 0 10px 0;
 }
 
 .qa-search {
-  width: 100%;
-  margin: 10px;
+  /* width: 100%; */
+  margin: 10px 0 10px 0;
 }
 
 .qa-search-input {
@@ -747,8 +747,7 @@ nav {
 .review-overall-container {
   font-family: arial, sans-serif;
   color: rgb(94, 86, 86);
-  margin: 1%;
-  padding: 1%;
+  margin: 40px 10% 0 10%;
 }
 
 /* Containers */
@@ -762,7 +761,7 @@ nav {
 
 .review-content-container > *{
   margin: 1% 0;
-  padding: 1%;
+  /* padding: 1%; */
 }
 
 .review-sub-container {
@@ -779,7 +778,7 @@ nav {
 
 #review-left-container > * {
   margin-bottom: 5%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 #review-right-container {
@@ -797,9 +796,9 @@ nav {
   padding-bottom: 8%;
 }
 
-.review-rating-breakdown > * {
+/* .review-rating-breakdown > * {
   padding: 2%;
-}
+} */
 
 .review-average-rating > * {
   margin-right: 3%;
@@ -920,8 +919,8 @@ input[type=range]::-webkit-slider-thumb {
 
 /* Search */
 .review-search-bar {
-  width: 80%;
-  padding: 10px;
+  width: 100%;
+  padding: 10px 0px 10px;
 }
 
 /* Sorting Options */
@@ -933,7 +932,7 @@ input[type=range]::-webkit-slider-thumb {
 
 /* Reviews List & Tiles */
 .reviews-list-tiles {
-  width: 90%;
+  width: 100%;
   overflow: scroll;
   max-height: 70vh;
 }
@@ -946,7 +945,7 @@ input[type=range]::-webkit-slider-thumb {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   height: 220px;
   border-bottom: solid black 0.1em;
   padding: 1% 0;
