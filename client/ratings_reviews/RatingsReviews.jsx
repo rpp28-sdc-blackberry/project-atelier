@@ -42,7 +42,8 @@ class RatingsReviews extends React.Component {
     this.setState({
       meta: this.props.meta,
       reviews: this.props.reviews,
-      filteredReviews: helpers.sortReviews(this.props.reviews, this.state.sortingOption),
+      filteredReviews: helpers.sortReviews(this.props.reviews, 'relevance'),
+      sortingOption: 'relevance',
       starFilters: []
     });
     if (!localStorage.getItem('helpfulReviews')) {
@@ -115,7 +116,7 @@ class RatingsReviews extends React.Component {
             </div>
             <div id='review-right-container' class='review-sub-container right'>
               <SearchBar handleSearch={this.handleSearch}/>
-              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
+              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews} product_id={this.props.product_id}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
             </div>
