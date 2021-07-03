@@ -785,13 +785,16 @@ nav {
 
 #review-right-container > * {
   margin-bottom: 2%;
-  margin-right: 5%;
-  margin-left: 1%;
+  margin-left: 2%;
 }
 
 /* Rating Breakdown */
 .review-rating-breakdown {
   padding-bottom: 8%;
+}
+
+.review-rating-breakdown > * {
+  margin-bottom: 5%;
 }
 
 .review-average-rating > * {
@@ -925,11 +928,14 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Reviews List & Tiles */
+.reviews-list {
+  overflow: hidden;
+}
+
 .reviews-list-tiles {
   width: 100%;
-  -ms-overflow-style: none;
-  overflow: scroll;
-  max-height: 55vh;
+  overflow: auto;
+  max-height: 52vh;
 }
 
 .reviews-list-tiles > * {
@@ -954,6 +960,7 @@ input[type=range]::-webkit-slider-thumb {
 .review-tile-top-panel {
   display: flex;
   justify-content: space-between;
+  margin-right: 2%;
   font-size: 90%;
 }
 
