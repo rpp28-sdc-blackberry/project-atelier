@@ -78,12 +78,6 @@ class OutfitList extends React.Component {
     e.stopPropagation();
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let removedItemId = parseInt(e.target.parentNode.parentNode.id);
-    // console.log('removedItemId: ', removedItemId);
-    // console.log('mainProduct.id: ', this.state.mainProduct.id);
-    // console.log(removedItemId === this.state.mainProduct.id);
-    // if (removedItemId === this.state.mainProduct.id) {
-    //   this.props.addCurrProductToOutfit(false);
-    // }
 
     if (storedOutfits) {
       let currentOutfits = this.state.outfits;
