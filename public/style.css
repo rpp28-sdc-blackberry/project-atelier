@@ -664,8 +664,7 @@ nav {
 .review-overall-container {
   font-family: arial, sans-serif;
   color: rgb(94, 86, 86);
-  margin: 0 10% 0 10%;
-  /* padding: 1%; */
+  margin: 40px 10% 0 10%;
 }
 
 /* Containers */
@@ -679,7 +678,7 @@ nav {
 
 .review-content-container > *{
   margin: 1% 0;
-  padding: 1%;
+  /* padding: 1%; */
 }
 
 .review-sub-container {
@@ -696,7 +695,7 @@ nav {
 
 #review-left-container > * {
   margin-bottom: 5%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 #review-right-container {
@@ -714,9 +713,9 @@ nav {
   padding-bottom: 8%;
 }
 
-.review-rating-breakdown > * {
+/* .review-rating-breakdown > * {
   padding: 2%;
-}
+} */
 
 .review-average-rating > * {
   margin-right: 3%;
