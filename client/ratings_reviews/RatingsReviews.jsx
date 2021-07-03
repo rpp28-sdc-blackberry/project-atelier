@@ -42,7 +42,8 @@ class RatingsReviews extends React.Component {
     this.setState({
       meta: this.props.meta,
       reviews: this.props.reviews,
-      filteredReviews: helpers.sortReviews(this.props.reviews, this.state.sortingOption)
+      filteredReviews: helpers.sortReviews(this.props.reviews, this.state.sortingOption),
+      starFilters: []
     });
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify([]));
