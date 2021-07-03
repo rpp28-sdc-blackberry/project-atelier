@@ -86,9 +86,9 @@ class App extends React.Component {
     this.initialize(newId);
   }
   
-  addCurrProductToOutfit() {
+  addCurrProductToOutfit(boolean) {
     this.setState({
-      currProductAddedToOutfit: true
+      currProductAddedToOutfit: boolean
     });
   }
 
@@ -125,7 +125,9 @@ class App extends React.Component {
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           averageRating={this.state.averageRating}
-          handleRelatedItemClick={this.handleRelatedItemClick}/>
+          handleRelatedItemClick={this.handleRelatedItemClick}
+          currProductAddedToOutfit={this.state.currProductAddedToOutfit}
+          addCurrProductToOutfit={this.addCurrProductToOutfit}/>
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>

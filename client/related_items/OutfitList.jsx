@@ -30,7 +30,9 @@ class OutfitList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.info.id !== this.props.info.id) { this.initialize(); }
-    // ADD if prevProps statement for currentStyleAddedToOutfit
+    if (prevProps.currProductAddedToOutfit !== this.props.currProductAddedToOutfit) {
+      this.addToOutfit();
+    }
   }
 
   initialize() {
@@ -45,10 +47,15 @@ class OutfitList extends React.Component {
     } else {
       let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
       this.setState({ outfits: storedOutfits });
+      storedOutfits.forEach(outfit => {
+        if (outfit.id === mainProduct.id) {
+          this.props.addCurrProductToOutfit(true);
+        }
+      });
     }
   }
 
-  addToOutfit() {
+  addToOutfit(outfit) {
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let mainProduct = this.state.mainProduct;
     let foundDuplicate = false;
@@ -63,6 +70,7 @@ class OutfitList extends React.Component {
       storedOutfits.push(mainProduct);
       localStorage.setItem('outfits', JSON.stringify(storedOutfits));
       this.setState({ outfits: storedOutfits });
+      this.props.addCurrProductToOutfit(true);
     }
   }
 
@@ -70,6 +78,12 @@ class OutfitList extends React.Component {
     e.stopPropagation();
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let removedItemId = parseInt(e.target.parentNode.parentNode.id);
+    // console.log('removedItemId: ', removedItemId);
+    // console.log('mainProduct.id: ', this.state.mainProduct.id);
+    // console.log(removedItemId === this.state.mainProduct.id);
+    // if (removedItemId === this.state.mainProduct.id) {
+    //   this.props.addCurrProductToOutfit(false);
+    // }
 
     if (storedOutfits) {
       let currentOutfits = this.state.outfits;

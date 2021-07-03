@@ -131,7 +131,7 @@ class AddToBag extends React.Component {
                 availableSizes={this.props.availableSizes}/>         
             }
             {this.props.currProductAddedToOutfit ? <button disabled id="starButton">&#9734;</button> :
-              <button onClick={this.props.addToOutfit} id="starButton">&#9734;</button>}
+              <button onClick={this.props.addToOutfit(true)} id="starButton">&#9734;</button>}
           </div>
         </div>
       </div>
