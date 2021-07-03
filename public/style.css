@@ -293,7 +293,7 @@ html {
   font-size: medium;
   position: relative;
 }
-.addtobag-size-dd-header, 
+.addtobag-size-dd-header,
 .addtobag-quantity-dd-header,
 .addtobag-size-dd-list-item,
 .addtobag-quantity-dd-list-item {
@@ -301,7 +301,7 @@ html {
   width: -webkit-fill-available;
   height: 40px;
 }
-.addtobag-size-dd-header, 
+.addtobag-size-dd-header,
 .addtobag-quantity-dd-header {
   display: grid;
   grid-template-columns: 85% 15%;
@@ -769,7 +769,6 @@ html {
 
 .review-content-container > *{
   margin: 1% 0;
-  /* padding: 1%; */
 }
 
 .review-sub-container {
@@ -786,17 +785,15 @@ html {
 
 #review-left-container > * {
   margin-bottom: 5%;
-  /* margin-left: 5%; */
 }
 
 #review-right-container {
-  flex-basis: 60rem;
+  flex-basis: 50rem;
 }
 
 #review-right-container > * {
   margin-bottom: 2%;
-  margin-right: 5%;
-  margin-left: 1%;
+  margin-left: 2%;
 }
 
 /* Rating Breakdown */
@@ -804,9 +801,9 @@ html {
   padding-bottom: 8%;
 }
 
-/* .review-rating-breakdown > * {
-  padding: 2%;
-} */
+.review-rating-breakdown > * {
+  margin-bottom: 5%;
+}
 
 .review-average-rating > * {
   margin-right: 3%;
@@ -909,7 +906,7 @@ input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   cursor: auto;
-  background: linear-gradient(to right, rgb(203, 187, 187) 30%, white 5%, white 35%, rgb(203, 187, 187) 30%, rgb(203, 187, 187) 65%,white 5%, white 70%, rgb(203, 187, 187) 70%, rgb(203, 187, 187) 100%);
+  background: linear-gradient(to right, rgb(227, 215, 215) 30%, white 5%, white 35%, rgb(227, 215, 215) 30%, rgb(227, 215, 215) 65%,white 5%, white 70%, rgb(227, 215, 215) 70%, rgb(227, 215, 215) 100%);
   border-radius: 1px;
 }
 
@@ -917,7 +914,7 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: transparent;
   cursor: auto;
-  margin-top: -5px;
+  margin-top: 0;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -939,10 +936,14 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Reviews List & Tiles */
+.reviews-list {
+  overflow: hidden;
+}
+
 .reviews-list-tiles {
   width: 100%;
-  overflow: scroll;
-  max-height: 70vh;
+  overflow: auto;
+  max-height: 52vh;
 }
 
 .reviews-list-tiles > * {
@@ -967,6 +968,7 @@ input[type=range]::-webkit-slider-thumb {
 .review-tile-top-panel {
   display: flex;
   justify-content: space-between;
+  margin-right: 2%;
   font-size: 90%;
 }
 

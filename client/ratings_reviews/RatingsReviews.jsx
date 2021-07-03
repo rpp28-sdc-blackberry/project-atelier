@@ -17,7 +17,8 @@ class RatingsReviews extends React.Component {
       filteredReviews: [],
       sortingOption: 'relevance',
       starFilters: [],
-      keyword: ''
+      keyword: '',
+      showRemoveFilters: false
     };
     this.initialize = this.initialize.bind(this);
     this.handleOptionChanges = this.handleOptionChanges.bind(this);
@@ -41,7 +42,9 @@ class RatingsReviews extends React.Component {
     this.setState({
       meta: this.props.meta,
       reviews: this.props.reviews,
-      filteredReviews: helpers.sortReviews(this.props.reviews, this.state.sortingOption)
+      filteredReviews: helpers.sortReviews(this.props.reviews, 'relevance'),
+      sortingOption: 'relevance',
+      starFilters: []
     });
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify([]));
@@ -66,9 +69,11 @@ class RatingsReviews extends React.Component {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
     var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
+    var showRemoveFilters = newStarFilters.length !== 0;
     this.setState({
       starFilters: newStarFilters,
-      filteredReviews: newFilteredReviews
+      filteredReviews: newFilteredReviews,
+      showRemoveFilters: showRemoveFilters
     });
   }
 
@@ -76,7 +81,8 @@ class RatingsReviews extends React.Component {
     var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
-      filteredReviews: newFilteredReviews
+      filteredReviews: newFilteredReviews,
+      showRemoveFilters: false
     });
   }
 
@@ -105,12 +111,12 @@ class RatingsReviews extends React.Component {
           <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters}/>
+              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters} showRemoveFilters={this.state.showRemoveFilters}/>
               <ProductBreakdown meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
               <SearchBar handleSearch={this.handleSearch}/>
-              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews}/>
+              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews} product_id={this.props.product_id}/>
               <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
               <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
             </div>
