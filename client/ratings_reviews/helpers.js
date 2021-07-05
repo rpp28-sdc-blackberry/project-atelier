@@ -149,7 +149,11 @@ const applyKeyword = (reviews, keyword) => {
   return output;
 };
 
-const formatReviewTile = (summary, body, photos, reviewId) => {
+const formatReviewTile = (review) => {
+  let summary = review.summary;
+  let body = review.body;
+  let photos = review.photos;
+  let reviewId = review.review_id;
   var additionalBody = '';
   var showAdditionalBodyButton = false;
   var showPhotos = false;

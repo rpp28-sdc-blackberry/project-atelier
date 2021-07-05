@@ -64,7 +64,7 @@ class ReviewTile extends React.Component {
   }
 
   componentDidMount() {
-    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review.summary, this.props.review.body, this.props.review.photos, this.props.review.review_id);
+    var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review);
     this.setState({
       summary: formattedReviewTileInfo[0],
       body: formattedReviewTileInfo[1],
