@@ -24,7 +24,7 @@ class ReviewTile extends React.Component {
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
     this.handleAddHelpful = this.handleAddHelpful.bind(this, this.props.review.review_id);
-    this.handleReport = this.handleReport.bind(this);
+    this.handleReport = this.handleReport.bind(this, this.props.review.review_id);
   }
 
   toggleAdditionalBody(e) {
@@ -52,21 +52,15 @@ class ReviewTile extends React.Component {
       });
   }
 
-  handleReport() {
-    $.ajax({
-      url: `reviews/${this.props.review.review_id}/report`,
-      method: 'PUT'
-    }).then(() => {
-      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
-      currentReportedReviews.push(this.props.review.review_id);
-      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
-
-      this.setState({
-        reportStatus: true
+  handleReport(reviewId) {
+    helpers.handleReport(reviewId)
+      .then(() => {
+        this.setState({
+          reportStatus: true
+        });
+      }).catch((error) => {
+        console.log(error);
       });
-    }).catch((error) => {
-      console.log(error);
-    });
   }
 
   componentDidMount() {

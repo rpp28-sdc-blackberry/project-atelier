@@ -257,6 +257,18 @@ const handleAddHelpful = (reviewId) => {
   });
 };
 
+const handleReport = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/report`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      currentReportedReviews.push(reviewId);
+      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
+    }).then(() => resolve());
+  });
+};
+
 
 module.exports = {
   formatDate,
@@ -272,5 +284,6 @@ module.exports = {
   productCharacteristics,
   starDescriptions,
   validateEmail,
-  handleAddHelpful
+  handleAddHelpful,
+  handleReport
 };
