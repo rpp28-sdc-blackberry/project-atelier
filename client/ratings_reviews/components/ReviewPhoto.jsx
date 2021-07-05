@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './ReviewPhotoModal.jsx';
+import PhotoModal from './ReviewPhotoModal.jsx';
 
 class ReviewPhoto extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class ReviewPhoto extends React.Component {
     return (
       <React.Fragment>
         <img onClick={this.toggleModal} class='review-photo' src={this.props.photo.url}/>
-        <Modal show={this.state.show} closeModal={this.toggleModal} url={this.props.photo.url}/>
+        <PhotoModal show={this.state.show} toggleModal={this.toggleModal} url={this.props.photo.url}/>
       </React.Fragment>
     );
   }
