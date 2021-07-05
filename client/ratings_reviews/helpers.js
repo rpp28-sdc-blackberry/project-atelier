@@ -1,5 +1,5 @@
 const formatDate = (dateString) => {
-  var [year, month, day] = dateString.split('-');
+  let [year, month, day] = dateString.split('-');
 
   if (month === '01') {
     month = 'January';
@@ -39,29 +39,29 @@ const fetchReviews = () => {
 
 const computeAverageRating = (ratings) => {
   if (ratings.length === 0) { return; }
-  var count = 0;
-  var total = 0;
-  for (var ratingValue in ratings) {
-    var freq = ratings[ratingValue];
+  let count = 0;
+  let total = 0;
+  for (let ratingValue in ratings) {
+    let freq = ratings[ratingValue];
     total += ratingValue * freq;
     count += Number.parseInt(freq);
   }
-  var average = total / count;
-  var roundedAverageForDisplay = average.toFixed(1);
-  var roundedAverageForStar = (Math.round(average * 4) / 4).toFixed(2);
+  let average = total / count;
+  let roundedAverageForDisplay = average.toFixed(1);
+  let roundedAverageForStar = (Math.round(average * 4) / 4).toFixed(2);
   return [roundedAverageForDisplay, roundedAverageForStar];
 };
 
 const computeRatingBreakdown = (ratings) => {
-  var breakdown = [];
-  var total = 0;
-  for (var ratingValue in ratings) {
-    var freq = ratings[ratingValue];
+  let breakdown = [];
+  let total = 0;
+  for (let ratingValue in ratings) {
+    let freq = ratings[ratingValue];
     total += Number.parseInt(freq);
   }
-  for (var i = 1; i <= 5; i++) {
-    var freq = ratings[i] || 0;
-    var percentage = Number.parseInt(freq) / total * 100;
+  for (let i = 1; i <= 5; i++) {
+    let freq = ratings[i] || 0;
+    let percentage = Number.parseInt(freq) / total * 100;
     breakdown.push([percentage, freq]);
   }
   return breakdown;
@@ -76,9 +76,9 @@ const computeRecommendedPercentage = (recommended) => {
 };
 
 const formatCharacteristics = (characteristics) => {
-  var formattedCharacteristics = [];
-  for (var characteristic in characteristics) {
-    var newFormat = {};
+  let formattedCharacteristics = [];
+  for (let characteristic in characteristics) {
+    let newFormat = {};
     newFormat.name = characteristic;
     newFormat.value = characteristics[characteristic].value;
     newFormat.id = characteristics[characteristic].id;
@@ -91,7 +91,7 @@ const sortReviews = (reviews, option) => {
   if (reviews.length === 0) {
     return [];
   }
-  var reviewsCopy = reviews.slice();
+  let reviewsCopy = reviews.slice();
   if (option === 'helpfulness') {
     return reviewsCopy.sort((a, b) => {
       return b.helpfulness - a.helpfulness;
@@ -104,10 +104,10 @@ const sortReviews = (reviews, option) => {
     reviewsCopy.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    var sortedReviews = [];
-    var tempStorage = [];
-    var currentDate = reviewsCopy[0].date;
-    for (var i = 0; i < reviewsCopy.length; i++) {
+    let sortedReviews = [];
+    let tempStorage = [];
+    let currentDate = reviewsCopy[0].date;
+    for (let i = 0; i < reviewsCopy.length; i++) {
       if (reviewsCopy[i].date === currentDate) {
         tempStorage.push(reviewsCopy[i]);
       } else {
@@ -118,7 +118,7 @@ const sortReviews = (reviews, option) => {
       }
     }
     sortedReviews.push(tempStorage);
-    for (var i = 0; i < sortedReviews.length; i++) {
+    for (let i = 0; i < sortedReviews.length; i++) {
       sortedReviews[i].sort((a, b) => {
         return b.helpfulness - a.helpfulness;
       });
@@ -130,8 +130,8 @@ const sortReviews = (reviews, option) => {
 
 const applyStarFilters = (reviews, starFilters) => {
   if (starFilters.length === 0) { return reviews; }
-  var output = [];
-  for (var i = 0; i < reviews.length; i++) {
+  let output = [];
+  for (let i = 0; i < reviews.length; i++) {
     if (starFilters.indexOf(reviews[i].rating) !== -1) {
       output.push(reviews[i]);
     }
@@ -154,12 +154,12 @@ const formatReviewTile = (review) => {
   let body = review.body;
   let photos = review.photos;
   let reviewId = review.review_id;
-  var additionalBody = '';
-  var showAdditionalBodyButton = false;
-  var showPhotos = false;
-  var helpful = 0;
-  var showAddHelpfulButton = true;
-  var reportStatus = false;
+  let additionalBody = '';
+  let showAdditionalBodyButton = false;
+  let showPhotos = false;
+  let helpful = 0;
+  let showAddHelpfulButton = true;
+  let reportStatus = false;
   if (summary.length > 60) {
     summary = summary.slice(0, 61) + '...';
   }
@@ -171,16 +171,16 @@ const formatReviewTile = (review) => {
   if (photos.length !== 0) {
     showPhotos = true;
   }
-  var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+  let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
   if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
     helpful = 1;
     showAddHelpfulButton = false;
   }
-  var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+  let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
   if (currentReportedReviews.indexOf(reviewId) !== -1) {
     reportStatus = true;
   }
-  var allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+  let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
   if (allHelpfulReviews && allHelpfulReviews.indexOf(reviewId) !== -1) {
     showAddHelpfulButton = false;
   }
