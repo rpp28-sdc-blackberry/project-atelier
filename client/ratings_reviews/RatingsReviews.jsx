@@ -122,6 +122,7 @@ class RatingsReviews extends React.Component {
             <SortingOptions
               product_id={this.props.product_id}
               reviews={this.state.filteredReviews}
+              sortingOption={this.state.sortingOption}
               handleOptionChanges={this.handleOptionChanges}/>
             <ReviewsList
               reviews={this.state.filteredReviews}
