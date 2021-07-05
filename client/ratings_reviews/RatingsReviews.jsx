@@ -109,10 +109,10 @@ class RatingsReviews extends React.Component {
             <RatingBreakdown
               product_id={this.props.product_id}
               meta={this.props.meta}
-              handleStarFilters={this.handleStarFilters}
               starFilters={this.state.starFilters}
-              removeFilters={this.removeFilters}
-              showRemoveFilters={this.state.showRemoveFilters}/>
+              showRemoveFilters={this.state.showRemoveFilters}
+              handleStarFilters={this.handleStarFilters}
+              removeFilters={this.removeFilters}/>
             <ProductBreakdown
               meta={this.props.meta}/>
           </div>
@@ -120,9 +120,9 @@ class RatingsReviews extends React.Component {
             <SearchBar
               handleSearch={this.handleSearch}/>
             <SortingOptions
-              handleOptionChanges={this.handleOptionChanges}
+              product_id={this.props.product_id}
               reviews={this.state.filteredReviews}
-              product_id={this.props.product_id}/>
+              handleOptionChanges={this.handleOptionChanges}/>
             <ReviewsList
               reviews={this.state.filteredReviews}
               sortingOption={this.state.sortingOption}/>
