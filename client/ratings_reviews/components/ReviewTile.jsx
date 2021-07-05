@@ -66,19 +66,19 @@ class ReviewTile extends React.Component {
   componentDidMount() {
     var formattedReviewTileInfo = helpers.formatReviewTile(this.props.review);
     this.setState({
-      summary: formattedReviewTileInfo[0],
-      body: formattedReviewTileInfo[1],
-      additionalBody: formattedReviewTileInfo[2],
+      summary: formattedReviewTileInfo.summary,
+      body: formattedReviewTileInfo.body,
+      additionalBody: formattedReviewTileInfo.additionalBody,
       showBody: true,
       showAdditionalBody: false,
-      showAdditionalBodyButton: formattedReviewTileInfo[3],
-      showPhotos: formattedReviewTileInfo[4],
+      showAdditionalBodyButton: formattedReviewTileInfo.showAdditionalBodyButton,
+      showPhotos: formattedReviewTileInfo.showPhotos,
       showRecommend: this.props.review.recommend,
       showResponse: !(this.props.review.response === null || this.props.review.response.length === 0),
       reportStatus: false,
-      helpfulness: this.props.review.helpfulness + formattedReviewTileInfo[5],
-      showAddHelpfulButton: formattedReviewTileInfo[6],
-      reportStatus: formattedReviewTileInfo[7]
+      helpfulness: this.props.review.helpfulness + formattedReviewTileInfo.helpful,
+      showAddHelpfulButton: formattedReviewTileInfo.showAddHelpfulButton,
+      reportStatus: formattedReviewTileInfo.reportStatus
     });
   }
 

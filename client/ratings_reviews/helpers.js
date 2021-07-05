@@ -150,41 +150,34 @@ const applyKeyword = (reviews, keyword) => {
 };
 
 const formatReviewTile = (review) => {
-  let summary = review.summary;
+  let summary = review.summary.length > 60 ? review.summary.slice(0, 61) + '...' : review.summary;
+
   let body = review.body;
-  let photos = review.photos;
-  let reviewId = review.review_id;
   let additionalBody = '';
   let showAdditionalBodyButton = false;
-  let showPhotos = false;
-  let helpful = 0;
-  let showAddHelpfulButton = true;
-  let reportStatus = false;
-  if (summary.length > 60) {
-    summary = summary.slice(0, 61) + '...';
-  }
-  if (body.length > 250) {
-    additionalBody = body.slice();
-    body = body.slice(0, 251) + '...';
+  if (review.body.length > 250) {
+    additionalBody = review.body.slice();
+    body = review.body.slice(0, 251) + '...';
     showAdditionalBodyButton = true;
   }
-  if (photos.length !== 0) {
-    showPhotos = true;
-  }
+
+  let showPhotos = review.photos.length !== 0;
+
+  let helpful = 0;
+  let showAddHelpfulButton = true;
   let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-  if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
+  if (currentHelpfulReviews.indexOf(review.review_id) !== -1) {
     helpful = 1;
     showAddHelpfulButton = false;
   }
+
   let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
-  if (currentReportedReviews.indexOf(reviewId) !== -1) {
-    reportStatus = true;
-  }
+  let reportStatus = currentReportedReviews.indexOf(review.review_id) !== -1;
+
   let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
-  if (allHelpfulReviews && allHelpfulReviews.indexOf(reviewId) !== -1) {
-    showAddHelpfulButton = false;
-  }
-  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
+  showAddHelpfulButton = allHelpfulReviews && allHelpfulReviews.indexOf(review.review_id) === -1;
+
+  return { summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus };
 };
 
 const productCharacteristics = {
