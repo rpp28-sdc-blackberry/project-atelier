@@ -85,9 +85,7 @@ class RatingsReviews extends React.Component {
   }
 
   handleSearch(keyword) {
-    if (keyword.length < 3) {
-      keyword = '';
-    }
+    keyword = keyword.length < 3 ? '' : keyword;
     let queriedReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, this.state.starFilters, keyword);
     this.setState({
       keyword: keyword,
