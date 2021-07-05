@@ -104,15 +104,44 @@ class ReviewTile extends React.Component {
           <span class="stars" style={{'--rating': this.props.review.rating}}></span>
           <span>{this.props.review.reviewer_name}, {helpers.formatDate(this.props.review.date.slice(0, 10))}</span>
         </div>
-        <div class='review-summary'>{this.state.summary}</div>
-        <div class='review-body' hidden={!this.state.showBody}>{this.state.body}</div>
-        <div class='review-additional-body' hidden={!this.state.showAdditionalBody}>{this.state.additionalBody}</div>
-        <div class='review-additional-body-button review-clickable' hidden={!this.state.showAdditionalBodyButton} onClick={this.toggleAdditionalBody}>Show More</div>
-        <div class='review-photos' hidden={!this.state.showPhotos}>
-          {this.props.review.photos.map(photo => <ReviewPhoto photo={photo} showPhotos={this.state.showPhotos}/>)}
+        <div
+          class='review-summary'>
+          {this.state.summary}
         </div>
-        <div class='user-recommend' hidden={!this.state.showRecommend}>I recommend this product!</div>
-        <div class='seller-response' hidden={!this.state.showResponse}>Response: {this.props.review.response}</div>
+        <div
+          class='review-body'
+          hidden={!this.state.showBody}>
+          {this.state.body}
+        </div>
+        <div
+          class='review-additional-body'
+          hidden={!this.state.showAdditionalBody}>
+          {this.state.additionalBody}
+        </div>
+        <div
+          class='review-additional-body-button review-clickable'
+          hidden={!this.state.showAdditionalBodyButton}
+          onClick={this.toggleAdditionalBody}>
+          Show More
+        </div>
+        <div
+          class='review-photos'
+          hidden={!this.state.showPhotos}>
+          {this.props.review.photos.map(photo =>
+            <ReviewPhoto
+              photo={photo}
+              showPhotos={this.state.showPhotos}/>)}
+        </div>
+        <div
+          class='user-recommend'
+          hidden={!this.state.showRecommend}>
+          I recommend this product!
+        </div>
+        <div
+          class='seller-response'
+          hidden={!this.state.showResponse}>
+          Response: {this.props.review.response}
+        </div>
         <div class='review-bottom-panel'>
           <span>Helpful?</span>
           {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
