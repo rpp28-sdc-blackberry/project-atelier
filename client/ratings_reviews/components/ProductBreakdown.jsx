@@ -12,11 +12,10 @@ const ProductBreakdown = (props) => {
           <CharacteristicBreakdown characteristic={characteristic}/>)}
       </div>
     );
-  } else {
-    return (
-      <div></div>
-    );
   }
+  return (
+    <div></div>
+  );
 };
 
 export default ProductBreakdown;
