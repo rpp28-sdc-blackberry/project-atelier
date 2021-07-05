@@ -103,44 +103,38 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.props.meta) && this.props.info !== null) {
-      return (
-        <div class='review-overall-container' id='review-overall-container'>
-          <span>RATINGS & REVIEWS</span>
-          <div class='review-content-container'>
-            <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown
-                product_id={this.props.product_id}
-                meta={this.props.meta}
-                handleStarFilters={this.handleStarFilters}
-                starFilters={this.state.starFilters}
-                removeFilters={this.removeFilters}
-                showRemoveFilters={this.state.showRemoveFilters}/>
-              <ProductBreakdown
-                meta={this.props.meta}/>
-            </div>
-            <div id='review-right-container' class='review-sub-container right'>
-              <SearchBar
-                handleSearch={this.handleSearch}/>
-              <SortingOptions
-                handleOptionChanges={this.handleOptionChanges}
-                reviews={this.state.filteredReviews}
-                product_id={this.props.product_id}/>
-              <ReviewsList
-                reviews={this.state.filteredReviews}
-                sortingOption={this.state.sortingOption}/>
-              <ReviewForm
-                productName={this.props.info.name}
-                meta={this.props.meta}/>
-            </div>
+    return (
+      <div class='review-overall-container' id='review-overall-container'>
+        <span>RATINGS & REVIEWS</span>
+        <div class='review-content-container'>
+          <div id='review-left-container' class='review-sub-container left'>
+            <RatingBreakdown
+              product_id={this.props.product_id}
+              meta={this.props.meta}
+              handleStarFilters={this.handleStarFilters}
+              starFilters={this.state.starFilters}
+              removeFilters={this.removeFilters}
+              showRemoveFilters={this.state.showRemoveFilters}/>
+            <ProductBreakdown
+              meta={this.props.meta}/>
+          </div>
+          <div id='review-right-container' class='review-sub-container right'>
+            <SearchBar
+              handleSearch={this.handleSearch}/>
+            <SortingOptions
+              handleOptionChanges={this.handleOptionChanges}
+              reviews={this.state.filteredReviews}
+              product_id={this.props.product_id}/>
+            <ReviewsList
+              reviews={this.state.filteredReviews}
+              sortingOption={this.state.sortingOption}/>
+            <ReviewForm
+              productName={this.props.info.name}
+              meta={this.props.meta}/>
           </div>
         </div>
-      );
-    } else {
-      return (
-        <div>Loading...</div>
-      );
-    }
+      </div>
+    );
   }
 }
 
