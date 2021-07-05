@@ -23,7 +23,7 @@ class ReviewTile extends React.Component {
       reportStatus: false
     };
     this.toggleAdditionalBody = this.toggleAdditionalBody.bind(this);
-    this.handleAddHelpful = this.handleAddHelpful.bind(this);
+    this.handleAddHelpful = this.handleAddHelpful.bind(this, this.props.review.review_id);
     this.handleReport = this.handleReport.bind(this);
   }
 
@@ -40,26 +40,16 @@ class ReviewTile extends React.Component {
     });
   }
 
-  handleAddHelpful() {
-    $.ajax({
-      url: `reviews/${this.props.review.review_id}/helpful`,
-      method: 'PUT'
-    }).then(() => {
-      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-      currentHelpfulReviews.push(this.props.review.review_id);
-      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
-
-      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
-      allHelpfulReviews.push(this.props.review.review_id);
-      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
-
-      this.setState({
-        helpfulness: this.state.helpfulness + 1,
-        showAddHelpfulButton: false
+  handleAddHelpful(reviewId) {
+    helpers.handleAddHelpful(reviewId)
+      .then(() => {
+        this.setState({
+          helpfulness: this.state.helpfulness + 1,
+          showAddHelpfulButton: false
+        });
+      }).catch((error) => {
+        console.log(error);
       });
-    }).catch((error) => {
-      console.log(error);
-    });
   }
 
   handleReport() {

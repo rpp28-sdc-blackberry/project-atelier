@@ -241,6 +241,23 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
+const handleAddHelpful = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/helpful`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      currentHelpfulReviews.push(reviewId);
+      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
+
+      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+      allHelpfulReviews.push(reviewId);
+      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
+    }).then(() => resolve());
+  });
+};
+
+
 module.exports = {
   formatDate,
   fetchReviews,
@@ -254,5 +271,6 @@ module.exports = {
   formatReviewTile,
   productCharacteristics,
   starDescriptions,
-  validateEmail
+  validateEmail,
+  handleAddHelpful
 };
