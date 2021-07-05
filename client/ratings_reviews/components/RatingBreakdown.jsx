@@ -12,7 +12,6 @@ class RatingBreakdown extends React.Component {
       recommended: 0
     };
     this.initialize = this.initialize.bind(this);
-    this.handleRatingBreakdownClick = this.handleRatingBreakdownClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +30,6 @@ class RatingBreakdown extends React.Component {
       breakdown: helpers.computeRatingBreakdown(this.props.meta.ratings),
       recommended: helpers.computeRecommendedPercentage(this.props.meta.recommended)
     });
-  }
-
-  handleRatingBreakdownClick(star) {
-    this.props.handleStarFilters(star);
   }
 
   render() {
@@ -64,7 +59,7 @@ class RatingBreakdown extends React.Component {
                 star={x + 1}
                 percentage={this.state.breakdown[x][0]}
                 freq={this.state.breakdown[x][1]}
-                handleRatingBreakdownClick={this.handleRatingBreakdownClick}/>)}
+                handleRatingBreakdownClick={this.props.handleStarFilters}/>)}
           </div>
         </div>
       );
