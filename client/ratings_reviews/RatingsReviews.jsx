@@ -12,8 +12,6 @@ class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meta: {},
-      reviews: [],
       filteredReviews: [],
       sortingOption: 'relevance',
       starFilters: [],
@@ -40,8 +38,6 @@ class RatingsReviews extends React.Component {
 
   initialize() {
     this.setState({
-      meta: this.props.meta,
-      reviews: this.props.reviews,
       filteredReviews: helpers.sortReviews(this.props.reviews, 'relevance'),
       sortingOption: 'relevance',
       starFilters: []
@@ -54,7 +50,7 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters, this.state.keyword);
+    var newFilteredReviews = this.updateReviews(this.props.reviews, newOption, this.state.starFilters, this.state.keyword);
     this.setState({
       sortingOption: newOption,
       filteredReviews: newFilteredReviews
@@ -68,7 +64,7 @@ class RatingsReviews extends React.Component {
     } else {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
+    var newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
     var showRemoveFilters = newStarFilters.length !== 0;
     this.setState({
       starFilters: newStarFilters,
@@ -78,7 +74,7 @@ class RatingsReviews extends React.Component {
   }
 
   removeFilters() {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, [], this.state.keyword);
+    var newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
       filteredReviews: newFilteredReviews,
@@ -90,7 +86,7 @@ class RatingsReviews extends React.Component {
     if (keyword.length < 3) {
       keyword = '';
     }
-    var queriedReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, this.state.starFilters, keyword);
+    var queriedReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, this.state.starFilters, keyword);
     this.setState({
       keyword: keyword,
       filteredReviews: queriedReviews
@@ -105,7 +101,7 @@ class RatingsReviews extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.meta) && this.props.info !== null) {
+    if (!$.isEmptyObject(this.props.meta) && this.props.info !== null) {
       return (
         <div class='review-overall-container' id='review-overall-container'>
           <span>RATINGS & REVIEWS</span>
@@ -113,13 +109,13 @@ class RatingsReviews extends React.Component {
             <div id='review-left-container' class='review-sub-container left'>
               <RatingBreakdown
                 product_id={this.props.product_id}
-                meta={this.state.meta}
+                meta={this.props.meta}
                 handleStarFilters={this.handleStarFilters}
                 starFilters={this.state.starFilters}
                 removeFilters={this.removeFilters}
                 showRemoveFilters={this.state.showRemoveFilters}/>
               <ProductBreakdown
-                meta={this.state.meta}/>
+                meta={this.props.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
               <SearchBar
@@ -133,7 +129,7 @@ class RatingsReviews extends React.Component {
                 sortingOption={this.state.sortingOption}/>
               <ReviewForm
                 productName={this.props.info.name}
-                meta={this.state.meta}/>
+                meta={this.props.meta}/>
             </div>
           </div>
         </div>
