@@ -111,14 +111,29 @@ class RatingsReviews extends React.Component {
           <span>RATINGS & REVIEWS</span>
           <div class='review-content-container'>
             <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters} showRemoveFilters={this.state.showRemoveFilters}/>
-              <ProductBreakdown meta={this.state.meta}/>
+              <RatingBreakdown
+                product_id={this.props.product_id}
+                meta={this.state.meta}
+                handleStarFilters={this.handleStarFilters}
+                starFilters={this.state.starFilters}
+                removeFilters={this.removeFilters}
+                showRemoveFilters={this.state.showRemoveFilters}/>
+              <ProductBreakdown
+                meta={this.state.meta}/>
             </div>
             <div id='review-right-container' class='review-sub-container right'>
-              <SearchBar handleSearch={this.handleSearch}/>
-              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews} product_id={this.props.product_id}/>
-              <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
-              <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
+              <SearchBar
+                handleSearch={this.handleSearch}/>
+              <SortingOptions
+                handleOptionChanges={this.handleOptionChanges}
+                reviews={this.state.filteredReviews}
+                product_id={this.props.product_id}/>
+              <ReviewsList
+                reviews={this.state.filteredReviews}
+                sortingOption={this.state.sortingOption}/>
+              <ReviewForm
+                productName={this.props.info.name}
+                meta={this.state.meta}/>
             </div>
           </div>
         </div>
