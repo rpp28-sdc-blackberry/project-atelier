@@ -7,8 +7,6 @@ class RatingBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meta: {},
-      ratings: {},
       averageRating: [0, 0],
       breakdown: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
       recommended: 0
@@ -29,8 +27,6 @@ class RatingBreakdown extends React.Component {
 
   initialize() {
     this.setState({
-      meta: this.props.meta,
-      ratings: this.props.meta.ratings,
       averageRating: helpers.computeAverageRating(this.props.meta.ratings),
       breakdown: helpers.computeRatingBreakdown(this.props.meta.ratings),
       recommended: helpers.computeRecommendedPercentage(this.props.meta.recommended)
@@ -42,7 +38,7 @@ class RatingBreakdown extends React.Component {
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.ratings)) {
+    if (!$.isEmptyObject(this.props.meta.ratings)) {
       return (
         <div class='review-rating-breakdown'>
           <div class='review-average-rating'>
