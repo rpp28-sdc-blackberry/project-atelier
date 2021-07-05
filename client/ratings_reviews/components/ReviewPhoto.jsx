@@ -7,27 +7,20 @@ class ReviewPhoto extends React.Component {
     this.state = {
       show: this.props.showPhotos
     };
-    this.showModal = this.showModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  showModal() {
+  toggleModal() {
     this.setState({
-      show: true
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      show: false
+      show: !this.state.show
     });
   }
 
   render() {
     return (
       <React.Fragment>
-        <img onClick={this.showModal} class='review-photo' src={this.props.photo.url}/>
-        <Modal show={this.state.show} closeModal={this.closeModal} url={this.props.photo.url}/>
+        <img onClick={this.toggleModal} class='review-photo' src={this.props.photo.url}/>
+        <Modal show={this.state.show} closeModal={this.toggleModal} url={this.props.photo.url}/>
       </React.Fragment>
     );
   }
