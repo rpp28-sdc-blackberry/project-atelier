@@ -31,12 +31,13 @@ class ReviewTile extends React.Component {
     this.setState({
       showAdditionalBody: !this.state.showAdditionalBody,
       showBody: !this.state.showBody,
+    }, () => {
+      if ($(e.target).text() === 'Show More') {
+        $(e.target).text('Show Less');
+      } else {
+        $(e.target).text('Show More');
+      }
     });
-    if ($(e.target).text() === 'Show More') {
-      $(e.target).text('Show Less');
-    } else {
-      $(e.target).text('Show More');
-    }
   }
 
   handleAddHelpful() {
