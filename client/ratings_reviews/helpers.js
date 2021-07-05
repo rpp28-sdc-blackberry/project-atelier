@@ -1,33 +1,20 @@
 const formatDate = (dateString) => {
   let [year, month, day] = dateString.split('-');
-
-  if (month === '01') {
-    month = 'January';
-  } else if (month === '02') {
-    month = 'February';
-  } else if (month === '03') {
-    month = 'March';
-  } else if (month === '04') {
-    month = 'April';
-  } else if (month === '05') {
-    month = 'May';
-  } else if (month === '06') {
-    month = 'June';
-  } else if (month === '07') {
-    month = 'July';
-  } else if (month === '08') {
-    month = 'August';
-  } else if (month === '09') {
-    month = 'September';
-  } else if (month === '10') {
-    month = 'October';
-  } else if (month === '11') {
-    month = 'November';
-  } else if (month === '12') {
-    month = 'December';
-  }
-
-  return month + ' ' + day + ', ' + year;
+  const months = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+  };
+  return months[month] + ' ' + day + ', ' + year;
 };
 
 const fetchReviews = () => {
