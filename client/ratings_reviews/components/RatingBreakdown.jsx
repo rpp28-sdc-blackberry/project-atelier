@@ -37,22 +37,21 @@ const RatingBreakdown = (props) => {
         </div>
       </div>
     );
-  } else {
-    return (
-      <div class='review-rating-breakdown'>
-        <div class='review-average-rating'>
-          <span class='review-average-rating-number'>0</span>
-          <span class="stars" style={{'--rating': 0}}></span>
-        </div>
-        <div class='review-rating-bar'>
-          {[...Array(5).keys()].reverse().map(x =>
-            <RatingBreakdownBar
-              star={x + 1}
-              percentage={0}/>)}
-        </div>
-      </div>
-    );
   }
+  return (
+    <div class='review-rating-breakdown'>
+      <div class='review-average-rating'>
+        <span class='review-average-rating-number'>0</span>
+        <span class="stars" style={{'--rating': 0}}></span>
+      </div>
+      <div class='review-rating-bar'>
+        {[...Array(5).keys()].reverse().map(x =>
+          <RatingBreakdownBar
+            star={x + 1}
+            percentage={0}/>)}
+      </div>
+    </div>
+  );
 };
 
 export default RatingBreakdown;
