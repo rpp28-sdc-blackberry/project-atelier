@@ -55,10 +55,20 @@ class RatingBreakdown extends React.Component {
           <div class='review-filter-panel'>
             <div id='review-filter-panel-title'>Rating Breakdown</div>
             <div>Currently applied filters: {this.props.starFilters.map(starFilter => starFilter + ' ')}</div>
-            <div class='review-clickable' onClick={this.props.removeFilters} hidden={!this.props.showRemoveFilters}>Remove all filters</div>
+            <div
+              class='review-clickable'
+              onClick={this.props.removeFilters}
+              hidden={!this.props.showRemoveFilters}>
+              Remove all filters
+            </div>
           </div>
           <div class='review-rating-bar'>
-            {[...Array(5).keys()].reverse().map(x => <RatingBreakdownBar star={x + 1} percentage={this.state.breakdown[x][0]} freq={this.state.breakdown[x][1]} handleRatingBreakdownClick={this.handleRatingBreakdownClick}/>)}
+            {[...Array(5).keys()].reverse().map(x =>
+              <RatingBreakdownBar
+                star={x + 1}
+                percentage={this.state.breakdown[x][0]}
+                freq={this.state.breakdown[x][1]}
+                handleRatingBreakdownClick={this.handleRatingBreakdownClick}/>)}
           </div>
         </div>
       );
