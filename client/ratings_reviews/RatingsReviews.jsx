@@ -52,7 +52,7 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
-    var newFilteredReviews = this.updateReviews(this.props.reviews, newOption, this.state.starFilters, this.state.keyword);
+    let newFilteredReviews = this.updateReviews(this.props.reviews, newOption, this.state.starFilters, this.state.keyword);
     this.setState({
       sortingOption: newOption,
       filteredReviews: newFilteredReviews
@@ -60,14 +60,14 @@ class RatingsReviews extends React.Component {
   }
 
   handleStarFilters(star) {
-    var newStarFilters = this.state.starFilters.slice();
+    let newStarFilters = this.state.starFilters.slice();
     if (this.state.starFilters.indexOf(star) === -1) {
       newStarFilters.push(star);
     } else {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
-    var newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
-    var showRemoveFilters = newStarFilters.length !== 0;
+    let newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
+    let showRemoveFilters = newStarFilters.length !== 0;
     this.setState({
       starFilters: newStarFilters,
       filteredReviews: newFilteredReviews,
@@ -76,7 +76,7 @@ class RatingsReviews extends React.Component {
   }
 
   removeFilters() {
-    var newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, [], this.state.keyword);
+    let newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
       filteredReviews: newFilteredReviews,
@@ -88,7 +88,7 @@ class RatingsReviews extends React.Component {
     if (keyword.length < 3) {
       keyword = '';
     }
-    var queriedReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, this.state.starFilters, keyword);
+    let queriedReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, this.state.starFilters, keyword);
     this.setState({
       keyword: keyword,
       filteredReviews: queriedReviews
@@ -96,9 +96,9 @@ class RatingsReviews extends React.Component {
   }
 
   updateReviews(review, sortingOption, starFilters, keyword) {
-    var sortedReviews = helpers.sortReviews(review, sortingOption);
-    var filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
-    var queriedReviews = helpers.applyKeyword(filteredReviews, keyword);
+    let sortedReviews = helpers.sortReviews(review, sortingOption);
+    let filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
+    let queriedReviews = helpers.applyKeyword(filteredReviews, keyword);
     return queriedReviews;
   }
 
