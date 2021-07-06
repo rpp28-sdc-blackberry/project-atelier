@@ -163,15 +163,15 @@ class ReviewFormModal extends React.Component {
       );
     }
     return (
-      <div className='review-form-modal' onClick={this.props.toggleModal}>
-        <div className='review-form-modal-content' onClick={e => e.stopPropagation()}>
+      <div id='review-form-modal' onClick={this.props.toggleModal}>
+        <div id='review-form-modal-content' onClick={e => e.stopPropagation()}>
           {/*----- form header -----*/}
-          <div className='review-form-modal-header'>
+          <div id='review-form-modal-header'>
             <div>Write Your Review</div>
             <div>About the {this.props.productName}</div>
           </div>
           <form onSubmit={this.handleSubmit}>
-            <div className='review-form-modal-body'>
+            <div id='review-form-modal-body'>
               {/*----- overall rating -----*/}
               <div>
                 <label class='review-form-sub-heading'>Overall rating*</label>
@@ -190,7 +190,7 @@ class ReviewFormModal extends React.Component {
                         <label for={'star' + (x + 1)} >☆</label>
                       </React.Fragment>
                     )}
-                    <div class="review-form-star-clear"></div>
+                    <div class='review-form-star-clear'></div>
                   </div>
                   <div id='review-form-star-description'></div>
                 </div>

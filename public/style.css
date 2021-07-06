@@ -914,7 +914,7 @@ input[type=range]::-webkit-slider-thumb {
 #reviews-list-tile-container {
   width: 100%;
   overflow: auto;
-  max-height: 54vh;
+  max-height: 60vh;
 }
 
 .review-tile {
@@ -963,7 +963,7 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
-.review-photo-modal, .review-form-modal {
+.review-photo-modal, #review-form-modal {
   position: fixed;
   left: 0;
   top: 0;
@@ -1048,7 +1048,7 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 90%;
 }
 
-.review-form-modal-content {
+#review-form-modal-content {
   width: 700px;
   background: #fff;
   padding: 2%;
@@ -1056,7 +1056,7 @@ input[type=range]::-webkit-slider-thumb {
   max-height: 70vh;
 }
 
-.review-form-modal-content > *{
+#review-form-modal-content > *{
   padding: 1%;
   margin: 1%;
 }
@@ -1078,6 +1078,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .review-form-characteristic-name {
   font-style: italic;
+  padding: 1% 0;
 }
 
 .review-form-characteristic-description {
@@ -1104,10 +1105,6 @@ input[type=range]::-webkit-slider-thumb {
   cursor: auto;
 }
 
-.review-form-characteristic-name {
-  padding: 1% 0;
-}
-
 #review-form-body {
   font-family: arial, sans-serif;
   resize: none;
@@ -1118,13 +1115,13 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 90%;
 }
 
-.review-form-modal-header {
+#review-form-modal-header {
   font-size: 120%;
   font-weight: bold;
   border-bottom: solid black 0.1em;
 }
 
-.review-form-modal-header > * {
+#review-form-modal-header > * {
   margin: 1%;
 }
 
@@ -1132,12 +1129,12 @@ input[type=range]::-webkit-slider-thumb {
   font-weight: bold;
 }
 
-.review-form-modal-body > * {
+#review-form-modal-body > * {
   padding: 1% 0;
   margin-bottom: 1% 0;
 }
 
-.review-form-modal-body > * > *{
+#review-form-modal-body > * > * {
   padding: 1% 0;
   margin-bottom: 1% 0;
 }
