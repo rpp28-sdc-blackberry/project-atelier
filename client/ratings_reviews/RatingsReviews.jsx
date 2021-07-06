@@ -12,8 +12,6 @@ class RatingsReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meta: {},
-      reviews: [],
       filteredReviews: [],
       sortingOption: 'relevance',
       starFilters: [],
@@ -40,11 +38,11 @@ class RatingsReviews extends React.Component {
 
   initialize() {
     this.setState({
-      meta: this.props.meta,
-      reviews: this.props.reviews,
       filteredReviews: helpers.sortReviews(this.props.reviews, 'relevance'),
       sortingOption: 'relevance',
-      starFilters: []
+      starFilters: [],
+      keyword: '',
+      showRemoveFilters: false
     });
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify([]));
@@ -54,7 +52,7 @@ class RatingsReviews extends React.Component {
   }
 
   handleOptionChanges(newOption) {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, newOption, this.state.starFilters, this.state.keyword);
+    let newFilteredReviews = this.updateReviews(this.props.reviews, newOption, this.state.starFilters, this.state.keyword);
     this.setState({
       sortingOption: newOption,
       filteredReviews: newFilteredReviews
@@ -62,14 +60,14 @@ class RatingsReviews extends React.Component {
   }
 
   handleStarFilters(star) {
-    var newStarFilters = this.state.starFilters.slice();
+    let newStarFilters = this.state.starFilters.slice();
     if (this.state.starFilters.indexOf(star) === -1) {
       newStarFilters.push(star);
     } else {
       newStarFilters.splice(this.state.starFilters.indexOf(star), 1);
     }
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
-    var showRemoveFilters = newStarFilters.length !== 0;
+    let newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, newStarFilters, this.state.keyword);
+    let showRemoveFilters = newStarFilters.length !== 0;
     this.setState({
       starFilters: newStarFilters,
       filteredReviews: newFilteredReviews,
@@ -78,7 +76,7 @@ class RatingsReviews extends React.Component {
   }
 
   removeFilters() {
-    var newFilteredReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, [], this.state.keyword);
+    let newFilteredReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, [], this.state.keyword);
     this.setState({
       starFilters: [],
       filteredReviews: newFilteredReviews,
@@ -87,10 +85,8 @@ class RatingsReviews extends React.Component {
   }
 
   handleSearch(keyword) {
-    if (keyword.length < 3) {
-      keyword = '';
-    }
-    var queriedReviews = this.updateReviews(this.state.reviews, this.state.sortingOption, this.state.starFilters, keyword);
+    keyword = keyword.length < 3 ? '' : keyword;
+    let queriedReviews = this.updateReviews(this.props.reviews, this.state.sortingOption, this.state.starFilters, keyword);
     this.setState({
       keyword: keyword,
       filteredReviews: queriedReviews
@@ -98,36 +94,46 @@ class RatingsReviews extends React.Component {
   }
 
   updateReviews(review, sortingOption, starFilters, keyword) {
-    var sortedReviews = helpers.sortReviews(review, sortingOption);
-    var filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
-    var queriedReviews = helpers.applyKeyword(filteredReviews, keyword);
+    let sortedReviews = helpers.sortReviews(review, sortingOption);
+    let filteredReviews = helpers.applyStarFilters(sortedReviews, starFilters);
+    let queriedReviews = helpers.applyKeyword(filteredReviews, keyword);
     return queriedReviews;
   }
 
   render() {
-    if (!$.isEmptyObject(this.state.meta) && this.props.info !== null) {
-      return (
-        <div class='review-overall-container' id='review-overall-container'>
-          <span>RATINGS & REVIEWS</span>
-          <div class='review-content-container'>
-            <div id='review-left-container' class='review-sub-container left'>
-              <RatingBreakdown product_id={this.props.product_id} meta={this.state.meta} handleStarFilters={this.handleStarFilters} starFilters={this.state.starFilters} removeFilters={this.removeFilters} showRemoveFilters={this.state.showRemoveFilters}/>
-              <ProductBreakdown meta={this.state.meta}/>
-            </div>
-            <div id='review-right-container' class='review-sub-container right'>
-              <SearchBar handleSearch={this.handleSearch}/>
-              <SortingOptions handleOptionChanges={this.handleOptionChanges} reviews={this.state.filteredReviews} product_id={this.props.product_id}/>
-              <ReviewsList reviews={this.state.filteredReviews} sortingOption={this.state.sortingOption}/>
-              <ReviewForm productName={this.props.info.name} meta={this.state.meta}/>
-            </div>
+    return (
+      <div class='review-overall-container' id='review-overall-container'>
+        <span>RATINGS & REVIEWS</span>
+        <div class='review-content-container'>
+          <div id='review-left-container' class='review-sub-container left'>
+            <RatingBreakdown
+              product_id={this.props.product_id}
+              meta={this.props.meta}
+              starFilters={this.state.starFilters}
+              showRemoveFilters={this.state.showRemoveFilters}
+              handleStarFilters={this.handleStarFilters}
+              removeFilters={this.removeFilters}/>
+            <ProductBreakdown
+              meta={this.props.meta}/>
+          </div>
+          <div id='review-right-container' class='review-sub-container right'>
+            <SearchBar
+              handleSearch={this.handleSearch}/>
+            <SortingOptions
+              product_id={this.props.product_id}
+              reviews={this.state.filteredReviews}
+              sortingOption={this.state.sortingOption}
+              handleOptionChanges={this.handleOptionChanges}/>
+            <ReviewsList
+              reviews={this.state.filteredReviews}
+              sortingOption={this.state.sortingOption}/>
+            <ReviewForm
+              productName={this.props.info.name}
+              meta={this.props.meta}/>
           </div>
         </div>
-      );
-    } else {
-      return (
-        <div>Loading...</div>
-      );
-    }
+      </div>
+    );
   }
 }
 

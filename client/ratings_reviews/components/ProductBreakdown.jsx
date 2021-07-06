@@ -3,46 +3,19 @@ import $ from 'jquery';
 import CharacteristicBreakdown from './ChracteristicBreakdown.jsx';
 import helpers from '../helpers.js';
 
-class ProductBreakdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {},
-      characteristics: {}
-    };
-    this.initialize = this.initialize.bind(this);
+const ProductBreakdown = (props) => {
+  let characteristics = helpers.formatCharacteristics(props.meta.characteristics);
+  if (!$.isEmptyObject(characteristics)) {
+    return (
+      <div class='review-product-breakdown'>
+        {characteristics.map(characteristic =>
+          <CharacteristicBreakdown characteristic={characteristic}/>)}
+      </div>
+    );
   }
-
-  componentDidMount() {
-    this.initialize();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.meta !== prevProps.meta) {
-      this.initialize();
-    }
-  }
-
-  initialize() {
-    this.setState({
-      meta: this.props.meta,
-      characteristics: helpers.formatCharacteristics(this.props.meta.characteristics)
-    });
-  }
-
-  render() {
-    if (!$.isEmptyObject(this.state.characteristics)) {
-      return (
-        <div class='review-product-breakdown'>
-          {this.state.characteristics.map(characteristic => <CharacteristicBreakdown characteristic={characteristic}/>)}
-        </div>
-      );
-    } else {
-      return (
-        <div></div>
-      );
-    }
-  }
-}
+  return (
+    <div></div>
+  );
+};
 
 export default ProductBreakdown;

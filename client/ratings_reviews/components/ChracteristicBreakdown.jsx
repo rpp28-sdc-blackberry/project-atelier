@@ -18,11 +18,10 @@ const CharacteristicBreakdown = (props) => {
         </div>
       </div>
     );
-  } else {
-    return (
-      <div></div>
-    );
   }
+  return (
+    <div></div>
+  );
 };
 
 export default CharacteristicBreakdown;

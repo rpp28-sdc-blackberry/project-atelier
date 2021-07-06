@@ -1,33 +1,20 @@
 const formatDate = (dateString) => {
-  var [year, month, day] = dateString.split('-');
-
-  if (month === '01') {
-    month = 'January';
-  } else if (month === '02') {
-    month = 'February';
-  } else if (month === '03') {
-    month = 'March';
-  } else if (month === '04') {
-    month = 'April';
-  } else if (month === '05') {
-    month = 'May';
-  } else if (month === '06') {
-    month = 'June';
-  } else if (month === '07') {
-    month = 'July';
-  } else if (month === '08') {
-    month = 'August';
-  } else if (month === '09') {
-    month = 'September';
-  } else if (month === '10') {
-    month = 'October';
-  } else if (month === '11') {
-    month = 'November';
-  } else if (month === '12') {
-    month = 'December';
-  }
-
-  return month + ' ' + day + ', ' + year;
+  let [year, month, day] = dateString.split('-');
+  const months = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+  };
+  return months[month] + ' ' + day + ', ' + year;
 };
 
 const fetchReviews = () => {
@@ -39,29 +26,29 @@ const fetchReviews = () => {
 
 const computeAverageRating = (ratings) => {
   if (ratings.length === 0) { return; }
-  var count = 0;
-  var total = 0;
-  for (var ratingValue in ratings) {
-    var freq = ratings[ratingValue];
+  let count = 0;
+  let total = 0;
+  for (let ratingValue in ratings) {
+    let freq = ratings[ratingValue];
     total += ratingValue * freq;
     count += Number.parseInt(freq);
   }
-  var average = total / count;
-  var roundedAverageForDisplay = average.toFixed(1);
-  var roundedAverageForStar = (Math.round(average * 4) / 4).toFixed(2);
+  let average = total / count;
+  let roundedAverageForDisplay = average.toFixed(1);
+  let roundedAverageForStar = (Math.round(average * 4) / 4).toFixed(2);
   return [roundedAverageForDisplay, roundedAverageForStar];
 };
 
 const computeRatingBreakdown = (ratings) => {
-  var breakdown = [];
-  var total = 0;
-  for (var ratingValue in ratings) {
-    var freq = ratings[ratingValue];
+  let breakdown = [];
+  let total = 0;
+  for (let ratingValue in ratings) {
+    let freq = ratings[ratingValue];
     total += Number.parseInt(freq);
   }
-  for (var i = 1; i <= 5; i++) {
-    var freq = ratings[i] || 0;
-    var percentage = Number.parseInt(freq) / total * 100;
+  for (let i = 1; i <= 5; i++) {
+    let freq = ratings[i] || 0;
+    let percentage = Number.parseInt(freq) / total * 100;
     breakdown.push([percentage, freq]);
   }
   return breakdown;
@@ -76,9 +63,9 @@ const computeRecommendedPercentage = (recommended) => {
 };
 
 const formatCharacteristics = (characteristics) => {
-  var formattedCharacteristics = [];
-  for (var characteristic in characteristics) {
-    var newFormat = {};
+  let formattedCharacteristics = [];
+  for (let characteristic in characteristics) {
+    let newFormat = {};
     newFormat.name = characteristic;
     newFormat.value = characteristics[characteristic].value;
     newFormat.id = characteristics[characteristic].id;
@@ -91,7 +78,7 @@ const sortReviews = (reviews, option) => {
   if (reviews.length === 0) {
     return [];
   }
-  var reviewsCopy = reviews.slice();
+  let reviewsCopy = reviews.slice();
   if (option === 'helpfulness') {
     return reviewsCopy.sort((a, b) => {
       return b.helpfulness - a.helpfulness;
@@ -104,10 +91,10 @@ const sortReviews = (reviews, option) => {
     reviewsCopy.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    var sortedReviews = [];
-    var tempStorage = [];
-    var currentDate = reviewsCopy[0].date;
-    for (var i = 0; i < reviewsCopy.length; i++) {
+    let sortedReviews = [];
+    let tempStorage = [];
+    let currentDate = reviewsCopy[0].date;
+    for (let i = 0; i < reviewsCopy.length; i++) {
       if (reviewsCopy[i].date === currentDate) {
         tempStorage.push(reviewsCopy[i]);
       } else {
@@ -118,7 +105,7 @@ const sortReviews = (reviews, option) => {
       }
     }
     sortedReviews.push(tempStorage);
-    for (var i = 0; i < sortedReviews.length; i++) {
+    for (let i = 0; i < sortedReviews.length; i++) {
       sortedReviews[i].sort((a, b) => {
         return b.helpfulness - a.helpfulness;
       });
@@ -130,8 +117,8 @@ const sortReviews = (reviews, option) => {
 
 const applyStarFilters = (reviews, starFilters) => {
   if (starFilters.length === 0) { return reviews; }
-  var output = [];
-  for (var i = 0; i < reviews.length; i++) {
+  let output = [];
+  for (let i = 0; i < reviews.length; i++) {
     if (starFilters.indexOf(reviews[i].rating) !== -1) {
       output.push(reviews[i]);
     }
@@ -149,38 +136,35 @@ const applyKeyword = (reviews, keyword) => {
   return output;
 };
 
-const formatReviewTile = (summary, body, photos, reviewId) => {
-  var additionalBody = '';
-  var showAdditionalBodyButton = false;
-  var showPhotos = false;
-  var helpful = 0;
-  var showAddHelpfulButton = true;
-  var reportStatus = false;
-  if (summary.length > 60) {
-    summary = summary.slice(0, 61) + '...';
-  }
-  if (body.length > 250) {
-    additionalBody = body.slice();
-    body = body.slice(0, 251) + '...';
+const formatReviewTile = (review) => {
+  let summary = review.summary.length > 60 ? review.summary.slice(0, 61) + '...' : review.summary;
+
+  let body = review.body;
+  let additionalBody = '';
+  let showAdditionalBodyButton = false;
+  if (review.body.length > 250) {
+    additionalBody = review.body.slice();
+    body = review.body.slice(0, 251) + '...';
     showAdditionalBodyButton = true;
   }
-  if (photos.length !== 0) {
-    showPhotos = true;
-  }
-  var currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-  if (currentHelpfulReviews.indexOf(reviewId) !== -1) {
+
+  let showPhotos = review.photos.length !== 0;
+
+  let helpful = 0;
+  let showAddHelpfulButton = true;
+  let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+  if (currentHelpfulReviews.indexOf(review.review_id) !== -1) {
     helpful = 1;
     showAddHelpfulButton = false;
   }
-  var currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
-  if (currentReportedReviews.indexOf(reviewId) !== -1) {
-    reportStatus = true;
-  }
-  var allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
-  if (allHelpfulReviews && allHelpfulReviews.indexOf(reviewId) !== -1) {
-    showAddHelpfulButton = false;
-  }
-  return [summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus];
+
+  let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+  let reportStatus = currentReportedReviews.indexOf(review.review_id) !== -1;
+
+  let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+  showAddHelpfulButton = allHelpfulReviews && allHelpfulReviews.indexOf(review.review_id) === -1;
+
+  return { summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus };
 };
 
 const productCharacteristics = {
@@ -241,6 +225,35 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
+const handleAddHelpful = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/helpful`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      currentHelpfulReviews.push(reviewId);
+      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
+
+      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+      allHelpfulReviews.push(reviewId);
+      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
+    }).then(() => resolve());
+  });
+};
+
+const handleReport = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/report`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      currentReportedReviews.push(reviewId);
+      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
+    }).then(() => resolve());
+  });
+};
+
+
 module.exports = {
   formatDate,
   fetchReviews,
@@ -254,5 +267,7 @@ module.exports = {
   formatReviewTile,
   productCharacteristics,
   starDescriptions,
-  validateEmail
+  validateEmail,
+  handleAddHelpful,
+  handleReport
 };
