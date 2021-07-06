@@ -17,8 +17,14 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div class='review-search-container'>
-        <input class='review-search-bar' type='search' placeholder='SEARCH...' value={this.state.keyword} onChange={this.handleChange}></input>
+      <div id='review-search-container'>
+        <input
+          id='review-search-bar'
+          type='search'
+          placeholder='SEARCH FOR REVIEWS...'
+          value={this.state.keyword}
+          onChange={this.handleChange}>
+        </input>
       </div>
     );
   }
