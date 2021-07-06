@@ -7,26 +7,26 @@ app.use(express.static('public'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
+app.post('/review/image', (req, res) => {
+  uploadPhotoToCloudinary(req.body)
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 app.all('*', (req, res) => {
-  if (req.url === '/review/image') {
-    uploadPhotoToCloudinary(req.body)
-      .then((response) => {
-        res.send(response);
-      })
-      .catch((err) => {
-        res.status(500).send(err);
-      });
-  } else {
-    queryAPI(req.method, req.url, req.body)
-      .then((response) => {
-        let { statusCode } = response.request.res;
-        res.status(statusCode).send(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(err);
-      });
-  }
+  queryAPI(req.method, req.url, req.body)
+    .then((response) => {
+      let { statusCode } = response.request.res;
+      res.status(statusCode).send(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
 });
 
 app.listen(port, () => {
