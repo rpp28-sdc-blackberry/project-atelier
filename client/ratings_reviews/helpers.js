@@ -1,29 +1,47 @@
-const formatDate = (dateString) => {
-  let [year, month, day] = dateString.split('-');
-  const months = {
-    '01': 'January',
-    '02': 'February',
-    '03': 'March',
-    '04': 'April',
-    '05': 'May',
-    '06': 'June',
-    '07': 'July',
-    '08': 'August',
-    '09': 'September',
-    '10': 'October',
-    '11': 'November',
-    '12': 'December'
-  };
-  return months[month] + ' ' + day + ', ' + year;
-};
+/* ----- API Helpers ----- */
+const handleAddHelpful = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/helpful`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+      currentHelpfulReviews.push(reviewId);
+      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
 
-const fetchReviews = () => {
-  return $.ajax({
-    url: `reviews/?product_id=${this.props.product_id}&page=1&count=100&sort=relevant`,
-    method: 'GET'
+      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+      allHelpfulReviews.push(reviewId);
+      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
+    }).then(() => resolve());
   });
 };
 
+const handleReport = (reviewId) => {
+  return new Promise (resolve => {
+    fetch(`reviews/${reviewId}/report`, {
+      method: 'PUT'
+    }).then(() => {
+      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+      currentReportedReviews.push(reviewId);
+      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
+    }).then(() => resolve());
+  });
+};
+
+const uploadImages = (dataURI) => {
+  return new Promise (resolve => {
+    fetch('/review/image', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ dataURI: dataURI })
+    }).then(response => response.json())
+      .then(JSONresponse => resolve(JSONresponse.url));
+  });
+};
+
+/* ----- Rating Breakdown Helpers -----*/
 const computeAverageRating = (ratings) => {
   if (ratings.length === 0) { return; }
   let count = 0;
@@ -62,6 +80,7 @@ const computeRecommendedPercentage = (recommended) => {
   return (trueCount / total * 100).toFixed(0) + '%';
 };
 
+/* ----- Product Breakdown Helpers ----- */
 const formatCharacteristics = (characteristics) => {
   let formattedCharacteristics = [];
   for (let characteristic in characteristics) {
@@ -74,6 +93,103 @@ const formatCharacteristics = (characteristics) => {
   return formattedCharacteristics;
 };
 
+const productCharacteristics = {
+  'Size': {
+    1: 'A size too small',
+    2: '½ a size too small',
+    3: 'Perfect',
+    4: '½ a size too big',
+    5: 'A size too wide'
+  },
+  'Width': {
+    1: 'Too narrow',
+    2: 'Slightly narrow',
+    3: 'Perfect',
+    4: 'Slightly wide',
+    5: 'Too wide'
+  },
+  'Comfort': {
+    1: 'Uncomfortable',
+    2: 'Slightly uncomfortable',
+    3: 'Ok',
+    4: 'Comfortable',
+    5: 'Perfect'
+  },
+  'Quality': {
+    1: 'Poor',
+    2: 'Below average',
+    3: 'What I expected',
+    4: 'Pretty great',
+    5: 'Perfect'
+  },
+  'Length': {
+    1: 'Runs short',
+    2: 'Runs slightly short',
+    3: 'Perfect',
+    4: 'Runs slightly long',
+    5: 'Runs long'
+  },
+  'Fit': {
+    1: 'Runs tight',
+    2: 'Runs slightly tight',
+    3: 'Perfect',
+    4: 'Runs slightly long',
+    5: 'Runs long'
+  }
+};
+
+/* ----- Review Tile Helpers ----- */
+const formatDate = (dateString) => {
+  let [year, month, day] = dateString.split('-');
+  const months = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+  };
+  return months[month] + ' ' + day + ', ' + year;
+};
+
+const formatReviewTile = (review) => {
+  let summary = review.summary.length > 60 ? review.summary.slice(0, 61) + '...' : review.summary;
+
+  let body = review.body;
+  let additionalBody = '';
+  let showAdditionalBodyButton = false;
+  if (review.body.length > 250) {
+    additionalBody = review.body.slice();
+    body = review.body.slice(0, 251) + '...';
+    showAdditionalBodyButton = true;
+  }
+
+  let showPhotos = review.photos.length !== 0;
+
+  let helpful = 0;
+  let showAddHelpfulButton = true;
+  let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
+  if (currentHelpfulReviews.indexOf(review.review_id) !== -1) {
+    helpful = 1;
+    showAddHelpfulButton = false;
+  }
+
+  let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
+  let reportStatus = currentReportedReviews.indexOf(review.review_id) !== -1;
+
+  let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
+  showAddHelpfulButton = allHelpfulReviews && allHelpfulReviews.indexOf(review.review_id) === -1;
+
+  return { summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus };
+};
+
+/* ----- Filtering Helpers ----- */
 const sortReviews = (reviews, option) => {
   if (reviews.length === 0) {
     return [];
@@ -136,82 +252,7 @@ const applyKeyword = (reviews, keyword) => {
   return output;
 };
 
-const formatReviewTile = (review) => {
-  let summary = review.summary.length > 60 ? review.summary.slice(0, 61) + '...' : review.summary;
-
-  let body = review.body;
-  let additionalBody = '';
-  let showAdditionalBodyButton = false;
-  if (review.body.length > 250) {
-    additionalBody = review.body.slice();
-    body = review.body.slice(0, 251) + '...';
-    showAdditionalBodyButton = true;
-  }
-
-  let showPhotos = review.photos.length !== 0;
-
-  let helpful = 0;
-  let showAddHelpfulButton = true;
-  let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-  if (currentHelpfulReviews.indexOf(review.review_id) !== -1) {
-    helpful = 1;
-    showAddHelpfulButton = false;
-  }
-
-  let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
-  let reportStatus = currentReportedReviews.indexOf(review.review_id) !== -1;
-
-  let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
-  showAddHelpfulButton = allHelpfulReviews && allHelpfulReviews.indexOf(review.review_id) === -1;
-
-  return { summary, body, additionalBody, showAdditionalBodyButton, showPhotos, helpful, showAddHelpfulButton, reportStatus };
-};
-
-const productCharacteristics = {
-  'Size': {
-    1: 'A size too small',
-    2: '½ a size too small',
-    3: 'Perfect',
-    4: '½ a size too big',
-    5: 'A size too wide'
-  },
-  'Width': {
-    1: 'Too narrow',
-    2: 'Slightly narrow',
-    3: 'Perfect',
-    4: 'Slightly wide',
-    5: 'Too wide'
-  },
-  'Comfort': {
-    1: 'Uncomfortable',
-    2: 'Slightly uncomfortable',
-    3: 'Ok',
-    4: 'Comfortable',
-    5: 'Perfect'
-  },
-  'Quality': {
-    1: 'Poor',
-    2: 'Below average',
-    3: 'What I expected',
-    4: 'Pretty great',
-    5: 'Perfect'
-  },
-  'Length': {
-    1: 'Runs short',
-    2: 'Runs slightly short',
-    3: 'Perfect',
-    4: 'Runs slightly long',
-    5: 'Runs long'
-  },
-  'Fit': {
-    1: 'Runs tight',
-    2: 'Runs slightly tight',
-    3: 'Perfect',
-    4: 'Runs slightly long',
-    5: 'Runs long'
-  }
-};
-
+/* ----- Review Form Helpers -----*/
 const starDescriptions = {
   1: 'Poor',
   2: 'Fair',
@@ -225,52 +266,8 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
-const handleAddHelpful = (reviewId) => {
-  return new Promise (resolve => {
-    fetch(`reviews/${reviewId}/helpful`, {
-      method: 'PUT'
-    }).then(() => {
-      let currentHelpfulReviews = JSON.parse(sessionStorage.getItem('helpfulReviews'));
-      currentHelpfulReviews.push(reviewId);
-      sessionStorage.setItem('helpfulReviews', JSON.stringify(currentHelpfulReviews));
-
-      let allHelpfulReviews = JSON.parse(localStorage.getItem('helpfulReviews'));
-      allHelpfulReviews.push(reviewId);
-      localStorage.setItem('helpfulReviews', JSON.stringify(allHelpfulReviews));
-    }).then(() => resolve());
-  });
-};
-
-const handleReport = (reviewId) => {
-  return new Promise (resolve => {
-    fetch(`reviews/${reviewId}/report`, {
-      method: 'PUT'
-    }).then(() => {
-      let currentReportedReviews = JSON.parse(sessionStorage.getItem('reportedReviews'));
-      currentReportedReviews.push(reviewId);
-      sessionStorage.setItem('reportedReviews', JSON.stringify(currentReportedReviews));
-    }).then(() => resolve());
-  });
-};
-
-const uploadImages = (dataURI) => {
-  return new Promise (resolve => {
-    fetch('/review/image', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ dataURI: dataURI })
-    }).then(response => response.json())
-      .then(JSONresponse => resolve(JSONresponse.url));
-  });
-};
-
-
 module.exports = {
   formatDate,
-  fetchReviews,
   computeAverageRating,
   computeRatingBreakdown,
   computeRecommendedPercentage,
