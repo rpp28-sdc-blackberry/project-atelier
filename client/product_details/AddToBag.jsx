@@ -1,5 +1,6 @@
 import React from 'react';
 import AddToBagButton from './AddToBagButton.jsx';
+import DropdownTemplate from './DropdownTemplate.jsx';
 const $ = require('jquery');
 
 class AddToBag extends React.Component {
@@ -8,9 +9,11 @@ class AddToBag extends React.Component {
 
     this.state = {
       selectedSize: 'SELECT SIZE',
+      availableSizes: null,
+      availableQuantities: null,
       selectedQuantity: '-',
-      maxQuantity: 1,
       showMessage: false,
+      expandSizeSelectDropdown: false
     };
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -18,14 +21,32 @@ class AddToBag extends React.Component {
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.handleAddToBagSubmit = this.handleAddToBagSubmit.bind(this);
   }
+  
+  componentDidMount() {
+    var sizesArr = [];
+    for (var i = 0; i < this.props.availableSizes.length; i++) {
+      sizesArr.push(this.props.availableSizes[i][0]);
+    }
 
-  handleSizeChange(e) {
-    var selectedSize = e.target.value;
-    this.updateMaxQuantity(selectedSize);
+    var defaultSizeOption = this.props.availableSizes.length === 0 ? 'OUT OF STOCK' : 'SELECT SIZE';
+
     this.setState({
-      selectedSize: selectedSize,
+      selectedSize: defaultSizeOption,
+      availableSizes: sizesArr
+    });
+  }
+
+  handleSizeChange(size) {
+    var maxQuantity = this.updateMaxQuantity(size);
+    var quantityArr = [];
+    for (var i = 1; i < (maxQuantity + 1); i++) {
+      quantityArr.push(i);
+    }
+    this.setState({
+      selectedSize: size,
       selectedQuantity: 1,
-      showMessage: false
+      showMessage: false,
+      availableQuantities: quantityArr
     });
   }
 
@@ -39,15 +60,13 @@ class AddToBag extends React.Component {
     if (maxAvailable > 15) {
       maxAvailable = 15;
     }
-    this.setState({
-      maxQuantity: maxAvailable
-    });
+    return maxAvailable;
   }
-  
-  handleQuantityChange(e) {
-    var selectedQuantity = e.target.value;
+
+  handleQuantityChange(quantity) {
+    var quantity = Number(quantity);
     this.setState({
-      selectedQuantity: selectedQuantity
+      selectedQuantity: quantity
     });
   }
 
@@ -69,13 +88,15 @@ class AddToBag extends React.Component {
         body: JSON.stringify(options)
       })
         .then((response) => {
-          console.log('Posted cart!');
+          this.setState({
+            showMessage: false,
+          });
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      // TODO: Add code to open the size dropdown
+      $('.addtobag-size-dd-header').trigger('click');
       this.setState({
         showMessage: true
       });
@@ -83,29 +104,36 @@ class AddToBag extends React.Component {
   }
 
   render() {
-    var quantityArr = [];
-    for (var i = 1; i < (this.state.maxQuantity + 1); i++) {
-      quantityArr.push(i);
-    }
-    var defaultSizeOption = !this.props.availableSizes[0] ? 'OUT OF STOCK' : 'SELECT SIZE';
-    var defaultQuantity = this.state.selectedSize === 'SELECT SIZE' ? '-' : 1;
-
     return (
-      <div id="addToBag">
-        {this.state.showMessage ? <a id="errorMessage">Please Select Size</a> : null}
+      <div id="addtobag">
+        {this.state.showMessage ? <div id="errorMessage">Please select size.</div> : null}
         <br></br>
-        <select name={this.state.selectedSize} id="selectSize" placeholder={defaultSizeOption} onChange={this.handleSizeChange}>
-          <option value={defaultSizeOption}>{defaultSizeOption}</option>
-          {this.props.availableSizes.map((size) => <option value={size[0]}>{size[0]}</option>)}
-        </select>
-        <select name={this.state.selectedQuantity} id="selectQuantity" placeholder={defaultQuantity} onChange={this.handleQuantityChange}>
-          {this.state.selectedSize === 'SELECT SIZE' ? <option value="-">-</option> : null}
-          {quantityArr.map((quantity) => <option value={quantity}>{quantity}</option>)}
-        </select><br></br>
-        <AddToBagButton 
-          handleAddToBagSubmit={this.handleAddToBagSubmit}
-          availableSizes={this.props.availableSizes}/>
-        <button id="starButton">&#9734;</button>
+        <div className="addtobag">
+          <div className="addtobag-dropdowns">
+            <DropdownTemplate 
+              title={this.state.selectedSize}
+              selectName="size"
+              list={this.state.availableSizes}
+              resetThenSet={this.handleSizeChange}
+            />
+            <DropdownTemplate
+              title={this.state.selectedQuantity}
+              selectName="quantity" 
+              list={this.state.availableQuantities}
+              resetThenSet={this.handleQuantityChange}
+            />
+          </div>
+          <div className="addtobag-buttons">
+            {this.state.selectedSize === 'OUT OF STOCK' ? 
+              null :
+              <AddToBagButton 
+                handleAddToBagSubmit={this.handleAddToBagSubmit}
+                availableSizes={this.props.availableSizes}/>         
+            }
+            {this.props.currProductAddedToOutfit ? <button disabled id="starButton">&#9734;</button> :
+              <button onClick={this.props.addToOutfit(true)} id="starButton">&#9734;</button>}
+          </div>
+        </div>
       </div>
     );
   }

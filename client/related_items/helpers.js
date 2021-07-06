@@ -102,6 +102,32 @@ const findComparisonFeatures = (mainFeatures, comparisonFeatures) => {
   return allFeatures;
 };
 
+const hideArrows = (cardStrip) => {
+  let childNodes = cardStrip.children;
+  let leftArrow = childNodes[0];
+  let rightArrow = childNodes[childNodes.length - 1];
+  let firstCard = childNodes[1];
+  let lastCard = childNodes[childNodes.length - 2];
+  let xPosFirstCard = firstCard.getBoundingClientRect().x;
+  let xPosStrip = cardStrip.getBoundingClientRect().x;
+  let xEdgeLastCard = lastCard.getBoundingClientRect().x + lastCard.getBoundingClientRect().width;
+  let xEdgeCardStrip = cardStrip.getBoundingClientRect().x + cardStrip.getBoundingClientRect().width;
+
+  if (xPosFirstCard < xPosStrip) {
+    leftArrow.style.display = 'flex';
+  } else if (xPosFirstCard === xPosStrip) {
+    leftArrow.style.display = 'none';
+  } else {
+    leftArrow.style.display = 'none';
+  }
+
+  if (xEdgeCardStrip - xEdgeLastCard >= 8) {
+    rightArrow.style.display = 'none';
+  } else {
+    rightArrow.style.display = 'flex';
+  }
+};
+
 const preventScroll = () => {
   let elem = document.getElementsByTagName('body')[0];
 
@@ -112,4 +138,4 @@ const preventScroll = () => {
   }
 };
 
-module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures, preventScroll };
+module.exports = { getRelatedItems, getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, defineMainProduct, findComparisonFeatures, hideArrows, preventScroll };

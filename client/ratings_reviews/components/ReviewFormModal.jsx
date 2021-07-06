@@ -17,10 +17,12 @@ class ReviewFormModal extends React.Component {
       characteristics: {},
       photoCount: 0,
       show: false,
-      showUploadPhotosButton: true
+      showUploadPhotosButton: true,
+      minimumBodyChar: 50
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
+    this.handleStar = this.handleStar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -29,14 +31,20 @@ class ReviewFormModal extends React.Component {
   handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
+    let charactersLeft = this.state.minimumBodyChar;
     if (name.slice(0, 15) === 'characteristics') {
       let currentCharacteristics = this.state.characteristics;
       currentCharacteristics[e.target.className.toString()] = Number.parseInt(value);
       value = currentCharacteristics;
       name = name.slice(0, 15);
     }
+    if (name === 'body') {
+      let valueWithOutSpace = value.replace(/\s+/g, 'z');
+      charactersLeft = valueWithOutSpace.length >= 50 ? 0 : 50 - valueWithOutSpace.length;
+    }
     this.setState({
-      [name]: value
+      [name]: value,
+      minimumBodyChar: charactersLeft
     });
   }
 
@@ -71,6 +79,16 @@ class ReviewFormModal extends React.Component {
       });
     };
     reader.readAsDataURL(photo);
+  }
+
+  handleStar(e) {
+    let starValue = Number.parseInt(e.target.value);
+    let starDescription = helpers.starDescriptions[starValue];
+    this.setState({
+      rating: starValue
+    }, () => {
+      $('#review-form-star-description').text(starDescription);
+    });
   }
 
   handleSubmit(e) {
@@ -120,19 +138,26 @@ class ReviewFormModal extends React.Component {
   }
 
   validateForm() {
-    let valid = true;
     let properties = ['rating', 'summary', 'body', 'name', 'email', 'characteristics'];
-    properties.forEach(property => {
-      let invalidCharacteristics = (property === 'characteristics' && Object.keys(this.state[property]).length !== Object.keys(this.props.meta.characteristics).length);
-      let invalidEmail = (property === 'email' && this.state[property].indexOf('@') === -1);
-      if (invalidEmail || invalidCharacteristics || this.state[property] === '') {
-        $('#review-form-' + property).text('*required');
-        valid = false;
+    let warningText = '';
+    for (let i = 0; i < properties.length; i++) {
+      let property = properties[i];
+      if ((property === 'rating' && this.state.rating === '') ||
+      (property === 'summary' && (this.state.summary.replace(/\s+/g, 'z').length > 60 || this.state.summary === '')) ||
+      (property === 'body' && this.state.minimumBodyChar !== 0) ||
+      (property === 'name' && this.state.name === '') ||
+      (property === 'email' && !helpers.validateEmail(this.state.email)) ||
+      (property === 'characteristics' && Object.keys(this.state.characteristics).length !== Object.keys(this.props.meta.characteristics).length)) {
+        warningText += '\n' + property;
+        $('#review-form-' + property).text('required');
       } else {
         $('#review-form-' + property).text('');
       }
-    });
-    return valid;
+    }
+    if (warningText !== '') {
+      alert('You must enter the following:' + warningText);
+    }
+    return warningText === '';
   }
 
   render() {
@@ -155,20 +180,21 @@ class ReviewFormModal extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <div className='review-form-modal-body'>
               <div>
-                <label class='review-form-sub-heading'>Overall rating:</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
-                <div>
-                  <select id='review-form-overall-rating' name='rating' value={this.state.rating} onChange={this.handleChange}>
-                    <option value=''>--Please choose an option--</option>
-                    <option value={5}>5</option>
-                    <option value={4}>4</option>
-                    <option value={3}>3</option>
-                    <option value={2}>2</option>
-                    <option value={1}>1</option>
-                  </select>
+                <label class='review-form-sub-heading'>Overall rating*</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
+                <div id='review-form-star-container'>
+                  <div class='review-form-star-rating'>
+                    <input id='star5' name='star' type='radio' value='5' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star5' >☆</label>
+                    <input id='star4' name='star' type='radio' value='4' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star4' >☆</label>
+                    <input id='star3' name='star' type='radio' value='3' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star3' >☆</label>
+                    <input id='star2' name='star' type='radio' value='2' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star2' >☆</label>
+                    <input id='star1' name='star' type='radio' value='1' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star1' >☆</label>
+                    <div class="review-form-star-clear"></div>
+                  </div>
+                  <div id='review-form-star-description'></div>
                 </div>
               </div>
               <div id='review-form-recommend'>
-                <label class='review-form-sub-heading'>Do you recommend this product?</label>
+                <label class='review-form-sub-heading'>Do you recommend this product?*</label>
                 <div>
                   <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
                   <label for='recommend'>Yes</label>
@@ -179,22 +205,23 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Characteristics:</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Characteristics*</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
                 <div class='review-form-all-characteristics'>
                   {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review summary:</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Review summary*</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='summary' type='text' maxlength='60' size='70' placeholder='Example: Best purchase ever!' value={this.state.summary} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review body:</label><span id='review-form-body' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Review body*</label><span id='review-form-body' class='review-form-invalid-warning'></span>
                 <div>
                   <textarea id='review-form-body' name='body' rows='10' cols='70' placeholder='Why did you like the product or not?' value={this.state.body} onChange={this.handleChange}></textarea>
                 </div>
+                <span class='review-form-characteristic-description'>Mininum required character left: {this.state.minimumBodyChar}</span>
               </div>
               <div>
                 <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
@@ -205,16 +232,18 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your nickname:</label><span id='review-form-name' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Your nickname*</label><span id='review-form-name' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
+                <span class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</span>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your email:</label><span id='review-form-email' class='review-form-invalid-warning'></span>
+                <label class='review-form-sub-heading'>Your email*</label><span id='review-form-email' class='review-form-invalid-warning'></span>
                 <div>
                   <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
+                <span class='review-form-characteristic-description'>For authentication reasons, you will not be emailed</span>
               </div>
               <div>
                 <button class='review-button'>SUBMIT REVIEW</button>

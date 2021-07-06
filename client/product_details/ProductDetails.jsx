@@ -69,7 +69,9 @@ class ProductDetails extends React.Component {
     if (this.props.selectedStyle) {
       var skus = this.props.selectedStyle.skus;
       for (var key in skus) {
-        availableSizes.push([skus[key]['size'], skus[key]['quantity'], key]);
+        if (key !== null && key !== 'null') {
+          availableSizes.push([skus[key]['size'], skus[key]['quantity'], key]);
+        }
       }
     }
 
@@ -91,7 +93,9 @@ class ProductDetails extends React.Component {
               handleLeftClick={this.handleLeftClick}
               handleRightClick={this.handleRightClick}/>
             <div id="info">
-              <StarRating />
+              <StarRating 
+                averageRating={this.props.averageRating}
+                reviewsNumber={this.props.reviewsNumber}/>
               <ProductInfo 
                 info={this.props.info} 
                 selectedStyle={this.props.selectedStyle}/>
@@ -102,7 +106,9 @@ class ProductDetails extends React.Component {
                 selectedStyle={this.props.selectedStyle}/>
               <AddToBag 
                 selectedStyle={this.props.selectedStyle} 
-                availableSizes={availableSizes}/>
+                availableSizes={availableSizes}
+                addToOutfit={this.props.addToOutfit}
+                currProductAddedToOutfit={this.props.currProductAddedToOutfit}/>
             </div> 
           </div> :
           <div id="firstPanelExpanded">
@@ -123,7 +129,7 @@ class ProductDetails extends React.Component {
         <div id="secondPanel">
           <OverviewDescription info={this.props.info}/>
           <OverviewFeatures info={this.props.info}/>
-          <ShareToSocialMedia />
+          <ShareToSocialMedia currPhotoIndex={this.state.currPhotoIndex} selectedStyle={this.props.selectedStyle}/>
         </div>
       </div>
     );

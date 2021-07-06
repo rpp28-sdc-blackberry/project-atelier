@@ -2,6 +2,7 @@ import React from 'react';
 import AddToOutfit from './AddToOutfit.jsx';
 import OutfitCard from './OutfitCard.jsx';
 import { defineMainProduct } from './helpers.js';
+import { hideArrows } from './helpers.js';
 
 class OutfitList extends React.Component {
   constructor(props) {
@@ -29,6 +30,9 @@ class OutfitList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.info.id !== this.props.info.id) { this.initialize(); }
+    if (prevProps.currProductAddedToOutfit !== this.props.currProductAddedToOutfit) {
+      this.addToOutfit();
+    }
   }
 
   initialize() {
@@ -43,10 +47,15 @@ class OutfitList extends React.Component {
     } else {
       let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
       this.setState({ outfits: storedOutfits });
+      storedOutfits.forEach(outfit => {
+        if (outfit.id === mainProduct.id) {
+          this.props.addCurrProductToOutfit(true);
+        }
+      });
     }
   }
 
-  addToOutfit() {
+  addToOutfit(outfit) {
     let storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     let mainProduct = this.state.mainProduct;
     let foundDuplicate = false;
@@ -61,6 +70,7 @@ class OutfitList extends React.Component {
       storedOutfits.push(mainProduct);
       localStorage.setItem('outfits', JSON.stringify(storedOutfits));
       this.setState({ outfits: storedOutfits });
+      this.props.addCurrProductToOutfit(true);
     }
   }
 
@@ -83,17 +93,21 @@ class OutfitList extends React.Component {
   }
 
   scrollLeft(e) {
-    e.target.parentNode.scrollLeft += 320;
+    let cardStrip = e.target.parentNode;
+    cardStrip.scrollLeft += 320;
+    setTimeout(() => hideArrows(cardStrip), 250);
   }
 
   scrollRight(e) {
+    let cardStrip = e.target.parentNode;
     e.target.parentNode.scrollLeft -= 320;
+    setTimeout(() => hideArrows(cardStrip), 250);
   }
 
   render() {
     return (
       <div className='rp-strip'>
-        <div id='rp-left-arrow' onClick={this.scrollRight}>
+        <div className='rp-left-arrow' onClick={this.scrollRight}>
           {'<'}
         </div>
 
@@ -104,7 +118,7 @@ class OutfitList extends React.Component {
           removeFromOutfit={this.removeFromOutfit}
           handleRelatedItemClick={this.props.handleRelatedItemClick} />)}
 
-        <div id='rp-right-arrow' onClick={this.scrollLeft}>
+        <div className='rp-right-arrow' onClick={this.scrollLeft}>
           {'>'}
         </div>
       </div>

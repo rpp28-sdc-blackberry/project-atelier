@@ -23,12 +23,15 @@ class App extends React.Component {
       styleInfo: null,
       indexStyleSelected: null,
       meta: null,
-      averageRating: null
+      averageRating: null,
+      reviews: null,
+      currProductAddedToOutfit: false
     };
 
     this.handleStyleSelection = this.handleStyleSelection.bind(this);
     this.handleRelatedItemClick = this.handleRelatedItemClick.bind(this);
     this.initialize = this.initialize.bind(this);
+    this.addCurrProductToOutfit = this.addCurrProductToOutfit.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +39,11 @@ class App extends React.Component {
   }
 
   initialize(productId = '22122') {
-    Promise.all([fetch(`/products/${productId}`), fetch(`/products/${productId}/styles`), fetch(`/reviews/meta?product_id=${productId}`)])
+    Promise.all([fetch(`/products/${productId}`),
+      fetch(`/products/${productId}/styles`),
+      fetch(`/reviews/meta?product_id=${productId}`),
+      fetch(`reviews/?product_id=${productId}&page=1&count=1000&sort=relevant`)
+    ])
       .then((responses) => {
         return Promise.all(responses.map(response => response.json()));
       })
@@ -55,7 +62,8 @@ class App extends React.Component {
           indexStyleSelected: indexStyleSelected || 0,
           styleInfo: data.results,
           meta: parsedResponses[2],
-          averageRating: computeAverageRating(parsedResponses[2].ratings)[1]
+          averageRating: computeAverageRating(parsedResponses[2].ratings)[1],
+          reviews: parsedResponses[3].results
         });
       })
       .catch((error) => {
@@ -76,6 +84,12 @@ class App extends React.Component {
   handleRelatedItemClick(id) {
     let newId = id.toString();
     this.initialize(newId);
+  }
+  
+  addCurrProductToOutfit(boolean) {
+    this.setState({
+      currProductAddedToOutfit: boolean
+    });
   }
 
   render() {
@@ -101,20 +115,27 @@ class App extends React.Component {
           selectedStyle={this.state.selectedStyle}
           styleInfo={this.state.styleInfo}
           indexStyleSelected={this.state.indexStyleSelected}
-          handleStyleSelection={this.handleStyleSelection}/>
+          handleStyleSelection={this.handleStyleSelection}
+          averageRating={this.state.averageRating}
+          reviewsNumber={this.state.reviews.length}
+          addToOutfit={this.addCurrProductToOutfit}
+          currProductAddedToOutfit={this.state.currProductAddedToOutfit}/>
         <WrappedRelatedItems
           product_id={this.state.product_id}
           info={this.state.info}
           selectedStyle={this.state.selectedStyle}
           averageRating={this.state.averageRating}
-          handleRelatedItemClick={this.handleRelatedItemClick}/>
+          handleRelatedItemClick={this.handleRelatedItemClick}
+          currProductAddedToOutfit={this.state.currProductAddedToOutfit}
+          addCurrProductToOutfit={this.addCurrProductToOutfit}/>
         <WrappedQuestionsAnswers
           product_id={this.state.product_id}
           name={this.state.info.name}/>
         <WrappedRatingsReviews
           product_id={this.state.product_id}
           info={this.state.info}
-          meta={this.state.meta}/>
+          meta={this.state.meta}
+          reviews={this.state.reviews}/>
       </div>
     );
   }

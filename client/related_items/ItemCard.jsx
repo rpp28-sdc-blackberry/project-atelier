@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProductInfo, getProductStyles, getProductRatings, findDefaultStyle } from './helpers.js';
+import { getProductInfo, getProductStyles, getProductRatings, findDefaultStyle, hideArrows } from './helpers.js';
 import { computeAverageRating } from '../ratings_reviews/helpers.js';
 
 class ItemCard extends React.Component {
@@ -38,7 +38,7 @@ class ItemCard extends React.Component {
               : price = defaultStyle.sale_price;
 
             !defaultStyle.photos[0].thumbnail_url
-              ? thumbnailUrl = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081'
+              ? thumbnailUrl = '/images/no-image.png'
               : thumbnailUrl = defaultStyle.photos[0].thumbnail_url;
 
             this.setState({
@@ -56,6 +56,11 @@ class ItemCard extends React.Component {
           rating: averageRating
         });
       });
+
+    const firstStrip = document.getElementsByClassName('rp-strip')[0];
+    const secondStrip = document.getElementsByClassName('rp-strip')[1];
+    hideArrows(firstStrip);
+    hideArrows(secondStrip);
   }
 
   render() {
@@ -68,7 +73,7 @@ class ItemCard extends React.Component {
           <div className='rp-card-action' id='rp-card-compare' onClick={(e) => this.props.toggleModal(e, features, name)}> </div>
         </div>
         <div id='rp-thumbnail-container'>
-          <img id='rp-thumbnail-image' src={this.state.thumbnailUrl}></img>
+          <img id='rp-thumbnail-image' alt={this.state.name} src={this.state.thumbnailUrl}></img>
         </div>
         <div id='rp-content-container'>
           <p id='rp-card-category'>{this.state.category}</p>
