@@ -125,7 +125,7 @@ class ReviewFormModal extends React.Component {
         photoCount: 0,
         show: false,
         showUploadPhotosButton: true
-      }, this.props.closeModal);
+      }, this.props.toggleModal);
     }).catch((error) => {
       console.log(error);
     });
@@ -171,7 +171,7 @@ class ReviewFormModal extends React.Component {
       );
     }
     return (
-      <div className='review-form-modal' onClick={this.props.closeModal}>
+      <div className='review-form-modal' onClick={this.props.toggleModal}>
         <div className='review-form-modal-content' onClick={e => e.stopPropagation()}>
           <div className='review-form-modal-header'>
             <div>Write Your Review</div>

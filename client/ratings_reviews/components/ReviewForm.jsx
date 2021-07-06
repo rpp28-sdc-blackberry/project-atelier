@@ -7,27 +7,20 @@ class ReviewForm extends React.Component {
     this.state = {
       show: false
     };
-    this.showModal = this.showModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  showModal() {
+  toggleModal() {
     this.setState({
-      show: true
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      show: false
+      show: !this.state.show
     });
   }
 
   render() {
     return (
       <div>
-        <button id='review-form-add-button' class='review-button' onClick={this.showModal}>ADD A REVIEW +</button>
-        <ReviewFormModal show={this.state.show} closeModal={this.closeModal} productName={this.props.productName} meta={this.props.meta}/>
+        <button id='review-form-add-button' class='review-button' onClick={this.toggleModal}>ADD A REVIEW +</button>
+        <ReviewFormModal show={this.state.show} toggleModal={this.toggleModal} productName={this.props.productName} meta={this.props.meta}/>
       </div>
     );
   }
