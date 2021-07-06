@@ -9,16 +9,16 @@ const RatingBreakdown = (props) => {
   let recommended = helpers.computeRecommendedPercentage(props.meta.recommended);
   if (!$.isEmptyObject(props.meta.ratings)) {
     return (
-      <div class='review-rating-breakdown'>
-        <div class='review-average-rating'>
-          <span class='review-average-rating-number'>{averageRating[0]}</span>
+      <div id='review-rating-breakdown-overall-container'>
+        <div id='review-average-rating-container'>
+          <span id='review-average-rating-number'>{averageRating[0]}</span>
           <span class="stars" style={{'--rating': averageRating[1]}}></span>
         </div>
-        <div class='review-recommended-percentage'>
+        <div id='review-recommended-percentage'>
           <span>{recommended} of reviews recommended this product</span>
         </div>
-        <div class='review-filter-panel'>
-          <div id='review-filter-panel-title'>Rating Breakdown</div>
+        <div id='review-filter-summary-container'>
+          <div id='review-filter-summary-title'>Rating Breakdown</div>
           <div>Currently applied filters: {props.starFilters.map(starFilter => starFilter + ' ')}</div>
           <div
             class='review-clickable'
@@ -27,7 +27,7 @@ const RatingBreakdown = (props) => {
             Remove all filters
           </div>
         </div>
-        <div class='review-rating-bar'>
+        <div id='review-rating-bar-container'>
           {[...Array(5).keys()].reverse().map(x =>
             <RatingBreakdownBar
               star={x + 1}
@@ -39,12 +39,12 @@ const RatingBreakdown = (props) => {
     );
   }
   return (
-    <div class='review-rating-breakdown'>
-      <div class='review-average-rating'>
-        <span class='review-average-rating-number'>0</span>
+    <div id='review-rating-breakdown-overall-container'>
+      <div id='review-average-rating-container'>
+        <span id='review-average-rating-number'>0</span>
         <span class="stars" style={{'--rating': 0}}></span>
       </div>
-      <div class='review-rating-bar'>
+      <div id='review-rating-bar-container'>
         {[...Array(5).keys()].reverse().map(x =>
           <RatingBreakdownBar
             star={x + 1}

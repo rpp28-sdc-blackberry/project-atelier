@@ -780,42 +780,36 @@ html {
 }
 
 /* ----- Rating Breakdown ----- */
-.review-rating-breakdown {
-  padding-bottom: 8%;
-}
-
-.review-rating-breakdown > * {
-  margin-bottom: 5%;
-}
-
-.review-average-rating > * {
-  margin-right: 3%;
-}
-
-.review-average-rating-number {
-  font-size: 300%;
-}
-
-.review-filter-panel {
-  margin: 1%;
+#review-rating-breakdown-overall-container {
+  margin-bottom: 10%;
   font-size: 95%;
 }
 
-.review-filter-panel > * {
-  margin: 1%;
-  padding: 1%;
+#review-rating-breakdown-overall-container > * {
+  margin-bottom: 5%;
 }
 
-#review-filter-panel-title {
+#review-average-rating-container > * {
+  margin-right: 3%;
+}
+
+#review-average-rating-number {
+  font-size: 300%;
+}
+
+#review-filter-summary-container > * {
+  margin-bottom: 3%;
+}
+
+#review-filter-summary-title {
   text-align: center;
   font-weight: bold;
 }
 
-.review-rating-bar {
+#review-rating-bar-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 95%;
 }
 
 .review-breakdown-bar {
@@ -839,10 +833,6 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
   background-color: rgb(49, 52, 44);
   border-radius: 20px;
-}
-
-.review-breakdown-freq {
-  text-decoration: none;
 }
 
 /* Product Breakdown */
