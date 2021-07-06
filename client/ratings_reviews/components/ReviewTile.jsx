@@ -34,8 +34,10 @@ class ReviewTile extends React.Component {
     }, () => {
       if ($(e.target).text() === 'Show More') {
         $(e.target).text('Show Less');
+        $(e.target.parentElement).attr('style', 'height: auto');
       } else {
         $(e.target).text('Show More');
+        $(e.target.parentElement).attr('style', 'height: 220px');
       }
     });
   }
@@ -85,30 +87,36 @@ class ReviewTile extends React.Component {
   render() {
     return (
       <div class='review-tile'>
+        {/*----- top panel -----*/}
         <div class='review-tile-top-panel'>
-          <span class="stars" style={{'--rating': this.props.review.rating}}></span>
+          <span class='stars' style={{'--rating': this.props.review.rating}}></span>
           <span>{this.props.review.reviewer_name}, {helpers.formatDate(this.props.review.date.slice(0, 10))}</span>
         </div>
+        {/*----- summary -----*/}
         <div
           class='review-summary'>
           {this.state.summary}
         </div>
+        {/*----- body -----*/}
         <div
           class='review-body'
           hidden={!this.state.showBody}>
           {this.state.body}
         </div>
+        {/*----- additional body (shown and disappeared when toggled) -----*/}
         <div
           class='review-additional-body'
           hidden={!this.state.showAdditionalBody}>
           {this.state.additionalBody}
         </div>
+        {/*----- additional body button -----*/}
         <div
           class='review-additional-body-button review-clickable'
           hidden={!this.state.showAdditionalBodyButton}
           onClick={this.toggleAdditionalBody}>
           Show More
         </div>
+        {/*----- photos-----*/}
         <div
           class='review-photos'
           hidden={!this.state.showPhotos}>
@@ -117,16 +125,19 @@ class ReviewTile extends React.Component {
               photo={photo}
               showPhotos={this.state.showPhotos}/>)}
         </div>
+        {/*----- user recommendation -----*/}
         <div
-          class='user-recommend'
+          class='review-user-recommend'
           hidden={!this.state.showRecommend}>
           I recommend this product!
         </div>
+        {/*----- seller response -----*/}
         <div
-          class='seller-response'
+          class='review-seller-response'
           hidden={!this.state.showResponse}>
           Response: {this.props.review.response}
         </div>
+        {/*----- bottom panel -----*/}
         <div class='review-bottom-panel'>
           <span>Helpful?</span>
           {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}

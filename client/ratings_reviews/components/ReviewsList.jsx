@@ -101,21 +101,32 @@ class ReviewsList extends React.Component {
   render() {
     if (this.state.allReviews.length !== 0) {
       return (
-        <div key={this.props.reviews[0].review_id} class='reviews-list'>
-          <div class='reviews-list-tiles'>{this.state.currentReviews.map(review => <ReviewTile review={review}/>)}</div>
+        <div key={this.props.reviews[0].review_id} id='reviews-list-overall-container'>
+          <div id='reviews-list-tile-container'>{this.state.currentReviews.map(review =>
+            <ReviewTile review={review}/>)}
+          </div>
           <div>
-            <button class='review-button review-more' onClick={this.showMoreReviews} hidden={!this.state.showMoreReviewsButton}>MORE REVIEWS</button>
-            <button class='review-button review-less' onClick={this.showLessReviews} hidden={!this.state.showLessReviewsButton}>LESS REVIEWS</button>
+            <button
+              class='review-button review-more'
+              onClick={this.showMoreReviews}
+              hidden={!this.state.showMoreReviewsButton}>
+              MORE REVIEWS
+            </button>
+            <button
+              class='review-button review-less'
+              onClick={this.showLessReviews}
+              hidden={!this.state.showLessReviewsButton}>
+              LESS REVIEWS
+            </button>
           </div>
         </div>
       );
-    } else {
-      return (
-        <div class='review-empty-reviews-list'>
-          Such emptiness! Be the first person to review this product!
-        </div>
-      );
     }
+    return (
+      <div>
+        Such emptiness! Be the first person to review this product!
+      </div>
+    );
   }
 }
 
