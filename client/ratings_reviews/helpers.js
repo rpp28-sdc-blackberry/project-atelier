@@ -279,20 +279,20 @@ const validateEmail = (email) => {
 };
 
 module.exports = {
+  handleAddHelpful,
+  handleReport,
+  uploadImages,
   postReview,
-  formatDate,
   computeAverageRating,
   computeRatingBreakdown,
   computeRecommendedPercentage,
   formatCharacteristics,
+  productCharacteristics,
+  formatDate,
+  formatReviewTile,
   sortReviews,
   applyStarFilters,
   applyKeyword,
-  formatReviewTile,
-  productCharacteristics,
   starDescriptions,
-  validateEmail,
-  handleAddHelpful,
-  handleReport,
-  uploadImages
+  validateEmail
 };
