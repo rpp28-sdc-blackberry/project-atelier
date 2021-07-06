@@ -2,7 +2,7 @@ import React from 'react';
 
 const SortingOptions = (props) => {
   return (
-    <div class='review-sorting-options'>
+    <div id='review-sorting-options-container'>
       <label for="options">{props.reviews.length} reviews, sorted by </label>
       <select
         value={props.sortingOption}
