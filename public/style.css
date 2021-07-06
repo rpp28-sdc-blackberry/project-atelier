@@ -1136,7 +1136,11 @@ input[type=range]::-webkit-slider-thumb {
 
 #review-form-modal-body > * > * {
   padding: 1% 0;
-  margin-bottom: 1% 0;
+  margin-bottom: 15% 0;
+}
+
+#review-form-submit-button {
+  padding: 10px;
 }
 
 .review-form-invalid-warning {

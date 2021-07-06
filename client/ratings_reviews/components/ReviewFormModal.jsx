@@ -331,7 +331,7 @@ class ReviewFormModal extends React.Component {
               </div>
               {/*----- submit -----*/}
               <div>
-                <button class='review-button'>SUBMIT REVIEW</button>
+                <button id='review-form-submit-button' class='review-button'>SUBMIT REVIEW</button>
               </div>
             </div>
           </form>
