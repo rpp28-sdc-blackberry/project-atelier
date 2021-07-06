@@ -751,57 +751,35 @@ html {
 
 /* --------------------- RATINGS AND REVIEWS --------------------- */
 
-/* Overall Ratings and Reviews */
-.review-overall-container {
+/* ----- Overall Ratings and Reviews ----- */
+#review-overall-container {
   font-family: arial, sans-serif;
   color: rgb(94, 86, 86);
   margin: 40px 10% 0 10%;
-  /* height: 100%;
-  overflow: auto; */
   overflow: hidden;
 }
 
-/* Containers */
-.review-overall-container > * {
-  margin: 1% 0;
-}
-
-.review-content-container {
-  display: flex;
-}
-
-.review-content-container > *{
-  margin: 1% 0;
-}
-
-.review-sub-container {
-  flex: 1;
-}
-
-.review-sub-container:first-child {
-  margin-right: 20px;
-}
-
-#review-left-container {
-  flex-basis: 10rem;
+/* ----- Containers ----- */
+#review-content-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  justify-items: auto;
 }
 
 #review-left-container > * {
-  margin-bottom: 5%;
+  margin: 2% 0 5% 0;
 }
 
 #review-right-container {
-  flex-basis: 50rem;
   height: 100%;
   overflow: auto;
 }
 
 #review-right-container > * {
-  margin-bottom: 2%;
-  margin-left: 2%;
+  margin: 2% 0 2% 2%;
 }
 
-/* Rating Breakdown */
+/* ----- Rating Breakdown ----- */
 .review-rating-breakdown {
   padding-bottom: 8%;
 }

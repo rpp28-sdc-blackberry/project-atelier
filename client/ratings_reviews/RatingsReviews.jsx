@@ -102,10 +102,10 @@ class RatingsReviews extends React.Component {
 
   render() {
     return (
-      <div class='review-overall-container' id='review-overall-container'>
+      <div id='review-overall-container'>
         <span>RATINGS & REVIEWS</span>
-        <div class='review-content-container'>
-          <div id='review-left-container' class='review-sub-container left'>
+        <div id='review-content-container'>
+          <div id='review-left-container'>
             <RatingBreakdown
               product_id={this.props.product_id}
               meta={this.props.meta}
@@ -116,7 +116,7 @@ class RatingsReviews extends React.Component {
             <ProductBreakdown
               meta={this.props.meta}/>
           </div>
-          <div id='review-right-container' class='review-sub-container right'>
+          <div id='review-right-container'>
             <SearchBar
               handleSearch={this.handleSearch}/>
             <SortingOptions
