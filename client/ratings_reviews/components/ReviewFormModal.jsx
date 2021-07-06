@@ -55,28 +55,24 @@ class ReviewFormModal extends React.Component {
     let dataURI;
     reader.onload = () => {
       dataURI = reader.result;
-      $.ajax({
-        url: '/review/image',
-        method: 'POST',
-        dataType: 'text',
-        data: {
-          dataURI: dataURI
-        }
-      }).then((cloudinaryURL) => {
-        let showUploadPhotosButton = this.state.photoCount + 1 < 5;
-        let currentPhotos = this.state.photos;
-        currentPhotos.push(cloudinaryURL);
-        this.setState({
-          photos: currentPhotos,
-          photoCount: this.state.photoCount + 1,
-          showUploadPhotosButton: showUploadPhotosButton
-        }, () => {
-          $('#review-form-upload-photo').text('');
+      helpers.uploadImages(dataURI)
+        .then((cloudinaryURL) => {
+          let showUploadPhotosButton = this.state.photoCount + 1 < 5;
+          let currentPhotos = this.state.photos;
+          currentPhotos.push(cloudinaryURL);
+          return { currentPhotos, showUploadPhotosButton };
+        }).then((response) => {
+          this.setState({
+            photos: response.currentPhotos,
+            photoCount: this.state.photoCount + 1,
+            showUploadPhotosButton: response.showUploadPhotosButton
+          }, () => {
+            $('#review-form-upload-photo').text('');
+          });
+        }).catch((error) => {
+          console.log(error);
+          $('#review-form-upload-photo').text('upload failed');
         });
-      }).catch((error) => {
-        console.log(error);
-        $('#review-form-upload-photo').text('upload failed');
-      });
     };
     reader.readAsDataURL(photo);
   }
@@ -228,7 +224,7 @@ class ReviewFormModal extends React.Component {
                 {uploadedImagePreviews}
                 <div>
                   <div><input type='file' name='photo' accept='image/*' value={this.state.photo} id='review-uploaded-photo' onChange={this.handlePhotoUpload} hidden={!this.state.showUploadPhotosButton} style={{'display': 'none'}}></input></div>
-                  <div><label id='review-form-upload-photo-button' class='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label><span id='review-form-upload-photo' class='review-form-invalid-warning'></span></div>
+                  <div><label id='review-form-upload-photo-button' class='review-clickable' type='button' for='review-uploaded-photo' hidden={!this.state.showUploadPhotosButton}>Upload Photo</label><span id='review-form-upload-photo' class='review-form-invalid-warning'></span></div>
                 </div>
               </div>
               <div>

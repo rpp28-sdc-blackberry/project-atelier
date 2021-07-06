@@ -253,6 +253,20 @@ const handleReport = (reviewId) => {
   });
 };
 
+const uploadImages = (dataURI) => {
+  return new Promise (resolve => {
+    fetch('/review/image', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ dataURI: dataURI })
+    }).then(response => response.json())
+      .then(JSONresponse => resolve(JSONresponse.url));
+  });
+};
+
 
 module.exports = {
   formatDate,
@@ -269,5 +283,6 @@ module.exports = {
   starDescriptions,
   validateEmail,
   handleAddHelpful,
-  handleReport
+  handleReport,
+  uploadImages
 };

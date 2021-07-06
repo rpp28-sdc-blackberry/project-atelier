@@ -13,7 +13,8 @@ const uploadPhotoToCloudinary = (body) => {
       if (err) {
         reject(err);
       } else {
-        resolve(results.url);
+        let url = { url: results.url };
+        resolve(JSON.stringify(url));
       }
     });
   });
