@@ -175,11 +175,12 @@ class ReviewFormModal extends React.Component {
                 <label class='review-form-sub-heading'>Overall rating*</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
                 <div id='review-form-star-container'>
                   <div class='review-form-star-rating'>
-                    <input id='star5' name='star' type='radio' value='5' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star5' >☆</label>
-                    <input id='star4' name='star' type='radio' value='4' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star4' >☆</label>
-                    <input id='star3' name='star' type='radio' value='3' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star3' >☆</label>
-                    <input id='star2' name='star' type='radio' value='2' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star2' >☆</label>
-                    <input id='star1' name='star' type='radio' value='1' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star1' >☆</label>
+                    {[...Array(5).keys()].reverse().map(x =>
+                      <React.Fragment>
+                        <input id={'star' + (x + 1)} name='star' type='radio' value={x + 1} class='radio-btn review-form-star-hide' onClick={this.handleStar}/>
+                        <label for={'star' + (x + 1)} >☆</label>
+                      </React.Fragment>
+                    )}
                     <div class="review-form-star-clear"></div>
                   </div>
                   <div id='review-form-star-description'></div>
