@@ -836,37 +836,35 @@ progress::-webkit-progress-value {
 }
 
 /* Product Breakdown */
-.review-product-breakdown > * {
+#review-product-breakdown-overall-container > * {
   margin-bottom: 5%;
   padding: 2%;
 }
 
-.review-product-breakdown-container {
+.review-product-chracteristic-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.review-product-chracteristic-container > * {
+  text-align: center;
+  font-size: 80%;
 }
 
 .review-product-characteristic-name {
   font-style: italic;
 }
 
-.review-product-breakdown-container > * {
-  text-align: center;
+.review-product-breakdown-bar {
+  width: 100%;
+  margin: 3% 0;
 }
 
-.review-product-breakdown-description-container {
+.review-product-description-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
-}
-
-.review-product-breakdown-description {
-  font-size: 80%;
-}
-
-.review-product-breakdown-bar {
-  width: 100%;
 }
 
 input[type=range] {
