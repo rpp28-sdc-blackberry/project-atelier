@@ -103,28 +103,24 @@ class ReviewFormModal extends React.Component {
       photos: this.state.photos,
       characteristics: this.state.characteristics
     };
-    $.ajax({
-      url: '/reviews',
-      method: 'POST',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(data)
-    }).then(() => {
-      this.setState({
-        rating: '',
-        summary: '',
-        body: '',
-        recommend: true,
-        name: '',
-        email: '',
-        photos: [],
-        characteristics: {},
-        photoCount: 0,
-        show: false,
-        showUploadPhotosButton: true
-      }, this.props.toggleModal);
-    }).catch((error) => {
-      console.log(error);
-    });
+    helpers.postReview(data)
+      .then(() => {
+        this.setState({
+          rating: '',
+          summary: '',
+          body: '',
+          recommend: true,
+          name: '',
+          email: '',
+          photos: [],
+          characteristics: {},
+          photoCount: 0,
+          show: false,
+          showUploadPhotosButton: true
+        }, this.props.toggleModal);
+      }).catch((error) => {
+        console.log(error);
+      });
   }
 
   toggleModal() {

@@ -41,6 +41,18 @@ const uploadImages = (dataURI) => {
   });
 };
 
+const postReview = (data) => {
+  return new Promise (resolve => {
+    fetch('/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(() => resolve());
+  });
+};
+
 /* ----- Rating Breakdown Helpers -----*/
 const computeAverageRating = (ratings) => {
   if (ratings.length === 0) { return; }
@@ -267,6 +279,7 @@ const validateEmail = (email) => {
 };
 
 module.exports = {
+  postReview,
   formatDate,
   computeAverageRating,
   computeRatingBreakdown,
