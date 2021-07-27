@@ -54,6 +54,7 @@ class ThumbnailList extends React.Component {
             }
             return (
               <Thumbnail
+                key={index}
                 name={this.props.selectedStyle.name}
                 photo={photo}
                 index={finalIndex}

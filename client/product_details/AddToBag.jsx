@@ -21,7 +21,7 @@ class AddToBag extends React.Component {
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.handleAddToBagSubmit = this.handleAddToBagSubmit.bind(this);
   }
-  
+
   componentDidMount() {
     var sizesArr = [];
     for (var i = 0; i < this.props.availableSizes.length; i++) {
@@ -110,7 +110,7 @@ class AddToBag extends React.Component {
         <br></br>
         <div className="addtobag">
           <div className="addtobag-dropdowns">
-            <DropdownTemplate 
+            <DropdownTemplate
               title={this.state.selectedSize}
               selectName="size"
               list={this.state.availableSizes}
@@ -118,20 +118,20 @@ class AddToBag extends React.Component {
             />
             <DropdownTemplate
               title={this.state.selectedQuantity}
-              selectName="quantity" 
+              selectName="quantity"
               list={this.state.availableQuantities}
               resetThenSet={this.handleQuantityChange}
             />
           </div>
           <div className="addtobag-buttons">
-            {this.state.selectedSize === 'OUT OF STOCK' ? 
+            {this.state.selectedSize === 'OUT OF STOCK' ?
               null :
-              <AddToBagButton 
+              <AddToBagButton
                 handleAddToBagSubmit={this.handleAddToBagSubmit}
-                availableSizes={this.props.availableSizes}/>         
+                availableSizes={this.props.availableSizes}/>
             }
             {this.props.currProductAddedToOutfit ? <button disabled id="starButton">&#9734;</button> :
-              <button onClick={this.props.addToOutfit(true)} id="starButton">&#9734;</button>}
+              <button onClick={() => this.props.addToOutfit(true)} id="starButton">&#9734;</button>}
           </div>
         </div>
       </div>

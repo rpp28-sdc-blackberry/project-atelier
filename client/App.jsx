@@ -38,7 +38,7 @@ class App extends React.Component {
     this.initialize();
   }
 
-  initialize(productId = '22122') {
+  initialize(productId = '28212') {
     Promise.all([fetch(`/products/${productId}`),
       fetch(`/products/${productId}/styles`),
       fetch(`/reviews/meta?product_id=${productId}`),
@@ -85,7 +85,7 @@ class App extends React.Component {
     let newId = id.toString();
     this.initialize(newId);
   }
-  
+
   addCurrProductToOutfit(boolean) {
     this.setState({
       currProductAddedToOutfit: boolean
@@ -104,7 +104,7 @@ class App extends React.Component {
           <div id='nav-logo'>LOGO</div>
           <div id='nav-search'>
             <input type='text'></input>
-            <div class='search-icon'> </div>
+            <div className='search-icon'> </div>
           </div>
         </nav>
         <div id='announcement-banner'><em>SITE-WIDE ANNOUNCEMENT MESSAGE!</em>  —  SALE / DISCOUNT <strong>OFFER</strong>  —  <u>NEW PRODUCT HIGHLIGHT</u></div>

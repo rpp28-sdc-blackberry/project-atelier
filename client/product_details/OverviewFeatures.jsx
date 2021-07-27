@@ -4,9 +4,9 @@ const OverviewFeatures = (props) => {
   if (props.info && props.info.features) {
     return (
       <div id="overviewFeatures">
-        {props.info.features.map((feature) => {
+        {props.info.features.map((feature, idx) => {
           return (
-            <div id={feature.feature} className="feature">&#10003; {feature.feature}: {feature.value}</div>
+            <div key={idx} id={feature.feature} className="feature">&#10003; {feature.feature}: {feature.value}</div>
           );
         })}
       </div>
