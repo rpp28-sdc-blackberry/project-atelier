@@ -2,14 +2,14 @@ import React from 'react';
 
 const SortingOptions = (props) => {
   return (
-    <div class='review-sorting-options'>
-      <label for="options">{props.reviews.length} reviews, sorted by </label>
+    <div className='review-sorting-options'>
+      <label htmlFor="options">{props.reviews.length} reviews, sorted by </label>
       <select
         value={props.sortingOption}
         onChange={(e) => props.handleOptionChanges(e.target.value)}
         name='options'
         id='sorting-options'
-        class='review-clickable'>
+        className='review-clickable'>
         <option selected='selected' value="relevance">Relevant</option>
         <option value="helpfulness">Helpful</option>
         <option value="date">Newest</option>

@@ -84,33 +84,33 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <div class='review-tile'>
-        <div class='review-tile-top-panel'>
-          <span class="stars" style={{'--rating': this.props.review.rating}}></span>
+      <div className='review-tile'>
+        <div className='review-tile-top-panel'>
+          <span className="stars" style={{'--rating': this.props.review.rating}}></span>
           <span>{this.props.review.reviewer_name}, {helpers.formatDate(this.props.review.date.slice(0, 10))}</span>
         </div>
         <div
-          class='review-summary'>
+          className='review-summary'>
           {this.state.summary}
         </div>
         <div
-          class='review-body'
+          className='review-body'
           hidden={!this.state.showBody}>
           {this.state.body}
         </div>
         <div
-          class='review-additional-body'
+          className='review-additional-body'
           hidden={!this.state.showAdditionalBody}>
           {this.state.additionalBody}
         </div>
         <div
-          class='review-additional-body-button review-clickable'
+          className='review-additional-body-button review-clickable'
           hidden={!this.state.showAdditionalBodyButton}
           onClick={this.toggleAdditionalBody}>
           Show More
         </div>
         <div
-          class='review-photos'
+          className='review-photos'
           hidden={!this.state.showPhotos}>
           {this.props.review.photos.map(photo =>
             <ReviewPhoto
@@ -118,21 +118,21 @@ class ReviewTile extends React.Component {
               showPhotos={this.state.showPhotos}/>)}
         </div>
         <div
-          class='user-recommend'
+          className='user-recommend'
           hidden={!this.state.showRecommend}>
           I recommend this product!
         </div>
         <div
-          class='seller-response'
+          className='seller-response'
           hidden={!this.state.showResponse}>
           Response: {this.props.review.response}
         </div>
-        <div class='review-bottom-panel'>
+        <div className='review-bottom-panel'>
           <span>Helpful?</span>
-          {this.state.showAddHelpfulButton ? <span class='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
+          {this.state.showAddHelpfulButton ? <span className='review-clickable' onClick={this.handleAddHelpful}>Yes</span> : <span>Yes</span>}
           <span>({this.state.helpfulness})</span>
           <span>|</span>
-          {!this.state.reportStatus ? <span class='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
+          {!this.state.reportStatus ? <span className='review-clickable' onClick={this.handleReport}>Report</span> : <span>Reported!</span>}
         </div>
       </div>
     );

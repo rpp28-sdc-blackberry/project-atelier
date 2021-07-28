@@ -79,7 +79,7 @@ class ItemCard extends React.Component {
           <p id='rp-card-category'>{this.state.category}</p>
           <p id='rp-card-name'>{this.state.name}</p>
           <p id='rp-card-price'>${this.state.price}</p>
-          <span class='stars' style={{'--rating': this.state.rating}}></span>
+          <span className='stars' style={{'--rating': this.state.rating}}></span>
         </div>
       </div>
     );

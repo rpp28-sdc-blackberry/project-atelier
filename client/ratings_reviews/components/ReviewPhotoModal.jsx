@@ -6,9 +6,9 @@ const PhotoModal = (props) => {
     return null;
   }
   return (
-    <div class='review-photo-modal' onClick={props.toggleModal}>
-      <div class='review-photo-modal-content' onClick={e => e.stopPropagation()}>
-        <img class='review-photo-modal-content' src={props.url}/>
+    <div className='review-photo-modal' onClick={props.toggleModal}>
+      <div className='review-photo-modal-content' onClick={e => e.stopPropagation()}>
+        <img className='review-photo-modal-content' src={props.url}/>
       </div>
     </div>
   );

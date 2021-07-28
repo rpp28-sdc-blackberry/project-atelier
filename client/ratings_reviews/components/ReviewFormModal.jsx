@@ -180,21 +180,21 @@ class ReviewFormModal extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <div className='review-form-modal-body'>
               <div>
-                <label class='review-form-sub-heading'>Overall rating*</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
+                <label className='review-form-sub-heading'>Overall rating*</label><span id='review-form-rating' class='review-form-invalid-warning'></span>
                 <div id='review-form-star-container'>
-                  <div class='review-form-star-rating'>
-                    <input id='star5' name='star' type='radio' value='5' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star5' >☆</label>
-                    <input id='star4' name='star' type='radio' value='4' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star4' >☆</label>
-                    <input id='star3' name='star' type='radio' value='3' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star3' >☆</label>
-                    <input id='star2' name='star' type='radio' value='2' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star2' >☆</label>
-                    <input id='star1' name='star' type='radio' value='1' class='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star1' >☆</label>
-                    <div class="review-form-star-clear"></div>
+                  <div className='review-form-star-rating'>
+                    <input id='star5' name='star' type='radio' value='5' className='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star5' >☆</label>
+                    <input id='star4' name='star' type='radio' value='4' className='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star4' >☆</label>
+                    <input id='star3' name='star' type='radio' value='3' className='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star3' >☆</label>
+                    <input id='star2' name='star' type='radio' value='2' className='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star2' >☆</label>
+                    <input id='star1' name='star' type='radio' value='1' className='radio-btn review-form-star-hide' onClick={this.handleStar}/><label for='star1' >☆</label>
+                    <div className="review-form-star-clear"></div>
                   </div>
                   <div id='review-form-star-description'></div>
                 </div>
               </div>
               <div id='review-form-recommend'>
-                <label class='review-form-sub-heading'>Do you recommend this product?*</label>
+                <label className='review-form-sub-heading'>Do you recommend this product?*</label>
                 <div>
                   <input type='radio' id='review-recommend-yes' name='recommend' value={true} checked onChange={this.handleChange}></input>
                   <label for='recommend'>Yes</label>
@@ -205,48 +205,48 @@ class ReviewFormModal extends React.Component {
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Characteristics*</label><span id='review-form-characteristics' class='review-form-invalid-warning'></span>
-                <div class='review-form-all-characteristics'>
+                <label className='review-form-sub-heading'>Characteristics*</label><span id='review-form-characteristics' className='review-form-invalid-warning'></span>
+                <div className='review-form-all-characteristics'>
                   {helpers.formatCharacteristics(this.props.meta.characteristics).map(characteristic => <ReviewFormCharacterisics characteristic={characteristic} handleChange={this.handleChange}/>)}
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review summary*</label><span id='review-form-summary' class='review-form-invalid-warning'></span>
+                <label className='review-form-sub-heading'>Review summary*</label><span id='review-form-summary' className='review-form-invalid-warning'></span>
                 <div>
                   <input name='summary' type='text' maxlength='60' size='70' placeholder='Example: Best purchase ever!' value={this.state.summary} onChange={this.handleChange}></input>
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Review body*</label><span id='review-form-body' class='review-form-invalid-warning'></span>
+                <label className='review-form-sub-heading'>Review body*</label><span id='review-form-body' className='review-form-invalid-warning'></span>
                 <div>
                   <textarea id='review-form-body' name='body' rows='10' cols='70' placeholder='Why did you like the product or not?' value={this.state.body} onChange={this.handleChange}></textarea>
                 </div>
-                <span class='review-form-characteristic-description'>Mininum required character left: {this.state.minimumBodyChar}</span>
+                <span className='review-form-characteristic-description'>Mininum required character left: {this.state.minimumBodyChar}</span>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your uploaded photo(s):</label>
+                <label className='review-form-sub-heading'>Your uploaded photo(s):</label>
                 {uploadedImagePreviews}
                 <div>
                   <div><input type='file' name='photo' accept='image/*' value={this.state.photo} id='review-uploaded-photo' onChange={this.handlePhotoUpload} hidden={!this.state.showUploadPhotosButton} style={{'display': 'none'}}></input></div>
-                  <div><label id='review-form-upload-photo-button' class='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label><span id='review-form-upload-photo' class='review-form-invalid-warning'></span></div>
+                  <div><label id='review-form-upload-photo-button' className='review-clickable' type='button' for='review-uploaded-photo'>Upload Photo</label><span id='review-form-upload-photo' className='review-form-invalid-warning'></span></div>
                 </div>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your nickname*</label><span id='review-form-name' class='review-form-invalid-warning'></span>
+                <label className='review-form-sub-heading'>Your nickname*</label><span id='review-form-name' className='review-form-invalid-warning'></span>
                 <div>
                   <input name='name' type='text' maxlength='40' size='50' placeholder='Example: jackson11' value={this.state.name} onChange={this.handleChange}></input>
                 </div>
-                <span class='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</span>
+                <span className='review-form-characteristic-description'>For privacy reasons, do not use your full name or email address</span>
               </div>
               <div>
-                <label class='review-form-sub-heading'>Your email*</label><span id='review-form-email' class='review-form-invalid-warning'></span>
+                <label className='review-form-sub-heading'>Your email*</label><span id='review-form-email' className='review-form-invalid-warning'></span>
                 <div>
                   <input name='email' type='text' maxlength='40' size='50' placeholder='Example: jackson11@email.com' value={this.state.email} onChange={this.handleChange}></input>
                 </div>
-                <span class='review-form-characteristic-description'>For authentication reasons, you will not be emailed</span>
+                <span className='review-form-characteristic-description'>For authentication reasons, you will not be emailed</span>
               </div>
               <div>
-                <button class='review-button'>SUBMIT REVIEW</button>
+                <button className='review-button'>SUBMIT REVIEW</button>
               </div>
             </div>
           </form>

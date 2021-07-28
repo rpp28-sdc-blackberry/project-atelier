@@ -7,9 +7,9 @@ const ProductBreakdown = (props) => {
   let characteristics = helpers.formatCharacteristics(props.meta.characteristics);
   if (!$.isEmptyObject(characteristics)) {
     return (
-      <div class='review-product-breakdown'>
-        {characteristics.map(characteristic =>
-          <CharacteristicBreakdown characteristic={characteristic}/>)}
+      <div className='review-product-breakdown'>
+        {characteristics.map((characteristic, idx) =>
+          <CharacteristicBreakdown key={idx} characteristic={characteristic}/>)}
       </div>
     );
   }

@@ -12,7 +12,7 @@ const OutfitCard = (props) => (
       <p id='rp-card-category'>{props.productInfo.category}</p>
       <p id='rp-card-name'>{props.productInfo.name}</p>
       <p id='rp-card-price'>${props.productInfo.price}</p>
-      <span class='stars' style={{'--rating': props.productInfo.rating}}></span>
+      <span className='stars' style={{'--rating': props.productInfo.rating}}></span>
     </div>
   </div>
 );

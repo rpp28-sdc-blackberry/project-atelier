@@ -5,7 +5,7 @@ const Search = (props) => (
   <div className="qa-search">
     <input
       aria-label="Search through questions"
-      class="qa-search-input"
+      className="qa-search-input"
       type="search"
       placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
       value={props.query}
