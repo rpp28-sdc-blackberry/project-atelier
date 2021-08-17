@@ -38,7 +38,7 @@ class App extends React.Component {
     this.initialize();
   }
 
-  initialize(productId = '28212') {
+  initialize(productId = '1') {
     Promise.all([fetch(`/products/${productId}`),
       fetch(`/products/${productId}/styles`),
       fetch(`/reviews/meta?product_id=${productId}`),

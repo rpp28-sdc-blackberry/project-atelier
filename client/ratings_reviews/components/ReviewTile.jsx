@@ -112,8 +112,9 @@ class ReviewTile extends React.Component {
         <div
           className='review-photos'
           hidden={!this.state.showPhotos}>
-          {this.props.review.photos.map(photo =>
+          {this.props.review.photos.map((photo, idx) =>
             <ReviewPhoto
+              key={idx}
               photo={photo}
               showPhotos={this.state.showPhotos}/>)}
         </div>
