@@ -9,6 +9,7 @@ app.use(express.urlencoded({limit: '50mb'}));
 
 app.all('*', (req, res) => {
   if (req.url === '/review/image') {
+    console.log('REVIEW IMAGE');
     uploadPhotoToCloudinary(req.body)
       .then((response) => {
         res.send(response);
